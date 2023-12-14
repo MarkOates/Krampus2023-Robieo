@@ -134,9 +134,10 @@ void SceneRenderer2::render()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("SceneRenderer2::render: error: guard \"multitexture_shader\" not met");
    }
+   AllegroFlare::Camera3D *primary_camera = find_primary_camera_3d();
+
    // Draw the shadow_depth_map_render
    if (shadow_depth_map_renderer) shadow_depth_map_renderer->render();
-
 
 
    if (shadow_depth_map_renderer) shadow_depth_map_renderer->render();
@@ -157,7 +158,7 @@ void SceneRenderer2::render()
    al_clear_to_color(ALLEGRO_COLOR{0.1, 0.105, 0.12, 1.0});
 
    //AllegroFlare::Camera3D &camera = as_camera->get_camera_3d_ref();
-   AllegroFlare::Camera3D *primary_camera = find_primary_camera_3d();
+   //AllegroFlare::Camera3D *primary_camera = find_primary_camera_3d();
    primary_camera->setup_projection_on(render_surface);
 
    // Set the camera position in the iridescent shder
