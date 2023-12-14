@@ -131,7 +131,7 @@ TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_SceneRendererTestWit
    model_bin.set_full_path(get_fixtures_path() + "models");
    AllegroFlare::Shaders::Multitexture multitexture_shader;
    AllegroFlare::Shaders::Cubemap cubemap_shader;
-   AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowDepthMapRenderer shadow_depth_map_renderer;
+   AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowDepthMapRenderer2 shadow_depth_map_renderer;
    AllegroFlare::Cubemap* cubemap = nullptr;
    AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool entity_pool;
    AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityFactory entity_factory;
@@ -160,12 +160,12 @@ TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_SceneRendererTestWit
 
 
 
-   AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowDepthMapRenderer depth_pass;
+   AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowDepthMapRenderer2 depth_pass;
    depth_pass.setup_result_surface_bitmap(1920, 1080); // TODO: Don't use hard coded dimensions
    depth_pass.init_shader();
    depth_pass.set_entity_pool(&entity_pool);
    depth_pass.init_camera_defaults(); // NOTE: The camera defaults seem to be weird
-   AllegroFlare::Camera3D &light = depth_pass.get_casting_light_ref();
+   AllegroFlare::Camera3D &depth_pass_camera = depth_pass.get_casting_light_ref();
 
 
 

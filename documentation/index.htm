@@ -77,15 +77,18 @@ table td
 </tr>
 <tr>
   <td class="property">shadow_depth_map_renderer</td>
-  <td class="property">AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowDepthMapRenderer*</td>
+  <td class="property">AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowDepthMapRenderer2*</td>
 </tr>
 <tr>
   <td class="property">depth_pass</td>
-  <td class="property">AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowDepthMapRenderer*</td>
+  <td class="property">AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowDepthMapRenderer2*</td>
 </tr>
     </table>
 </div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
+<tr>
+  <td class="method">find_primary_camera_3d()</td>
+</tr>
 <tr>
   <td class="method">render()</td>
 </tr>
@@ -112,6 +115,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Model3D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Model3D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Camera3D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Camera3D.hpp&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/Base.hpp&quot;]}</td>
@@ -147,7 +153,10 @@ table td
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_BITMAP&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
 </tr>
 <tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowDepthMapRenderer&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer.hpp&quot;]}</td>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowDepthMapRenderer2&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer2.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Logger&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Logger.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -756,6 +765,10 @@ table td
   "AllegroFlare/Model3D": [
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer2"
   ],
+  "AllegroFlare/Camera3D": [
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer2",
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer2"
+  ],
   "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/Base": [
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer2",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer2"
@@ -796,8 +809,12 @@ table td
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer2",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer2"
   ],
-  "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer": [
+  "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer2": [
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer2"
+  ],
+  "AllegroFlare/Logger": [
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer2",
+    "Pipeline/Runner"
   ],
   "glEnable": [
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer2"
@@ -806,9 +823,6 @@ table td
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer2"
   ],
   "ALLEGRO_DISPLAY": [
-    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer2"
-  ],
-  "AllegroFlare/Camera3D": [
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer2"
   ],
   "AllegroFlare/php": [
@@ -947,9 +961,6 @@ table td
     "Pipeline/Runner"
   ],
   "AllegroFlare/StoryboardFactory": [
-    "Pipeline/Runner"
-  ],
-  "AllegroFlare/Logger": [
     "Pipeline/Runner"
   ],
   "AllegroFlare/RouteEventDatas/StartLevel": [

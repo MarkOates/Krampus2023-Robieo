@@ -5,6 +5,10 @@
   "AllegroFlare/Model3D": [
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer2"
   ],
+  "AllegroFlare/Camera3D": [
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer2",
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer2"
+  ],
   "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/Base": [
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer2",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer2"
@@ -45,8 +49,12 @@
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer2",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer2"
   ],
-  "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer": [
+  "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer2": [
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer2"
+  ],
+  "AllegroFlare/Logger": [
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer2",
+    "Pipeline/Runner"
   ],
   "glEnable": [
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer2"
@@ -55,9 +63,6 @@
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer2"
   ],
   "ALLEGRO_DISPLAY": [
-    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer2"
-  ],
-  "AllegroFlare/Camera3D": [
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer2"
   ],
   "AllegroFlare/php": [
@@ -196,9 +201,6 @@
     "Pipeline/Runner"
   ],
   "AllegroFlare/StoryboardFactory": [
-    "Pipeline/Runner"
-  ],
-  "AllegroFlare/Logger": [
     "Pipeline/Runner"
   ],
   "AllegroFlare/RouteEventDatas/StartLevel": [

@@ -7,6 +7,7 @@
 #include <AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/StaticModel3D.hpp>
 #include <AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/StaticMultitextureModel3D.hpp>
 #include <AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityRenderFlags.hpp>
+#include <AllegroFlare/Logger.hpp>
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
@@ -53,13 +54,13 @@ void SceneRenderer2::set_entity_pool(AllegroFlare::GraphicsPipelines::DynamicEnt
 }
 
 
-void SceneRenderer2::set_shadow_depth_map_renderer(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowDepthMapRenderer* shadow_depth_map_renderer)
+void SceneRenderer2::set_shadow_depth_map_renderer(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowDepthMapRenderer2* shadow_depth_map_renderer)
 {
    this->shadow_depth_map_renderer = shadow_depth_map_renderer;
 }
 
 
-void SceneRenderer2::set_depth_pass(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowDepthMapRenderer* depth_pass)
+void SceneRenderer2::set_depth_pass(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowDepthMapRenderer2* depth_pass)
 {
    this->depth_pass = depth_pass;
 }
@@ -83,17 +84,32 @@ AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool* SceneRendere
 }
 
 
-AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowDepthMapRenderer* SceneRenderer2::get_shadow_depth_map_renderer() const
+AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowDepthMapRenderer2* SceneRenderer2::get_shadow_depth_map_renderer() const
 {
    return shadow_depth_map_renderer;
 }
 
 
-AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowDepthMapRenderer* SceneRenderer2::get_depth_pass() const
+AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowDepthMapRenderer2* SceneRenderer2::get_depth_pass() const
 {
    return depth_pass;
 }
 
+
+AllegroFlare::Camera3D* SceneRenderer2::find_primary_camera_3d()
+{
+   Entities::Base *entity = entity_pool->find_with_attribute("primary_camera");
+   if (!entity)
+   {
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::SceneRenderer::primary_camera_3d",
+         "no camera present"
+      );
+   }
+   // TODO: validate the camera is of type Entities::Camera
+   Entities::Camera3D *as_camera = static_cast<Entities::Camera3D*>(entity);
+   return &as_camera->get_camera_3d_ref();
+}
 
 void SceneRenderer2::render()
 {
@@ -120,6 +136,9 @@ void SceneRenderer2::render()
    }
    // Draw the shadow_depth_map_render
    if (shadow_depth_map_renderer) shadow_depth_map_renderer->render();
+
+
+
    if (shadow_depth_map_renderer) shadow_depth_map_renderer->render();
 
 
@@ -127,21 +146,22 @@ void SceneRenderer2::render()
    //headers: [ AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer.hpp ]
 
    // Extract out the camera and render the scene
-   Entities::Base *entity = entity_pool->find_with_attribute("primary_camera");
-   if (!entity) throw std::runtime_error("no camera present");
-   // TODO: validate the camera is of type Entities::Camera
-   Entities::Camera3D *as_camera = static_cast<Entities::Camera3D*>(entity);
+   //Entities::Base *entity = entity_pool->find_with_attribute("primary_camera");
+   //if (!entity) throw std::runtime_error("no camera present");
+   //// TODO: validate the camera is of type Entities::Camera
+   //Entities::Camera3D *as_camera = static_cast<Entities::Camera3D*>(entity);
 
    // TODO: Get a proper render surface, rather than pulling from the current display
    ALLEGRO_BITMAP *render_surface = al_get_backbuffer(al_get_current_display()); // TODO: replace with render surface
    al_clear_depth_buffer(1);
    al_clear_to_color(ALLEGRO_COLOR{0.1, 0.105, 0.12, 1.0});
 
-   AllegroFlare::Camera3D &camera = as_camera->get_camera_3d_ref();
-   camera.setup_projection_on(render_surface);
+   //AllegroFlare::Camera3D &camera = as_camera->get_camera_3d_ref();
+   AllegroFlare::Camera3D *primary_camera = find_primary_camera_3d();
+   primary_camera->setup_projection_on(render_surface);
 
    // Set the camera position in the iridescent shder
-   cubemap_shader->set_camera_position(camera.get_real_position());
+   cubemap_shader->set_camera_position(primary_camera->get_real_position());
 
    //std::unordered_set<AllegroFlare::SceneGraph::Entities::Base*>
    for (auto &entity : entity_pool->get_entity_pool_ref())
