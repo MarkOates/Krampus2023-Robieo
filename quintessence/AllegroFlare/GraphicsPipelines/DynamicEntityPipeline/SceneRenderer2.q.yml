@@ -28,14 +28,39 @@ properties:
     getter: true
     setter: true
 
-  - name: depth_pass
-    type: AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowDepthMapRenderer2*
-    init_with: nullptr
-    getter: true
-    setter: true
+  - name: render_surface
+    type: AllegroFlare::RenderSurfaces::Bitmap
+    init_with: ''
+    getter_ref: true
+    getter: false
+    setter: false
+
+  - name: render_surface_is_setup
+    type: bool
+    init_with: false
 
 
 functions:
+
+
+  - name: setup_result_surface_bitmap
+    parameters:
+      - name: width
+        type: int
+        default_argument: 1920
+      - name: height
+        type: int
+        default_argument: 1080
+    body: |
+      render_surface.set_surface_width(width);
+      render_surface.set_surface_height(height);
+      render_surface.set_multisamples(0);
+      render_surface.set_depth(32);
+      render_surface.initialize();
+
+      render_surface_is_setup = true;
+
+      return;
 
 
   - name: find_primary_camera_3d
@@ -57,15 +82,15 @@ functions:
 
 
   - name: render
-    guards: [ entity_pool, cubemap_shader, multitexture_shader ]
+    guards: [ entity_pool, cubemap_shader, multitexture_shader, render_surface_is_setup ]
     body: |
       AllegroFlare::Camera3D *primary_camera = find_primary_camera_3d();
 
       // Draw the shadow_depth_map_render
-      if (shadow_depth_map_renderer) shadow_depth_map_renderer->render();
-
-
-      if (shadow_depth_map_renderer) shadow_depth_map_renderer->render();
+      if (shadow_depth_map_renderer)
+      {
+         shadow_depth_map_renderer->render();
+      }
 
 
       using namespace AllegroFlare::GraphicsPipelines::DynamicEntityPipeline;
@@ -78,13 +103,18 @@ functions:
       //Entities::Camera3D *as_camera = static_cast<Entities::Camera3D*>(entity);
 
       // TODO: Get a proper render surface, rather than pulling from the current display
-      ALLEGRO_BITMAP *render_surface = al_get_backbuffer(al_get_current_display()); // TODO: replace with render surface
+      //ALLEGRO_BITMAP *render_surface_bmp = al_get_backbuffer(al_get_current_display()); // TODO: replace with render surface
+      ALLEGRO_BITMAP *render_surface_bmp = render_surface.obtain_surface();
+
+      al_set_target_bitmap(render_surface_bmp);
+
+
       al_clear_depth_buffer(1);
       al_clear_to_color(ALLEGRO_COLOR{0.1, 0.105, 0.12, 1.0});
 
       //AllegroFlare::Camera3D &camera = as_camera->get_camera_3d_ref();
       //AllegroFlare::Camera3D *primary_camera = find_primary_camera_3d();
-      primary_camera->setup_projection_on(render_surface);
+      primary_camera->setup_projection_on(render_surface_bmp);
 
       // Set the camera position in the iridescent shder
       cubemap_shader->set_camera_position(primary_camera->get_real_position());
@@ -377,5 +407,7 @@ dependencies:
     headers: [ AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer2.hpp ]
   - symbol: AllegroFlare::Logger
     headers: [ AllegroFlare/Logger.hpp ]
+  - symbol: AllegroFlare::RenderSurfaces::Bitmap
+    headers: [ AllegroFlare/RenderSurfaces/Bitmap.hpp ]
 
 

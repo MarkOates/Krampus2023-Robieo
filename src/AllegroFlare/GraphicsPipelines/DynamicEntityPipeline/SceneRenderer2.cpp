@@ -26,7 +26,8 @@ SceneRenderer2::SceneRenderer2(AllegroFlare::Shaders::Cubemap* cubemap_shader, A
    , multitexture_shader(multitexture_shader)
    , entity_pool(entity_pool)
    , shadow_depth_map_renderer(nullptr)
-   , depth_pass(nullptr)
+   , render_surface()
+   , render_surface_is_setup(false)
 {
 }
 
@@ -60,12 +61,6 @@ void SceneRenderer2::set_shadow_depth_map_renderer(AllegroFlare::GraphicsPipelin
 }
 
 
-void SceneRenderer2::set_depth_pass(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowDepthMapRenderer2* depth_pass)
-{
-   this->depth_pass = depth_pass;
-}
-
-
 AllegroFlare::Shaders::Cubemap* SceneRenderer2::get_cubemap_shader() const
 {
    return cubemap_shader;
@@ -90,11 +85,24 @@ AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowDepthMapRenderer2*
 }
 
 
-AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowDepthMapRenderer2* SceneRenderer2::get_depth_pass() const
+AllegroFlare::RenderSurfaces::Bitmap &SceneRenderer2::get_render_surface_ref()
 {
-   return depth_pass;
+   return render_surface;
 }
 
+
+void SceneRenderer2::setup_result_surface_bitmap(int width, int height)
+{
+   render_surface.set_surface_width(width);
+   render_surface.set_surface_height(height);
+   render_surface.set_multisamples(0);
+   render_surface.set_depth(32);
+   render_surface.initialize();
+
+   render_surface_is_setup = true;
+
+   return;
+}
 
 AllegroFlare::Camera3D* SceneRenderer2::find_primary_camera_3d()
 {
@@ -134,13 +142,20 @@ void SceneRenderer2::render()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("SceneRenderer2::render: error: guard \"multitexture_shader\" not met");
    }
+   if (!(render_surface_is_setup))
+   {
+      std::stringstream error_message;
+      error_message << "[SceneRenderer2::render]: error: guard \"render_surface_is_setup\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("SceneRenderer2::render: error: guard \"render_surface_is_setup\" not met");
+   }
    AllegroFlare::Camera3D *primary_camera = find_primary_camera_3d();
 
    // Draw the shadow_depth_map_render
-   if (shadow_depth_map_renderer) shadow_depth_map_renderer->render();
-
-
-   if (shadow_depth_map_renderer) shadow_depth_map_renderer->render();
+   if (shadow_depth_map_renderer)
+   {
+      shadow_depth_map_renderer->render();
+   }
 
 
    using namespace AllegroFlare::GraphicsPipelines::DynamicEntityPipeline;
@@ -153,13 +168,18 @@ void SceneRenderer2::render()
    //Entities::Camera3D *as_camera = static_cast<Entities::Camera3D*>(entity);
 
    // TODO: Get a proper render surface, rather than pulling from the current display
-   ALLEGRO_BITMAP *render_surface = al_get_backbuffer(al_get_current_display()); // TODO: replace with render surface
+   //ALLEGRO_BITMAP *render_surface_bmp = al_get_backbuffer(al_get_current_display()); // TODO: replace with render surface
+   ALLEGRO_BITMAP *render_surface_bmp = render_surface.obtain_surface();
+
+   al_set_target_bitmap(render_surface_bmp);
+
+
    al_clear_depth_buffer(1);
    al_clear_to_color(ALLEGRO_COLOR{0.1, 0.105, 0.12, 1.0});
 
    //AllegroFlare::Camera3D &camera = as_camera->get_camera_3d_ref();
    //AllegroFlare::Camera3D *primary_camera = find_primary_camera_3d();
-   primary_camera->setup_projection_on(render_surface);
+   primary_camera->setup_projection_on(render_surface_bmp);
 
    // Set the camera position in the iridescent shder
    cubemap_shader->set_camera_position(primary_camera->get_real_position());
