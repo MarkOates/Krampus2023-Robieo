@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<head>
+<style>
+*
+{
+  font-family: 'Arial';
+  padding: 3px 20px;
+}
+table td
+{
+  padding: 3px 20px;
+}
+.property
+{
+  color: blue;
+}
+.private_property
+{
+  color: lightblue;
+}
+
+.method
+{
+  color: red;
+}
+
+.private_method
+{
+  color: pink;
+}
+
+.dependency
+{
+  color: green;
+}
+
+.component
+{
+  padding: 20 10 20 10;
+  margin: 20 10 20 10;
+  background-color: #dfdfdf;
+}
+
+.component h3
+{
+}
+</style>
+</head>
+<body>
+<h1>Table of Contents</h1>
+<ul>
+  <li><a href="#quintessence/Pipeline/GameConfigurations/Main.q.yml">quintessence/Pipeline/GameConfigurations/Main.q.yml</a></li>
+  <li><a href="#quintessence/Pipeline/Gameplay/Level.q.yml">quintessence/Pipeline/Gameplay/Level.q.yml</a></li>
+  <li><a href="#quintessence/Pipeline/Gameplay/Screen.q.yml">quintessence/Pipeline/Gameplay/Screen.q.yml</a></li>
+  <li><a href="#quintessence/Pipeline/Runner.q.yml">quintessence/Pipeline/Runner.q.yml</a></li>
+</ul>
+<h1>Components</h1>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/Pipeline/GameConfigurations/Main.q.yml">quintessence/Pipeline/GameConfigurations/Main.q.yml</h3>
+    <h4>Overview<h4>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">TYPE</td>
+  <td class="property">char*</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">build_level_list_for_level_select_screen_by_identifier(std::string identifier=&quot;[unset-identifier]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">build_dialog_bank_by_identifier(std::string identifier=&quot;[identifier-discarded]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">load_level_by_identifier(std::string identifier=&quot;[unset-identifier]&quot;)</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::GameConfigurations::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/GameConfigurations/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Levels::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Levels/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogTree::NodeBank&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogTree/NodeBank.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogTree::NodeBankFactory&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogTree/NodeBankFactory.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogTree::Nodes::Wait&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogTree/Nodes/Wait.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogTree::Nodes::ExitProgram&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogTree/Nodes/ExitProgram.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogTree::Nodes::MultipageWithOptions&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogTree/Nodes/MultipageWithOptions.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogTree::NodeOptions::GoToNode&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogTree/NodeOptions/GoToNode.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogTree::NodeOptions::ExitDialog&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogTree/NodeOptions/ExitDialog.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Pipeline::Gameplay::Level&quot;, &quot;headers&quot;=&gt;[&quot;Pipeline/Gameplay/Level.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/Pipeline/Gameplay/Level.q.yml">quintessence/Pipeline/Gameplay/Level.q.yml</h3>
+    <h4>Overview<h4>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">title</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">TYPE</td>
+  <td class="property">char*</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Levels::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Levels/Base.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/Pipeline/Gameplay/Screen.q.yml">quintessence/Pipeline/Gameplay/Screen.q.yml</h3>
+    <h4>Overview<h4>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">event_emitter</td>
+  <td class="property">AllegroFlare::EventEmitter*</td>
+</tr>
+<tr>
+  <td class="property">bitmap_bin</td>
+  <td class="property">AllegroFlare::BitmapBin*</td>
+</tr>
+<tr>
+  <td class="property">font_bin</td>
+  <td class="property">AllegroFlare::FontBin*</td>
+</tr>
+<tr>
+  <td class="property">model_bin</td>
+  <td class="property">AllegroFlare::ModelBin*</td>
+</tr>
+<tr>
+  <td class="property">game_configuration</td>
+  <td class="property">AllegroFlare::GameConfigurations::Base*</td>
+</tr>
+<tr>
+  <td class="property">current_level_identifier</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">current_level</td>
+  <td class="property">Pipeline::Gameplay::Level*</td>
+</tr>
+<tr>
+  <td class="property">on_finished_callback_func</td>
+  <td class="property">std::function&lt;void(Pipeline::Gameplay::Screen*, void*)&gt;</td>
+</tr>
+<tr>
+  <td class="property">on_finished_callback_func_user_data</td>
+  <td class="property">void*</td>
+</tr>
+<tr>
+  <td class="property">initialized</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">TYPE</td>
+  <td class="property">char*</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">set_event_emitter(AllegroFlare::EventEmitter* event_emitter=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">set_font_bin(AllegroFlare::FontBin* font_bin=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">set_model_bin(AllegroFlare::ModelBin* model_bin=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">load_level_by_identifier(std::string level_identifier=&quot;[unset-level_identifier]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">initialize()</td>
+</tr>
+<tr>
+  <td class="method">on_activate()</td>
+</tr>
+<tr>
+  <td class="method">on_deactivate()</td>
+</tr>
+<tr>
+  <td class="method">update()</td>
+</tr>
+<tr>
+  <td class="method">render()</td>
+</tr>
+<tr>
+  <td class="method">call_on_finished_callback_func()</td>
+</tr>
+<tr>
+  <td class="method">game_event_func(AllegroFlare::GameEvent* game_event=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">primary_timer_func()</td>
+</tr>
+<tr>
+  <td class="method">virtual_control_button_up_func(AllegroFlare::Player* player=nullptr, AllegroFlare::VirtualControllers::Base* virtual_controller=nullptr, int virtual_controller_button_num=0, bool is_repeat=false)</td>
+</tr>
+<tr>
+  <td class="method">virtual_control_button_down_func(AllegroFlare::Player* player=nullptr, AllegroFlare::VirtualControllers::Base* virtual_controller=nullptr, int virtual_controller_button_num=0, bool is_repeat=false)</td>
+</tr>
+<tr>
+  <td class="method">virtual_control_axis_change_func(ALLEGRO_EVENT* ev=nullptr)</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_EVENT&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Screens::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Screens/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::BitmapBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/BitmapBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::EventEmitter&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/EventEmitter.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::ModelBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/ModelBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_is_primitives_addon_initialized&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Player&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Player.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::VirtualControllers::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/VirtualControllers/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Pipeline::Gameplay::Screen&quot;, &quot;headers&quot;=&gt;[&quot;Pipeline/Gameplay/Screen.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::GameConfigurations::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/GameConfigurations/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Pipeline::GameConfigurations::Main&quot;, &quot;headers&quot;=&gt;[&quot;Pipeline/GameConfigurations/Main.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Pipeline::Gameplay::Level&quot;, &quot;headers&quot;=&gt;[&quot;Pipeline/Gameplay/Level.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::GameEvent&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/GameEvent.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/Pipeline/Runner.q.yml">quintessence/Pipeline/Runner.q.yml</h3>
+    <h4>Overview<h4>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">framework</td>
+  <td class="property">AllegroFlare::Frameworks::Full*</td>
+</tr>
+<tr>
+  <td class="property">event_emitter</td>
+  <td class="property">AllegroFlare::EventEmitter*</td>
+</tr>
+<tr>
+  <td class="property">bitmap_bin</td>
+  <td class="property">AllegroFlare::BitmapBin*</td>
+</tr>
+<tr>
+  <td class="property">font_bin</td>
+  <td class="property">AllegroFlare::FontBin*</td>
+</tr>
+<tr>
+  <td class="property">model_bin</td>
+  <td class="property">AllegroFlare::ModelBin*</td>
+</tr>
+<tr>
+  <td class="property">router</td>
+  <td class="property">AllegroFlare::Routers::Standard</td>
+</tr>
+<tr>
+  <td class="property">intro_logos_screen</td>
+  <td class="property">AllegroFlare::Screens::Storyboard</td>
+</tr>
+<tr>
+  <td class="property">intro_storyboard_screen</td>
+  <td class="property">AllegroFlare::Screens::Storyboard</td>
+</tr>
+<tr>
+  <td class="property">title_screen</td>
+  <td class="property">AllegroFlare::Screens::TitleScreen</td>
+</tr>
+<tr>
+  <td class="property">achievements_screen</td>
+  <td class="property">AllegroFlare::Screens::Achievements</td>
+</tr>
+<tr>
+  <td class="property">version_screen</td>
+  <td class="property">AllegroFlare::Screens::Version</td>
+</tr>
+<tr>
+  <td class="property">load_a_saved_game_screen</td>
+  <td class="property">AllegroFlare::LoadASavedGame::Screen</td>
+</tr>
+<tr>
+  <td class="property">new_game_intro_storyboard_screen</td>
+  <td class="property">AllegroFlare::Screens::Storyboard</td>
+</tr>
+<tr>
+  <td class="property">level_select_screen</td>
+  <td class="property">AllegroFlare::Screens::LevelSelectScreen</td>
+</tr>
+<tr>
+  <td class="property">game_over_screen</td>
+  <td class="property">AllegroFlare::Screens::GameOverScreen</td>
+</tr>
+<tr>
+  <td class="property">game_won_screen</td>
+  <td class="property">AllegroFlare::Screens::GameWonScreen</td>
+</tr>
+<tr>
+  <td class="property">game_won_outro_storyboard_screen</td>
+  <td class="property">AllegroFlare::Screens::Storyboard</td>
+</tr>
+<tr>
+  <td class="property">settings_screen</td>
+  <td class="property">AllegroFlare::Screens::SettingsScreen</td>
+</tr>
+<tr>
+  <td class="property">rolling_credits_screen</td>
+  <td class="property">AllegroFlare::Screens::RollingCredits</td>
+</tr>
+<tr>
+  <td class="property">primary_gameplay_screen</td>
+  <td class="property">Pipeline::Gameplay::Screen</td>
+</tr>
+<tr>
+  <td class="property">game_configuration</td>
+  <td class="property">AllegroFlare::GameConfigurations::Base*</td>
+</tr>
+<tr>
+  <td class="property">solid_black_background</td>
+  <td class="property">AllegroFlare::Elements::Backgrounds::ClearToColor</td>
+</tr>
+<tr>
+  <td class="property">release_info</td>
+  <td class="property">ReleaseInfo</td>
+</tr>
+<tr>
+  <td class="property">initialized</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">MY_ROUTE_EVENT_ACTIVATE_MY_CUSTOM_SCREEN</td>
+  <td class="property">uint32_t</td>
+</tr>
+<tr>
+  <td class="property">MY_CUSTOM_SCREEN_IDENTIFIER</td>
+  <td class="property">char*</td>
+</tr>
+<tr>
+  <td class="property">TYPE</td>
+  <td class="property">char*</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">game_event_func(AllegroFlare::GameEvent* game_event=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">initialize()</td>
+</tr>
+<tr>
+  <td class="method">build_title_screen_menu_options()</td>
+</tr>
+<tr>
+  <td class="method">on_route_event_unhandled_func(uint32_t unhandled_event=0, AllegroFlare::Routers::Standard* router=nullptr, void* user_data=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">continue_from_last_save()</td>
+</tr>
+<tr>
+  <td class="method">setup_new_game_progress_and_state_info(AllegroFlare::GameSession* game_session=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">load_last_played_session_or_start_new(AllegroFlare::GameSession* game_session=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">setup_router()</td>
+</tr>
+<tr>
+  <td class="method">run(std::string deployment_environment_mode=&quot;[unset-deployment_environment_mode]&quot;)</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Screens::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Screens/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::EventEmitter&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/EventEmitter.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Frameworks::Full&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Frameworks/Full.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::BitmapBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/BitmapBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::ModelBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/ModelBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::GameEvent&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/GameEvent.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Routers::Standard&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Routers/Standard.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Screens::Storyboard&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Screens/Storyboard.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Screens::Achievements&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Screens/Achievements.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Screens::TitleScreen&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Screens/TitleScreen.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Screens::GameOverScreen&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Screens/GameOverScreen.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Screens::GameWonScreen&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Screens/GameWonScreen.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Screens::RollingCredits&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Screens/RollingCredits.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Screens::Version&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Screens/Version.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Screens::LevelSelectScreen&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Screens/LevelSelectScreen.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Screens::SettingsScreen&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Screens/SettingsScreen.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::LoadASavedGame::Screen&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/LoadASavedGame/Screen.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Achievements&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Achievements.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::StoryboardFactory&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/StoryboardFactory.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Logger&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Logger.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::RouteEventDatas::StartLevel&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/RouteEventDatas/StartLevel.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::GameSession&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/GameSession.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Color&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Color.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::Backgrounds::ClearToColor&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/Backgrounds/ClearToColor.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ReleaseInfo&quot;, &quot;headers&quot;=&gt;[&quot;ReleaseInfo.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::RollingCredits::SectionFactory&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/RollingCredits/SectionFactory.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::EventNames&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/EventNames.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::GameEventDatas::ScreenActivated&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/GameEventDatas/ScreenActivated.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::GameConfigurations::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/GameConfigurations/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::LoadASavedGame::SaveSlots::Empty&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/LoadASavedGame/SaveSlots/Empty.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Pipeline::Gameplay::Screen&quot;, &quot;headers&quot;=&gt;[&quot;Pipeline/Gameplay/Screen.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Pipeline::GameConfigurations::Main&quot;, &quot;headers&quot;=&gt;[&quot;Pipeline/GameConfigurations/Main.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<h1>Dependents</h1>
+<pre>
+{
+  "AllegroFlare/GameConfigurations/Base": [
+    "Pipeline/GameConfigurations/Main",
+    "Pipeline/Gameplay/Screen",
+    "Pipeline/Runner"
+  ],
+  "AllegroFlare/Levels/Base": [
+    "Pipeline/GameConfigurations/Main",
+    "Pipeline/Gameplay/Level"
+  ],
+  "AllegroFlare/DialogTree/NodeBank": [
+    "Pipeline/GameConfigurations/Main"
+  ],
+  "AllegroFlare/DialogTree/NodeBankFactory": [
+    "Pipeline/GameConfigurations/Main"
+  ],
+  "AllegroFlare/DialogTree/Nodes/Wait": [
+    "Pipeline/GameConfigurations/Main"
+  ],
+  "AllegroFlare/DialogTree/Nodes/ExitProgram": [
+    "Pipeline/GameConfigurations/Main"
+  ],
+  "AllegroFlare/DialogTree/Nodes/MultipageWithOptions": [
+    "Pipeline/GameConfigurations/Main"
+  ],
+  "AllegroFlare/DialogTree/NodeOptions/GoToNode": [
+    "Pipeline/GameConfigurations/Main"
+  ],
+  "AllegroFlare/DialogTree/NodeOptions/ExitDialog": [
+    "Pipeline/GameConfigurations/Main"
+  ],
+  "Pipeline/Gameplay/Level": [
+    "Pipeline/GameConfigurations/Main",
+    "Pipeline/Gameplay/Screen"
+  ],
+  "ALLEGRO_EVENT": [
+    "Pipeline/Gameplay/Screen"
+  ],
+  "AllegroFlare/Screens/Base": [
+    "Pipeline/Gameplay/Screen",
+    "Pipeline/Runner"
+  ],
+  "AllegroFlare/BitmapBin": [
+    "Pipeline/Gameplay/Screen",
+    "Pipeline/Runner"
+  ],
+  "AllegroFlare/EventEmitter": [
+    "Pipeline/Gameplay/Screen",
+    "Pipeline/Runner"
+  ],
+  "AllegroFlare/FontBin": [
+    "Pipeline/Gameplay/Screen",
+    "Pipeline/Runner"
+  ],
+  "AllegroFlare/ModelBin": [
+    "Pipeline/Gameplay/Screen",
+    "Pipeline/Runner"
+  ],
+  "al_is_primitives_addon_initialized": [
+    "Pipeline/Gameplay/Screen"
+  ],
+  "AllegroFlare/Player": [
+    "Pipeline/Gameplay/Screen"
+  ],
+  "AllegroFlare/VirtualControllers/Base": [
+    "Pipeline/Gameplay/Screen"
+  ],
+  "Pipeline/Gameplay/Screen": [
+    "Pipeline/Gameplay/Screen",
+    "Pipeline/Runner"
+  ],
+  "Pipeline/GameConfigurations/Main": [
+    "Pipeline/Gameplay/Screen",
+    "Pipeline/Runner"
+  ],
+  "AllegroFlare/GameEvent": [
+    "Pipeline/Gameplay/Screen",
+    "Pipeline/Runner"
+  ],
+  "AllegroFlare/Frameworks/Full": [
+    "Pipeline/Runner"
+  ],
+  "AllegroFlare/Routers/Standard": [
+    "Pipeline/Runner"
+  ],
+  "AllegroFlare/Screens/Storyboard": [
+    "Pipeline/Runner"
+  ],
+  "AllegroFlare/Screens/Achievements": [
+    "Pipeline/Runner"
+  ],
+  "AllegroFlare/Screens/TitleScreen": [
+    "Pipeline/Runner"
+  ],
+  "AllegroFlare/Screens/GameOverScreen": [
+    "Pipeline/Runner"
+  ],
+  "AllegroFlare/Screens/GameWonScreen": [
+    "Pipeline/Runner"
+  ],
+  "AllegroFlare/Screens/RollingCredits": [
+    "Pipeline/Runner"
+  ],
+  "AllegroFlare/Screens/Version": [
+    "Pipeline/Runner"
+  ],
+  "AllegroFlare/Screens/LevelSelectScreen": [
+    "Pipeline/Runner"
+  ],
+  "AllegroFlare/Screens/SettingsScreen": [
+    "Pipeline/Runner"
+  ],
+  "AllegroFlare/LoadASavedGame/Screen": [
+    "Pipeline/Runner"
+  ],
+  "AllegroFlare/Achievements": [
+    "Pipeline/Runner"
+  ],
+  "AllegroFlare/StoryboardFactory": [
+    "Pipeline/Runner"
+  ],
+  "AllegroFlare/Logger": [
+    "Pipeline/Runner"
+  ],
+  "AllegroFlare/RouteEventDatas/StartLevel": [
+    "Pipeline/Runner"
+  ],
+  "AllegroFlare/GameSession": [
+    "Pipeline/Runner"
+  ],
+  "AllegroFlare/Color": [
+    "Pipeline/Runner"
+  ],
+  "AllegroFlare/Elements/Backgrounds/ClearToColor": [
+    "Pipeline/Runner"
+  ],
+  "ReleaseInfo": [
+    "Pipeline/Runner"
+  ],
+  "AllegroFlare/Elements/RollingCredits/SectionFactory": [
+    "Pipeline/Runner"
+  ],
+  "AllegroFlare/EventNames": [
+    "Pipeline/Runner"
+  ],
+  "AllegroFlare/GameEventDatas/ScreenActivated": [
+    "Pipeline/Runner"
+  ],
+  "AllegroFlare/LoadASavedGame/SaveSlots/Empty": [
+    "Pipeline/Runner"
+  ]
+}
+</pre>
+</body>

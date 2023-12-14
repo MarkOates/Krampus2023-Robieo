@@ -1,0 +1,152 @@
+{
+  "AllegroFlare/GameConfigurations/Base": [
+    "Pipeline/GameConfigurations/Main",
+    "Pipeline/Gameplay/Screen",
+    "Pipeline/Runner"
+  ],
+  "AllegroFlare/Levels/Base": [
+    "Pipeline/GameConfigurations/Main",
+    "Pipeline/Gameplay/Level"
+  ],
+  "AllegroFlare/DialogTree/NodeBank": [
+    "Pipeline/GameConfigurations/Main"
+  ],
+  "AllegroFlare/DialogTree/NodeBankFactory": [
+    "Pipeline/GameConfigurations/Main"
+  ],
+  "AllegroFlare/DialogTree/Nodes/Wait": [
+    "Pipeline/GameConfigurations/Main"
+  ],
+  "AllegroFlare/DialogTree/Nodes/ExitProgram": [
+    "Pipeline/GameConfigurations/Main"
+  ],
+  "AllegroFlare/DialogTree/Nodes/MultipageWithOptions": [
+    "Pipeline/GameConfigurations/Main"
+  ],
+  "AllegroFlare/DialogTree/NodeOptions/GoToNode": [
+    "Pipeline/GameConfigurations/Main"
+  ],
+  "AllegroFlare/DialogTree/NodeOptions/ExitDialog": [
+    "Pipeline/GameConfigurations/Main"
+  ],
+  "Pipeline/Gameplay/Level": [
+    "Pipeline/GameConfigurations/Main",
+    "Pipeline/Gameplay/Screen"
+  ],
+  "ALLEGRO_EVENT": [
+    "Pipeline/Gameplay/Screen"
+  ],
+  "AllegroFlare/Screens/Base": [
+    "Pipeline/Gameplay/Screen",
+    "Pipeline/Runner"
+  ],
+  "AllegroFlare/BitmapBin": [
+    "Pipeline/Gameplay/Screen",
+    "Pipeline/Runner"
+  ],
+  "AllegroFlare/EventEmitter": [
+    "Pipeline/Gameplay/Screen",
+    "Pipeline/Runner"
+  ],
+  "AllegroFlare/FontBin": [
+    "Pipeline/Gameplay/Screen",
+    "Pipeline/Runner"
+  ],
+  "AllegroFlare/ModelBin": [
+    "Pipeline/Gameplay/Screen",
+    "Pipeline/Runner"
+  ],
+  "al_is_primitives_addon_initialized": [
+    "Pipeline/Gameplay/Screen"
+  ],
+  "AllegroFlare/Player": [
+    "Pipeline/Gameplay/Screen"
+  ],
+  "AllegroFlare/VirtualControllers/Base": [
+    "Pipeline/Gameplay/Screen"
+  ],
+  "Pipeline/Gameplay/Screen": [
+    "Pipeline/Gameplay/Screen",
+    "Pipeline/Runner"
+  ],
+  "Pipeline/GameConfigurations/Main": [
+    "Pipeline/Gameplay/Screen",
+    "Pipeline/Runner"
+  ],
+  "AllegroFlare/GameEvent": [
+    "Pipeline/Gameplay/Screen",
+    "Pipeline/Runner"
+  ],
+  "AllegroFlare/Frameworks/Full": [
+    "Pipeline/Runner"
+  ],
+  "AllegroFlare/Routers/Standard": [
+    "Pipeline/Runner"
+  ],
+  "AllegroFlare/Screens/Storyboard": [
+    "Pipeline/Runner"
+  ],
+  "AllegroFlare/Screens/Achievements": [
+    "Pipeline/Runner"
+  ],
+  "AllegroFlare/Screens/TitleScreen": [
+    "Pipeline/Runner"
+  ],
+  "AllegroFlare/Screens/GameOverScreen": [
+    "Pipeline/Runner"
+  ],
+  "AllegroFlare/Screens/GameWonScreen": [
+    "Pipeline/Runner"
+  ],
+  "AllegroFlare/Screens/RollingCredits": [
+    "Pipeline/Runner"
+  ],
+  "AllegroFlare/Screens/Version": [
+    "Pipeline/Runner"
+  ],
+  "AllegroFlare/Screens/LevelSelectScreen": [
+    "Pipeline/Runner"
+  ],
+  "AllegroFlare/Screens/SettingsScreen": [
+    "Pipeline/Runner"
+  ],
+  "AllegroFlare/LoadASavedGame/Screen": [
+    "Pipeline/Runner"
+  ],
+  "AllegroFlare/Achievements": [
+    "Pipeline/Runner"
+  ],
+  "AllegroFlare/StoryboardFactory": [
+    "Pipeline/Runner"
+  ],
+  "AllegroFlare/Logger": [
+    "Pipeline/Runner"
+  ],
+  "AllegroFlare/RouteEventDatas/StartLevel": [
+    "Pipeline/Runner"
+  ],
+  "AllegroFlare/GameSession": [
+    "Pipeline/Runner"
+  ],
+  "AllegroFlare/Color": [
+    "Pipeline/Runner"
+  ],
+  "AllegroFlare/Elements/Backgrounds/ClearToColor": [
+    "Pipeline/Runner"
+  ],
+  "ReleaseInfo": [
+    "Pipeline/Runner"
+  ],
+  "AllegroFlare/Elements/RollingCredits/SectionFactory": [
+    "Pipeline/Runner"
+  ],
+  "AllegroFlare/EventNames": [
+    "Pipeline/Runner"
+  ],
+  "AllegroFlare/GameEventDatas/ScreenActivated": [
+    "Pipeline/Runner"
+  ],
+  "AllegroFlare/LoadASavedGame/SaveSlots/Empty": [
+    "Pipeline/Runner"
+  ]
+}
