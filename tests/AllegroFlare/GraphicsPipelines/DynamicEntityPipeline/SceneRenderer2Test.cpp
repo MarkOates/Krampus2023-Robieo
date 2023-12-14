@@ -159,6 +159,16 @@ TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_SceneRendererTestWit
    //shadow_depth_map_renderer.initialize();
 
 
+
+   AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowDepthMapRenderer depth_pass;
+   depth_pass.setup_result_surface_bitmap(1920, 1080); // TODO: Don't use hard coded dimensions
+   depth_pass.init_shader();
+   depth_pass.set_entity_pool(&entity_pool);
+   depth_pass.init_camera_defaults(); // NOTE: The camera defaults seem to be weird
+   AllegroFlare::Camera3D &light = depth_pass.get_casting_light_ref();
+
+
+
    // Create the camera
 
    AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Camera3D* camera_entity =

@@ -49,12 +49,222 @@ table td
 <body>
 <h1>Table of Contents</h1>
 <ul>
+  <li><a href="#quintessence/AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer2.q.yml">quintessence/AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer2.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer2.q.yml">quintessence/AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer2.q.yml</a></li>
   <li><a href="#quintessence/Pipeline/GameConfigurations/Main.q.yml">quintessence/Pipeline/GameConfigurations/Main.q.yml</a></li>
   <li><a href="#quintessence/Pipeline/Gameplay/Level.q.yml">quintessence/Pipeline/Gameplay/Level.q.yml</a></li>
   <li><a href="#quintessence/Pipeline/Gameplay/Screen.q.yml">quintessence/Pipeline/Gameplay/Screen.q.yml</a></li>
   <li><a href="#quintessence/Pipeline/Runner.q.yml">quintessence/Pipeline/Runner.q.yml</a></li>
 </ul>
 <h1>Components</h1>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer2.q.yml">quintessence/AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer2.q.yml</h3>
+    <h4>Overview<h4>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">cubemap_shader</td>
+  <td class="property">AllegroFlare::Shaders::Cubemap*</td>
+</tr>
+<tr>
+  <td class="property">multitexture_shader</td>
+  <td class="property">AllegroFlare::Shaders::Multitexture*</td>
+</tr>
+<tr>
+  <td class="property">entity_pool</td>
+  <td class="property">AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool*</td>
+</tr>
+<tr>
+  <td class="property">shadow_depth_map_renderer</td>
+  <td class="property">AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowDepthMapRenderer*</td>
+</tr>
+<tr>
+  <td class="property">depth_pass</td>
+  <td class="property">AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowDepthMapRenderer*</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">render()</td>
+</tr>
+<tr>
+  <td class="method">get_multitexture_model_3d(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base* entity=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">get_model_3d(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base* entity=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">get_placement_3d(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base* entity=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">get_texture(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base* entity=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">get_texture_2(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base* entity=nullptr)</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Placement3D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Placement3D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Model3D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Model3D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityPool.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Camera3D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/Camera3D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::StaticModel3D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/StaticModel3D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/DynamicModel3D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::StaticMultitextureModel3D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/StaticMultitextureModel3D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::MultitextureModel3D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/MultitextureModel3D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Shaders::Cubemap&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Shaders/Cubemap.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Shaders::Multitexture&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Shaders/Multitexture.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityRenderFlags&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityRenderFlags.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_BITMAP&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowDepthMapRenderer&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer2.q.yml">quintessence/AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer2.q.yml</h3>
+    <h4>Overview<h4>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">entity_pool</td>
+  <td class="property">AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool*</td>
+</tr>
+<tr>
+  <td class="property">depth_map_shader</td>
+  <td class="property">AllegroFlare::Shaders::Base*</td>
+</tr>
+<tr>
+  <td class="property">casting_light</td>
+  <td class="property">AllegroFlare::Camera3D</td>
+</tr>
+<tr>
+  <td class="property">render_surface</td>
+  <td class="property">AllegroFlare::RenderSurfaces::Bitmap</td>
+</tr>
+<tr>
+  <td class="property">render_surface_is_setup</td>
+  <td class="property">bool</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">get_result_surface_bitmap()</td>
+</tr>
+<tr>
+  <td class="method">setup_result_surface_bitmap(int width=1920, int height=1080)</td>
+</tr>
+<tr>
+  <td class="method">init_shader()</td>
+</tr>
+<tr>
+  <td class="method">init_camera_defaults()</td>
+</tr>
+<tr>
+  <td class="method">destroy()</td>
+</tr>
+<tr>
+  <td class="method">render()</td>
+</tr>
+<tr>
+  <td class="method">setup_projection_on_render_surface()</td>
+</tr>
+<tr>
+  <td class="method">get_multitexture_model_3d(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base* entity=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">render_multitexture_model_3d(AllegroFlare::MultitextureModel3D* multitexture_model_3d=nullptr)</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;glEnable&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_opengl.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityPool.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Errors&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Errors.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_BITMAP&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_DISPLAY&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Camera3D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Camera3D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::php&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/UsefulPHP.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Shaders::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Shaders/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_TRANSFORM&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::StaticModel3D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/StaticModel3D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/DynamicModel3D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::AllegroUnstable&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/AllegroUnstable.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::RenderSurfaces::Bitmap&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/RenderSurfaces/Bitmap.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::StaticMultitextureModel3D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/StaticMultitextureModel3D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::MultitextureModel3D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/MultitextureModel3D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::ALLEGRO_VERTEX_WITH_TWO_UVS_AND_NORMAL&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/ALLEGRO_VERTEX_WITH_TWO_UVS_AND_NORMAL.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
 <ul>
   <div class="component">
     <h3 id="quintessence/Pipeline/GameConfigurations/Main.q.yml">quintessence/Pipeline/GameConfigurations/Main.q.yml</h3>
@@ -540,6 +750,85 @@ table td
 <h1>Dependents</h1>
 <pre>
 {
+  "AllegroFlare/Placement3D": [
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer2"
+  ],
+  "AllegroFlare/Model3D": [
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer2"
+  ],
+  "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/Base": [
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer2",
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer2"
+  ],
+  "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityPool": [
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer2",
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer2"
+  ],
+  "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/Camera3D": [
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer2"
+  ],
+  "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/StaticModel3D": [
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer2",
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer2"
+  ],
+  "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/DynamicModel3D": [
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer2",
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer2"
+  ],
+  "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/StaticMultitextureModel3D": [
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer2",
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer2"
+  ],
+  "AllegroFlare/MultitextureModel3D": [
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer2",
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer2"
+  ],
+  "AllegroFlare/Shaders/Cubemap": [
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer2"
+  ],
+  "AllegroFlare/Shaders/Multitexture": [
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer2"
+  ],
+  "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityRenderFlags": [
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer2"
+  ],
+  "ALLEGRO_BITMAP": [
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer2",
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer2"
+  ],
+  "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer": [
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer2"
+  ],
+  "glEnable": [
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer2"
+  ],
+  "AllegroFlare/Errors": [
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer2"
+  ],
+  "ALLEGRO_DISPLAY": [
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer2"
+  ],
+  "AllegroFlare/Camera3D": [
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer2"
+  ],
+  "AllegroFlare/php": [
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer2"
+  ],
+  "AllegroFlare/Shaders/Base": [
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer2"
+  ],
+  "ALLEGRO_TRANSFORM": [
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer2"
+  ],
+  "AllegroFlare/AllegroUnstable": [
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer2"
+  ],
+  "AllegroFlare/RenderSurfaces/Bitmap": [
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer2"
+  ],
+  "AllegroFlare/ALLEGRO_VERTEX_WITH_TWO_UVS_AND_NORMAL": [
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer2"
+  ],
   "AllegroFlare/GameConfigurations/Base": [
     "Pipeline/GameConfigurations/Main",
     "Pipeline/Gameplay/Screen",
