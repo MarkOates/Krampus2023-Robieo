@@ -89,7 +89,7 @@ functions:
 
 
   - name: render
-    guards: [ entity_pool, cubemap_shader, multitexture_shader, render_surface_is_setup ]
+    guards: [ entity_pool, cubemap_shader, multitexture_shader, shadow_mapping_shader, render_surface_is_setup ]
     body: |
       AllegroFlare::Camera3D *primary_camera = find_primary_camera_3d();
 

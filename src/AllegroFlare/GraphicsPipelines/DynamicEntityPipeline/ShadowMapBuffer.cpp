@@ -155,6 +155,13 @@ void ShadowMapBuffer::render()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("ShadowMapBuffer::render: error: guard \"multitexture_shader\" not met");
    }
+   if (!(shadow_mapping_shader))
+   {
+      std::stringstream error_message;
+      error_message << "[ShadowMapBuffer::render]: error: guard \"shadow_mapping_shader\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("ShadowMapBuffer::render: error: guard \"shadow_mapping_shader\" not met");
+   }
    if (!(render_surface_is_setup))
    {
       std::stringstream error_message;
