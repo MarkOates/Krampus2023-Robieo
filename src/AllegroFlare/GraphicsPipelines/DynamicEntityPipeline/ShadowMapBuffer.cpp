@@ -172,16 +172,7 @@ void ShadowMapBuffer::render()
 
 
    using namespace AllegroFlare::GraphicsPipelines::DynamicEntityPipeline;
-   //headers: [ AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer.hpp ]
 
-   // Extract out the camera and render the scene
-   //Entities::Base *entity = entity_pool->find_with_attribute("primary_camera");
-   //if (!entity) throw std::runtime_error("no camera present");
-   //// TODO: validate the camera is of type Entities::Camera
-   //Entities::Camera3D *as_camera = static_cast<Entities::Camera3D*>(entity);
-
-   // TODO: Get a proper render surface, rather than pulling from the current display
-   //ALLEGRO_BITMAP *render_surface_bmp = al_get_backbuffer(al_get_current_display()); // TODO: replace with render surface
    ALLEGRO_BITMAP *render_surface_bmp = render_surface.obtain_surface();
 
    al_set_target_bitmap(render_surface_bmp);
@@ -190,14 +181,11 @@ void ShadowMapBuffer::render()
    al_clear_depth_buffer(1);
    al_clear_to_color(ALLEGRO_COLOR{0.1, 0.105, 0.12, 1.0});
 
-   //AllegroFlare::Camera3D &camera = as_camera->get_camera_3d_ref();
-   //AllegroFlare::Camera3D *primary_camera = find_primary_camera_3d();
    primary_camera->setup_projection_on(render_surface_bmp);
 
    // Set the camera position in the iridescent shder
    cubemap_shader->set_camera_position(primary_camera->get_real_position());
 
-   //std::unordered_set<AllegroFlare::SceneGraph::Entities::Base*>
    for (auto &entity : entity_pool->get_entity_pool_ref())
    {
       // TODO: Rename legacy "as_agc_entity" to something more appropriate
