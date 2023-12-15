@@ -12,6 +12,7 @@ varying vec2 varying_texcoord;
 
 varying vec4 me__glPosition_from_light;
 uniform sampler2D me__depth_pass_sampler;
+varying vec2 me__shadow_pass_uv_texcoord; // The uv coordintate on the shadow_depth_pass_sampler texture that we will use for depth
 
 
 
