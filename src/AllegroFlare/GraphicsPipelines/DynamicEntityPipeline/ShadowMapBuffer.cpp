@@ -209,7 +209,7 @@ void ShadowMapBuffer::render()
    //light.position_transform(&transform);
 
    // HERE
-   //shadow_mapping_shader->set_mat4("me__depth_pass_transform", &transform);
+   shadow_mapping_shader->set_mat4("me__depth_pass_transform", &transform);
 
 
 

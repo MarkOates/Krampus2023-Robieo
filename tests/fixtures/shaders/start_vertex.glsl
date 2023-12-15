@@ -21,6 +21,7 @@ void main()
  }
  else
    varying_texcoord = al_texcoord;
+
  gl_Position = al_projview_matrix * al_pos;
- //gl_Position = me__depth_pass_transform * me__depth_pass_transform * al_pos;
+ //gl_Position = me__depth_pass_transform * al_pos; // If you want to view the light perspective
 }
