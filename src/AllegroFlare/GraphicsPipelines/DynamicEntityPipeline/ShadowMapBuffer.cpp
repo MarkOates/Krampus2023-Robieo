@@ -197,13 +197,14 @@ void ShadowMapBuffer::render()
    {
       // TODO: Rename legacy "as_agc_entity" to something more appropriate
       Entities::Base *as_agc_entity = static_cast<Entities::Base*>(entity);
-
       // Skip if entity is flagged as "do not render"
       // TODO: Add test for this case
       if (as_agc_entity->exists(EntityRenderFlags::DO_NOT_RENDER)) continue;
       
 
-      AllegroFlare::Model3D *model = get_model_3d(as_agc_entity); //as_agc_entity->get_model();
+
+      // Extract the model type that is being rendered
+      AllegroFlare::Model3D *model = get_model_3d(as_agc_entity);
       AllegroFlare::MultitextureModel3D *multitexture_model_3d = nullptr;
 
       if (model)
@@ -217,19 +218,15 @@ void ShadowMapBuffer::render()
          // Setup the render for this object
          if (renders_with_iridescent)
          {
-            //Gameplay::Entities::Base *as_gac_base = static_cast<Entities::Base*>(entity);
-
             // NOTE: For now, this has to be set before activating the shader
             cubemap_shader->set_object_placement(placement);
-
             cubemap_shader->activate();
          }
          else
          {
-            ALLEGRO_BITMAP *texture = get_texture(as_agc_entity); //->get_texture();
+            ALLEGRO_BITMAP *texture = get_texture(as_agc_entity);
             if (texture) model->set_texture(texture);
             placement->start_transform();
-            //as_agc_entity->get_placement_ref().start_transform();
          }
 
          // Draw the model
@@ -290,7 +287,7 @@ void ShadowMapBuffer::render()
       }
       else // (!model) or (!multitexture_model)
       {
-         ALLEGRO_BITMAP *texture = get_texture(as_agc_entity); //->get_texture();
+         ALLEGRO_BITMAP *texture = get_texture(as_agc_entity);
          AllegroFlare::Placement3D *placement = get_placement_3d(as_agc_entity);
 
          if (texture)
