@@ -49,7 +49,7 @@ void ShadowMapping::activate()
 
 std::string ShadowMapping::obtain_vertex_source()
 {
-   std::cout << "######" << vertex_source_filename << "######" << std::endl;
+   //std::cout << "######" << vertex_source_filename << "######" << std::endl;
    //std::cout << "######" << std::filesystem::exists(vertex_source_filename) << "######" << std::endl;
    //std::string filename_fragment =
       //"/Users/markoates/Repos/allegro_flare/bin/data/shaders/simple_map_fragment_with_light.glsl";
