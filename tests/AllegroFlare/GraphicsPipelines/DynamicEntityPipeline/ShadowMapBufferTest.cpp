@@ -134,7 +134,7 @@ TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_ShadowMapBufferTestW
    for (int i=0; i<frames; i++)
    {
       // Spin our shadow casted light
-      light.spin += 0.005f;
+      light.spin += 0.003f;
 
       // Rotate objects in the scene
       item->get_placement_ref().rotation.x += 0.005;
@@ -160,15 +160,43 @@ TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_ShadowMapBufferTestW
       al_clear_depth_buffer(1);
       al_clear_to_color(ALLEGRO_COLOR{0.1, 0.105, 0.12, 1.0});
 
-      ALLEGRO_BITMAP *render_surface = scene_renderer.get_render_surface_ref().obtain_surface();
+      ALLEGRO_BITMAP *texture_to_render = 
+         scene_renderer.get_render_surface_ref().obtain_surface();
+      //ALLEGRO_BITMAP *render_surface = scene_renderer.get_render_surface_ref().obtain_surface();
+      ///*
       al_draw_scaled_bitmap(
          //shadow_depth_map_renderer.get_result_surface_bitmap(),
          //depth_pass.get_result_surface_bitmap(),
-         render_surface,
+         texture_to_render,
          0,
          0,
-         al_get_bitmap_width(render_surface),
-         al_get_bitmap_height(render_surface),
+         al_get_bitmap_width(texture_to_render),
+         al_get_bitmap_height(texture_to_render),
+         0,
+         0,
+         al_get_display_width(get_display()),
+         al_get_display_height(get_display()),
+         //ALLEGRO_COLOR{1.0, 1.0, 1.0, 1.0},
+         //ALLEGRO_COLOR{0.4, 0.4, 0.4, 0.4},
+         //0,
+         //0,
+         0
+      );
+      //*/
+
+      al_clear_depth_buffer(1);
+
+      // Draw the casted render
+      texture_to_render = shadow_depth_map_renderer.get_result_surface_bitmap();
+      al_draw_tinted_scaled_bitmap(
+         //shadow_depth_map_renderer.get_result_surface_bitmap(),
+         //depth_pass.get_result_surface_bitmap(),
+         texture_to_render,
+         ALLEGRO_COLOR{0.4, 0.4, 0.4, 0.4},
+         0,
+         0,
+         al_get_bitmap_width(texture_to_render),
+         al_get_bitmap_height(texture_to_render),
          0,
          0,
          al_get_display_width(get_display()),
@@ -188,3 +216,5 @@ TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_ShadowMapBufferTestW
    ALLEGRO_BITMAP *rendered_shadow_depth_map_result = scene_renderer.get_render_surface_ref().obtain_surface();
    al_save_bitmap("/Users/markoates/Desktop/foobar.png", rendered_shadow_depth_map_result);
 }
+
+

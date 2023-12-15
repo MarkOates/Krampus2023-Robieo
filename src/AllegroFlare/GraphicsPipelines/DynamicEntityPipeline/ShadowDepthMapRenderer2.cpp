@@ -239,7 +239,8 @@ void ShadowDepthMapRenderer2::render()
 
 void ShadowDepthMapRenderer2::setup_projection_on_render_surface()
 {
-   float shadow_scale_divisor = 1.0; // See comment further down for more detail
+   //float shadow_scale_divisor = 1.0; // See comment further down for more detail
+   float shadow_scale_divisor = 0.5; // See comment further down for more detail
 
    // setup the render settings
    //al_set_render_state(ALLEGRO_DEPTH_TEST, 1);
