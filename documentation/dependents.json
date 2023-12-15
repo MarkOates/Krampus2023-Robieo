@@ -6,12 +6,14 @@
   "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityPool": [
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/DepthBuffer",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer2",
-    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer2"
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer2",
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowMapBuffer"
   ],
   "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/Base": [
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/DepthBuffer",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer2",
-    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer2"
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer2",
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowMapBuffer"
   ],
   "AllegroFlare/Errors": [
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/DepthBuffer",
@@ -20,7 +22,8 @@
   "ALLEGRO_BITMAP": [
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/DepthBuffer",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer2",
-    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer2"
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer2",
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowMapBuffer"
   ],
   "ALLEGRO_DISPLAY": [
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/DepthBuffer",
@@ -29,7 +32,8 @@
   "AllegroFlare/Camera3D": [
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/DepthBuffer",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer2",
-    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer2"
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer2",
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowMapBuffer"
   ],
   "AllegroFlare/php": [
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/DepthBuffer",
@@ -37,7 +41,8 @@
   ],
   "AllegroFlare/Shaders/Base": [
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/DepthBuffer",
-    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer2"
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer2",
+    "AllegroFlare/Shaders/ShadowMapping"
   ],
   "ALLEGRO_TRANSFORM": [
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/DepthBuffer",
@@ -46,12 +51,14 @@
   "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/StaticModel3D": [
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/DepthBuffer",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer2",
-    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer2"
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer2",
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowMapBuffer"
   ],
   "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/DynamicModel3D": [
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/DepthBuffer",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer2",
-    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer2"
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer2",
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowMapBuffer"
   ],
   "AllegroFlare/AllegroUnstable": [
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/DepthBuffer",
@@ -60,46 +67,63 @@
   "AllegroFlare/RenderSurfaces/Bitmap": [
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/DepthBuffer",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer2",
-    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer2"
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer2",
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowMapBuffer"
   ],
   "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/StaticMultitextureModel3D": [
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/DepthBuffer",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer2",
-    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer2"
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer2",
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowMapBuffer"
   ],
   "AllegroFlare/MultitextureModel3D": [
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/DepthBuffer",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer2",
-    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer2"
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer2",
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowMapBuffer"
   ],
   "AllegroFlare/ALLEGRO_VERTEX_WITH_TWO_UVS_AND_NORMAL": [
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/DepthBuffer",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer2"
   ],
   "AllegroFlare/Placement3D": [
-    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer2"
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer2",
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowMapBuffer"
   ],
   "AllegroFlare/Model3D": [
-    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer2"
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer2",
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowMapBuffer"
   ],
   "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/Camera3D": [
-    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer2"
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer2",
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowMapBuffer"
   ],
   "AllegroFlare/Shaders/Cubemap": [
-    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer2"
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer2",
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowMapBuffer"
   ],
   "AllegroFlare/Shaders/Multitexture": [
-    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer2"
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer2",
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowMapBuffer"
   ],
   "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityRenderFlags": [
-    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer2"
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer2",
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowMapBuffer"
   ],
   "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer2": [
-    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer2"
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer2",
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowMapBuffer"
   ],
   "AllegroFlare/Logger": [
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer2",
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowMapBuffer",
     "Pipeline/Runner"
+  ],
+  "ALLEGRO_COLOR": [
+    "AllegroFlare/Shaders/ShadowMapping"
+  ],
+  "AllegroFlare/UsefulPHP": [
+    "AllegroFlare/Shaders/ShadowMapping"
   ],
   "AllegroFlare/GameConfigurations/Base": [
     "Pipeline/GameConfigurations/Main",

@@ -55,7 +55,7 @@ functions:
     type: std::string
     static: true
     private: true
-    xguards: [ std::filesystem::exists(vertex_source_filename) ]
+    xguards: [ 'std::filesystem::exists(vertex_source_filename)' ]
     body: |
       //std::cout << "######" << vertex_source_filename << "######" << std::endl;
       //std::cout << "######" << std::filesystem::exists(vertex_source_filename) << "######" << std::endl;
@@ -96,7 +96,7 @@ functions:
     type: std::string
     static: true
     private: true
-    guards: [ std::filesystem::exists(fragment_source_filename) ]
+    guards: [ 'std::filesystem::exists(fragment_source_filename)' ]
     body: |
       //std::string filename_fragment =
          //"/Users/markoates/Repos/allegro_flare/bin/data/shaders/simple_map_fragment_with_light.glsl";
