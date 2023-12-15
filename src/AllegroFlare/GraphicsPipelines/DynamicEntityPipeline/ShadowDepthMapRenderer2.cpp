@@ -239,7 +239,7 @@ void ShadowDepthMapRenderer2::render()
 
 void ShadowDepthMapRenderer2::setup_transform_for_light(ALLEGRO_TRANSFORM* transform)
 {
-   float shadow_scale_divisor = 1.0; // See comment further down for more detail
+   float shadow_scale_divisor = 0.5; // See comment further down for more detail
    //ALLEGRO_TRANSFORM casting_light_projection_transform;
    casting_light.reverse_position_transform(transform);
 
