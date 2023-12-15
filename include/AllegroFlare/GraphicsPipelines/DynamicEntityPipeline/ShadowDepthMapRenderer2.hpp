@@ -43,6 +43,7 @@ namespace AllegroFlare
             void init_camera_defaults();
             void destroy();
             void render();
+            void setup_transform_for_light(ALLEGRO_TRANSFORM* transform=nullptr);
             void setup_projection_on_render_surface();
             AllegroFlare::MultitextureModel3D* get_multitexture_model_3d(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base* entity=nullptr);
             void render_multitexture_model_3d(AllegroFlare::MultitextureModel3D* multitexture_model_3d=nullptr);

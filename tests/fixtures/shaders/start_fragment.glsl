@@ -10,7 +10,7 @@ varying vec4 varying_color;
 varying vec2 varying_texcoord;
 
 
-//varying vec4 me__glPosition_from_light;
+varying vec4 me__glPosition_from_light;
 
 
 

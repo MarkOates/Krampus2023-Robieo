@@ -237,6 +237,45 @@ void ShadowDepthMapRenderer2::render()
    return;
 }
 
+void ShadowDepthMapRenderer2::setup_transform_for_light(ALLEGRO_TRANSFORM* transform)
+{
+   float shadow_scale_divisor = 1.0; // See comment further down for more detail
+   //ALLEGRO_TRANSFORM casting_light_projection_transform;
+   casting_light.reverse_position_transform(transform);
+
+
+   ALLEGRO_BITMAP *bitmap = render_surface.obtain_surface(); //backbuffer_sub_bitmap;
+   float divisor = shadow_scale_divisor;
+   al_scale_transform_3d(transform, 150/divisor, 150/divisor, 1); // note, increasing
+      // this divisor will
+      // expand the range of the light projection, but it will reduce its resolution, a divisor of 1 will have a good
+      // quality of shadow, but will have a range of about 15-20 meters; a divisor of 2 will double that size, but
+      // reduce the resolution of the shadow. Original engine had a default of 1.0f;
+
+   // Adding some rotation
+   //static float rotation = 0.0f;
+   //rotation += 0.01f;
+   //al_rotate_transform_3d(&casting_light_projection_transform, 0, 1, 0, rotation);
+
+
+   al_orthographic_transform(
+      transform,
+      -al_get_bitmap_width(bitmap),
+      al_get_bitmap_height(bitmap),
+      30.0,
+      al_get_bitmap_width(bitmap),
+      -al_get_bitmap_height(bitmap),
+      -30.0
+   );
+
+   // TODO: Remove this line:
+   //al_copy_transform(&casting_light_projection_transform, &shadow_map_projection);
+
+   al_use_projection_transform(transform);
+
+   return;
+}
+
 void ShadowDepthMapRenderer2::setup_projection_on_render_surface()
 {
    //float shadow_scale_divisor = 1.0; // See comment further down for more detail

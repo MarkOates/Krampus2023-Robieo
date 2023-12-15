@@ -8,8 +8,8 @@ varying vec4 varying_color;
 varying vec2 varying_texcoord;
 
 
-//uniform mat4 me__depth_pass_transform;
-//varying vec4 me__glPosition_from_light;
+uniform mat4 me__depth_pass_transform;
+varying vec4 me__glPosition_from_light;
 
 
 void main()
@@ -22,4 +22,5 @@ void main()
  else
    varying_texcoord = al_texcoord;
  gl_Position = al_projview_matrix * al_pos;
+ //gl_Position = me__depth_pass_transform * me__depth_pass_transform * al_pos;
 }
