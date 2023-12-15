@@ -271,7 +271,7 @@ void ShadowDepthMapRenderer2::setup_transform_for_light(ALLEGRO_TRANSFORM* trans
    // TODO: Remove this line:
    //al_copy_transform(&casting_light_projection_transform, &shadow_map_projection);
 
-   al_use_projection_transform(transform);
+   //al_use_projection_transform(transform);
 
    return;
 }

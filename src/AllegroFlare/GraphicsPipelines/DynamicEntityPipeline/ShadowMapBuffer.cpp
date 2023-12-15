@@ -203,11 +203,13 @@ void ShadowMapBuffer::render()
    shadow_mapping_shader->activate();
    AllegroFlare::Camera3D &light = shadow_depth_map_renderer->get_casting_light_ref();
    ALLEGRO_TRANSFORM transform;
+   shadow_depth_map_renderer->setup_transform_for_light(&transform);
+   //ALLEGRO_TRANSFORM transform;
    //light.reverse_position_transform(&transform);
    //light.position_transform(&transform);
 
    // HERE
-   shadow_mapping_shader->set_mat4("me__depth_pass_transform", &transform);
+   //shadow_mapping_shader->set_mat4("me__depth_pass_transform", &transform);
 
 
 
