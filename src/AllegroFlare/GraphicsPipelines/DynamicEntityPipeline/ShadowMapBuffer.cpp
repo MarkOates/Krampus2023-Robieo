@@ -190,8 +190,15 @@ void ShadowMapBuffer::render()
 
    primary_camera->setup_projection_on(render_surface_bmp);
 
+
+
+
+   shadow_mapping_shader->activate();
+
+
+
    // Set the camera position in the iridescent shder
-   cubemap_shader->set_camera_position(primary_camera->get_real_position());
+   //cubemap_shader->set_camera_position(primary_camera->get_real_position());
 
    for (auto &entity : entity_pool->get_entity_pool_ref())
    {
@@ -220,7 +227,7 @@ void ShadowMapBuffer::render()
          {
             // NOTE: For now, this has to be set before activating the shader
             cubemap_shader->set_object_placement(placement);
-            cubemap_shader->activate();
+            //cubemap_shader->activate();
          }
          else
          {
@@ -235,7 +242,7 @@ void ShadowMapBuffer::render()
          // Teardown the render for this object
          if (renders_with_iridescent)
          {
-            cubemap_shader->deactivate();
+            //cubemap_shader->deactivate();
          }
          else
          {
@@ -263,7 +270,7 @@ void ShadowMapBuffer::render()
          multitexture_shader->set_texture_b(texture_b);
 
          // Activate the shader
-         multitexture_shader->activate();
+         //multitexture_shader->activate();
 
          // Render our subject
          // NOTE: For this test, will not be using "subject.draw()". Instead we will be rendering manually, and
@@ -283,7 +290,7 @@ void ShadowMapBuffer::render()
             ALLEGRO_PRIM_TRIANGLE_LIST
          );
 
-         multitexture_shader->deactivate();
+         //multitexture_shader->deactivate();
       }
       else // (!model) or (!multitexture_model)
       {
@@ -298,6 +305,8 @@ void ShadowMapBuffer::render()
          }
       }
    }
+
+   shadow_mapping_shader->deactivate();
 
    return;
 }

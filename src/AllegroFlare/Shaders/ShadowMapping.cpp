@@ -31,6 +31,7 @@ void ShadowMapping::initialize()
 {
    set_vertex_source_code(obtain_vertex_source());
    set_fragment_source_code(obtain_fragment_source());
+
    if (!initialized) AllegroFlare::Shaders::Base::initialize();
    initialized = true;
 }

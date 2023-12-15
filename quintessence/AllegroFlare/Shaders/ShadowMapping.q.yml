@@ -17,13 +17,13 @@ properties:
 
   - name: vertex_source_filename
     type: char*
-    init_with: '(char*)"/Users/markoates/Repos/Pipeline/tests/fixtures/shaders/simple_map_vertex_with_light.glsl"'
+    init_with: '(char*)"/Users/markoates/Repos/Pipeline/tests/fixtures/shaders/start_vertex.glsl"'
     static: true
     constexpr: true
 
   - name: fragment_source_filename
     type: char*
-    init_with: '(char*)"/Users/markoates/Repos/Pipeline/tests/fixtures/shaders/simple_map_fragment_with_light.glsl"'
+    init_with: '(char*)"/Users/markoates/Repos/Pipeline/tests/fixtures/shaders/start_fragment.glsl"'
     static: true
     constexpr: true
 
@@ -40,6 +40,7 @@ functions:
     body: |
       set_vertex_source_code(obtain_vertex_source());
       set_fragment_source_code(obtain_fragment_source());
+
       if (!initialized) AllegroFlare::Shaders::Base::initialize();
       initialized = true;
 

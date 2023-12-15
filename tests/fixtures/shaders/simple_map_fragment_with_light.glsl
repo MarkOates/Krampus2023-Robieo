@@ -27,6 +27,14 @@ uniform vec3 camera_position;
 
 void main()
 {
+  vec4 final_color2 = vec4(0.2, 0.8, 0.7, 1.0);
+  gl_FragColor = final_color2;
+  
+
+
+
+
+
 	vec3 N = normalize(surface_normal); 
 	vec3 L = normalize(light_position - world_position);
 	vec3 V = normalize(camera_position - world_position); 

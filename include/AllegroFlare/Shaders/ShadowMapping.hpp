@@ -13,8 +13,8 @@ namespace AllegroFlare
       {
       public:
          static constexpr char* TYPE = (char*)"AllegroFlare/Shaders/ShadowMapping";
-         static constexpr char* vertex_source_filename = (char*)"/Users/markoates/Repos/Pipeline/tests/fixtures/shaders/simple_map_vertex_with_light.glsl";
-         static constexpr char* fragment_source_filename = (char*)"/Users/markoates/Repos/Pipeline/tests/fixtures/shaders/simple_map_fragment_with_light.glsl";
+         static constexpr char* vertex_source_filename = (char*)"/Users/markoates/Repos/Pipeline/tests/fixtures/shaders/start_vertex.glsl";
+         static constexpr char* fragment_source_filename = (char*)"/Users/markoates/Repos/Pipeline/tests/fixtures/shaders/start_fragment.glsl";
 
       private:
          bool initialized;

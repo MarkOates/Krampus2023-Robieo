@@ -186,6 +186,7 @@ TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_ShadowMapBufferTestW
 
       al_clear_depth_buffer(1);
 
+      /*
       // Draw the casted render
       texture_to_render = shadow_depth_map_renderer.get_result_surface_bitmap();
       al_draw_tinted_scaled_bitmap(
@@ -207,6 +208,7 @@ TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_ShadowMapBufferTestW
          //0,
          0
       );
+      */
 
       al_flip_display();
       al_rest(1.0/60.0f);
