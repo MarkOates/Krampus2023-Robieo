@@ -22,9 +22,11 @@ void main()
  varying_color = al_color;
  if (al_use_tex_matrix)
  {
+   // The classic allegro texcoord
    vec4 uv = al_tex_matrix * vec4(al_texcoord, 0, 1);
    varying_texcoord = vec2(uv.x, uv.y);
 
+   // The shadow_pass texcoord
    vec4 shadow_pass_uv = al_tex_matrix * vec4(me__glPosition_from_light.xy, 0, 1);
    me__shadow_pass_uv_texcoord = vec2(shadow_pass_uv.x, shadow_pass_uv.y);
  }
