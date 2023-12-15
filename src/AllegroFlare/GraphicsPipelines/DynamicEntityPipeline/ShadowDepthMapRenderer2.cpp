@@ -278,6 +278,7 @@ void ShadowDepthMapRenderer2::setup_transform_for_light(ALLEGRO_TRANSFORM* trans
 
 void ShadowDepthMapRenderer2::setup_projection_on_render_surface()
 {
+   /*
    //float shadow_scale_divisor = 1.0; // See comment further down for more detail
    float shadow_scale_divisor = 0.5; // See comment further down for more detail
 
@@ -314,6 +315,11 @@ void ShadowDepthMapRenderer2::setup_projection_on_render_surface()
       -al_get_bitmap_height(bitmap),
       -30.0
    );
+   */
+
+
+   ALLEGRO_TRANSFORM casting_light_projection_transform;
+   setup_transform_for_light(&casting_light_projection_transform);
 
    // TODO: Remove this line:
    //al_copy_transform(&casting_light_projection_transform, &shadow_map_projection);
