@@ -119,6 +119,9 @@
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowMapBuffer",
     "Pipeline/Runner"
   ],
+  "AllegroFlare/Shaders/ShadowMapping": [
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowMapBuffer"
+  ],
   "ALLEGRO_COLOR": [
     "AllegroFlare/Shaders/ShadowMapping"
   ],

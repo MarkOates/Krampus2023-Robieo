@@ -21,9 +21,10 @@ namespace DynamicEntityPipeline
 {
 
 
-ShadowMapBuffer::ShadowMapBuffer(AllegroFlare::Shaders::Cubemap* cubemap_shader, AllegroFlare::Shaders::Multitexture* multitexture_shader, AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool* entity_pool)
+ShadowMapBuffer::ShadowMapBuffer(AllegroFlare::Shaders::Cubemap* cubemap_shader, AllegroFlare::Shaders::Multitexture* multitexture_shader, AllegroFlare::Shaders::ShadowMapping* shadow_mapping_shader, AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool* entity_pool)
    : cubemap_shader(cubemap_shader)
    , multitexture_shader(multitexture_shader)
+   , shadow_mapping_shader(shadow_mapping_shader)
    , entity_pool(entity_pool)
    , shadow_depth_map_renderer(nullptr)
    , render_surface()
@@ -49,6 +50,12 @@ void ShadowMapBuffer::set_multitexture_shader(AllegroFlare::Shaders::Multitextur
 }
 
 
+void ShadowMapBuffer::set_shadow_mapping_shader(AllegroFlare::Shaders::ShadowMapping* shadow_mapping_shader)
+{
+   this->shadow_mapping_shader = shadow_mapping_shader;
+}
+
+
 void ShadowMapBuffer::set_entity_pool(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool* entity_pool)
 {
    this->entity_pool = entity_pool;
@@ -70,6 +77,12 @@ AllegroFlare::Shaders::Cubemap* ShadowMapBuffer::get_cubemap_shader() const
 AllegroFlare::Shaders::Multitexture* ShadowMapBuffer::get_multitexture_shader() const
 {
    return multitexture_shader;
+}
+
+
+AllegroFlare::Shaders::ShadowMapping* ShadowMapBuffer::get_shadow_mapping_shader() const
+{
+   return shadow_mapping_shader;
 }
 
 

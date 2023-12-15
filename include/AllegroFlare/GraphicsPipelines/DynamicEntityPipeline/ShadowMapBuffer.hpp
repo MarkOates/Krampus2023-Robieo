@@ -11,6 +11,7 @@
 #include <AllegroFlare/RenderSurfaces/Bitmap.hpp>
 #include <AllegroFlare/Shaders/Cubemap.hpp>
 #include <AllegroFlare/Shaders/Multitexture.hpp>
+#include <AllegroFlare/Shaders/ShadowMapping.hpp>
 #include <allegro5/allegro.h>
 
 
@@ -25,6 +26,7 @@ namespace AllegroFlare
          private:
             AllegroFlare::Shaders::Cubemap* cubemap_shader;
             AllegroFlare::Shaders::Multitexture* multitexture_shader;
+            AllegroFlare::Shaders::ShadowMapping* shadow_mapping_shader;
             AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool* entity_pool;
             AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowDepthMapRenderer2* shadow_depth_map_renderer;
             AllegroFlare::RenderSurfaces::Bitmap render_surface;
@@ -34,15 +36,17 @@ namespace AllegroFlare
 
 
          public:
-            ShadowMapBuffer(AllegroFlare::Shaders::Cubemap* cubemap_shader=nullptr, AllegroFlare::Shaders::Multitexture* multitexture_shader=nullptr, AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool* entity_pool=nullptr);
+            ShadowMapBuffer(AllegroFlare::Shaders::Cubemap* cubemap_shader=nullptr, AllegroFlare::Shaders::Multitexture* multitexture_shader=nullptr, AllegroFlare::Shaders::ShadowMapping* shadow_mapping_shader=nullptr, AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool* entity_pool=nullptr);
             ~ShadowMapBuffer();
 
             void set_cubemap_shader(AllegroFlare::Shaders::Cubemap* cubemap_shader);
             void set_multitexture_shader(AllegroFlare::Shaders::Multitexture* multitexture_shader);
+            void set_shadow_mapping_shader(AllegroFlare::Shaders::ShadowMapping* shadow_mapping_shader);
             void set_entity_pool(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool* entity_pool);
             void set_shadow_depth_map_renderer(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowDepthMapRenderer2* shadow_depth_map_renderer);
             AllegroFlare::Shaders::Cubemap* get_cubemap_shader() const;
             AllegroFlare::Shaders::Multitexture* get_multitexture_shader() const;
+            AllegroFlare::Shaders::ShadowMapping* get_shadow_mapping_shader() const;
             AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool* get_entity_pool() const;
             AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowDepthMapRenderer2* get_shadow_depth_map_renderer() const;
             AllegroFlare::RenderSurfaces::Bitmap &get_render_surface_ref();

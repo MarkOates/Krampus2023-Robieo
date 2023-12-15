@@ -415,6 +415,10 @@ table td
   <td class="property">AllegroFlare::Shaders::Multitexture*</td>
 </tr>
 <tr>
+  <td class="property">shadow_mapping_shader</td>
+  <td class="property">AllegroFlare::Shaders::ShadowMapping*</td>
+</tr>
+<tr>
   <td class="property">entity_pool</td>
   <td class="property">AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool*</td>
 </tr>
@@ -510,6 +514,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::RenderSurfaces::Bitmap&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/RenderSurfaces/Bitmap.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Shaders::ShadowMapping&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Shaders/ShadowMapping.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -1170,6 +1177,9 @@ table td
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer2",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowMapBuffer",
     "Pipeline/Runner"
+  ],
+  "AllegroFlare/Shaders/ShadowMapping": [
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowMapBuffer"
   ],
   "ALLEGRO_COLOR": [
     "AllegroFlare/Shaders/ShadowMapping"
