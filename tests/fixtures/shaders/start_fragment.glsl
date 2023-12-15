@@ -11,6 +11,7 @@ varying vec2 varying_texcoord;
 
 
 varying vec4 me__glPosition_from_light;
+uniform sampler2D me__depth_pass_sampler;
 
 
 
@@ -20,6 +21,7 @@ void main()
   if (al_use_tex)
   {
     c = varying_color * texture2D(al_tex, varying_texcoord);
+    //c = varying_color * texture2D(me__depth_pass_sampler, varying_texcoord); // If you want to see the depth_pass_sampler used as the texture on all the models
   }
   else
   {

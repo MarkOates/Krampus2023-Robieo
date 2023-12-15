@@ -210,6 +210,10 @@ void ShadowMapBuffer::render()
 
    // HERE
    shadow_mapping_shader->set_mat4("me__depth_pass_transform", &transform);
+   shadow_mapping_shader->set_sampler(
+      "me__depth_pass_sampler",
+      shadow_depth_map_renderer->get_result_surface_bitmap()
+   );
 
 
 
