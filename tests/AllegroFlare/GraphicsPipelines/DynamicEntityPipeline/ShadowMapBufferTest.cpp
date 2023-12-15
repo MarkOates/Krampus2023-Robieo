@@ -134,7 +134,7 @@ TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_ShadowMapBufferTestW
    for (int i=0; i<frames; i++)
    {
       // Spin our shadow casted light
-      //light.spin += 0.003f;
+      light.spin += 0.003f;
 
       // Rotate objects in the scene
       item->get_placement_ref().rotation.x += 0.005;
@@ -186,29 +186,31 @@ TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_ShadowMapBufferTestW
 
       al_clear_depth_buffer(1);
 
-      /*
-      // Draw the casted render
-      texture_to_render = shadow_depth_map_renderer.get_result_surface_bitmap();
-      al_draw_tinted_scaled_bitmap(
-         //shadow_depth_map_renderer.get_result_surface_bitmap(),
-         //depth_pass.get_result_surface_bitmap(),
-         texture_to_render,
-         ALLEGRO_COLOR{0.4, 0.4, 0.4, 0.4},
-         0,
-         0,
-         al_get_bitmap_width(texture_to_render),
-         al_get_bitmap_height(texture_to_render),
-         0,
-         0,
-         al_get_display_width(get_display()),
-         al_get_display_height(get_display()),
-         //ALLEGRO_COLOR{1.0, 1.0, 1.0, 1.0},
-         //ALLEGRO_COLOR{0.4, 0.4, 0.4, 0.4},
-         //0,
-         //0,
-         0
-      );
-      */
+      bool draw_shadow_depth_map_as_overlay = true;
+      if (draw_shadow_depth_map_as_overlay)
+      {
+         // Draw the casted render
+         texture_to_render = shadow_depth_map_renderer.get_result_surface_bitmap();
+         al_draw_tinted_scaled_bitmap(
+            //shadow_depth_map_renderer.get_result_surface_bitmap(),
+            //depth_pass.get_result_surface_bitmap(),
+            texture_to_render,
+            ALLEGRO_COLOR{0.4, 0.4, 0.4, 0.4},
+            0,
+            0,
+            al_get_bitmap_width(texture_to_render),
+            al_get_bitmap_height(texture_to_render),
+            0,
+            0,
+            al_get_display_width(get_display()),
+            al_get_display_height(get_display()),
+            //ALLEGRO_COLOR{1.0, 1.0, 1.0, 1.0},
+            //ALLEGRO_COLOR{0.4, 0.4, 0.4, 0.4},
+            //0,
+            //0,
+            0
+         );
+      }
 
       al_flip_display();
       al_rest(1.0/60.0f);
