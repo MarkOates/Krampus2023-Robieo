@@ -6,6 +6,12 @@ uniform bool al_use_tex_matrix;
 uniform mat4 al_tex_matrix;
 varying vec4 varying_color;
 varying vec2 varying_texcoord;
+
+
+//uniform mat4 me__depth_pass_transform;
+//varying vec4 me__glPosition_from_light;
+
+
 void main()
 {
  varying_color = al_color;

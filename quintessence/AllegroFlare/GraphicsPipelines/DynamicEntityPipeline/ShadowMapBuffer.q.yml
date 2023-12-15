@@ -89,7 +89,13 @@ functions:
 
 
   - name: render
-    guards: [ entity_pool, cubemap_shader, multitexture_shader, shadow_mapping_shader, render_surface_is_setup ]
+    guards:
+      - entity_pool
+      - cubemap_shader
+      - multitexture_shader
+      - shadow_mapping_shader
+      - shadow_depth_map_renderer
+      - render_surface_is_setup
     body: |
       AllegroFlare::Camera3D *primary_camera = find_primary_camera_3d();
 
@@ -116,6 +122,13 @@ functions:
 
 
       shadow_mapping_shader->activate();
+      //AllegroFlare::Camera3D &light = shadow_depth_map_renderer->get_casting_light_ref();
+      //ALLEGRO_TRANSFORM transform;
+      
+      // HERE
+      //shadow_mapping_shader::set_mat4("me__depth_pass_transform", shadow_depth_map_renderer->get_casting_light_ref());
+
+
 
 
 

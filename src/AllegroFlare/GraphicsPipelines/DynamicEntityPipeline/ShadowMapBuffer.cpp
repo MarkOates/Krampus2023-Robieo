@@ -162,6 +162,13 @@ void ShadowMapBuffer::render()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("ShadowMapBuffer::render: error: guard \"shadow_mapping_shader\" not met");
    }
+   if (!(shadow_depth_map_renderer))
+   {
+      std::stringstream error_message;
+      error_message << "[ShadowMapBuffer::render]: error: guard \"shadow_depth_map_renderer\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("ShadowMapBuffer::render: error: guard \"shadow_depth_map_renderer\" not met");
+   }
    if (!(render_surface_is_setup))
    {
       std::stringstream error_message;
@@ -194,6 +201,13 @@ void ShadowMapBuffer::render()
 
 
    shadow_mapping_shader->activate();
+   //AllegroFlare::Camera3D &light = shadow_depth_map_renderer->get_casting_light_ref();
+   //ALLEGRO_TRANSFORM transform;
+
+   // HERE
+   //shadow_mapping_shader::set_mat4("me__depth_pass_transform", shadow_depth_map_renderer->get_casting_light_ref());
+
+
 
 
 

@@ -9,6 +9,11 @@ uniform float al_alpha_test_val;
 varying vec4 varying_color;
 varying vec2 varying_texcoord;
 
+
+//varying vec4 me__glPosition_from_light;
+
+
+
 void main()
 {
   vec4 c;
