@@ -8,6 +8,7 @@ varying vec4 varying_color;
 varying vec2 varying_texcoord;
 
 
+uniform mat4 me__object_position_transform;
 uniform mat4 me__depth_pass_transform;
 varying vec4 me__glPosition_from_light;
 varying vec2 me__shadow_pass_uv_texcoord;
@@ -15,7 +16,7 @@ varying vec2 me__shadow_pass_uv_texcoord;
 
 void main()
 {
-  me__glPosition_from_light = me__depth_pass_transform * al_pos;
+  me__glPosition_from_light = me__depth_pass_transform * me__object_position_transform * al_pos;
 
 
  // Calculate the color and the texture coords
@@ -37,6 +38,6 @@ void main()
 
 
  // Calculate the position
- gl_Position = al_projview_matrix * al_pos;
+ gl_Position = al_projview_matrix * me__object_position_transform * al_pos;
  //gl_Position = me__depth_pass_transform * al_pos; // If you want to view the light perspective
 }

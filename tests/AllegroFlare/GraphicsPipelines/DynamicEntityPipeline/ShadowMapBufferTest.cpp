@@ -130,11 +130,11 @@ TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_ShadowMapBufferTestW
    entity_pool.add(environment_mesh);
 
    // Render the scene
-   int frames = 90;
+   int frames = 120;
    for (int i=0; i<frames; i++)
    {
       // Spin our shadow casted light
-      light.spin += 0.003f;
+      //light.spin += 0.003f;
 
       // Rotate objects in the scene
       item->get_placement_ref().rotation.x += 0.005;

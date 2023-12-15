@@ -32,24 +32,24 @@ void main()
 
 
   // Calculate light
-  //bool in_casted_shadow = false;
-  //float bias = 3.0;
+  bool in_casted_shadow = false;
+  float bias = 0.0;
 
-  //float vertex_dist_from_light = me__glPosition_from_light.z;
-  //vec2 corrected_shadow_pass_uv = vec2(me__shadow_pass_uv_texcoord.x, -me__shadow_pass_uv_texcoord.y) * 0.5 + vec2(0.5, 0.0);
-  ////vec2 corrected_shadow_pass_uv = vec2(me__shadow_pass_uv_texcoord.x, -me__shadow_pass_uv_texcoord.y) * 10.0;
-  //vec4 sample_from_depth_pass = texture2D(me__depth_pass_sampler, corrected_shadow_pass_uv);
-  //if (sample_from_depth_pass.r < vertex_dist_from_light-bias) in_casted_shadow = true;
+  float vertex_dist_from_light = me__glPosition_from_light.z;
+  vec2 corrected_shadow_pass_uv = vec2(me__shadow_pass_uv_texcoord.x, -me__shadow_pass_uv_texcoord.y) * 0.5 + vec2(0.5, 0.0);
+  //vec2 corrected_shadow_pass_uv = vec2(me__shadow_pass_uv_texcoord.x, -me__shadow_pass_uv_texcoord.y) * 10.0;
+  vec4 sample_from_depth_pass = texture2D(me__depth_pass_sampler, corrected_shadow_pass_uv);
+  if (sample_from_depth_pass.r < vertex_dist_from_light-bias) in_casted_shadow = true;
 
-  //if (in_casted_shadow)
-  //{
-    //float opacity = 0.5;
-    //c = vec4(
-        //c.r*opacity,
-        //c.g*opacity,
-        //c.b*opacity,
-        //1.0);
-  //}
+  if (in_casted_shadow)
+  {
+    float opacity = 0.5;
+    c = vec4(
+        c.r*opacity,
+        c.g*opacity,
+        c.b*opacity,
+        1.0);
+  }
 
 
 

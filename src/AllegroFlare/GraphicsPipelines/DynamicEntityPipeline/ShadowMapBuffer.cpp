@@ -231,6 +231,13 @@ void ShadowMapBuffer::render()
       if (as_agc_entity->exists(EntityRenderFlags::DO_NOT_RENDER)) continue;
       
 
+      ALLEGRO_TRANSFORM object_transform; // TODO: Consider alternative, add clarity if the
+                                          // object performs the transform or if the objects placement is
+                                          // passed along to the shader. You will need to update/align all the
+                                          // shaders/renderers together
+      al_identity_transform(&object_transform);
+      shadow_mapping_shader->set_mat4("me__object_position_transform", &object_transform);
+
 
       // Extract the model type that is being rendered
       AllegroFlare::Model3D *model = get_model_3d(as_agc_entity);
@@ -248,8 +255,11 @@ void ShadowMapBuffer::render()
          if (renders_with_iridescent)
          {
             // NOTE: For now, this has to be set before activating the shader
-            cubemap_shader->set_object_placement(placement);
+            //cubemap_shader->set_object_placement(placement);
             //cubemap_shader->activate();
+            ALLEGRO_TRANSFORM object_transform;
+            placement->build_transform(&object_transform);
+            shadow_mapping_shader->set_mat4("me__object_position_transform", &object_transform);
          }
          else
          {
