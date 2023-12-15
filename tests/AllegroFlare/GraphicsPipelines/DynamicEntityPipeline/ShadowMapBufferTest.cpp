@@ -14,8 +14,8 @@
 #include <AllegroFlare/Testing/TestNameInference.hpp>
 
 
-class AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_SceneRendererTest : public ::testing::Test {};
-class AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_SceneRendererTestWithAllegroRenderingFixtureTest :
+class AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_ShadowMapBufferTest : public ::testing::Test {};
+class AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_ShadowMapBufferTestWithAllegroRenderingFixtureTest :
    public AllegroFlare::Testing::WithAllegroRenderingFixture
 {
 public:
@@ -23,19 +23,20 @@ public:
    {
       //set_display_width(1920*3/2);
       //set_display_height(1080*3/2);
+
       set_display_samples(0);
       AllegroFlare::Testing::WithAllegroRenderingFixture::SetUp();
    }
 };
 
 
-TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_SceneRendererTest, can_be_created_without_blowing_up)
+TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_ShadowMapBufferTest, can_be_created_without_blowing_up)
 {
    AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowMapBuffer scene_renderer;
 }
 
 
-TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_SceneRendererTestWithAllegroRenderingFixtureTest,
+TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_ShadowMapBufferTestWithAllegroRenderingFixtureTest,
    VISUAL__render__with_a_shadow_depth_map__will_render)
 {
    AllegroFlare::ModelBin model_bin;

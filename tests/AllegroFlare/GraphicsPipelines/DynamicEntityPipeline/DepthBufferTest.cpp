@@ -1,26 +1,27 @@
 
 #include <gtest/gtest.h>
 
+
 #include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
 #include <AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/DepthBuffer.hpp>
 #include <AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityFactory.hpp>
 #include <AllegroFlare/Testing/TestNameInference.hpp>
 
 
-class AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_ShadowDepthMapRendererTest : public ::testing::Test {};
-class AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_ShadowDepthMapRendererTestWithAllegroRenderingFixtureTest :
+class AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_DepthBufferRendererTest : public ::testing::Test {};
+class AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_DepthBufferRendererTestWithAllegroRenderingFixtureTest :
    public AllegroFlare::Testing::WithAllegroRenderingFixture
 {};
 
 
-TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_ShadowDepthMapRendererTest,
+TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_DepthBufferRendererTest,
    can_be_created_without_blowing_up)
 {
    AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::DepthBuffer shadow_depth_map_renderer;
 }
 
 
-TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_ShadowDepthMapRendererTestWithAllegroRenderingFixtureTest,
+TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_DepthBufferRendererTestWithAllegroRenderingFixtureTest,
    render__does_not_blow_up)
 {
    AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool entity_pool;
@@ -42,7 +43,7 @@ TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_ShadowDepthMapRender
 }
 
 
-TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_ShadowDepthMapRendererTestWithAllegroRenderingFixtureTest,
+TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_DepthBufferRendererTestWithAllegroRenderingFixtureTest,
    render__with_objects_in_the_scene__will_render_a_shadow_depth_map_as_expected)
 {
    AllegroFlare::ModelBin model_bin;
@@ -87,7 +88,7 @@ TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_ShadowDepthMapRender
 }
 
 
-TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_ShadowDepthMapRendererTestWithAllegroRenderingFixtureTest,
+TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_DepthBufferRendererTestWithAllegroRenderingFixtureTest,
    VISUAL__render__with_moving_light_will_translate_as_expected)
 {
    AllegroFlare::ModelBin model_bin;
