@@ -40,39 +40,25 @@ TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_SceneRendererTestWit
 {
    AllegroFlare::ModelBin model_bin;
    model_bin.set_full_path(get_fixtures_path() + "models");
-   //AllegroFlare::Shaders::Multitexture multitexture_shader;
-   //AllegroFlare::Shaders::Cubemap cubemap_shader;
-   //AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowDepthMapRenderer2 shadow_depth_map_renderer;
-   //AllegroFlare::Cubemap* cubemap = nullptr;
+
+   // Create our entity pool
    AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool entity_pool;
+
+   // Create our graphics pipeline
+   AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::SceneRenderer2 scene_renderer;
+   scene_renderer.set_entity_pool(&entity_pool);
+   scene_renderer.setup_result_surface_bitmap(1920 / 3, 1080 / 3);
+   scene_renderer.setup_shadow_map_buffer();
+   scene_renderer.setup_cubemapping(get_fixtures_path() + "bitmaps/black_prism_1-01.png");
+   scene_renderer.setup_multitexture_shader();
+
+   // Create our entity factory
    AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityFactory entity_factory;
    entity_factory.set_bitmap_bin(&get_bitmap_bin_ref());
    entity_factory.set_model_bin(&model_bin);
 
-   //AllegroFlare::CubemapBuilder builder;
-   //std::string cube_map_texture_filename = get_fixtures_path() + "bitmaps/black_prism_1-01.png";
-   //cubemap = builder.glsl_create_cubemap_from_vertical_strip(cube_map_texture_filename.c_str());
-
-   //cubemap_shader.initialize();
-   //cubemap_shader.set_cube_map(cubemap);
-
-   //multitexture_shader.initialize();
-
-   //cubemap_shader.initialize();
-   //cubemap_shader.set_cube_map(cubemap);
-
-   // Shadow depth map renderer
-   //shadow_depth_map_renderer.setup_result_surface_bitmap(1920, 1080); // TODO: Don't use hard coded dimensions
-   //shadow_depth_map_renderer.init_shader();
-   //shadow_depth_map_renderer.set_entity_pool(&entity_pool);
-   //shadow_depth_map_renderer.init_camera_defaults(); // NOTE: The camera defaults seem to be weird
-   //AllegroFlare::Camera3D &lightx = shadow_depth_map_renderer.get_casting_light_ref();
-   //shadow_depth_map_renderer.initialize();
-
-
-
+   // Add objects to our scene
    // Create the camera
-
    AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Camera3D* camera_entity =
       entity_factory.create_camera_3d();
    AllegroFlare::Camera3D &camera = camera_entity->get_camera_3d_ref();
@@ -80,21 +66,6 @@ TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_SceneRendererTestWit
    camera.stepout = { 0, 1.0, 4.0 };
    camera.spin = 0.1;
    entity_pool.add(camera_entity);
-
-   AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::SceneRenderer2 scene_renderer;
-   //scene_renderer.set_cubemap_shader(&cubemap_shader);
-   //scene_renderer.setup_multitexture_shader();
-   //scene_renderer.set_multitexture_shader(&multitexture_shader);
-   scene_renderer.set_entity_pool(&entity_pool);
-   //scene_renderer.set_shadow_depth_map_renderer(&shadow_depth_map_renderer);
-   //scene_renderer.set_depth_pass(&depth_pass);
-   //scene_renderer.setup_result_surface_bitmap(800, 600);
-   //scene_renderer.setup_result_surface_bitmap(1920 / 2, 1080 / 2);
-   scene_renderer.setup_result_surface_bitmap(1920 / 3, 1080 / 3);
-   //scene_renderer.setup_result_surface_bitmap(1920 / 4, 1080 / 4);
-   scene_renderer.setup_shadow_map_buffer();
-   scene_renderer.setup_cubemapping(get_fixtures_path() + "bitmaps/black_prism_1-01.png");
-   scene_renderer.setup_multitexture_shader();
 
    // TODO: Use an EntityFactory for this setup
    AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D *item = 
@@ -110,7 +81,7 @@ TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_SceneRendererTestWit
    AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D *dynamic_cube = 
       new AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D();
    dynamic_cube->set_model_3d(model_bin.auto_get("rounded_unit_cube-01.obj"));
-   //dynamic_cube->set_model_3d_texture(get_bitmap_bin_ref().auto_get("uv.png"));
+   dynamic_cube->set_model_3d_texture(get_bitmap_bin_ref().auto_get("uv.png"));
    dynamic_cube->get_placement_ref().position.x = 1.5;
    dynamic_cube->get_placement_ref().position.y = 0.5;
    entity_pool.add(dynamic_cube);
