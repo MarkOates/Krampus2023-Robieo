@@ -185,6 +185,14 @@ functions:
             AllegroFlare::MultitextureModel3D* mtm = get_multitexture_model_3d(entity);
             if (mtm) render_multitexture_model_3d(mtm);
          }
+         else
+         {
+            // TODO: Consider throw here on unsupported type
+            AllegroFlare::Logger::throw_error(
+               "AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowDepthMapRenderer2::render",
+               "Unsupported type"
+            );
+         }
       }
 
       //al_set_target_bitmap(result_surface_bitmap); // I *believe* newer versions of allegro have a depth map
@@ -202,6 +210,7 @@ functions:
       return;
     body_dependency_symbols:
       - glEnable
+      - AllegroFlare::Logger
       - AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::StaticModel3D
       - AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D
       - AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::StaticMultitextureModel3D
@@ -351,5 +360,7 @@ dependencies:
     headers: [ AllegroFlare/MultitextureModel3D.hpp ]
   - symbol: AllegroFlare::ALLEGRO_VERTEX_WITH_TWO_UVS_AND_NORMAL
     headers: [ AllegroFlare/ALLEGRO_VERTEX_WITH_TWO_UVS_AND_NORMAL.hpp ]
+  - symbol: AllegroFlare::Logger
+    headers: [ AllegroFlare/Logger.hpp ]
 
 

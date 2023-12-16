@@ -6,6 +6,7 @@
 #include <AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/DynamicModel3D.hpp>
 #include <AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/StaticModel3D.hpp>
 #include <AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/StaticMultitextureModel3D.hpp>
+#include <AllegroFlare/Logger.hpp>
 #include <AllegroFlare/UsefulPHP.hpp>
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_opengl.h>
@@ -219,6 +220,14 @@ void ShadowDepthMapRenderer2::render()
 
          AllegroFlare::MultitextureModel3D* mtm = get_multitexture_model_3d(entity);
          if (mtm) render_multitexture_model_3d(mtm);
+      }
+      else
+      {
+         // TODO: Consider throw here on unsupported type
+         AllegroFlare::Logger::throw_error(
+            "AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowDepthMapRenderer2::render",
+            "Unsupported type"
+         );
       }
    }
 
