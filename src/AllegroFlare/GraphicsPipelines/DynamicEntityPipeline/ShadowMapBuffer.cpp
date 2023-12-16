@@ -175,6 +175,11 @@ void ShadowMapBuffer::set_result_surface_height(int height)
    return;
 }
 
+AllegroFlare::Camera3D* ShadowMapBuffer::get_light()
+{
+   return &get_shadow_depth_map_renderer_ref().get_casting_light_ref();
+}
+
 void ShadowMapBuffer::initialize()
 {
    if (!((!initialized)))

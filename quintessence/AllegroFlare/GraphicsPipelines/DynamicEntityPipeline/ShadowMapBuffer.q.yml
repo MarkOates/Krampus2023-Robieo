@@ -117,6 +117,12 @@ methods:
       return;
 
 
+  - name: get_light
+    type: AllegroFlare::Camera3D*
+    body: |
+      return &get_shadow_depth_map_renderer_ref().get_casting_light_ref();
+
+
   - name: initialize
     guards: [ (!initialized) ]
     body: |
@@ -144,9 +150,7 @@ methods:
 
 
   - name: render
-    guards:
-      - initialized
-      - entity_pool
+    guards: [ initialized, entity_pool ]
     body: |
       AllegroFlare::Camera3D *primary_camera = find_primary_camera_3d();
 

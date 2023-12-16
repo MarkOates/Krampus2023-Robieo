@@ -86,15 +86,9 @@ TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_ShadowMapBufferTestW
    entity_pool.add(camera_entity);
 
    AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowMapBuffer scene_renderer;
-   //scene_renderer.set_cubemap_shader(&cubemap_shader);
-   //scene_renderer.set_multitexture_shader(&multitexture_shader);
-   //scene_renderer.set_shadow_mapping_shader(&shadow_mapping_shader);
    scene_renderer.set_entity_pool(&entity_pool);
-   //scene_renderer.set_shadow_depth_map_renderer(&shadow_depth_map_renderer);
-   //scene_renderer.set_depth_pass(&depth_pass);
-   //scene_renderer.setup_result_surface_bitmap(800, 600);
-   scene_renderer.set_result_surface_width(1920 / 2);
-   scene_renderer.set_result_surface_height(1080 / 2);
+   scene_renderer.set_result_surface_width(1920 / 4);
+   scene_renderer.set_result_surface_height(1080 / 4);
    scene_renderer.initialize();
 
    // TODO: Use an EntityFactory for this setup
@@ -140,12 +134,12 @@ TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_ShadowMapBufferTestW
 
    // Render the scene
    int frames = 120;
-   AllegroFlare::Camera3D &light = scene_renderer.get_shadow_depth_map_renderer_ref().get_casting_light_ref();
+   AllegroFlare::Camera3D *light = scene_renderer.get_light();
    for (int i=0; i<frames; i++)
    {
       //AllegroFlare::Camera3D &light = scene_renderer.get_shadow_depth_map_renderer().get_casting_light_ref();
       // Spin our shadow casted light
-      light.spin += 0.003f;
+      light->spin -= 0.007f;
 
       // Rotate objects in the scene
       item->get_placement_ref().rotation.x += 0.005;
