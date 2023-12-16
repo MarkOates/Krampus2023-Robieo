@@ -68,6 +68,8 @@ TEST_F(Pipeline_Gameplay_ScreenTestWithAllegroFrameworksFullFixture,
    screen.set_game_configuration(&game_configuration),
    screen.initialize();
 
+   screen.load_level_by_identifier("-this-string-is-discarded-");
+
    framework_register_and_activate_screen("screen", &screen);
 
    framework_run_loop(3);

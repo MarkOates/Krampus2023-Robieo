@@ -116,18 +116,18 @@ TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_SceneRendererTestWit
    int frames = 90 * 5;
    for (int i=0; i<frames; i++)
    {
-      AllegroFlare::Camera3D *light = scene_renderer.get_shadow_map_buffer_ref().get_light();
+      //AllegroFlare::Camera3D *light = scene_renderer.get_shadow_map_buffer_ref().get_light();
       // Spin our shadow casted light
-      light->spin -= 0.001f;
+      //light->spin -= 0.001f;
 
       // Rotate objects in the scene
-      item->get_placement_ref().rotation.x += 0.005;
-      item->get_placement_ref().rotation.z += 0.003547;
+      //item->get_placement_ref().rotation.x += 0.005;
+      //item->get_placement_ref().rotation.z += 0.003547;
 
       // Pan the camera
-      camera.stepout.z += 0.01;
-      camera.spin += 0.0005;
-      camera.tilt += 0.0008;
+      //camera.stepout.z += 0.01;
+      //camera.spin += 0.0005;
+      //camera.tilt += 0.0008;
 
       // Render the scene
       scene_renderer.render();
