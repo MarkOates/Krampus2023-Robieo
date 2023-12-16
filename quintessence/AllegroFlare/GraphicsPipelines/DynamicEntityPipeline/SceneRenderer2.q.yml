@@ -84,7 +84,7 @@ functions:
       - name: cube_map_texture_filename
         type: std::string
         default_argument: '"[unset-cube_map_texture_filename]"'
-    guards: [ (!cubemapping_is_setup), (std::filesystem::exists(cube_map_texture_filename)) ]
+    guards: [ (!cubemapping_is_setup), 'std::filesystem::exists(cube_map_texture_filename)' ]
     body: |
       // TODO: Needs duplicate init guards
       AllegroFlare::Cubemap* cubemap = nullptr;

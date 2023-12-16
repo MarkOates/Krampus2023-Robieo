@@ -181,7 +181,7 @@ table td
 <div class="property-box properties">     <table>
 <tr>
   <td class="property">cubemap_shader</td>
-  <td class="property">AllegroFlare::Shaders::Cubemap*</td>
+  <td class="property">AllegroFlare::Shaders::Cubemap</td>
 </tr>
 <tr>
   <td class="property">multitexture_shader</td>
@@ -207,6 +207,10 @@ table td
   <td class="property">render_surface_is_setup</td>
   <td class="property">bool</td>
 </tr>
+<tr>
+  <td class="property">cubemapping_is_setup</td>
+  <td class="property">bool</td>
+</tr>
     </table>
 </div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
@@ -215,6 +219,9 @@ table td
 </tr>
 <tr>
   <td class="method">setup_shadow_map_buffer()</td>
+</tr>
+<tr>
+  <td class="method">setup_cubemapping(std::string cube_map_texture_filename=&quot;[unset-cube_map_texture_filename]&quot;)</td>
 </tr>
 <tr>
   <td class="method">find_primary_camera_3d()</td>
@@ -296,6 +303,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Camera2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Camera2D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::CubemapBuilder&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/CubemapBuilder.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -1235,6 +1245,9 @@ table td
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer2"
   ],
   "AllegroFlare/Camera2D": [
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer2"
+  ],
+  "AllegroFlare/CubemapBuilder": [
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer2"
   ],
   "AllegroFlare/Shaders/ShadowMapping": [

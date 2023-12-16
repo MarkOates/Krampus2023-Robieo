@@ -127,6 +127,9 @@
   "AllegroFlare/Camera2D": [
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer2"
   ],
+  "AllegroFlare/CubemapBuilder": [
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer2"
+  ],
   "AllegroFlare/Shaders/ShadowMapping": [
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowMapBuffer"
   ],
