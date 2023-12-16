@@ -248,6 +248,19 @@ methods:
 
   - name: update
     body: |
+      // Spin our shadow casted light
+      AllegroFlare::Camera3D *light = scene_renderer.get_shadow_map_buffer_ref().get_light();
+      light->spin -= 0.001f;
+
+      // Pan the camera
+      AllegroFlare::Camera3D *primary_camera = scene_renderer.find_primary_camera_3d();
+      primary_camera->stepout.z += 0.01;
+      primary_camera->spin += 0.0005;
+      primary_camera->tilt += 0.0008;
+
+      // Rotate objects in the scene
+      //item->get_placement_ref().rotation.x += 0.005;
+      //item->get_placement_ref().rotation.z += 0.003547;
       return;
 
 

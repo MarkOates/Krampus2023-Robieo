@@ -29,14 +29,14 @@ Main::~Main()
 std::vector<std::pair<std::string, std::string>> Main::build_level_list_for_level_select_screen_by_identifier(std::string identifier)
 {
    std::vector<std::pair<std::string, std::string>> result = {
-      { "Forest Village 1", "forest_village_1" },
-      { "Forest Village 2", "forest_village_2" },
-      { "Forest", "forest_1" },
-      { "Crystal Cave", "crystal_cave_1" },
-      { "Desert Town", "desert_town_3" },
-      { "Town 2", "town_2" },
-      { "Cave 1", "cave_1" },
-      { "Town 1", "town_1" },
+      //{ "Forest Village 1", "forest_village_1" },
+      //{ "Forest Village 2", "forest_village_2" },
+      //{ "Forest", "forest_1" },
+      //{ "Crystal Cave", "crystal_cave_1" },
+      //{ "Desert Town", "desert_town_3" },
+      //{ "Town 2", "town_2" },
+      //{ "Cave 1", "cave_1" },
+      //{ "Town 1", "town_1" },
    };
    return result;
 }
