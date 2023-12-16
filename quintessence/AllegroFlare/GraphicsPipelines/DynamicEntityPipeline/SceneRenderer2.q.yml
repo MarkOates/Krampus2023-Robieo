@@ -2,11 +2,9 @@ properties:
 
 
   - name: cubemap_shader
-    type: AllegroFlare::Shaders::Cubemap*
-    init_with: nullptr
-    constructor_arg: true
-    getter: true
-    setter: true
+    type: AllegroFlare::Shaders::Cubemap
+    init_with: ''
+    getter_ref: true
 
   - name: multitexture_shader
     type: AllegroFlare::Shaders::Multitexture*
@@ -44,6 +42,10 @@ properties:
     type: bool
     init_with: false
 
+  - name: cubemapping_is_setup
+    type: bool
+    init_with: false
+
 
 functions:
 
@@ -77,6 +79,29 @@ functions:
       return;
 
 
+  - name: setup_cubemapping
+    parameters:
+      - name: cube_map_texture_filename
+        type: std::string
+        default_argument: '"[unset-cube_map_texture_filename]"'
+    guards: [ (!cubemapping_is_setup), (std::filesystem::exists(cube_map_texture_filename)) ]
+    body: |
+      // TODO: Needs duplicate init guards
+      AllegroFlare::Cubemap* cubemap = nullptr;
+      AllegroFlare::CubemapBuilder builder;
+      //std::string cube_map_texture_filename = get_fixtures_path() + "bitmaps/black_prism_1-01.png";
+      cubemap = builder.glsl_create_cubemap_from_vertical_strip(cube_map_texture_filename.c_str());
+
+      cubemap_shader.initialize();
+      cubemap_shader.set_cube_map(cubemap);
+
+      cubemapping_is_setup = true;
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::CubemapBuilder
+      - std::filesystem
+
+
   - name: find_primary_camera_3d
     type: AllegroFlare::Camera3D*
     body: |
@@ -96,7 +121,7 @@ functions:
 
 
   - name: render
-    guards: [ entity_pool, cubemap_shader, multitexture_shader, render_surface_is_setup ]
+    guards: [ entity_pool, multitexture_shader, render_surface_is_setup, cubemapping_is_setup ]
     body: |
       AllegroFlare::Camera3D *primary_camera = find_primary_camera_3d();
 
@@ -140,7 +165,7 @@ functions:
       primary_camera->setup_projection_on(render_surface_bmp);
 
       // Set the camera position in the iridescent shder
-      cubemap_shader->set_camera_position(primary_camera->get_real_position());
+      cubemap_shader.set_camera_position(primary_camera->get_real_position());
 
       //std::unordered_set<AllegroFlare::SceneGraph::Entities::Base*>
       for (auto &entity : entity_pool->get_entity_pool_ref())
@@ -170,9 +195,9 @@ functions:
                //Gameplay::Entities::Base *as_gac_base = static_cast<Entities::Base*>(entity);
 
                // NOTE: For now, this has to be set before activating the shader
-               cubemap_shader->set_object_placement(placement);
+               cubemap_shader.set_object_placement(placement);
 
-               cubemap_shader->activate();
+               cubemap_shader.activate();
             }
             else
             {
@@ -188,7 +213,7 @@ functions:
             // Teardown the render for this object
             if (renders_with_iridescent)
             {
-               cubemap_shader->deactivate();
+               cubemap_shader.deactivate();
             }
             else
             {
@@ -491,5 +516,7 @@ dependencies:
     headers: [ AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowMapBuffer.hpp ]
   - symbol: AllegroFlare::Camera2D
     headers: [ AllegroFlare/Camera2D.hpp ]
+  - symbol: AllegroFlare::CubemapBuilder
+    headers: [ AllegroFlare/CubemapBuilder.hpp ]
 
 

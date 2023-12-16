@@ -41,25 +41,25 @@ TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_SceneRendererTestWit
    AllegroFlare::ModelBin model_bin;
    model_bin.set_full_path(get_fixtures_path() + "models");
    AllegroFlare::Shaders::Multitexture multitexture_shader;
-   AllegroFlare::Shaders::Cubemap cubemap_shader;
+   //AllegroFlare::Shaders::Cubemap cubemap_shader;
    AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowDepthMapRenderer2 shadow_depth_map_renderer;
-   AllegroFlare::Cubemap* cubemap = nullptr;
+   //AllegroFlare::Cubemap* cubemap = nullptr;
    AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool entity_pool;
    AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityFactory entity_factory;
    entity_factory.set_bitmap_bin(&get_bitmap_bin_ref());
    entity_factory.set_model_bin(&model_bin);
 
-   AllegroFlare::CubemapBuilder builder;
-   std::string cube_map_texture_filename = get_fixtures_path() + "bitmaps/black_prism_1-01.png";
-   cubemap = builder.glsl_create_cubemap_from_vertical_strip(cube_map_texture_filename.c_str());
+   //AllegroFlare::CubemapBuilder builder;
+   //std::string cube_map_texture_filename = get_fixtures_path() + "bitmaps/black_prism_1-01.png";
+   //cubemap = builder.glsl_create_cubemap_from_vertical_strip(cube_map_texture_filename.c_str());
 
    //cubemap_shader.initialize();
    //cubemap_shader.set_cube_map(cubemap);
 
    multitexture_shader.initialize();
 
-   cubemap_shader.initialize();
-   cubemap_shader.set_cube_map(cubemap);
+   //cubemap_shader.initialize();
+   //cubemap_shader.set_cube_map(cubemap);
 
    // Shadow depth map renderer
    shadow_depth_map_renderer.setup_result_surface_bitmap(1920, 1080); // TODO: Don't use hard coded dimensions
@@ -82,7 +82,7 @@ TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_SceneRendererTestWit
    entity_pool.add(camera_entity);
 
    AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::SceneRenderer2 scene_renderer;
-   scene_renderer.set_cubemap_shader(&cubemap_shader);
+   //scene_renderer.set_cubemap_shader(&cubemap_shader);
    scene_renderer.set_multitexture_shader(&multitexture_shader);
    scene_renderer.set_entity_pool(&entity_pool);
    scene_renderer.set_shadow_depth_map_renderer(&shadow_depth_map_renderer);
@@ -92,6 +92,7 @@ TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_SceneRendererTestWit
    scene_renderer.setup_result_surface_bitmap(1920 / 3, 1080 / 3);
    //scene_renderer.setup_result_surface_bitmap(1920 / 4, 1080 / 4);
    scene_renderer.setup_shadow_map_buffer();
+   scene_renderer.setup_cubemapping(get_fixtures_path() + "bitmaps/black_prism_1-01.png");
 
    // TODO: Use an EntityFactory for this setup
    AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D *item = 

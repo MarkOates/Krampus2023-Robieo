@@ -3,12 +3,14 @@
 #include <AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer2.hpp>
 
 #include <AllegroFlare/Camera2D.hpp>
+#include <AllegroFlare/CubemapBuilder.hpp>
 #include <AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/Camera3D.hpp>
 #include <AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/DynamicModel3D.hpp>
 #include <AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/StaticModel3D.hpp>
 #include <AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/StaticMultitextureModel3D.hpp>
 #include <AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityRenderFlags.hpp>
 #include <AllegroFlare/Logger.hpp>
+#include <filesystem>
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
@@ -22,26 +24,21 @@ namespace DynamicEntityPipeline
 {
 
 
-SceneRenderer2::SceneRenderer2(AllegroFlare::Shaders::Cubemap* cubemap_shader, AllegroFlare::Shaders::Multitexture* multitexture_shader, AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool* entity_pool)
-   : cubemap_shader(cubemap_shader)
+SceneRenderer2::SceneRenderer2(AllegroFlare::Shaders::Multitexture* multitexture_shader, AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool* entity_pool)
+   : cubemap_shader()
    , multitexture_shader(multitexture_shader)
    , entity_pool(entity_pool)
    , shadow_map_buffer()
    , shadow_depth_map_renderer(nullptr)
    , render_surface()
    , render_surface_is_setup(false)
+   , cubemapping_is_setup(false)
 {
 }
 
 
 SceneRenderer2::~SceneRenderer2()
 {
-}
-
-
-void SceneRenderer2::set_cubemap_shader(AllegroFlare::Shaders::Cubemap* cubemap_shader)
-{
-   this->cubemap_shader = cubemap_shader;
 }
 
 
@@ -63,12 +60,6 @@ void SceneRenderer2::set_shadow_depth_map_renderer(AllegroFlare::GraphicsPipelin
 }
 
 
-AllegroFlare::Shaders::Cubemap* SceneRenderer2::get_cubemap_shader() const
-{
-   return cubemap_shader;
-}
-
-
 AllegroFlare::Shaders::Multitexture* SceneRenderer2::get_multitexture_shader() const
 {
    return multitexture_shader;
@@ -84,6 +75,12 @@ AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool* SceneRendere
 AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowDepthMapRenderer2* SceneRenderer2::get_shadow_depth_map_renderer() const
 {
    return shadow_depth_map_renderer;
+}
+
+
+AllegroFlare::Shaders::Cubemap &SceneRenderer2::get_cubemap_shader_ref()
+{
+   return cubemap_shader;
 }
 
 
@@ -121,6 +118,35 @@ void SceneRenderer2::setup_shadow_map_buffer()
    return;
 }
 
+void SceneRenderer2::setup_cubemapping(std::string cube_map_texture_filename)
+{
+   if (!((!cubemapping_is_setup)))
+   {
+      std::stringstream error_message;
+      error_message << "[SceneRenderer2::setup_cubemapping]: error: guard \"(!cubemapping_is_setup)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("SceneRenderer2::setup_cubemapping: error: guard \"(!cubemapping_is_setup)\" not met");
+   }
+   if (!((std::filesystem::exists(cube_map_texture_filename))))
+   {
+      std::stringstream error_message;
+      error_message << "[SceneRenderer2::setup_cubemapping]: error: guard \"(std::filesystem::exists(cube_map_texture_filename))\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("SceneRenderer2::setup_cubemapping: error: guard \"(std::filesystem::exists(cube_map_texture_filename))\" not met");
+   }
+   // TODO: Needs duplicate init guards
+   AllegroFlare::Cubemap* cubemap = nullptr;
+   AllegroFlare::CubemapBuilder builder;
+   //std::string cube_map_texture_filename = get_fixtures_path() + "bitmaps/black_prism_1-01.png";
+   cubemap = builder.glsl_create_cubemap_from_vertical_strip(cube_map_texture_filename.c_str());
+
+   cubemap_shader.initialize();
+   cubemap_shader.set_cube_map(cubemap);
+
+   cubemapping_is_setup = true;
+   return;
+}
+
 AllegroFlare::Camera3D* SceneRenderer2::find_primary_camera_3d()
 {
    Entities::Base *entity = entity_pool->find_with_attribute("primary_camera");
@@ -145,13 +171,6 @@ void SceneRenderer2::render()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("SceneRenderer2::render: error: guard \"entity_pool\" not met");
    }
-   if (!(cubemap_shader))
-   {
-      std::stringstream error_message;
-      error_message << "[SceneRenderer2::render]: error: guard \"cubemap_shader\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("SceneRenderer2::render: error: guard \"cubemap_shader\" not met");
-   }
    if (!(multitexture_shader))
    {
       std::stringstream error_message;
@@ -165,6 +184,13 @@ void SceneRenderer2::render()
       error_message << "[SceneRenderer2::render]: error: guard \"render_surface_is_setup\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("SceneRenderer2::render: error: guard \"render_surface_is_setup\" not met");
+   }
+   if (!(cubemapping_is_setup))
+   {
+      std::stringstream error_message;
+      error_message << "[SceneRenderer2::render]: error: guard \"cubemapping_is_setup\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("SceneRenderer2::render: error: guard \"cubemapping_is_setup\" not met");
    }
    AllegroFlare::Camera3D *primary_camera = find_primary_camera_3d();
 
@@ -208,7 +234,7 @@ void SceneRenderer2::render()
    primary_camera->setup_projection_on(render_surface_bmp);
 
    // Set the camera position in the iridescent shder
-   cubemap_shader->set_camera_position(primary_camera->get_real_position());
+   cubemap_shader.set_camera_position(primary_camera->get_real_position());
 
    //std::unordered_set<AllegroFlare::SceneGraph::Entities::Base*>
    for (auto &entity : entity_pool->get_entity_pool_ref())
@@ -238,9 +264,9 @@ void SceneRenderer2::render()
             //Gameplay::Entities::Base *as_gac_base = static_cast<Entities::Base*>(entity);
 
             // NOTE: For now, this has to be set before activating the shader
-            cubemap_shader->set_object_placement(placement);
+            cubemap_shader.set_object_placement(placement);
 
-            cubemap_shader->activate();
+            cubemap_shader.activate();
          }
          else
          {
@@ -256,7 +282,7 @@ void SceneRenderer2::render()
          // Teardown the render for this object
          if (renders_with_iridescent)
          {
-            cubemap_shader->deactivate();
+            cubemap_shader.deactivate();
          }
          else
          {
