@@ -12,6 +12,7 @@
 #include <AllegroFlare/ModelBin.hpp>
 #include <AllegroFlare/Player.hpp>
 #include <AllegroFlare/Screens/Base.hpp>
+#include <AllegroFlare/Vec2D.hpp>
 #include <AllegroFlare/VirtualControllers/Base.hpp>
 #include <Pipeline/Gameplay/Level.hpp>
 #include <Pipeline/Gameplay/Screen.hpp>
@@ -37,6 +38,7 @@ namespace Pipeline
          AllegroFlare::GameConfigurations::Base* game_configuration;
          AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool entity_pool;
          AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base* player_controlled_entity;
+         AllegroFlare::Vec2D player_control_velocity;
          AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::SceneRenderer2 scene_renderer;
          std::string current_level_identifier;
          Pipeline::Gameplay::Level* current_level;

@@ -28,6 +28,7 @@ Screen::Screen(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::BitmapBi
    , game_configuration(game_configuration)
    , entity_pool()
    , player_controlled_entity(nullptr)
+   , player_control_velocity()
    , scene_renderer()
    , current_level_identifier("[unset-current_level]")
    , current_level(nullptr)
@@ -142,6 +143,7 @@ void Screen::load_level_by_identifier(std::string level_identifier)
       throw std::runtime_error("Screen::load_level_by_identifier: error: guard \"game_configuration\" not met");
    }
    player_controlled_entity = nullptr;
+   player_control_velocity = { 0.0f, 0.0f };
    // TODO: Clear pool
 
 
@@ -324,6 +326,11 @@ void Screen::update()
    //primary_camera->spin += 0.0005;
    //primary_camera->tilt += 0.0008;
 
+   // HERE:
+   //if (player_controlled_entity)
+   //{
+      //player_controlled_entity.get_placement_ref() += player_control_velocity.x
+   //}
    // Rotate objects in the scene
    //item->get_placement_ref().rotation.x += 0.005;
    //item->get_placement_ref().rotation.z += 0.003547;

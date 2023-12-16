@@ -44,6 +44,10 @@ properties:
     type: AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base*
     init_with: nullptr
 
+  - name: player_control_velocity
+    type: AllegroFlare::Vec2D
+    init_with: ''
+
   - name: scene_renderer
     type: AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::SceneRenderer2
     init_with: ''
@@ -135,6 +139,7 @@ methods:
     guards: [ game_configuration ]
     body: |
       player_controlled_entity = nullptr;
+      player_control_velocity = { 0.0f, 0.0f };
       // TODO: Clear pool
 
 
@@ -270,6 +275,11 @@ methods:
       //primary_camera->spin += 0.0005;
       //primary_camera->tilt += 0.0008;
 
+      // HERE:
+      //if (player_controlled_entity)
+      //{
+         //player_controlled_entity.get_placement_ref() += player_control_velocity.x
+      //}
       // Rotate objects in the scene
       //item->get_placement_ref().rotation.x += 0.005;
       //item->get_placement_ref().rotation.z += 0.003547;
@@ -472,5 +482,7 @@ dependencies:
     headers: [ AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityRenderFlags.hpp ]
   - symbol: AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base
     headers: [ AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/Base.hpp ]
+  - symbol: AllegroFlare::Vec2D
+    headers: [ AllegroFlare/Vec2D.hpp ]
 
 
