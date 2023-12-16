@@ -335,7 +335,7 @@ void SceneRenderer2::render()
    }
 
 
-   std::cout << "Entities rendered: " << entities_rendered << std::endl;
+   //std::cout << "Entities rendered: " << entities_rendered << std::endl;
 
 
    // 
