@@ -33,7 +33,7 @@ properties:
     getter: true
     setter: explicit
 
-  - name: render_surface
+  - name: result_surface
     type: AllegroFlare::RenderSurfaces::Bitmap
     init_with: ''
     getter_ref: true
@@ -75,11 +75,11 @@ methods:
   - name: initialize
     guards: [ (!initialized) ]
     body: |
-      render_surface.set_surface_width(result_surface_width);
-      render_surface.set_surface_height(result_surface_height);
-      render_surface.set_multisamples(0);
-      render_surface.set_depth(32);
-      render_surface.initialize();
+      result_surface.set_surface_width(result_surface_width);
+      result_surface.set_surface_height(result_surface_height);
+      result_surface.set_multisamples(0);
+      result_surface.set_depth(32);
+      result_surface.initialize();
 
       initialized = true;
 
@@ -104,9 +104,9 @@ methods:
 
       using namespace AllegroFlare::GraphicsPipelines::DynamicEntityPipeline;
 
-      ALLEGRO_BITMAP *render_surface_bmp = render_surface.obtain_surface();
+      ALLEGRO_BITMAP *result_surface_bmp = result_surface.obtain_surface();
 
-      al_set_target_bitmap(render_surface_bmp);
+      al_set_target_bitmap(result_surface_bmp);
 
 
       al_clear_depth_buffer(1);
@@ -115,7 +115,7 @@ methods:
                                                                                         // color to make it a little
                                                                                         // easier for debugging
 
-      primary_camera->setup_projection_on(render_surface_bmp);
+      primary_camera->setup_projection_on(result_surface_bmp);
 
 
 

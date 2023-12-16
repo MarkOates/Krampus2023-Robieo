@@ -163,14 +163,14 @@ TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_ShadowMapBufferTestW
 
       al_set_target_bitmap(backbuffer);
       //camera2d.setup_dimensional_projection(backbuffer);
-      //ALLEGRO_BITMAP *render_surface = al_get_backbuffer(al_get_current_display()); // TODO: replace with render surface
-      //al_identity_transform(&render_surface);
+      //ALLEGRO_BITMAP *result_surface = al_get_backbuffer(al_get_current_display()); // TODO: replace with render surface
+      //al_identity_transform(&result_surface);
 
       al_clear_depth_buffer(1);
       al_clear_to_color(ALLEGRO_COLOR{0.1, 0.105, 0.12, 1.0});
 
       ALLEGRO_BITMAP *texture_to_render = 
-         scene_renderer.get_render_surface_ref().obtain_surface();
+         scene_renderer.get_result_surface_ref().obtain_surface();
       //ALLEGRO_BITMAP *render_surface = scene_renderer.get_render_surface_ref().obtain_surface();
       ///*
       al_draw_scaled_bitmap(
@@ -226,7 +226,7 @@ TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_ShadowMapBufferTestW
    }
 
    std::string snapshot_filename = AllegroFlare::Testing::TestNameInference::build_test_snapshot_full_filename();
-   ALLEGRO_BITMAP *rendered_shadow_depth_map_result = scene_renderer.get_render_surface_ref().obtain_surface();
+   ALLEGRO_BITMAP *rendered_shadow_depth_map_result = scene_renderer.get_result_surface_ref().obtain_surface();
    al_save_bitmap("/Users/markoates/Desktop/foobar.png", rendered_shadow_depth_map_result);
 }
 

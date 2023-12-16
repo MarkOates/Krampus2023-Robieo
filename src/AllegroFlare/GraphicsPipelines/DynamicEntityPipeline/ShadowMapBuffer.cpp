@@ -27,7 +27,7 @@ ShadowMapBuffer::ShadowMapBuffer(AllegroFlare::GraphicsPipelines::DynamicEntityP
    , shadow_depth_map_renderer(nullptr)
    , result_surface_width(1920)
    , result_surface_height(1080)
-   , render_surface()
+   , result_surface()
    , initialized(false)
 {
 }
@@ -86,9 +86,9 @@ int ShadowMapBuffer::get_result_surface_height() const
 }
 
 
-AllegroFlare::RenderSurfaces::Bitmap &ShadowMapBuffer::get_render_surface_ref()
+AllegroFlare::RenderSurfaces::Bitmap &ShadowMapBuffer::get_result_surface_ref()
 {
-   return render_surface;
+   return result_surface;
 }
 
 
@@ -143,11 +143,11 @@ void ShadowMapBuffer::initialize()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("ShadowMapBuffer::initialize: error: guard \"(!initialized)\" not met");
    }
-   render_surface.set_surface_width(result_surface_width);
-   render_surface.set_surface_height(result_surface_height);
-   render_surface.set_multisamples(0);
-   render_surface.set_depth(32);
-   render_surface.initialize();
+   result_surface.set_surface_width(result_surface_width);
+   result_surface.set_surface_height(result_surface_height);
+   result_surface.set_multisamples(0);
+   result_surface.set_depth(32);
+   result_surface.initialize();
 
    initialized = true;
 
@@ -195,9 +195,9 @@ void ShadowMapBuffer::render()
 
    using namespace AllegroFlare::GraphicsPipelines::DynamicEntityPipeline;
 
-   ALLEGRO_BITMAP *render_surface_bmp = render_surface.obtain_surface();
+   ALLEGRO_BITMAP *result_surface_bmp = result_surface.obtain_surface();
 
-   al_set_target_bitmap(render_surface_bmp);
+   al_set_target_bitmap(result_surface_bmp);
 
 
    al_clear_depth_buffer(1);
@@ -206,7 +206,7 @@ void ShadowMapBuffer::render()
                                                                                      // color to make it a little
                                                                                      // easier for debugging
 
-   primary_camera->setup_projection_on(render_surface_bmp);
+   primary_camera->setup_projection_on(result_surface_bmp);
 
 
 
