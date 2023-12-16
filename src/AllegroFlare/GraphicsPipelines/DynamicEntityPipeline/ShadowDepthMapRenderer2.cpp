@@ -3,6 +3,7 @@
 #include <AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer2.hpp>
 
 #include <AllegroFlare/ALLEGRO_VERTEX_WITH_TWO_UVS_AND_NORMAL.hpp>
+#include <AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/Camera3D.hpp>
 #include <AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/DynamicModel3D.hpp>
 #include <AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/StaticModel3D.hpp>
 #include <AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/StaticMultitextureModel3D.hpp>
@@ -221,12 +222,16 @@ void ShadowDepthMapRenderer2::render()
          AllegroFlare::MultitextureModel3D* mtm = get_multitexture_model_3d(entity);
          if (mtm) render_multitexture_model_3d(mtm);
       }
+      else if (entity->is_type(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Camera3D::TYPE))
+      {
+         // Skip
+      }
       else
       {
          // TODO: Consider throw here on unsupported type
-         AllegroFlare::Logger::throw_error(
+         AllegroFlare::Logger::throw_unhandled_case(
             "AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowDepthMapRenderer2::render",
-            "Unsupported type"
+            entity->get_type() //"Unsupported type"
          );
       }
    }

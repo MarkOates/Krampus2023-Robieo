@@ -185,12 +185,16 @@ functions:
             AllegroFlare::MultitextureModel3D* mtm = get_multitexture_model_3d(entity);
             if (mtm) render_multitexture_model_3d(mtm);
          }
+         else if (entity->is_type(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Camera3D::TYPE))
+         {
+            // Skip
+         }
          else
          {
             // TODO: Consider throw here on unsupported type
-            AllegroFlare::Logger::throw_error(
+            AllegroFlare::Logger::throw_unhandled_case(
                "AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowDepthMapRenderer2::render",
-               "Unsupported type"
+               entity->get_type() //"Unsupported type"
             );
          }
       }
@@ -211,6 +215,7 @@ functions:
     body_dependency_symbols:
       - glEnable
       - AllegroFlare::Logger
+      - AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Camera3D
       - AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::StaticModel3D
       - AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D
       - AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::StaticMultitextureModel3D
@@ -346,6 +351,8 @@ dependencies:
     headers: [ AllegroFlare/Shaders/Base.hpp ]
   - symbol: ALLEGRO_TRANSFORM
     headers: [ allegro5/allegro.h ]
+  - symbol: AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Camera3D
+    headers: [ AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/Camera3D.hpp ]
   - symbol: AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::StaticModel3D
     headers: [ AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/StaticModel3D.hpp ]
   - symbol: AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D
