@@ -72,7 +72,7 @@ methods:
       return;
 
 
-  - name: setup_result_surface_bitmap
+  - name: initialize
     guards: [ (!initialized) ]
     body: |
       render_surface.set_surface_width(result_surface_width);

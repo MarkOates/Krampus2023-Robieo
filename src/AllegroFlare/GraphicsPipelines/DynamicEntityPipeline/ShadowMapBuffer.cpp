@@ -134,14 +134,14 @@ void ShadowMapBuffer::set_result_surface_height(int height)
    return;
 }
 
-void ShadowMapBuffer::setup_result_surface_bitmap()
+void ShadowMapBuffer::initialize()
 {
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[ShadowMapBuffer::setup_result_surface_bitmap]: error: guard \"(!initialized)\" not met.";
+      error_message << "[ShadowMapBuffer::initialize]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ShadowMapBuffer::setup_result_surface_bitmap: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("ShadowMapBuffer::initialize: error: guard \"(!initialized)\" not met");
    }
    render_surface.set_surface_width(result_surface_width);
    render_surface.set_surface_height(result_surface_height);

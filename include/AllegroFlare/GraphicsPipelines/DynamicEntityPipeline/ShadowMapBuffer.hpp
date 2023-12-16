@@ -48,7 +48,7 @@ namespace AllegroFlare
             AllegroFlare::RenderSurfaces::Bitmap &get_render_surface_ref();
             void set_result_surface_width(int width=1920);
             void set_result_surface_height(int height=1080);
-            void setup_result_surface_bitmap();
+            void initialize();
             void render();
             AllegroFlare::Camera3D* find_primary_camera_3d();
             AllegroFlare::MultitextureModel3D* get_multitexture_model_3d(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base* entity=nullptr);

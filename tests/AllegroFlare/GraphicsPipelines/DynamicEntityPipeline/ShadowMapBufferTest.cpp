@@ -95,7 +95,7 @@ TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_ShadowMapBufferTestW
    //scene_renderer.setup_result_surface_bitmap(800, 600);
    scene_renderer.set_result_surface_width(1920 / 2);
    scene_renderer.set_result_surface_height(1080 / 2);
-   scene_renderer.setup_result_surface_bitmap();
+   scene_renderer.initialize();
 
    // TODO: Use an EntityFactory for this setup
    AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D *item = 
