@@ -427,6 +427,42 @@ void Screen::primary_timer_func()
    return;
 }
 
+void Screen::key_up_func(ALLEGRO_EVENT* ev)
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::key_up_func]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::key_up_func: error: guard \"initialized\" not met");
+   }
+   if (!(event_emitter))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::key_up_func]: error: guard \"event_emitter\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::key_up_func: error: guard \"event_emitter\" not met");
+   }
+   switch(ev->keyboard.keycode)
+   {
+      case ALLEGRO_KEY_UP:
+      case ALLEGRO_KEY_DOWN: {
+         player_control_velocity.y = 0;
+      } break;
+
+      case ALLEGRO_KEY_LEFT:
+      case ALLEGRO_KEY_RIGHT: {
+         player_control_velocity.x = 0;
+      } break;
+
+      default: {
+         //attempt_an_action_at(ev->keyboard.keycode);
+      } break;
+   }
+
+   return;
+}
+
 void Screen::key_down_func(ALLEGRO_EVENT* ev)
 {
    if (!(initialized))
@@ -443,21 +479,26 @@ void Screen::key_down_func(ALLEGRO_EVENT* ev)
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Screen::key_down_func: error: guard \"event_emitter\" not met");
    }
+   float player_velocity = 0.04;
    switch(ev->keyboard.keycode)
    {
       case ALLEGRO_KEY_UP: {
+         player_control_velocity.y = -player_velocity;
          //move_development_cursor_up();
       } break;
 
       case ALLEGRO_KEY_DOWN: {
+         player_control_velocity.y = player_velocity;
          //move_development_cursor_down();
       } break;
 
       case ALLEGRO_KEY_LEFT: {
+         player_control_velocity.x = -player_velocity;
          //move_development_cursor_down();
       } break;
 
       case ALLEGRO_KEY_RIGHT: {
+         player_control_velocity.x = player_velocity;
          //move_development_cursor_down();
       } break;
 

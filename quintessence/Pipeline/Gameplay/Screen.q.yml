@@ -367,7 +367,7 @@ methods:
       return;
 
 
-  - name: key_down_func
+  - name: key_up_func
     virtual: true
     override: true
     parameters:
@@ -378,19 +378,54 @@ methods:
     body: |
       switch(ev->keyboard.keycode)
       {
+         case ALLEGRO_KEY_UP:
+         case ALLEGRO_KEY_DOWN: {
+            player_control_velocity.y = 0;
+         } break;
+
+         case ALLEGRO_KEY_LEFT:
+         case ALLEGRO_KEY_RIGHT: {
+            player_control_velocity.x = 0;
+         } break;
+
+         default: {
+            //attempt_an_action_at(ev->keyboard.keycode);
+         } break;
+      }
+
+      return;
+    body_dependency_symbols: []
+
+
+  - name: key_down_func
+    virtual: true
+    override: true
+    parameters:
+      - name: ev
+        type: ALLEGRO_EVENT*
+        default_argument: nullptr
+    guards: [ initialized, event_emitter ]
+    body: |
+      float player_velocity = 0.04;
+      switch(ev->keyboard.keycode)
+      {
          case ALLEGRO_KEY_UP: {
+            player_control_velocity.y = -player_velocity;
             //move_development_cursor_up();
          } break;
 
          case ALLEGRO_KEY_DOWN: {
+            player_control_velocity.y = player_velocity;
             //move_development_cursor_down();
          } break;
 
          case ALLEGRO_KEY_LEFT: {
+            player_control_velocity.x = -player_velocity;
             //move_development_cursor_down();
          } break;
 
          case ALLEGRO_KEY_RIGHT: {
+            player_control_velocity.x = player_velocity;
             //move_development_cursor_down();
          } break;
 
