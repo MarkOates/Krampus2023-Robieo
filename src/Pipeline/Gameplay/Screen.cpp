@@ -316,6 +316,8 @@ void Screen::render()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Screen::render: error: guard \"initialized\" not met");
    }
+   ALLEGRO_BITMAP *initial_target_bitmap = al_get_target_bitmap();
+
    // Render the scene
    scene_renderer.render();
    ALLEGRO_BITMAP *render_surface = scene_renderer.get_render_surface_ref().obtain_surface();
@@ -330,6 +332,7 @@ void Screen::render()
       render_surface
    );
 
+   al_set_target_bitmap(initial_target_bitmap);
    al_draw_filled_rectangle(0, 0, 300, 300, ALLEGRO_COLOR{1, 0, 0, 1});
    return;
 }
