@@ -163,8 +163,8 @@ void Runner::initialize()
    intro_logos_screen.set_background(&solid_black_background);
    intro_logos_screen.initialize();
    intro_logos_screen.get_storyboard_element_ref().set_pages({
-      page_factory.create_clubcatt_logo_page(),
-      page_factory.create_image_page(bitmap_bin->operator[]("clubcatt-website-01.jpg")),
+      //page_factory.create_clubcatt_logo_page(),
+      //page_factory.create_image_page(bitmap_bin->operator[]("clubcatt-website-01.jpg")),
    });
 
    // TODO: Setup intro storyboard screen
@@ -174,19 +174,19 @@ void Runner::initialize()
    intro_storyboard_screen.set_background(&solid_black_background);
    intro_storyboard_screen.initialize();
    intro_storyboard_screen.get_storyboard_element_ref().set_pages({
-      page_factory.create_image_with_advancing_text_page(
-         "storyboard-1-01-1165x500.png",
-         "Once upon a time, in a magical kingdom ruled by a wise and just queen, a young hero sets out on a "
-            "journey to prove himself and save his people from a terrible curse."
-      ),
-      page_factory.create_image_with_advancing_text_page(
-         "storyboard-2-01-1165x500.png",
-         "With the help of his trusty sidekick and a band of unlikely allies, he must navigate treacherous "
-            "terrain and battle fierce foes."
-      ),
-      page_factory.create_advancing_text_page(
-        "And achieve his goal to save the kingdom."
-      ),
+      //page_factory.create_image_with_advancing_text_page(
+         //"storyboard-1-01-1165x500.png",
+         //"Once upon a time, in a magical kingdom ruled by a wise and just queen, a young hero sets out on a "
+            //"journey to prove himself and save his people from a terrible curse."
+      //),
+      //page_factory.create_image_with_advancing_text_page(
+         //"storyboard-2-01-1165x500.png",
+         //"With the help of his trusty sidekick and a band of unlikely allies, he must navigate treacherous "
+            //"terrain and battle fierce foes."
+      //),
+      //page_factory.create_advancing_text_page(
+        //"And achieve his goal to save the kingdom."
+      //),
    });
 
    // TODO: Setup title screen
@@ -219,14 +219,14 @@ void Runner::initialize()
    new_game_intro_storyboard_screen.set_background(&solid_black_background);
    new_game_intro_storyboard_screen.initialize();
    new_game_intro_storyboard_screen.get_storyboard_element_ref().set_pages({
-       page_factory.create_advancing_text_page(
-         "In a land beset by darkness, a young hero embarks on a perilous journey to retrieve a powerful "
-            "artifact that can restore light to the kingdom."
-       ),
-       page_factory.create_advancing_text_page(
-         "With nothing but a trusty sword and his wits to guide him, he sets out to face whatever dangers "
-            "lie ahead."
-       ),
+       //page_factory.create_advancing_text_page(
+         //"In a land beset by darkness, a young hero embarks on a perilous journey to retrieve a powerful "
+            //"artifact that can restore light to the kingdom."
+       //),
+       //page_factory.create_advancing_text_page(
+         //"With nothing but a trusty sword and his wits to guide him, he sets out to face whatever dangers "
+            //"lie ahead."
+       //),
    });
 
    // TODO: Setup load a saved game screen
@@ -353,14 +353,14 @@ void Runner::initialize()
 std::vector<std::pair<std::string, std::string>> Runner::build_title_screen_menu_options()
 {
    std::vector<std::pair<std::string, std::string>> options = {
-      { "Continue",          "continue_from_last_save" },       // TODO: If game session is saved and valid
-      { "Load a Saved Game", "goto_load_a_saved_game_screen" }, // TODO: If game session is saved and valid,
+      //{ "Continue",          "continue_from_last_save" },       // TODO: If game session is saved and valid
+      //{ "Load a Saved Game", "goto_load_a_saved_game_screen" }, // TODO: If game session is saved and valid,
                                                                 // and the game supports save slots
       { "Start New Game",    "start_new_game" },                // TODO: If the game session has not begun
-      { "Achievements",      "goto_achievements_screen" },
-      { "Settings",          "goto_settings_screen" },
-      { "Version",           "goto_version_screen" },
-      { "Credits",           "goto_credits_screen" },           // TODO: If game has been won
+      //{ "Achievements",      "goto_achievements_screen" },
+      //{ "Settings",          "goto_settings_screen" },
+      //{ "Version",           "goto_version_screen" },
+      //{ "Credits",           "goto_credits_screen" },           // TODO: If game has been won
       { "Quit",              "quit" },
    };
    return options;
