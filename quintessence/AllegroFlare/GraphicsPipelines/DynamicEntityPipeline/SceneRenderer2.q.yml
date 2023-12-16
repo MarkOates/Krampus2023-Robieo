@@ -277,13 +277,15 @@ functions:
       //al_set_target_bitmap(bitmap);
       al_use_projection_transform(&trans);
 
+      al_set_blender(ALLEGRO_ADD, ALLEGRO_DEST_COLOR, ALLEGRO_ZERO);
 
       ALLEGRO_BITMAP *render_surface = shadow_buffer_bitmap;
       al_draw_tinted_scaled_bitmap(
          //shadow_depth_map_renderer.get_result_surface_bitmap(),
          //depth_pass.get_result_surface_bitmap(),
          render_surface,
-         ALLEGRO_COLOR{0.4, 0.4, 0.4, 0.4},
+         ALLEGRO_COLOR{1.0, 1.0, 1.0, 1.0},
+         //ALLEGRO_COLOR{0.4, 0.4, 0.4, 0.4},
          0,
          0,
          al_get_bitmap_width(render_surface),
@@ -299,6 +301,7 @@ functions:
          0
       );
 
+      al_set_blender(ALLEGRO_ADD, ALLEGRO_ONE, ALLEGRO_INVERSE_ALPHA);
 
 
 
