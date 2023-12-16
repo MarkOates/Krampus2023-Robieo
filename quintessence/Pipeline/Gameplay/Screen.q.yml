@@ -130,6 +130,11 @@ methods:
         default_argument: '"[unset-level_identifier]"'
     guards: [ game_configuration ]
     body: |
+      AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityFactory entity_factory;
+      entity_factory.set_bitmap_bin(bitmap_bin);
+      entity_factory.set_model_bin(model_bin);
+
+      return;
       // Destroy the current level
       if (current_level)
       {
@@ -152,6 +157,7 @@ methods:
       }
       return;
     body_dependency_symbols:
+     - AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityFactory
      - Pipeline::GameConfigurations::Main
      - Pipeline::Gameplay::Level
 
@@ -205,6 +211,7 @@ methods:
 
 
   - name: render
+    guards: [ initialized ]
     body: |
       //al_draw_filled_rectangle(0, 0, 300, 300, ALLEGRO_COLOR{1, 0, 0, 1});
       return;
@@ -333,5 +340,7 @@ dependencies:
     headers: [ AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityPool.hpp ]
   - symbol: AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::SceneRenderer2
     headers: [ AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer2.hpp ]
+  - symbol: AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityFactory
+    headers: [ AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityFactory.hpp ]
 
 

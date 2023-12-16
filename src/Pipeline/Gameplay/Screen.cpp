@@ -2,6 +2,7 @@
 
 #include <Pipeline/Gameplay/Screen.hpp>
 
+#include <AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityFactory.hpp>
 #include <Pipeline/GameConfigurations/Main.hpp>
 #include <Pipeline/Gameplay/Level.hpp>
 #include <allegro5/allegro_primitives.h>
@@ -137,6 +138,11 @@ void Screen::load_level_by_identifier(std::string level_identifier)
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Screen::load_level_by_identifier: error: guard \"game_configuration\" not met");
    }
+   AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityFactory entity_factory;
+   entity_factory.set_bitmap_bin(bitmap_bin);
+   entity_factory.set_model_bin(model_bin);
+
+   return;
    // Destroy the current level
    if (current_level)
    {
@@ -263,6 +269,13 @@ void Screen::update()
 
 void Screen::render()
 {
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::render]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::render: error: guard \"initialized\" not met");
+   }
    //al_draw_filled_rectangle(0, 0, 300, 300, ALLEGRO_COLOR{1, 0, 0, 1});
    return;
 }
