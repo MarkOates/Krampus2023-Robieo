@@ -218,6 +218,13 @@ void Screen::initialize()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Screen::initialize: error: guard \"model_bin\" not met");
    }
+   // Setup scene renderer
+   scene_renderer.set_entity_pool(&entity_pool);
+   scene_renderer.setup_result_surface_bitmap(1920 / 3, 1080 / 3);
+   scene_renderer.setup_shadow_map_buffer();
+   scene_renderer.setup_cubemapping(bitmap_bin->get_path() + "black_prism_1-01.png");
+   scene_renderer.setup_multitexture_shader();
+
    initialized = true;
    return;
 }
