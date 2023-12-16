@@ -42,7 +42,7 @@ TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_ShadowMapBufferTestW
    AllegroFlare::ModelBin model_bin;
    model_bin.set_full_path(get_fixtures_path() + "models");
    //AllegroFlare::Shaders::Multitexture multitexture_shader;
-   AllegroFlare::Shaders::ShadowMapping shadow_mapping_shader;
+   //AllegroFlare::Shaders::ShadowMapping shadow_mapping_shader;
    //AllegroFlare::Shaders::Cubemap cubemap_shader;
    //AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowDepthMapRenderer2 shadow_depth_map_renderer;
    AllegroFlare::Cubemap* cubemap = nullptr;
@@ -60,7 +60,7 @@ TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_ShadowMapBufferTestW
 
    //multitexture_shader.initialize();
 
-   shadow_mapping_shader.initialize();
+   //shadow_mapping_shader.initialize();
 
    //cubemap_shader.initialize();
    //cubemap_shader.set_cube_map(cubemap);
@@ -88,7 +88,7 @@ TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_ShadowMapBufferTestW
    AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowMapBuffer scene_renderer;
    //scene_renderer.set_cubemap_shader(&cubemap_shader);
    //scene_renderer.set_multitexture_shader(&multitexture_shader);
-   scene_renderer.set_shadow_mapping_shader(&shadow_mapping_shader);
+   //scene_renderer.set_shadow_mapping_shader(&shadow_mapping_shader);
    scene_renderer.set_entity_pool(&entity_pool);
    //scene_renderer.set_shadow_depth_map_renderer(&shadow_depth_map_renderer);
    //scene_renderer.set_depth_pass(&depth_pass);

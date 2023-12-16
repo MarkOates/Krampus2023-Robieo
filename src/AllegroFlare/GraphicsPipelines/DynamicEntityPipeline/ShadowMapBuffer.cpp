@@ -21,9 +21,9 @@ namespace DynamicEntityPipeline
 {
 
 
-ShadowMapBuffer::ShadowMapBuffer(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool* entity_pool, AllegroFlare::Shaders::ShadowMapping* shadow_mapping_shader)
+ShadowMapBuffer::ShadowMapBuffer(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool* entity_pool)
    : entity_pool(entity_pool)
-   , shadow_mapping_shader(shadow_mapping_shader)
+   , shadow_mapping_shader()
    , shadow_depth_map_surface_width(1920)
    , shadow_depth_map_surface_height(1080)
    , shadow_depth_map_renderer()
@@ -40,21 +40,9 @@ ShadowMapBuffer::~ShadowMapBuffer()
 }
 
 
-void ShadowMapBuffer::set_shadow_mapping_shader(AllegroFlare::Shaders::ShadowMapping* shadow_mapping_shader)
-{
-   this->shadow_mapping_shader = shadow_mapping_shader;
-}
-
-
 AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool* ShadowMapBuffer::get_entity_pool() const
 {
    return entity_pool;
-}
-
-
-AllegroFlare::Shaders::ShadowMapping* ShadowMapBuffer::get_shadow_mapping_shader() const
-{
-   return shadow_mapping_shader;
 }
 
 
@@ -204,6 +192,8 @@ void ShadowMapBuffer::initialize()
    shadow_depth_map_renderer.set_entity_pool(entity_pool);
    shadow_depth_map_renderer.init_camera_defaults(); // NOTE: The camera defaults seem to be weird
 
+   shadow_mapping_shader.initialize();
+
    result_surface.set_surface_width(result_surface_width);
    result_surface.set_surface_height(result_surface_height);
    result_surface.set_multisamples(0);
@@ -211,6 +201,8 @@ void ShadowMapBuffer::initialize()
    result_surface.initialize();
 
    initialized = true;
+
+   // TODO: Add a teardown
 
    return;
 }
@@ -230,13 +222,6 @@ void ShadowMapBuffer::render()
       error_message << "[ShadowMapBuffer::render]: error: guard \"entity_pool\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("ShadowMapBuffer::render: error: guard \"entity_pool\" not met");
-   }
-   if (!(shadow_mapping_shader))
-   {
-      std::stringstream error_message;
-      error_message << "[ShadowMapBuffer::render]: error: guard \"shadow_mapping_shader\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ShadowMapBuffer::render: error: guard \"shadow_mapping_shader\" not met");
    }
    AllegroFlare::Camera3D *primary_camera = find_primary_camera_3d();
 
@@ -267,7 +252,7 @@ void ShadowMapBuffer::render()
 
 
    // Activate the shader
-   shadow_mapping_shader->activate();
+   shadow_mapping_shader.activate();
 
    // Obtain our shadow_depth_map_render texture and light position
    ALLEGRO_BITMAP *shadow_depth_map_render = shadow_depth_map_renderer.get_result_surface_bitmap();
@@ -276,8 +261,8 @@ void ShadowMapBuffer::render()
    shadow_depth_map_renderer.setup_transform_for_light(&transform);
 
    // Set the uniforms on the shader
-   shadow_mapping_shader->set_sampler("me__depth_pass_sampler", shadow_depth_map_render, 0);
-   shadow_mapping_shader->set_mat4("me__depth_pass_transform", &transform);
+   shadow_mapping_shader.set_sampler("me__depth_pass_sampler", shadow_depth_map_render, 0);
+   shadow_mapping_shader.set_mat4("me__depth_pass_transform", &transform);
 
 
 
@@ -315,7 +300,7 @@ void ShadowMapBuffer::render()
 
          // Pass along the transform to the shader
          placement->build_transform(&object_transform);
-         shadow_mapping_shader->set_mat4("me__object_position_transform", &object_transform);
+         shadow_mapping_shader.set_mat4("me__object_position_transform", &object_transform);
 
          // Draw the model (make sure the texture is nullptr, because the depth_pass_sampler is using unit 0)
          model->set_texture(nullptr);
@@ -335,7 +320,7 @@ void ShadowMapBuffer::render()
       }
    }
 
-   shadow_mapping_shader->deactivate();
+   shadow_mapping_shader.deactivate();
 
    return;
 }

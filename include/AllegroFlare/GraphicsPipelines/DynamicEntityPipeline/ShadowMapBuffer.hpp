@@ -23,7 +23,7 @@ namespace AllegroFlare
          {
          private:
             AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool* entity_pool;
-            AllegroFlare::Shaders::ShadowMapping* shadow_mapping_shader;
+            AllegroFlare::Shaders::ShadowMapping shadow_mapping_shader;
             int shadow_depth_map_surface_width;
             int shadow_depth_map_surface_height;
             AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowDepthMapRenderer2 shadow_depth_map_renderer;
@@ -36,12 +36,10 @@ namespace AllegroFlare
 
 
          public:
-            ShadowMapBuffer(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool* entity_pool=nullptr, AllegroFlare::Shaders::ShadowMapping* shadow_mapping_shader=nullptr);
+            ShadowMapBuffer(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool* entity_pool=nullptr);
             ~ShadowMapBuffer();
 
-            void set_shadow_mapping_shader(AllegroFlare::Shaders::ShadowMapping* shadow_mapping_shader);
             AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool* get_entity_pool() const;
-            AllegroFlare::Shaders::ShadowMapping* get_shadow_mapping_shader() const;
             int get_shadow_depth_map_surface_width() const;
             int get_shadow_depth_map_surface_height() const;
             int get_result_surface_width() const;

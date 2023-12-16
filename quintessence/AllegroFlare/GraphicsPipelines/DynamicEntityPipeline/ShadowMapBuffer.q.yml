@@ -9,11 +9,8 @@ properties:
     setter: explicit
 
   - name: shadow_mapping_shader
-    type: AllegroFlare::Shaders::ShadowMapping*
-    init_with: nullptr
-    constructor_arg: true
-    getter: true
-    setter: true
+    type: AllegroFlare::Shaders::ShadowMapping
+    init_with: ''
 
   - name: shadow_depth_map_surface_width
     type: int
@@ -131,6 +128,8 @@ methods:
       shadow_depth_map_renderer.set_entity_pool(entity_pool);
       shadow_depth_map_renderer.init_camera_defaults(); // NOTE: The camera defaults seem to be weird
 
+      shadow_mapping_shader.initialize();
+
       result_surface.set_surface_width(result_surface_width);
       result_surface.set_surface_height(result_surface_height);
       result_surface.set_multisamples(0);
@@ -139,6 +138,8 @@ methods:
 
       initialized = true;
 
+      // TODO: Add a teardown
+
       return;
 
 
@@ -146,7 +147,6 @@ methods:
     guards:
       - initialized
       - entity_pool
-      - shadow_mapping_shader
     body: |
       AllegroFlare::Camera3D *primary_camera = find_primary_camera_3d();
 
@@ -177,7 +177,7 @@ methods:
 
 
       // Activate the shader
-      shadow_mapping_shader->activate();
+      shadow_mapping_shader.activate();
 
       // Obtain our shadow_depth_map_render texture and light position
       ALLEGRO_BITMAP *shadow_depth_map_render = shadow_depth_map_renderer.get_result_surface_bitmap();
@@ -186,8 +186,8 @@ methods:
       shadow_depth_map_renderer.setup_transform_for_light(&transform);
 
       // Set the uniforms on the shader
-      shadow_mapping_shader->set_sampler("me__depth_pass_sampler", shadow_depth_map_render, 0);
-      shadow_mapping_shader->set_mat4("me__depth_pass_transform", &transform);
+      shadow_mapping_shader.set_sampler("me__depth_pass_sampler", shadow_depth_map_render, 0);
+      shadow_mapping_shader.set_mat4("me__depth_pass_transform", &transform);
 
 
 
@@ -225,7 +225,7 @@ methods:
 
             // Pass along the transform to the shader
             placement->build_transform(&object_transform);
-            shadow_mapping_shader->set_mat4("me__object_position_transform", &object_transform);
+            shadow_mapping_shader.set_mat4("me__object_position_transform", &object_transform);
 
             // Draw the model (make sure the texture is nullptr, because the depth_pass_sampler is using unit 0)
             model->set_texture(nullptr);
@@ -245,7 +245,7 @@ methods:
          }
       }
 
-      shadow_mapping_shader->deactivate();
+      shadow_mapping_shader.deactivate();
 
       return;
     body_dependency_symbols:
