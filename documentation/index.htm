@@ -192,6 +192,10 @@ table td
   <td class="property">AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool*</td>
 </tr>
 <tr>
+  <td class="property">shadow_map_buffer</td>
+  <td class="property">AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowMapBuffer</td>
+</tr>
+<tr>
   <td class="property">shadow_depth_map_renderer</td>
   <td class="property">AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowDepthMapRenderer2*</td>
 </tr>
@@ -208,6 +212,9 @@ table td
 <div class="property-box methods">     <table>
 <tr>
   <td class="method">setup_result_surface_bitmap(int width=1920, int height=1080)</td>
+</tr>
+<tr>
+  <td class="method">setup_shadow_map_buffer()</td>
 </tr>
 <tr>
   <td class="method">find_primary_camera_3d()</td>
@@ -283,6 +290,12 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::RenderSurfaces::Bitmap&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/RenderSurfaces/Bitmap.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowMapBuffer&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowMapBuffer.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Camera2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Camera2D.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -471,6 +484,9 @@ table td
 </tr>
 <tr>
   <td class="method">get_light()</td>
+</tr>
+<tr>
+  <td class="method">get_result_bitmap()</td>
 </tr>
 <tr>
   <td class="method">initialize()</td>
@@ -1214,6 +1230,12 @@ table td
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer2",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowMapBuffer",
     "Pipeline/Runner"
+  ],
+  "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowMapBuffer": [
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer2"
+  ],
+  "AllegroFlare/Camera2D": [
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer2"
   ],
   "AllegroFlare/Shaders/ShadowMapping": [
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowMapBuffer"

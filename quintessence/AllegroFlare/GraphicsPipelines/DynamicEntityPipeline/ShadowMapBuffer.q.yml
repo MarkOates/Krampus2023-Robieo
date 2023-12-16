@@ -123,6 +123,14 @@ methods:
       return &get_shadow_depth_map_renderer_ref().get_casting_light_ref();
 
 
+  - name: get_result_bitmap
+    type: ALLEGRO_BITMAP*
+    guards: [ initialized ]
+    body: |
+      return result_surface.obtain_surface();
+      //return &get_shadow_depth_map_renderer_ref().get_casting_light_ref();
+
+
   - name: initialize
     guards: [ (!initialized) ]
     body: |

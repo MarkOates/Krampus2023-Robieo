@@ -52,6 +52,7 @@ namespace AllegroFlare
             void set_result_surface_width(int width=1920);
             void set_result_surface_height(int height=1080);
             AllegroFlare::Camera3D* get_light();
+            ALLEGRO_BITMAP* get_result_bitmap();
             void initialize();
             void render();
             AllegroFlare::Camera3D* find_primary_camera_3d();

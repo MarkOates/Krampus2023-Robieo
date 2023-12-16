@@ -121,6 +121,12 @@
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowMapBuffer",
     "Pipeline/Runner"
   ],
+  "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowMapBuffer": [
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer2"
+  ],
+  "AllegroFlare/Camera2D": [
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer2"
+  ],
   "AllegroFlare/Shaders/ShadowMapping": [
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowMapBuffer"
   ],

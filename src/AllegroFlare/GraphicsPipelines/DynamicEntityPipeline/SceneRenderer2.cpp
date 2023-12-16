@@ -2,6 +2,7 @@
 
 #include <AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer2.hpp>
 
+#include <AllegroFlare/Camera2D.hpp>
 #include <AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/Camera3D.hpp>
 #include <AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/DynamicModel3D.hpp>
 #include <AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/StaticModel3D.hpp>
@@ -25,6 +26,7 @@ SceneRenderer2::SceneRenderer2(AllegroFlare::Shaders::Cubemap* cubemap_shader, A
    : cubemap_shader(cubemap_shader)
    , multitexture_shader(multitexture_shader)
    , entity_pool(entity_pool)
+   , shadow_map_buffer()
    , shadow_depth_map_renderer(nullptr)
    , render_surface()
    , render_surface_is_setup(false)
@@ -104,6 +106,15 @@ void SceneRenderer2::setup_result_surface_bitmap(int width, int height)
    return;
 }
 
+void SceneRenderer2::setup_shadow_map_buffer()
+{
+   shadow_map_buffer.set_entity_pool(entity_pool);
+   shadow_map_buffer.set_result_surface_width(1920 / 2);
+   shadow_map_buffer.set_result_surface_height(1080 / 2);
+   shadow_map_buffer.initialize();
+   return;
+}
+
 AllegroFlare::Camera3D* SceneRenderer2::find_primary_camera_3d()
 {
    Entities::Base *entity = entity_pool->find_with_attribute("primary_camera");
@@ -156,6 +167,15 @@ void SceneRenderer2::render()
    {
       shadow_depth_map_renderer->render();
    }
+
+
+
+   // Render the shadow_buffer_bitmap
+   shadow_map_buffer.render();
+   ALLEGRO_BITMAP* shadow_buffer_bitmap = shadow_map_buffer.get_result_bitmap();
+
+
+
 
 
    using namespace AllegroFlare::GraphicsPipelines::DynamicEntityPipeline;
@@ -293,6 +313,57 @@ void SceneRenderer2::render()
          }
       }
    }
+
+
+
+
+   // 
+   //al_set_target_bitmap(render_surface_bmp);
+
+   al_clear_depth_buffer(1); // Consider just using a simple write mask
+   //al_clear_to_color(ALLEGRO_COLOR{0.1, 0.105, 0.12, 1.0});
+   //AllegroFlare::Camera2D camera2d;
+   //camera2d.setup_dimensional_projection(render_surface_bmp);
+   //ALLEGRO_TRANSFORM transform;
+   //al_identity_transform(&transform);
+   //al_use_transform(render_surface_bmp, &transform);
+
+
+
+   // Basic shadow composite
+
+   ALLEGRO_TRANSFORM trans;
+   al_identity_transform(&trans);
+   al_orthographic_transform(&trans, 0, 0, -1.0, al_get_bitmap_width(render_surface_bmp),
+                             al_get_bitmap_height(render_surface_bmp), 1.0);
+
+   //al_set_target_bitmap(bitmap);
+   al_use_projection_transform(&trans);
+
+
+   ALLEGRO_BITMAP *render_surface = shadow_buffer_bitmap;
+   al_draw_tinted_scaled_bitmap(
+      //shadow_depth_map_renderer.get_result_surface_bitmap(),
+      //depth_pass.get_result_surface_bitmap(),
+      render_surface,
+      ALLEGRO_COLOR{0.4, 0.4, 0.4, 0.4},
+      0,
+      0,
+      al_get_bitmap_width(render_surface),
+      al_get_bitmap_height(render_surface),
+      0,
+      0,
+      al_get_bitmap_width(render_surface_bmp), //1920, // the surface width of the result    //al_get_display_width(get_display()),
+      al_get_bitmap_height(render_surface_bmp), //1080, // the size of the result             //al_get_display_height(get_display()),
+      //ALLEGRO_COLOR{1.0, 1.0, 1.0, 1.0},
+      //ALLEGRO_COLOR{0.4, 0.4, 0.4, 0.4},
+      //0,
+      //0,
+      0
+   );
+
+
+
 
    return;
 }
