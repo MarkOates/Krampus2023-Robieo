@@ -215,7 +215,8 @@ methods:
     body: |
       // Setup scene renderer
       scene_renderer.set_entity_pool(&entity_pool);
-      scene_renderer.setup_result_surface_bitmap(1920 / 3, 1080 / 3);
+      //scene_renderer.setup_result_surface_bitmap(1920 / 3, 1080 / 3);
+      scene_renderer.setup_result_surface_bitmap(1920, 1080); // For some reason, 
       scene_renderer.setup_shadow_map_buffer();
       scene_renderer.setup_cubemapping(bitmap_bin->get_path() + "black_prism_1-01.png");
       scene_renderer.setup_multitexture_shader();
@@ -259,18 +260,23 @@ methods:
       scene_renderer.render();
       ALLEGRO_BITMAP *render_surface = scene_renderer.get_render_surface_ref().obtain_surface();
 
-      al_save_bitmap(
-         "/Users/markoates/Desktop/shadow_buffer_bitmap.png",
-         scene_renderer.get_shadow_map_buffer_ref().get_result_bitmap()
-      );
-      //shadow_map_buffer.get_result_bitmap();
-      al_save_bitmap(
-         "/Users/markoates/Desktop/render_surface.png",
-         render_surface
-      );
+      bool save_bitmaps = false;
+      if (save_bitmaps)
+      {
+         al_save_bitmap(
+            "/Users/markoates/Desktop/shadow_buffer_bitmap.png",
+            scene_renderer.get_shadow_map_buffer_ref().get_result_bitmap()
+         );
+         //shadow_map_buffer.get_result_bitmap();
+         al_save_bitmap(
+            "/Users/markoates/Desktop/render_surface.png",
+            render_surface
+         );
+      }
 
       al_set_target_bitmap(initial_target_bitmap);
-      al_draw_filled_rectangle(0, 0, 300, 300, ALLEGRO_COLOR{1, 0, 0, 1});
+      al_draw_bitmap(render_surface, 0, 0, 0);
+      //al_draw_filled_rectangle(0, 0, 300, 300, ALLEGRO_COLOR{1, 0, 0, 1});
       return;
 
 

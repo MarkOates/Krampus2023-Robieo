@@ -221,6 +221,8 @@ void SceneRenderer2::render()
    // Set the camera position in the iridescent shder
    cubemap_shader.set_camera_position(primary_camera->get_real_position());
 
+   //int entities_rendered = 0;
+
    //std::unordered_set<AllegroFlare::SceneGraph::Entities::Base*>
    for (auto &entity : entity_pool->get_entity_pool_ref())
    {
@@ -263,6 +265,7 @@ void SceneRenderer2::render()
 
          // Draw the model
          model->draw();
+         //entities_rendered++;
 
          // Teardown the render for this object
          if (renders_with_iridescent)
@@ -332,6 +335,7 @@ void SceneRenderer2::render()
    }
 
 
+   std::cout << "Entities rendered: " << entities_rendered << std::endl;
 
 
    // 
