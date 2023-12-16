@@ -87,6 +87,12 @@ AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowDepthMapRenderer2*
 }
 
 
+AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowMapBuffer &SceneRenderer2::get_shadow_map_buffer_ref()
+{
+   return shadow_map_buffer;
+}
+
+
 AllegroFlare::RenderSurfaces::Bitmap &SceneRenderer2::get_render_surface_ref()
 {
    return render_surface;

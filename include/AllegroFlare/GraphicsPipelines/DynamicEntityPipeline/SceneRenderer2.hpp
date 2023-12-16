@@ -47,6 +47,7 @@ namespace AllegroFlare
             AllegroFlare::Shaders::Multitexture* get_multitexture_shader() const;
             AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool* get_entity_pool() const;
             AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowDepthMapRenderer2* get_shadow_depth_map_renderer() const;
+            AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowMapBuffer &get_shadow_map_buffer_ref();
             AllegroFlare::RenderSurfaces::Bitmap &get_render_surface_ref();
             void setup_result_surface_bitmap(int width=1920, int height=1080);
             void setup_shadow_map_buffer();

@@ -25,6 +25,7 @@ properties:
   - name: shadow_map_buffer
     type: AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowMapBuffer
     init_with: ''
+    getter_ref: true
 
   - name: shadow_depth_map_renderer
     type: AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowDepthMapRenderer2*

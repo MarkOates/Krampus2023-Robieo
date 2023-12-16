@@ -276,10 +276,10 @@ void ShadowDepthMapRenderer2::setup_transform_for_light(ALLEGRO_TRANSFORM* trans
       transform,
       -al_get_bitmap_width(bitmap),
       al_get_bitmap_height(bitmap),
-      30.0,
+      -5.0, // was -30.0, consider making this variable
       al_get_bitmap_width(bitmap),
       -al_get_bitmap_height(bitmap),
-      -30.0
+      -20.0 // was -30.0, consider making this variable
    );
 
    // TODO: Remove this line:
