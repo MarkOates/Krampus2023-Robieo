@@ -314,6 +314,23 @@ void Screen::on_deactivate()
    return;
 }
 
+AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D* Screen::get_player_controlled_entity_as()
+{
+   if (!player_controlled_entity->is_type(
+            AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D::TYPE
+         )
+      )
+   {
+      throw std::runtime_error("unexpected player controlled entity type");
+   }
+
+   AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D *as =
+      static_cast<AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D *>(
+         player_controlled_entity
+      );
+   return as;
+}
+
 void Screen::update()
 {
    // Spin our shadow casted light
@@ -327,10 +344,10 @@ void Screen::update()
    //primary_camera->tilt += 0.0008;
 
    // HERE:
-   //if (player_controlled_entity)
-   //{
-      //player_controlled_entity.get_placement_ref() += player_control_velocity.x
-   //}
+   if (player_controlled_entity)
+
+   auto player_entity_as = get_player_controlled_entity_as();
+
    // Rotate objects in the scene
    //item->get_placement_ref().rotation.x += 0.005;
    //item->get_placement_ref().rotation.z += 0.003547;

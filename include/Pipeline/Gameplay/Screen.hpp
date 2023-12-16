@@ -7,6 +7,7 @@
 #include <AllegroFlare/GameConfigurations/Base.hpp>
 #include <AllegroFlare/GameEvent.hpp>
 #include <AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/Base.hpp>
+#include <AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/DynamicModel3D.hpp>
 #include <AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityPool.hpp>
 #include <AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer2.hpp>
 #include <AllegroFlare/ModelBin.hpp>
@@ -67,6 +68,7 @@ namespace Pipeline
          void initialize();
          virtual void on_activate() override;
          virtual void on_deactivate() override;
+         AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D* get_player_controlled_entity_as();
          void update();
          void render();
          void call_on_finished_callback_func();

@@ -227,6 +227,9 @@
   "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityFactory": [
     "Pipeline/Gameplay/Screen"
   ],
+  "AllegroFlare/Vec2D": [
+    "Pipeline/Gameplay/Screen"
+  ],
   "AllegroFlare/Frameworks/Full": [
     "Pipeline/Runner"
   ],
