@@ -2,7 +2,9 @@
 
 #include <Pipeline/Gameplay/Screen.hpp>
 
+#include <AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/DynamicModel3D.hpp>
 #include <AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityFactory.hpp>
+#include <AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityRenderFlags.hpp>
 #include <Pipeline/GameConfigurations/Main.hpp>
 #include <Pipeline/Gameplay/Level.hpp>
 #include <allegro5/allegro_primitives.h>
@@ -141,6 +143,44 @@ void Screen::load_level_by_identifier(std::string level_identifier)
    AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityFactory entity_factory;
    entity_factory.set_bitmap_bin(bitmap_bin);
    entity_factory.set_model_bin(model_bin);
+
+
+   AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Camera3D* camera_entity =
+      entity_factory.create_camera_3d();
+   AllegroFlare::Camera3D &camera = camera_entity->get_camera_3d_ref();
+   camera_entity->set("primary_camera");
+   camera.stepout = { 0, 1.0, 4.0 };
+   camera.spin = 0.1;
+   entity_pool.add(camera_entity);
+
+   // TODO: Use an EntityFactory for this setup
+   AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D *item = 
+      new AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D();
+   item->set_model_3d(model_bin->auto_get("rounded_unit_cube-01.obj"));
+   item->set(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityRenderFlags::RENDER_WITH_SKYBOX);
+   item->get_placement_ref().position.y = 1.0;
+   item->get_placement_ref().rotation.x = 0.05;
+   item->get_placement_ref().rotation.z = 0.03547;
+   entity_pool.add(item);
+
+   // TODO: Use an EntityFactory for this setup
+   AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D *dynamic_cube = 
+      new AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D();
+   dynamic_cube->set_model_3d(model_bin->auto_get("rounded_unit_cube-01.obj"));
+   dynamic_cube->set_model_3d_texture(bitmap_bin->auto_get("uv.png"));
+   dynamic_cube->get_placement_ref().position.x = 1.5;
+   dynamic_cube->get_placement_ref().position.y = 0.5;
+   entity_pool.add(dynamic_cube);
+
+   AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D *env = 
+      new AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D();
+   env->set_model_3d(model_bin->auto_get("simple_scene-01.obj"));
+   //rounded_unit_cube-01.obj"));
+   env->set_model_3d_texture(bitmap_bin->auto_get("simple_scene-01-1024.jpg"));
+   env->get_placement_ref().position.x = 0;
+   env->get_placement_ref().position.y = 0;
+   entity_pool.add(env);
+
 
    return;
    // Destroy the current level
