@@ -115,19 +115,26 @@ TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_ShadowMapBufferTestW
    entity_pool.add(dynamic_cube);
 
    // TODO: Use an EntityFactory for this setup
-   std::string TEST_FIXTURES_FOLDER = get_fixtures_path();
-   std::string base_obj_filename = TEST_FIXTURES_FOLDER + "models/simple_scene-01.obj";
-   std::string uv2_obj_filename = TEST_FIXTURES_FOLDER + "models/simple_scene-01-ao-01.obj";
-   AllegroFlare::MultitextureModel3D multitexture_model;
-   multitexture_model.initialize();
-   multitexture_model.load_obj_file(base_obj_filename, uv2_obj_filename.c_str());
+   AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D *environment = 
+      new AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D();
+   environment->set_model_3d(model_bin.auto_get("simple_scene-01.obj"));
+   environment->set_model_3d_texture(get_bitmap_bin_ref().auto_get("uv.png"));
+   environment->get_placement_ref().position.x = 0.0;
+   environment->get_placement_ref().position.y = 0.0;
+   entity_pool.add(environment);
+   //std::string TEST_FIXTURES_FOLDER = get_fixtures_path();
+   //std::string base_obj_filename = TEST_FIXTURES_FOLDER + "models/simple_scene-01.obj";
+   //std::string uv2_obj_filename = TEST_FIXTURES_FOLDER + "models/simple_scene-01-ao-01.obj";
+   //AllegroFlare::Model3D multitexture_model;
+   //multitexture_model.initialize();
+   //multitexture_model.load_obj_file(base_obj_filename, uv2_obj_filename.c_str());
 
-   AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::StaticMultitextureModel3D *environment_mesh = 
-      new AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::StaticMultitextureModel3D();
-   environment_mesh->set_multitexture_model_3d(&multitexture_model);
-   environment_mesh->set_multitexture_model_3d_texture_1(get_bitmap_bin_ref().auto_get("simple_scene-01-1024.jpg"));
-   environment_mesh->set_multitexture_model_3d_texture_2(get_bitmap_bin_ref().auto_get("simple_scene-01-ao-01.jpg"));
-   entity_pool.add(environment_mesh);
+   //AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::StaticModel3D *environment_mesh = 
+      //new AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::StaticModel3D();
+   //environment_mesh->set_model_3d(&multitexture_model);
+   //environment_mesh->set_multitexture_model_3d_texture_1(get_bitmap_bin_ref().auto_get("simple_scene-01-1024.jpg"));
+   //environment_mesh->set_multitexture_model_3d_texture_2(get_bitmap_bin_ref().auto_get("simple_scene-01-ao-01.jpg"));
+   //entity_pool.add(environment_mesh);
 
    // Render the scene
    int frames = 120;

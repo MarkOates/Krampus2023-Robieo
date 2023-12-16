@@ -33,6 +33,7 @@ void main()
  }
  else
  {
+   me__shadow_pass_uv_texcoord = me__glPosition_from_light.xy;
    varying_texcoord = al_texcoord;
  }
 

@@ -77,7 +77,7 @@ functions:
       if (!entity)
       {
          AllegroFlare::Logger::throw_error(
-            "AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::SceneRenderer::primary_camera_3d",
+            "AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowMapBuffer::primary_camera_3d",
             "no camera present"
          );
       }
@@ -114,7 +114,8 @@ functions:
 
 
       al_clear_depth_buffer(1);
-      al_clear_to_color(ALLEGRO_COLOR{0.1, 0.105, 0.12, 1.0});
+      //al_clear_to_color(ALLEGRO_COLOR{0.1, 0.105, 0.12, 1.0});
+      al_clear_to_color(ALLEGRO_COLOR{1.0, 1.0, 1.0, 1.0});
 
       primary_camera->setup_projection_on(render_surface_bmp);
 
@@ -155,6 +156,8 @@ functions:
                                              // object performs the transform or if the objects placement is
                                              // passed along to the shader. You will need to update/align all the
                                              // shaders/renderers together
+
+
          al_identity_transform(&object_transform);
          shadow_mapping_shader->set_mat4("me__object_position_transform", &object_transform);
 
@@ -177,18 +180,22 @@ functions:
                // NOTE: For now, this has to be set before activating the shader
                //cubemap_shader->set_object_placement(placement);
                //cubemap_shader->activate();
-               ALLEGRO_TRANSFORM object_transform;
+               //ALLEGRO_TRANSFORM object_transform;
                placement->build_transform(&object_transform);
                shadow_mapping_shader->set_mat4("me__object_position_transform", &object_transform);
             }
             else
             {
-               ALLEGRO_BITMAP *texture = get_texture(as_agc_entity);
-               if (texture) model->set_texture(texture);
-               placement->start_transform();
+               //ALLEGRO_BITMAP *texture = get_texture(as_agc_entity);
+               //if (texture) model->set_texture(texture);
+               //placement->start_transform();
+               //ALLEGRO_TRANSFORM object_transform;
+               placement->build_transform(&object_transform);
+               shadow_mapping_shader->set_mat4("me__object_position_transform", &object_transform);
             }
 
             // Draw the model
+            model->set_texture(nullptr);
             model->draw();
 
             // Teardown the render for this object
@@ -198,28 +205,34 @@ functions:
             }
             else
             {
-               placement->restore_transform();
+               //placement->restore_transform();
             }
          }
          else if ((multitexture_model_3d = get_multitexture_model_3d(as_agc_entity)))
          {
+            AllegroFlare::Logger::throw_error(
+               "AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowMapBuffer::render",
+               "models of type Multitexture3D are nor supported at this point in the pipeline. Please consider using "
+                  "a DynamicModel3D instead."
+            );
+            //throw std::rut
             // Isolate our entity's type
             Entities::StaticMultitextureModel3D *as_multitexture_model_3d_entity =
                static_cast<Entities::StaticMultitextureModel3D*>(entity);
 
             // Extract out our textures
-            ALLEGRO_BITMAP *texture_a = get_texture(as_agc_entity);
-            if (texture_a) as_multitexture_model_3d_entity->set_multitexture_model_3d_texture_1(texture_a);
-            else throw std::runtime_error("no texture_a"); // TODO: Improve this error message
+            //ALLEGRO_BITMAP *texture_a = get_texture(as_agc_entity);
+            //if (texture_a) as_multitexture_model_3d_entity->set_multitexture_model_3d_texture_1(texture_a);
+            //else throw std::runtime_error("no texture_a"); // TODO: Improve this error message
 
-            ALLEGRO_BITMAP *texture_b = get_texture_2(as_agc_entity);
-            if (texture_b) as_multitexture_model_3d_entity->set_multitexture_model_3d_texture_2(texture_b);
-            else throw std::runtime_error("no texture_b"); // TODO: Improve this error message
+            //ALLEGRO_BITMAP *texture_b = get_texture_2(as_agc_entity);
+            //if (texture_b) as_multitexture_model_3d_entity->set_multitexture_model_3d_texture_2(texture_b);
+            //else throw std::runtime_error("no texture_b"); // TODO: Improve this error message
 
 
             // Assign the textures to the shader
-            multitexture_shader->set_texture_a(texture_a);
-            multitexture_shader->set_texture_b(texture_b);
+            //multitexture_shader->set_texture_a(texture_a);
+            //multitexture_shader->set_texture_b(texture_b);
 
             // Activate the shader
             //multitexture_shader->activate();
@@ -233,10 +246,10 @@ functions:
             al_draw_prim(
                &vertices[0],
                multitexture_model_3d->vertex_declaration,
-               texture_a, // TODO: In this sloppy case, this texture is used to determine the
-                          // dimensionality of the textures(s) of the shader. Note that at the time of this writing, the
-                          // textures and dimensions are all inter-dependent on each other in this way. This kink
-                          // should eventually be worked out and cleaned up.
+               nullptr, // TODO: In this sloppy case, this texture is used to determine the
+                        // dimensionality of the textures(s) of the shader. Note that at the time of this writing, the
+                        // textures and dimensions are all inter-dependent on each other in this way. This kink
+                        // should eventually be worked out and cleaned up.
                0,
                vertices.size(),
                ALLEGRO_PRIM_TRIANGLE_LIST
@@ -246,15 +259,15 @@ functions:
          }
          else // (!model) or (!multitexture_model)
          {
-            ALLEGRO_BITMAP *texture = get_texture(as_agc_entity);
-            AllegroFlare::Placement3D *placement = get_placement_3d(as_agc_entity);
+            //ALLEGRO_BITMAP *texture = get_texture(as_agc_entity);
+            //AllegroFlare::Placement3D *placement = get_placement_3d(as_agc_entity);
 
-            if (texture)
-            {
-               placement->start_transform();
-               al_draw_bitmap(texture, 0, 0, ALLEGRO_FLIP_VERTICAL);
-               placement->restore_transform();
-            }
+            //if (texture)
+            //{
+               //placement->start_transform();
+               //al_draw_bitmap(texture, 0, 0, ALLEGRO_FLIP_VERTICAL);
+               //placement->restore_transform();
+            //}
          }
       }
 
