@@ -57,24 +57,6 @@ methods:
       return;
 
 
-  - name: find_primary_camera_3d
-    type: AllegroFlare::Camera3D*
-    body: |
-      Entities::Base *entity = entity_pool->find_with_attribute("primary_camera");
-      if (!entity)
-      {
-         AllegroFlare::Logger::throw_error(
-            "AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowMapBuffer::primary_camera_3d",
-            "no camera present"
-         );
-      }
-      // TODO: validate the camera is of type Entities::Camera
-      Entities::Camera3D *as_camera = static_cast<Entities::Camera3D*>(entity);
-      return &as_camera->get_camera_3d_ref();
-    body_dependency_symbols:
-      - AllegroFlare::Logger
-
-
   - name: render
     guards:
       - initialized
@@ -264,6 +246,24 @@ methods:
     body_dependency_symbols:
       - AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityRenderFlags
       - AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Camera3D
+
+
+  - name: find_primary_camera_3d
+    type: AllegroFlare::Camera3D*
+    body: |
+      Entities::Base *entity = entity_pool->find_with_attribute("primary_camera");
+      if (!entity)
+      {
+         AllegroFlare::Logger::throw_error(
+            "AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowMapBuffer::primary_camera_3d",
+            "no camera present"
+         );
+      }
+      // TODO: validate the camera is of type Entities::Camera
+      Entities::Camera3D *as_camera = static_cast<Entities::Camera3D*>(entity);
+      return &as_camera->get_camera_3d_ref();
+    body_dependency_symbols:
+      - AllegroFlare::Logger
 
 
   - name: get_multitexture_model_3d

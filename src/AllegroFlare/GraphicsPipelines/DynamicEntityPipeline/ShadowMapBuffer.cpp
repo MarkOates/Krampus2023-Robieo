@@ -98,21 +98,6 @@ void ShadowMapBuffer::setup_result_surface_bitmap(int width, int height)
    return;
 }
 
-AllegroFlare::Camera3D* ShadowMapBuffer::find_primary_camera_3d()
-{
-   Entities::Base *entity = entity_pool->find_with_attribute("primary_camera");
-   if (!entity)
-   {
-      AllegroFlare::Logger::throw_error(
-         "AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowMapBuffer::primary_camera_3d",
-         "no camera present"
-      );
-   }
-   // TODO: validate the camera is of type Entities::Camera
-   Entities::Camera3D *as_camera = static_cast<Entities::Camera3D*>(entity);
-   return &as_camera->get_camera_3d_ref();
-}
-
 void ShadowMapBuffer::render()
 {
    if (!(initialized))
@@ -322,6 +307,21 @@ void ShadowMapBuffer::render()
    shadow_mapping_shader->deactivate();
 
    return;
+}
+
+AllegroFlare::Camera3D* ShadowMapBuffer::find_primary_camera_3d()
+{
+   Entities::Base *entity = entity_pool->find_with_attribute("primary_camera");
+   if (!entity)
+   {
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowMapBuffer::primary_camera_3d",
+         "no camera present"
+      );
+   }
+   // TODO: validate the camera is of type Entities::Camera
+   Entities::Camera3D *as_camera = static_cast<Entities::Camera3D*>(entity);
+   return &as_camera->get_camera_3d_ref();
 }
 
 AllegroFlare::MultitextureModel3D* ShadowMapBuffer::get_multitexture_model_3d(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base* entity)
