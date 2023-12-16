@@ -21,6 +21,18 @@ properties:
     getter: true
     setter: true
 
+  - name: result_surface_width
+    type: int
+    init_with: 1920
+    getter: true
+    setter: explicit
+
+  - name: result_surface_height
+    type: int
+    init_with: 1080
+    getter: true
+    setter: explicit
+
   - name: render_surface
     type: AllegroFlare::RenderSurfaces::Bitmap
     init_with: ''
@@ -36,18 +48,35 @@ properties:
 methods:
 
 
-  - name: setup_result_surface_bitmap
+  - name: set_result_surface_width
     parameters:
       - name: width
         type: int
         default_argument: 1920
+    guards: [ (!initialized), (width >= 320) ]
+    body: |
+      // TODO: Test guard
+      this->result_surface_width = result_surface_width;
+      return;
+
+
+  - name: set_result_surface_height
+    parameters:
       - name: height
         type: int
         default_argument: 1080
+    guards: [ (!initialized), (height >= 240) ]
+    body: |
+      // TODO: Test guard
+      this->result_surface_height = result_surface_height;
+      return;
+
+
+  - name: setup_result_surface_bitmap
     guards: [ (!initialized) ]
     body: |
-      render_surface.set_surface_width(width);
-      render_surface.set_surface_height(height);
+      render_surface.set_surface_width(result_surface_width);
+      render_surface.set_surface_height(result_surface_height);
       render_surface.set_multisamples(0);
       render_surface.set_depth(32);
       render_surface.initialize();
@@ -186,8 +215,8 @@ methods:
             );
             //throw std::rut
             // Isolate our entity's type
-            Entities::StaticMultitextureModel3D *as_multitexture_model_3d_entity =
-               static_cast<Entities::StaticMultitextureModel3D*>(entity);
+            //Entities::StaticMultitextureModel3D *as_multitexture_model_3d_entity =
+               //static_cast<Entities::StaticMultitextureModel3D*>(entity);
 
             // Extract out our textures
             //ALLEGRO_BITMAP *texture_a = get_texture(as_agc_entity);
@@ -209,20 +238,20 @@ methods:
             // Render our subject
             // NOTE: For this test, will not be using "subject.draw()". Instead we will be rendering manually, and
             // setting  textures on the shader manually
-            std::vector<AllegroFlare::ALLEGRO_VERTEX_WITH_TWO_UVS_AND_NORMAL> &vertices =
-               multitexture_model_3d->vertexes;
+            //std::vector<AllegroFlare::ALLEGRO_VERTEX_WITH_TWO_UVS_AND_NORMAL> &vertices =
+               //multitexture_model_3d->vertexes;
 
-            al_draw_prim(
-               &vertices[0],
-               multitexture_model_3d->vertex_declaration,
-               nullptr, // TODO: In this sloppy case, this texture is used to determine the
+            //al_draw_prim(
+               //&vertices[0],
+               //multitexture_model_3d->vertex_declaration,
+               //nullptr, // TODO: In this sloppy case, this texture is used to determine the
                         // dimensionality of the textures(s) of the shader. Note that at the time of this writing, the
                         // textures and dimensions are all inter-dependent on each other in this way. This kink
                         // should eventually be worked out and cleaned up.
-               0,
-               vertices.size(),
-               ALLEGRO_PRIM_TRIANGLE_LIST
-            );
+               //0,
+               //vertices.size(),
+               //ALLEGRO_PRIM_TRIANGLE_LIST
+            //);
 
             //multitexture_shader->deactivate();
          }

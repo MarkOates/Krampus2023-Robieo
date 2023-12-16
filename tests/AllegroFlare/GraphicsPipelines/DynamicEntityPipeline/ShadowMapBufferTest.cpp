@@ -93,7 +93,9 @@ TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_ShadowMapBufferTestW
    scene_renderer.set_shadow_depth_map_renderer(&shadow_depth_map_renderer);
    //scene_renderer.set_depth_pass(&depth_pass);
    //scene_renderer.setup_result_surface_bitmap(800, 600);
-   scene_renderer.setup_result_surface_bitmap(1920 / 2, 1080 / 2);
+   scene_renderer.set_result_surface_width(1920 / 2);
+   scene_renderer.set_result_surface_height(1080 / 2);
+   scene_renderer.setup_result_surface_bitmap();
 
    // TODO: Use an EntityFactory for this setup
    AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D *item = 

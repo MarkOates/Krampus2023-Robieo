@@ -25,6 +25,8 @@ ShadowMapBuffer::ShadowMapBuffer(AllegroFlare::GraphicsPipelines::DynamicEntityP
    : entity_pool(entity_pool)
    , shadow_mapping_shader(shadow_mapping_shader)
    , shadow_depth_map_renderer(nullptr)
+   , result_surface_width(1920)
+   , result_surface_height(1080)
    , render_surface()
    , initialized(false)
 {
@@ -72,13 +74,67 @@ AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowDepthMapRenderer2*
 }
 
 
+int ShadowMapBuffer::get_result_surface_width() const
+{
+   return result_surface_width;
+}
+
+
+int ShadowMapBuffer::get_result_surface_height() const
+{
+   return result_surface_height;
+}
+
+
 AllegroFlare::RenderSurfaces::Bitmap &ShadowMapBuffer::get_render_surface_ref()
 {
    return render_surface;
 }
 
 
-void ShadowMapBuffer::setup_result_surface_bitmap(int width, int height)
+void ShadowMapBuffer::set_result_surface_width(int width)
+{
+   if (!((!initialized)))
+   {
+      std::stringstream error_message;
+      error_message << "[ShadowMapBuffer::set_result_surface_width]: error: guard \"(!initialized)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("ShadowMapBuffer::set_result_surface_width: error: guard \"(!initialized)\" not met");
+   }
+   if (!((width >= 320)))
+   {
+      std::stringstream error_message;
+      error_message << "[ShadowMapBuffer::set_result_surface_width]: error: guard \"(width >= 320)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("ShadowMapBuffer::set_result_surface_width: error: guard \"(width >= 320)\" not met");
+   }
+   // TODO: Test guard
+   this->result_surface_width = result_surface_width;
+   return;
+}
+
+void ShadowMapBuffer::set_result_surface_height(int height)
+{
+   if (!((!initialized)))
+   {
+      std::stringstream error_message;
+      error_message << "[ShadowMapBuffer::set_result_surface_height]: error: guard \"(!initialized)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("ShadowMapBuffer::set_result_surface_height: error: guard \"(!initialized)\" not met");
+   }
+   if (!((height >= 240)))
+   {
+      std::stringstream error_message;
+      error_message << "[ShadowMapBuffer::set_result_surface_height]: error: guard \"(height >= 240)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("ShadowMapBuffer::set_result_surface_height: error: guard \"(height >= 240)\" not met");
+   }
+   // TODO: Test guard
+   this->result_surface_height = result_surface_height;
+   return;
+}
+
+void ShadowMapBuffer::setup_result_surface_bitmap()
 {
    if (!((!initialized)))
    {
@@ -87,8 +143,8 @@ void ShadowMapBuffer::setup_result_surface_bitmap(int width, int height)
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("ShadowMapBuffer::setup_result_surface_bitmap: error: guard \"(!initialized)\" not met");
    }
-   render_surface.set_surface_width(width);
-   render_surface.set_surface_height(height);
+   render_surface.set_surface_width(result_surface_width);
+   render_surface.set_surface_height(result_surface_height);
    render_surface.set_multisamples(0);
    render_surface.set_depth(32);
    render_surface.initialize();
@@ -250,8 +306,8 @@ void ShadowMapBuffer::render()
          );
          //throw std::rut
          // Isolate our entity's type
-         Entities::StaticMultitextureModel3D *as_multitexture_model_3d_entity =
-            static_cast<Entities::StaticMultitextureModel3D*>(entity);
+         //Entities::StaticMultitextureModel3D *as_multitexture_model_3d_entity =
+            //static_cast<Entities::StaticMultitextureModel3D*>(entity);
 
          // Extract out our textures
          //ALLEGRO_BITMAP *texture_a = get_texture(as_agc_entity);
@@ -273,20 +329,20 @@ void ShadowMapBuffer::render()
          // Render our subject
          // NOTE: For this test, will not be using "subject.draw()". Instead we will be rendering manually, and
          // setting  textures on the shader manually
-         std::vector<AllegroFlare::ALLEGRO_VERTEX_WITH_TWO_UVS_AND_NORMAL> &vertices =
-            multitexture_model_3d->vertexes;
+         //std::vector<AllegroFlare::ALLEGRO_VERTEX_WITH_TWO_UVS_AND_NORMAL> &vertices =
+            //multitexture_model_3d->vertexes;
 
-         al_draw_prim(
-            &vertices[0],
-            multitexture_model_3d->vertex_declaration,
-            nullptr, // TODO: In this sloppy case, this texture is used to determine the
+         //al_draw_prim(
+            //&vertices[0],
+            //multitexture_model_3d->vertex_declaration,
+            //nullptr, // TODO: In this sloppy case, this texture is used to determine the
                      // dimensionality of the textures(s) of the shader. Note that at the time of this writing, the
                      // textures and dimensions are all inter-dependent on each other in this way. This kink
                      // should eventually be worked out and cleaned up.
-            0,
-            vertices.size(),
-            ALLEGRO_PRIM_TRIANGLE_LIST
-         );
+            //0,
+            //vertices.size(),
+            //ALLEGRO_PRIM_TRIANGLE_LIST
+         //);
 
          //multitexture_shader->deactivate();
       }

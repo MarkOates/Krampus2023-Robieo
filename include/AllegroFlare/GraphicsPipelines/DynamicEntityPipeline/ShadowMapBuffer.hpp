@@ -25,6 +25,8 @@ namespace AllegroFlare
             AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool* entity_pool;
             AllegroFlare::Shaders::ShadowMapping* shadow_mapping_shader;
             AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowDepthMapRenderer2* shadow_depth_map_renderer;
+            int result_surface_width;
+            int result_surface_height;
             AllegroFlare::RenderSurfaces::Bitmap render_surface;
             bool initialized;
 
@@ -41,8 +43,12 @@ namespace AllegroFlare
             AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool* get_entity_pool() const;
             AllegroFlare::Shaders::ShadowMapping* get_shadow_mapping_shader() const;
             AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowDepthMapRenderer2* get_shadow_depth_map_renderer() const;
+            int get_result_surface_width() const;
+            int get_result_surface_height() const;
             AllegroFlare::RenderSurfaces::Bitmap &get_render_surface_ref();
-            void setup_result_surface_bitmap(int width=1920, int height=1080);
+            void set_result_surface_width(int width=1920);
+            void set_result_surface_height(int height=1080);
+            void setup_result_surface_bitmap();
             void render();
             AllegroFlare::Camera3D* find_primary_camera_3d();
             AllegroFlare::MultitextureModel3D* get_multitexture_model_3d(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base* entity=nullptr);
