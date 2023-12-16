@@ -21,10 +21,8 @@ namespace DynamicEntityPipeline
 {
 
 
-ShadowMapBuffer::ShadowMapBuffer(AllegroFlare::Shaders::Cubemap* cubemap_shader, AllegroFlare::Shaders::Multitexture* multitexture_shader, AllegroFlare::Shaders::ShadowMapping* shadow_mapping_shader, AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool* entity_pool)
-   : cubemap_shader(cubemap_shader)
-   , multitexture_shader(multitexture_shader)
-   , shadow_mapping_shader(shadow_mapping_shader)
+ShadowMapBuffer::ShadowMapBuffer(AllegroFlare::Shaders::ShadowMapping* shadow_mapping_shader, AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool* entity_pool)
+   : shadow_mapping_shader(shadow_mapping_shader)
    , entity_pool(entity_pool)
    , shadow_depth_map_renderer(nullptr)
    , render_surface()
@@ -35,18 +33,6 @@ ShadowMapBuffer::ShadowMapBuffer(AllegroFlare::Shaders::Cubemap* cubemap_shader,
 
 ShadowMapBuffer::~ShadowMapBuffer()
 {
-}
-
-
-void ShadowMapBuffer::set_cubemap_shader(AllegroFlare::Shaders::Cubemap* cubemap_shader)
-{
-   this->cubemap_shader = cubemap_shader;
-}
-
-
-void ShadowMapBuffer::set_multitexture_shader(AllegroFlare::Shaders::Multitexture* multitexture_shader)
-{
-   this->multitexture_shader = multitexture_shader;
 }
 
 
@@ -65,18 +51,6 @@ void ShadowMapBuffer::set_entity_pool(AllegroFlare::GraphicsPipelines::DynamicEn
 void ShadowMapBuffer::set_shadow_depth_map_renderer(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowDepthMapRenderer2* shadow_depth_map_renderer)
 {
    this->shadow_depth_map_renderer = shadow_depth_map_renderer;
-}
-
-
-AllegroFlare::Shaders::Cubemap* ShadowMapBuffer::get_cubemap_shader() const
-{
-   return cubemap_shader;
-}
-
-
-AllegroFlare::Shaders::Multitexture* ShadowMapBuffer::get_multitexture_shader() const
-{
-   return multitexture_shader;
 }
 
 
@@ -141,20 +115,6 @@ void ShadowMapBuffer::render()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("ShadowMapBuffer::render: error: guard \"entity_pool\" not met");
    }
-   if (!(cubemap_shader))
-   {
-      std::stringstream error_message;
-      error_message << "[ShadowMapBuffer::render]: error: guard \"cubemap_shader\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ShadowMapBuffer::render: error: guard \"cubemap_shader\" not met");
-   }
-   if (!(multitexture_shader))
-   {
-      std::stringstream error_message;
-      error_message << "[ShadowMapBuffer::render]: error: guard \"multitexture_shader\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ShadowMapBuffer::render: error: guard \"multitexture_shader\" not met");
-   }
    if (!(shadow_mapping_shader))
    {
       std::stringstream error_message;
@@ -194,7 +154,9 @@ void ShadowMapBuffer::render()
 
    al_clear_depth_buffer(1);
    //al_clear_to_color(ALLEGRO_COLOR{0.1, 0.105, 0.12, 1.0});
-   al_clear_to_color(ALLEGRO_COLOR{1.0, 1.0, 1.0, 1.0});
+   al_clear_to_color(ALLEGRO_COLOR{0.98 - 0.005, 0.986 - 0.005, 0.99 - 0.005, 1.0}); // NOTE This is only a non-white
+                                                                                     // color to make it a little
+                                                                                     // easier for debugging
 
    primary_camera->setup_projection_on(render_surface_bmp);
 

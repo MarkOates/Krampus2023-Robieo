@@ -1,20 +1,6 @@
 properties:
 
 
-  - name: cubemap_shader
-    type: AllegroFlare::Shaders::Cubemap*
-    init_with: nullptr
-    constructor_arg: true
-    getter: true
-    setter: true
-
-  - name: multitexture_shader
-    type: AllegroFlare::Shaders::Multitexture*
-    init_with: nullptr
-    constructor_arg: true
-    getter: true
-    setter: true
-
   - name: shadow_mapping_shader
     type: AllegroFlare::Shaders::ShadowMapping*
     init_with: nullptr
@@ -91,8 +77,6 @@ functions:
   - name: render
     guards:
       - entity_pool
-      - cubemap_shader
-      - multitexture_shader
       - shadow_mapping_shader
       - shadow_depth_map_renderer
       - render_surface_is_setup
@@ -115,7 +99,9 @@ functions:
 
       al_clear_depth_buffer(1);
       //al_clear_to_color(ALLEGRO_COLOR{0.1, 0.105, 0.12, 1.0});
-      al_clear_to_color(ALLEGRO_COLOR{1.0, 1.0, 1.0, 1.0});
+      al_clear_to_color(ALLEGRO_COLOR{0.98 - 0.005, 0.986 - 0.005, 0.99 - 0.005, 1.0}); // NOTE This is only a non-white
+                                                                                        // color to make it a little
+                                                                                        // easier for debugging
 
       primary_camera->setup_projection_on(render_surface_bmp);
 
