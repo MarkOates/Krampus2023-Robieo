@@ -24,14 +24,15 @@ namespace DynamicEntityPipeline
 {
 
 
-SceneRenderer2::SceneRenderer2(AllegroFlare::Shaders::Multitexture* multitexture_shader, AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool* entity_pool)
+SceneRenderer2::SceneRenderer2(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool* entity_pool)
    : cubemap_shader()
-   , multitexture_shader(multitexture_shader)
+   , multitexture_shader()
    , entity_pool(entity_pool)
    , shadow_map_buffer()
    , render_surface()
    , render_surface_is_setup(false)
    , cubemapping_is_setup(false)
+   , multitexture_shader_is_setup(false)
 {
 }
 
@@ -41,21 +42,9 @@ SceneRenderer2::~SceneRenderer2()
 }
 
 
-void SceneRenderer2::set_multitexture_shader(AllegroFlare::Shaders::Multitexture* multitexture_shader)
-{
-   this->multitexture_shader = multitexture_shader;
-}
-
-
 void SceneRenderer2::set_entity_pool(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool* entity_pool)
 {
    this->entity_pool = entity_pool;
-}
-
-
-AllegroFlare::Shaders::Multitexture* SceneRenderer2::get_multitexture_shader() const
-{
-   return multitexture_shader;
 }
 
 
@@ -134,6 +123,20 @@ void SceneRenderer2::setup_cubemapping(std::string cube_map_texture_filename)
    return;
 }
 
+void SceneRenderer2::setup_multitexture_shader()
+{
+   if (!((!multitexture_shader_is_setup)))
+   {
+      std::stringstream error_message;
+      error_message << "[SceneRenderer2::setup_multitexture_shader]: error: guard \"(!multitexture_shader_is_setup)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("SceneRenderer2::setup_multitexture_shader: error: guard \"(!multitexture_shader_is_setup)\" not met");
+   }
+   multitexture_shader.initialize();
+   multitexture_shader_is_setup = true;
+   return;
+}
+
 AllegroFlare::Camera3D* SceneRenderer2::find_primary_camera_3d()
 {
    Entities::Base *entity = entity_pool->find_with_attribute("primary_camera");
@@ -158,12 +161,12 @@ void SceneRenderer2::render()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("SceneRenderer2::render: error: guard \"entity_pool\" not met");
    }
-   if (!(multitexture_shader))
+   if (!(multitexture_shader_is_setup))
    {
       std::stringstream error_message;
-      error_message << "[SceneRenderer2::render]: error: guard \"multitexture_shader\" not met.";
+      error_message << "[SceneRenderer2::render]: error: guard \"multitexture_shader_is_setup\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("SceneRenderer2::render: error: guard \"multitexture_shader\" not met");
+      throw std::runtime_error("SceneRenderer2::render: error: guard \"multitexture_shader_is_setup\" not met");
    }
    if (!(render_surface_is_setup))
    {
@@ -287,11 +290,11 @@ void SceneRenderer2::render()
 
 
          // Assign the textures to the shader
-         multitexture_shader->set_texture_a(texture_a);
-         multitexture_shader->set_texture_b(texture_b);
+         multitexture_shader.set_texture_a(texture_a);
+         multitexture_shader.set_texture_b(texture_b);
 
          // Activate the shader
-         multitexture_shader->activate();
+         multitexture_shader.activate();
 
          // Render our subject
          // NOTE: For this test, will not be using "subject.draw()". Instead we will be rendering manually, and
@@ -311,7 +314,7 @@ void SceneRenderer2::render()
             ALLEGRO_PRIM_TRIANGLE_LIST
          );
 
-         multitexture_shader->deactivate();
+         multitexture_shader.deactivate();
       }
       else // (!model) or (!multitexture_model)
       {

@@ -7,11 +7,8 @@ properties:
     getter_ref: true
 
   - name: multitexture_shader
-    type: AllegroFlare::Shaders::Multitexture*
-    init_with: nullptr
-    constructor_arg: true
-    getter: true
-    setter: true
+    type: AllegroFlare::Shaders::Multitexture
+    init_with: ''
 
   - name: entity_pool
     type: AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool*
@@ -37,6 +34,10 @@ properties:
     init_with: false
 
   - name: cubemapping_is_setup
+    type: bool
+    init_with: false
+
+  - name: multitexture_shader_is_setup
     type: bool
     init_with: false
 
@@ -96,6 +97,14 @@ functions:
       - std::filesystem
 
 
+  - name: setup_multitexture_shader
+    guards: [ (!multitexture_shader_is_setup) ]
+    body: |
+      multitexture_shader.initialize();
+      multitexture_shader_is_setup = true;
+      return;
+
+
   - name: find_primary_camera_3d
     type: AllegroFlare::Camera3D*
     body: |
@@ -115,7 +124,7 @@ functions:
 
 
   - name: render
-    guards: [ entity_pool, multitexture_shader, render_surface_is_setup, cubemapping_is_setup ]
+    guards: [ entity_pool, multitexture_shader_is_setup, render_surface_is_setup, cubemapping_is_setup ]
     body: |
       AllegroFlare::Camera3D *primary_camera = find_primary_camera_3d();
 
@@ -225,11 +234,11 @@ functions:
 
 
             // Assign the textures to the shader
-            multitexture_shader->set_texture_a(texture_a);
-            multitexture_shader->set_texture_b(texture_b);
+            multitexture_shader.set_texture_a(texture_a);
+            multitexture_shader.set_texture_b(texture_b);
 
             // Activate the shader
-            multitexture_shader->activate();
+            multitexture_shader.activate();
 
             // Render our subject
             // NOTE: For this test, will not be using "subject.draw()". Instead we will be rendering manually, and
@@ -249,7 +258,7 @@ functions:
                ALLEGRO_PRIM_TRIANGLE_LIST
             );
 
-            multitexture_shader->deactivate();
+            multitexture_shader.deactivate();
          }
          else // (!model) or (!multitexture_model)
          {

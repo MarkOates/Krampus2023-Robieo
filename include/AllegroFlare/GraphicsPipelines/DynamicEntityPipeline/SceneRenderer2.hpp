@@ -25,23 +25,22 @@ namespace AllegroFlare
          {
          private:
             AllegroFlare::Shaders::Cubemap cubemap_shader;
-            AllegroFlare::Shaders::Multitexture* multitexture_shader;
+            AllegroFlare::Shaders::Multitexture multitexture_shader;
             AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool* entity_pool;
             AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowMapBuffer shadow_map_buffer;
             AllegroFlare::RenderSurfaces::Bitmap render_surface;
             bool render_surface_is_setup;
             bool cubemapping_is_setup;
+            bool multitexture_shader_is_setup;
 
          protected:
 
 
          public:
-            SceneRenderer2(AllegroFlare::Shaders::Multitexture* multitexture_shader=nullptr, AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool* entity_pool=nullptr);
+            SceneRenderer2(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool* entity_pool=nullptr);
             ~SceneRenderer2();
 
-            void set_multitexture_shader(AllegroFlare::Shaders::Multitexture* multitexture_shader);
             void set_entity_pool(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool* entity_pool);
-            AllegroFlare::Shaders::Multitexture* get_multitexture_shader() const;
             AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool* get_entity_pool() const;
             AllegroFlare::Shaders::Cubemap &get_cubemap_shader_ref();
             AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowMapBuffer &get_shadow_map_buffer_ref();
@@ -49,6 +48,7 @@ namespace AllegroFlare
             void setup_result_surface_bitmap(int width=1920, int height=1080);
             void setup_shadow_map_buffer();
             void setup_cubemapping(std::string cube_map_texture_filename="[unset-cube_map_texture_filename]");
+            void setup_multitexture_shader();
             AllegroFlare::Camera3D* find_primary_camera_3d();
             void render();
             AllegroFlare::MultitextureModel3D* get_multitexture_model_3d(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base* entity=nullptr);

@@ -185,7 +185,7 @@ table td
 </tr>
 <tr>
   <td class="property">multitexture_shader</td>
-  <td class="property">AllegroFlare::Shaders::Multitexture*</td>
+  <td class="property">AllegroFlare::Shaders::Multitexture</td>
 </tr>
 <tr>
   <td class="property">entity_pool</td>
@@ -207,6 +207,10 @@ table td
   <td class="property">cubemapping_is_setup</td>
   <td class="property">bool</td>
 </tr>
+<tr>
+  <td class="property">multitexture_shader_is_setup</td>
+  <td class="property">bool</td>
+</tr>
     </table>
 </div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
@@ -218,6 +222,9 @@ table td
 </tr>
 <tr>
   <td class="method">setup_cubemapping(std::string cube_map_texture_filename=&quot;[unset-cube_map_texture_filename]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">setup_multitexture_shader()</td>
 </tr>
 <tr>
   <td class="method">find_primary_camera_3d()</td>
