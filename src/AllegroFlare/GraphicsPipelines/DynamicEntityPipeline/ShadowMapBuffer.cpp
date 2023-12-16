@@ -211,7 +211,7 @@ void ShadowMapBuffer::render()
    shadow_depth_map_renderer->setup_transform_for_light(&transform);
 
    // Set the uniforms on the shader
-   shadow_mapping_shader->set_sampler("me__depth_pass_sampler", shadow_depth_map_render);
+   shadow_mapping_shader->set_sampler("me__depth_pass_sampler", shadow_depth_map_render, 0);
    shadow_mapping_shader->set_mat4("me__depth_pass_transform", &transform);
 
 
