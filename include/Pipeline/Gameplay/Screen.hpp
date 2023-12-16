@@ -6,6 +6,8 @@
 #include <AllegroFlare/FontBin.hpp>
 #include <AllegroFlare/GameConfigurations/Base.hpp>
 #include <AllegroFlare/GameEvent.hpp>
+#include <AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityPool.hpp>
+#include <AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer2.hpp>
 #include <AllegroFlare/ModelBin.hpp>
 #include <AllegroFlare/Player.hpp>
 #include <AllegroFlare/Screens/Base.hpp>
@@ -32,6 +34,8 @@ namespace Pipeline
          AllegroFlare::FontBin* font_bin;
          AllegroFlare::ModelBin* model_bin;
          AllegroFlare::GameConfigurations::Base* game_configuration;
+         AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool entity_pool;
+         AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::SceneRenderer2 scene_renderer;
          std::string current_level_identifier;
          Pipeline::Gameplay::Level* current_level;
          std::function<void(Pipeline::Gameplay::Screen*, void*)> on_finished_callback_func;

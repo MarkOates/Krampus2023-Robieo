@@ -23,6 +23,8 @@ Screen::Screen(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::BitmapBi
    , font_bin(font_bin)
    , model_bin(model_bin)
    , game_configuration(game_configuration)
+   , entity_pool()
+   , scene_renderer()
    , current_level_identifier("[unset-current_level]")
    , current_level(nullptr)
    , on_finished_callback_func()
@@ -254,6 +256,7 @@ void Screen::update()
 
 void Screen::render()
 {
+   //al_draw_filled_rectangle(0, 0, 300, 300, ALLEGRO_COLOR{1, 0, 0, 1});
    return;
 }
 

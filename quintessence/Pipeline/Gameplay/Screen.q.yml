@@ -36,6 +36,14 @@ properties:
     getter: true
     setter: true
 
+  - name: entity_pool
+    type: AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool
+    init_with: ''
+
+  - name: scene_renderer
+    type: AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::SceneRenderer2
+    init_with: ''
+
   - name: current_level_identifier
     type: std::string
     init_with: '"[unset-current_level]"'
@@ -191,6 +199,7 @@ methods:
 
   - name: render
     body: |
+      //al_draw_filled_rectangle(0, 0, 300, 300, ALLEGRO_COLOR{1, 0, 0, 1});
       return;
 
 
@@ -313,4 +322,9 @@ dependencies:
     headers: [ Pipeline/Gameplay/Level.hpp ]
   - symbol: AllegroFlare::GameEvent
     headers: [ AllegroFlare/GameEvent.hpp ]
+  - symbol: AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool
+    headers: [ AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityPool.hpp ]
+  - symbol: AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::SceneRenderer2
+    headers: [ AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer2.hpp ]
+
 
