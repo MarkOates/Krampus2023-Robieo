@@ -1,17 +1,17 @@
 properties:
 
 
-  - name: shadow_mapping_shader
-    type: AllegroFlare::Shaders::ShadowMapping*
-    init_with: nullptr
-    constructor_arg: true
-    getter: true
-    setter: true
-
   - name: entity_pool
     type: AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool*
     constructor_arg: true
     init_with: nullptr
+    getter: true
+    setter: true
+
+  - name: shadow_mapping_shader
+    type: AllegroFlare::Shaders::ShadowMapping*
+    init_with: nullptr
+    constructor_arg: true
     getter: true
     setter: true
 
@@ -28,12 +28,12 @@ properties:
     getter: false
     setter: false
 
-  - name: render_surface_is_setup
+  - name: initialized
     type: bool
     init_with: false
 
 
-functions:
+methods:
 
 
   - name: setup_result_surface_bitmap
@@ -44,6 +44,7 @@ functions:
       - name: height
         type: int
         default_argument: 1080
+    guards: [ (!initialized) ]
     body: |
       render_surface.set_surface_width(width);
       render_surface.set_surface_height(height);
@@ -51,7 +52,7 @@ functions:
       render_surface.set_depth(32);
       render_surface.initialize();
 
-      render_surface_is_setup = true;
+      initialized = true;
 
       return;
 
@@ -76,10 +77,10 @@ functions:
 
   - name: render
     guards:
+      - initialized
       - entity_pool
       - shadow_mapping_shader
       - shadow_depth_map_renderer
-      - render_surface_is_setup
     body: |
       AllegroFlare::Camera3D *primary_camera = find_primary_camera_3d();
 

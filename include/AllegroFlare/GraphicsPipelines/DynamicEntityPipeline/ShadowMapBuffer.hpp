@@ -22,24 +22,24 @@ namespace AllegroFlare
          class ShadowMapBuffer
          {
          private:
-            AllegroFlare::Shaders::ShadowMapping* shadow_mapping_shader;
             AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool* entity_pool;
+            AllegroFlare::Shaders::ShadowMapping* shadow_mapping_shader;
             AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowDepthMapRenderer2* shadow_depth_map_renderer;
             AllegroFlare::RenderSurfaces::Bitmap render_surface;
-            bool render_surface_is_setup;
+            bool initialized;
 
          protected:
 
 
          public:
-            ShadowMapBuffer(AllegroFlare::Shaders::ShadowMapping* shadow_mapping_shader=nullptr, AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool* entity_pool=nullptr);
+            ShadowMapBuffer(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool* entity_pool=nullptr, AllegroFlare::Shaders::ShadowMapping* shadow_mapping_shader=nullptr);
             ~ShadowMapBuffer();
 
-            void set_shadow_mapping_shader(AllegroFlare::Shaders::ShadowMapping* shadow_mapping_shader);
             void set_entity_pool(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool* entity_pool);
+            void set_shadow_mapping_shader(AllegroFlare::Shaders::ShadowMapping* shadow_mapping_shader);
             void set_shadow_depth_map_renderer(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowDepthMapRenderer2* shadow_depth_map_renderer);
-            AllegroFlare::Shaders::ShadowMapping* get_shadow_mapping_shader() const;
             AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool* get_entity_pool() const;
+            AllegroFlare::Shaders::ShadowMapping* get_shadow_mapping_shader() const;
             AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowDepthMapRenderer2* get_shadow_depth_map_renderer() const;
             AllegroFlare::RenderSurfaces::Bitmap &get_render_surface_ref();
             void setup_result_surface_bitmap(int width=1920, int height=1080);

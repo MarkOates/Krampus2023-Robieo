@@ -21,12 +21,12 @@ namespace DynamicEntityPipeline
 {
 
 
-ShadowMapBuffer::ShadowMapBuffer(AllegroFlare::Shaders::ShadowMapping* shadow_mapping_shader, AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool* entity_pool)
-   : shadow_mapping_shader(shadow_mapping_shader)
-   , entity_pool(entity_pool)
+ShadowMapBuffer::ShadowMapBuffer(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool* entity_pool, AllegroFlare::Shaders::ShadowMapping* shadow_mapping_shader)
+   : entity_pool(entity_pool)
+   , shadow_mapping_shader(shadow_mapping_shader)
    , shadow_depth_map_renderer(nullptr)
    , render_surface()
-   , render_surface_is_setup(false)
+   , initialized(false)
 {
 }
 
@@ -36,15 +36,15 @@ ShadowMapBuffer::~ShadowMapBuffer()
 }
 
 
-void ShadowMapBuffer::set_shadow_mapping_shader(AllegroFlare::Shaders::ShadowMapping* shadow_mapping_shader)
-{
-   this->shadow_mapping_shader = shadow_mapping_shader;
-}
-
-
 void ShadowMapBuffer::set_entity_pool(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool* entity_pool)
 {
    this->entity_pool = entity_pool;
+}
+
+
+void ShadowMapBuffer::set_shadow_mapping_shader(AllegroFlare::Shaders::ShadowMapping* shadow_mapping_shader)
+{
+   this->shadow_mapping_shader = shadow_mapping_shader;
 }
 
 
@@ -54,15 +54,15 @@ void ShadowMapBuffer::set_shadow_depth_map_renderer(AllegroFlare::GraphicsPipeli
 }
 
 
-AllegroFlare::Shaders::ShadowMapping* ShadowMapBuffer::get_shadow_mapping_shader() const
-{
-   return shadow_mapping_shader;
-}
-
-
 AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool* ShadowMapBuffer::get_entity_pool() const
 {
    return entity_pool;
+}
+
+
+AllegroFlare::Shaders::ShadowMapping* ShadowMapBuffer::get_shadow_mapping_shader() const
+{
+   return shadow_mapping_shader;
 }
 
 
@@ -80,13 +80,20 @@ AllegroFlare::RenderSurfaces::Bitmap &ShadowMapBuffer::get_render_surface_ref()
 
 void ShadowMapBuffer::setup_result_surface_bitmap(int width, int height)
 {
+   if (!((!initialized)))
+   {
+      std::stringstream error_message;
+      error_message << "[ShadowMapBuffer::setup_result_surface_bitmap]: error: guard \"(!initialized)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("ShadowMapBuffer::setup_result_surface_bitmap: error: guard \"(!initialized)\" not met");
+   }
    render_surface.set_surface_width(width);
    render_surface.set_surface_height(height);
    render_surface.set_multisamples(0);
    render_surface.set_depth(32);
    render_surface.initialize();
 
-   render_surface_is_setup = true;
+   initialized = true;
 
    return;
 }
@@ -108,6 +115,13 @@ AllegroFlare::Camera3D* ShadowMapBuffer::find_primary_camera_3d()
 
 void ShadowMapBuffer::render()
 {
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[ShadowMapBuffer::render]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("ShadowMapBuffer::render: error: guard \"initialized\" not met");
+   }
    if (!(entity_pool))
    {
       std::stringstream error_message;
@@ -128,13 +142,6 @@ void ShadowMapBuffer::render()
       error_message << "[ShadowMapBuffer::render]: error: guard \"shadow_depth_map_renderer\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("ShadowMapBuffer::render: error: guard \"shadow_depth_map_renderer\" not met");
-   }
-   if (!(render_surface_is_setup))
-   {
-      std::stringstream error_message;
-      error_message << "[ShadowMapBuffer::render]: error: guard \"render_surface_is_setup\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ShadowMapBuffer::render: error: guard \"render_surface_is_setup\" not met");
    }
    AllegroFlare::Camera3D *primary_camera = find_primary_camera_3d();
 
