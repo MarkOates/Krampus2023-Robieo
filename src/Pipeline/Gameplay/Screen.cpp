@@ -346,11 +346,19 @@ void Screen::update()
    // HERE:
 
    //player_control_velocity.x = -0.001;
+   bool lock_camera_on_player_controlled_entity = true;
    if (player_controlled_entity)
    {
       auto player_entity_as = get_player_controlled_entity_as();
       player_entity_as->get_placement_ref().position.x += player_control_velocity.x;
       player_entity_as->get_placement_ref().position.z += player_control_velocity.y;
+
+      if (lock_camera_on_player_controlled_entity)
+      {
+         primary_camera->position.x = player_entity_as->get_placement_ref().position.x;
+         primary_camera->position.y = player_entity_as->get_placement_ref().position.y;
+         primary_camera->position.z = player_entity_as->get_placement_ref().position.z;
+      }
    }
 
    // Rotate objects in the scene
