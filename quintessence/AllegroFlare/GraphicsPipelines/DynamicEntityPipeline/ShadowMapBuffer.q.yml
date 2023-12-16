@@ -6,7 +6,7 @@ properties:
     constructor_arg: true
     init_with: nullptr
     getter: true
-    setter: true
+    setter: explicit
 
   - name: shadow_mapping_shader
     type: AllegroFlare::Shaders::ShadowMapping*
@@ -15,11 +15,22 @@ properties:
     getter: true
     setter: true
 
-  - name: shadow_depth_map_renderer
-    type: AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowDepthMapRenderer2*
-    init_with: nullptr
+  - name: shadow_depth_map_surface_width
+    type: int
+    init_with: 1920
     getter: true
-    setter: true
+    setter: explicit
+
+  - name: shadow_depth_map_surface_height
+    type: int
+    init_with: 1080
+    getter: true
+    setter: explicit
+
+  - name: shadow_depth_map_renderer
+    type: AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowDepthMapRenderer2
+    init_with: ''
+    getter_ref: true
 
   - name: result_surface_width
     type: int
@@ -46,6 +57,43 @@ properties:
 
 
 methods:
+
+
+  - name: set_entity_pool
+    parameters:
+      - name: entity_pool
+        type: AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool*
+        default_argument: nullptr
+    body: |
+      this->entity_pool = entity_pool;
+      shadow_depth_map_renderer.set_entity_pool(entity_pool);
+      // TODO: Test guard
+      //this->result_surface_width = result_surface_width;
+      return;
+
+
+  - name: set_shadow_depth_map_surface_width
+    parameters:
+      - name: width
+        type: int
+        default_argument: 1920
+    guards: [ (!initialized), (width >= 320) ]
+    body: |
+      // TODO: Test guard
+      this->shadow_depth_map_surface_width = shadow_depth_map_surface_width;
+      return;
+
+
+  - name: set_shadow_depth_map_surface_height
+    parameters:
+      - name: height
+        type: int
+        default_argument: 1920
+    guards: [ (!initialized), (height >= 320) ]
+    body: |
+      // TODO: Test guard
+      this->shadow_depth_map_surface_height = shadow_depth_map_surface_height;
+      return;
 
 
   - name: set_result_surface_width
@@ -75,6 +123,14 @@ methods:
   - name: initialize
     guards: [ (!initialized) ]
     body: |
+      shadow_depth_map_renderer.setup_result_surface_bitmap(
+         shadow_depth_map_surface_width, 
+         shadow_depth_map_surface_height
+      );
+      shadow_depth_map_renderer.init_shader();
+      shadow_depth_map_renderer.set_entity_pool(entity_pool);
+      shadow_depth_map_renderer.init_camera_defaults(); // NOTE: The camera defaults seem to be weird
+
       result_surface.set_surface_width(result_surface_width);
       result_surface.set_surface_height(result_surface_height);
       result_surface.set_multisamples(0);
@@ -91,15 +147,14 @@ methods:
       - initialized
       - entity_pool
       - shadow_mapping_shader
-      - shadow_depth_map_renderer
     body: |
       AllegroFlare::Camera3D *primary_camera = find_primary_camera_3d();
 
       // Draw the shadow_depth_map_render
-      if (shadow_depth_map_renderer)
-      {
-         shadow_depth_map_renderer->render();
-      }
+      //if (shadow_depth_map_renderer)
+      //{
+         shadow_depth_map_renderer.render();
+      //}
 
 
       using namespace AllegroFlare::GraphicsPipelines::DynamicEntityPipeline;
@@ -125,10 +180,10 @@ methods:
       shadow_mapping_shader->activate();
 
       // Obtain our shadow_depth_map_render texture and light position
-      ALLEGRO_BITMAP *shadow_depth_map_render = shadow_depth_map_renderer->get_result_surface_bitmap();
-      AllegroFlare::Camera3D &light = shadow_depth_map_renderer->get_casting_light_ref();
+      ALLEGRO_BITMAP *shadow_depth_map_render = shadow_depth_map_renderer.get_result_surface_bitmap();
+      AllegroFlare::Camera3D &light = shadow_depth_map_renderer.get_casting_light_ref();
       ALLEGRO_TRANSFORM transform;
-      shadow_depth_map_renderer->setup_transform_for_light(&transform);
+      shadow_depth_map_renderer.setup_transform_for_light(&transform);
 
       // Set the uniforms on the shader
       shadow_mapping_shader->set_sampler("me__depth_pass_sampler", shadow_depth_map_render, 0);

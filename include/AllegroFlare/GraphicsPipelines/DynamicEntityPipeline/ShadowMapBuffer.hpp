@@ -24,7 +24,9 @@ namespace AllegroFlare
          private:
             AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool* entity_pool;
             AllegroFlare::Shaders::ShadowMapping* shadow_mapping_shader;
-            AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowDepthMapRenderer2* shadow_depth_map_renderer;
+            int shadow_depth_map_surface_width;
+            int shadow_depth_map_surface_height;
+            AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowDepthMapRenderer2 shadow_depth_map_renderer;
             int result_surface_width;
             int result_surface_height;
             AllegroFlare::RenderSurfaces::Bitmap result_surface;
@@ -37,15 +39,18 @@ namespace AllegroFlare
             ShadowMapBuffer(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool* entity_pool=nullptr, AllegroFlare::Shaders::ShadowMapping* shadow_mapping_shader=nullptr);
             ~ShadowMapBuffer();
 
-            void set_entity_pool(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool* entity_pool);
             void set_shadow_mapping_shader(AllegroFlare::Shaders::ShadowMapping* shadow_mapping_shader);
-            void set_shadow_depth_map_renderer(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowDepthMapRenderer2* shadow_depth_map_renderer);
             AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool* get_entity_pool() const;
             AllegroFlare::Shaders::ShadowMapping* get_shadow_mapping_shader() const;
-            AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowDepthMapRenderer2* get_shadow_depth_map_renderer() const;
+            int get_shadow_depth_map_surface_width() const;
+            int get_shadow_depth_map_surface_height() const;
             int get_result_surface_width() const;
             int get_result_surface_height() const;
+            AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowDepthMapRenderer2 &get_shadow_depth_map_renderer_ref();
             AllegroFlare::RenderSurfaces::Bitmap &get_result_surface_ref();
+            void set_entity_pool(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool* entity_pool=nullptr);
+            void set_shadow_depth_map_surface_width(int width=1920);
+            void set_shadow_depth_map_surface_height(int height=1920);
             void set_result_surface_width(int width=1920);
             void set_result_surface_height(int height=1080);
             void initialize();

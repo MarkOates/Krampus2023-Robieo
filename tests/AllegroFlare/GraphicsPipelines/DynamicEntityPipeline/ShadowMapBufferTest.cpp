@@ -44,7 +44,7 @@ TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_ShadowMapBufferTestW
    //AllegroFlare::Shaders::Multitexture multitexture_shader;
    AllegroFlare::Shaders::ShadowMapping shadow_mapping_shader;
    //AllegroFlare::Shaders::Cubemap cubemap_shader;
-   AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowDepthMapRenderer2 shadow_depth_map_renderer;
+   //AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowDepthMapRenderer2 shadow_depth_map_renderer;
    AllegroFlare::Cubemap* cubemap = nullptr;
    AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool entity_pool;
    AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityFactory entity_factory;
@@ -66,11 +66,11 @@ TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_ShadowMapBufferTestW
    //cubemap_shader.set_cube_map(cubemap);
 
    // Shadow depth map renderer
-   shadow_depth_map_renderer.setup_result_surface_bitmap(1920, 1080); // TODO: Don't use hard coded dimensions
-   shadow_depth_map_renderer.init_shader();
-   shadow_depth_map_renderer.set_entity_pool(&entity_pool);
-   shadow_depth_map_renderer.init_camera_defaults(); // NOTE: The camera defaults seem to be weird
-   AllegroFlare::Camera3D &light = shadow_depth_map_renderer.get_casting_light_ref();
+   //shadow_depth_map_renderer.setup_result_surface_bitmap(1920, 1080); // TODO: Don't use hard coded dimensions
+   //shadow_depth_map_renderer.init_shader();
+   //shadow_depth_map_renderer.set_entity_pool(&entity_pool);
+   //shadow_depth_map_renderer.init_camera_defaults(); // NOTE: The camera defaults seem to be weird
+   //AllegroFlare::Camera3D &light = shadow_depth_map_renderer.get_casting_light_ref();
    //shadow_depth_map_renderer.initialize();
 
 
@@ -90,7 +90,7 @@ TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_ShadowMapBufferTestW
    //scene_renderer.set_multitexture_shader(&multitexture_shader);
    scene_renderer.set_shadow_mapping_shader(&shadow_mapping_shader);
    scene_renderer.set_entity_pool(&entity_pool);
-   scene_renderer.set_shadow_depth_map_renderer(&shadow_depth_map_renderer);
+   //scene_renderer.set_shadow_depth_map_renderer(&shadow_depth_map_renderer);
    //scene_renderer.set_depth_pass(&depth_pass);
    //scene_renderer.setup_result_surface_bitmap(800, 600);
    scene_renderer.set_result_surface_width(1920 / 2);
@@ -140,8 +140,10 @@ TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_ShadowMapBufferTestW
 
    // Render the scene
    int frames = 120;
+   AllegroFlare::Camera3D &light = scene_renderer.get_shadow_depth_map_renderer_ref().get_casting_light_ref();
    for (int i=0; i<frames; i++)
    {
+      //AllegroFlare::Camera3D &light = scene_renderer.get_shadow_depth_map_renderer().get_casting_light_ref();
       // Spin our shadow casted light
       light.spin += 0.003f;
 
@@ -199,7 +201,7 @@ TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_ShadowMapBufferTestW
       if (draw_shadow_depth_map_as_overlay)
       {
          // Draw the casted render
-         texture_to_render = shadow_depth_map_renderer.get_result_surface_bitmap();
+         texture_to_render = scene_renderer.get_shadow_depth_map_renderer_ref().get_result_surface_bitmap();
          al_draw_tinted_scaled_bitmap(
             //shadow_depth_map_renderer.get_result_surface_bitmap(),
             //depth_pass.get_result_surface_bitmap(),

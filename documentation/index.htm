@@ -418,8 +418,16 @@ table td
   <td class="property">AllegroFlare::Shaders::ShadowMapping*</td>
 </tr>
 <tr>
+  <td class="property">shadow_depth_map_surface_width</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">shadow_depth_map_surface_height</td>
+  <td class="property">int</td>
+</tr>
+<tr>
   <td class="property">shadow_depth_map_renderer</td>
-  <td class="property">AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowDepthMapRenderer2*</td>
+  <td class="property">AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowDepthMapRenderer2</td>
 </tr>
 <tr>
   <td class="property">result_surface_width</td>
@@ -440,6 +448,15 @@ table td
     </table>
 </div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
+<tr>
+  <td class="method">set_entity_pool(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool* entity_pool=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">set_shadow_depth_map_surface_width(int width=1920)</td>
+</tr>
+<tr>
+  <td class="method">set_shadow_depth_map_surface_height(int height=1920)</td>
+</tr>
 <tr>
   <td class="method">set_result_surface_width(int width=1920)</td>
 </tr>
