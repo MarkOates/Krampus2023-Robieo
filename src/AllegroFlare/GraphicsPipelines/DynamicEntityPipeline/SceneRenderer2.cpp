@@ -29,7 +29,6 @@ SceneRenderer2::SceneRenderer2(AllegroFlare::Shaders::Multitexture* multitexture
    , multitexture_shader(multitexture_shader)
    , entity_pool(entity_pool)
    , shadow_map_buffer()
-   , shadow_depth_map_renderer(nullptr)
    , render_surface()
    , render_surface_is_setup(false)
    , cubemapping_is_setup(false)
@@ -54,12 +53,6 @@ void SceneRenderer2::set_entity_pool(AllegroFlare::GraphicsPipelines::DynamicEnt
 }
 
 
-void SceneRenderer2::set_shadow_depth_map_renderer(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowDepthMapRenderer2* shadow_depth_map_renderer)
-{
-   this->shadow_depth_map_renderer = shadow_depth_map_renderer;
-}
-
-
 AllegroFlare::Shaders::Multitexture* SceneRenderer2::get_multitexture_shader() const
 {
    return multitexture_shader;
@@ -69,12 +62,6 @@ AllegroFlare::Shaders::Multitexture* SceneRenderer2::get_multitexture_shader() c
 AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool* SceneRenderer2::get_entity_pool() const
 {
    return entity_pool;
-}
-
-
-AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowDepthMapRenderer2* SceneRenderer2::get_shadow_depth_map_renderer() const
-{
-   return shadow_depth_map_renderer;
 }
 
 
@@ -193,12 +180,6 @@ void SceneRenderer2::render()
       throw std::runtime_error("SceneRenderer2::render: error: guard \"cubemapping_is_setup\" not met");
    }
    AllegroFlare::Camera3D *primary_camera = find_primary_camera_3d();
-
-   // Draw the shadow_depth_map_render
-   if (shadow_depth_map_renderer)
-   {
-      shadow_depth_map_renderer->render();
-   }
 
 
 

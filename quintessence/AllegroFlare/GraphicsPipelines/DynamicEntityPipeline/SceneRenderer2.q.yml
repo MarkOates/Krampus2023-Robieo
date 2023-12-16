@@ -25,12 +25,6 @@ properties:
     init_with: ''
     getter_ref: true
 
-  - name: shadow_depth_map_renderer
-    type: AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowDepthMapRenderer2*
-    init_with: nullptr
-    getter: true
-    setter: true
-
   - name: render_surface
     type: AllegroFlare::RenderSurfaces::Bitmap
     init_with: ''
@@ -124,12 +118,6 @@ functions:
     guards: [ entity_pool, multitexture_shader, render_surface_is_setup, cubemapping_is_setup ]
     body: |
       AllegroFlare::Camera3D *primary_camera = find_primary_camera_3d();
-
-      // Draw the shadow_depth_map_render
-      if (shadow_depth_map_renderer)
-      {
-         shadow_depth_map_renderer->render();
-      }
 
 
 

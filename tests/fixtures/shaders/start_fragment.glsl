@@ -33,7 +33,7 @@ void main()
 
   // Calculate light
   bool in_casted_shadow = false;
-  float bias = 0.003;
+  float bias = 0.0032;
 
   float vertex_dist_from_light = me__glPosition_from_light.z;
   //vec2 corrected_shadow_pass_uv = vec2(me__shadow_pass_uv_texcoord.x, -me__shadow_pass_uv_texcoord.y) * 0.5 + vec2(0.5, 0.5);

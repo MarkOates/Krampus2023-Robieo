@@ -4,7 +4,6 @@
 #include <AllegroFlare/Camera3D.hpp>
 #include <AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/Base.hpp>
 #include <AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityPool.hpp>
-#include <AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer2.hpp>
 #include <AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowMapBuffer.hpp>
 #include <AllegroFlare/Model3D.hpp>
 #include <AllegroFlare/MultitextureModel3D.hpp>
@@ -29,7 +28,6 @@ namespace AllegroFlare
             AllegroFlare::Shaders::Multitexture* multitexture_shader;
             AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool* entity_pool;
             AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowMapBuffer shadow_map_buffer;
-            AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowDepthMapRenderer2* shadow_depth_map_renderer;
             AllegroFlare::RenderSurfaces::Bitmap render_surface;
             bool render_surface_is_setup;
             bool cubemapping_is_setup;
@@ -43,10 +41,8 @@ namespace AllegroFlare
 
             void set_multitexture_shader(AllegroFlare::Shaders::Multitexture* multitexture_shader);
             void set_entity_pool(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool* entity_pool);
-            void set_shadow_depth_map_renderer(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowDepthMapRenderer2* shadow_depth_map_renderer);
             AllegroFlare::Shaders::Multitexture* get_multitexture_shader() const;
             AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool* get_entity_pool() const;
-            AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowDepthMapRenderer2* get_shadow_depth_map_renderer() const;
             AllegroFlare::Shaders::Cubemap &get_cubemap_shader_ref();
             AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowMapBuffer &get_shadow_map_buffer_ref();
             AllegroFlare::RenderSurfaces::Bitmap &get_render_surface_ref();

@@ -42,7 +42,7 @@ TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_SceneRendererTestWit
    model_bin.set_full_path(get_fixtures_path() + "models");
    AllegroFlare::Shaders::Multitexture multitexture_shader;
    //AllegroFlare::Shaders::Cubemap cubemap_shader;
-   AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowDepthMapRenderer2 shadow_depth_map_renderer;
+   //AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowDepthMapRenderer2 shadow_depth_map_renderer;
    //AllegroFlare::Cubemap* cubemap = nullptr;
    AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool entity_pool;
    AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityFactory entity_factory;
@@ -62,11 +62,11 @@ TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_SceneRendererTestWit
    //cubemap_shader.set_cube_map(cubemap);
 
    // Shadow depth map renderer
-   shadow_depth_map_renderer.setup_result_surface_bitmap(1920, 1080); // TODO: Don't use hard coded dimensions
-   shadow_depth_map_renderer.init_shader();
-   shadow_depth_map_renderer.set_entity_pool(&entity_pool);
-   shadow_depth_map_renderer.init_camera_defaults(); // NOTE: The camera defaults seem to be weird
-   AllegroFlare::Camera3D &lightx = shadow_depth_map_renderer.get_casting_light_ref();
+   //shadow_depth_map_renderer.setup_result_surface_bitmap(1920, 1080); // TODO: Don't use hard coded dimensions
+   //shadow_depth_map_renderer.init_shader();
+   //shadow_depth_map_renderer.set_entity_pool(&entity_pool);
+   //shadow_depth_map_renderer.init_camera_defaults(); // NOTE: The camera defaults seem to be weird
+   //AllegroFlare::Camera3D &lightx = shadow_depth_map_renderer.get_casting_light_ref();
    //shadow_depth_map_renderer.initialize();
 
 
@@ -85,7 +85,7 @@ TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_SceneRendererTestWit
    //scene_renderer.set_cubemap_shader(&cubemap_shader);
    scene_renderer.set_multitexture_shader(&multitexture_shader);
    scene_renderer.set_entity_pool(&entity_pool);
-   scene_renderer.set_shadow_depth_map_renderer(&shadow_depth_map_renderer);
+   //scene_renderer.set_shadow_depth_map_renderer(&shadow_depth_map_renderer);
    //scene_renderer.set_depth_pass(&depth_pass);
    //scene_renderer.setup_result_surface_bitmap(800, 600);
    //scene_renderer.setup_result_surface_bitmap(1920 / 2, 1080 / 2);
