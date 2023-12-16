@@ -752,6 +752,10 @@ table td
   <td class="property">AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool</td>
 </tr>
 <tr>
+  <td class="property">player_controlled_entity</td>
+  <td class="property">AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base*</td>
+</tr>
+<tr>
   <td class="property">scene_renderer</td>
   <td class="property">AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::SceneRenderer2</td>
 </tr>
@@ -822,6 +826,9 @@ table td
   <td class="method">primary_timer_func()</td>
 </tr>
 <tr>
+  <td class="method">key_down_func(ALLEGRO_EVENT* ev=nullptr)</td>
+</tr>
+<tr>
   <td class="method">virtual_control_button_up_func(AllegroFlare::Player* player=nullptr, AllegroFlare::VirtualControllers::Base* virtual_controller=nullptr, int virtual_controller_button_num=0, bool is_repeat=false)</td>
 </tr>
 <tr>
@@ -889,6 +896,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityRenderFlags&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityRenderFlags.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/Base.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -1160,7 +1170,8 @@ table td
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/DepthBuffer",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer2",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer2",
-    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowMapBuffer"
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowMapBuffer",
+    "Pipeline/Gameplay/Screen"
   ],
   "AllegroFlare/Errors": [
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/DepthBuffer",

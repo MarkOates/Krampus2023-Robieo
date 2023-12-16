@@ -40,6 +40,10 @@ properties:
     type: AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool
     init_with: ''
 
+  - name: player_controlled_entity
+    type: AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base*
+    init_with: nullptr
+
   - name: scene_renderer
     type: AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::SceneRenderer2
     init_with: ''
@@ -130,6 +134,10 @@ methods:
         default_argument: '"[unset-level_identifier]"'
     guards: [ game_configuration ]
     body: |
+      player_controlled_entity = nullptr;
+      // TODO: Clear pool
+
+
       AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityFactory entity_factory;
       entity_factory.set_bitmap_bin(bitmap_bin);
       entity_factory.set_model_bin(model_bin);
@@ -170,6 +178,10 @@ methods:
       env->get_placement_ref().position.x = 0;
       env->get_placement_ref().position.y = 0;
       entity_pool.add(env);
+
+
+      player_controlled_entity = dynamic_cube;
+
 
 
       return;
@@ -250,13 +262,13 @@ methods:
     body: |
       // Spin our shadow casted light
       AllegroFlare::Camera3D *light = scene_renderer.get_shadow_map_buffer_ref().get_light();
-      light->spin -= 0.001f;
+      //light->spin -= 0.001f;
 
       // Pan the camera
       AllegroFlare::Camera3D *primary_camera = scene_renderer.find_primary_camera_3d();
-      primary_camera->stepout.z += 0.01;
-      primary_camera->spin += 0.0005;
-      primary_camera->tilt += 0.0008;
+      //primary_camera->stepout.z += 0.01;
+      //primary_camera->spin += 0.0005;
+      //primary_camera->tilt += 0.0008;
 
       // Rotate objects in the scene
       //item->get_placement_ref().rotation.x += 0.005;
@@ -320,6 +332,42 @@ methods:
       update();
       render();
       return;
+
+
+  - name: key_down_func
+    virtual: true
+    override: true
+    parameters:
+      - name: ev
+        type: ALLEGRO_EVENT*
+        default_argument: nullptr
+    guards: [ initialized, event_emitter ]
+    body: |
+      switch(ev->keyboard.keycode)
+      {
+         case ALLEGRO_KEY_UP: {
+            //move_development_cursor_up();
+         } break;
+
+         case ALLEGRO_KEY_DOWN: {
+            //move_development_cursor_down();
+         } break;
+
+         case ALLEGRO_KEY_LEFT: {
+            //move_development_cursor_down();
+         } break;
+
+         case ALLEGRO_KEY_RIGHT: {
+            //move_development_cursor_down();
+         } break;
+
+         default: {
+            //attempt_an_action_at(ev->keyboard.keycode);
+         } break;
+      }
+
+      return;
+    body_dependency_symbols: []
 
 
   - name: virtual_control_button_up_func
@@ -422,5 +470,7 @@ dependencies:
     headers: [ AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/DynamicModel3D.hpp ]
   - symbol: AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityRenderFlags
     headers: [ AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityRenderFlags.hpp ]
+  - symbol: AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base
+    headers: [ AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/Base.hpp ]
 
 

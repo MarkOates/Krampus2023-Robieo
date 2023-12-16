@@ -6,6 +6,7 @@
 #include <AllegroFlare/FontBin.hpp>
 #include <AllegroFlare/GameConfigurations/Base.hpp>
 #include <AllegroFlare/GameEvent.hpp>
+#include <AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/Base.hpp>
 #include <AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityPool.hpp>
 #include <AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer2.hpp>
 #include <AllegroFlare/ModelBin.hpp>
@@ -35,6 +36,7 @@ namespace Pipeline
          AllegroFlare::ModelBin* model_bin;
          AllegroFlare::GameConfigurations::Base* game_configuration;
          AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool entity_pool;
+         AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base* player_controlled_entity;
          AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::SceneRenderer2 scene_renderer;
          std::string current_level_identifier;
          Pipeline::Gameplay::Level* current_level;
@@ -68,6 +70,7 @@ namespace Pipeline
          void call_on_finished_callback_func();
          virtual void game_event_func(AllegroFlare::GameEvent* game_event=nullptr) override;
          virtual void primary_timer_func() override;
+         virtual void key_down_func(ALLEGRO_EVENT* ev=nullptr) override;
          virtual void virtual_control_button_up_func(AllegroFlare::Player* player=nullptr, AllegroFlare::VirtualControllers::Base* virtual_controller=nullptr, int virtual_controller_button_num=0, bool is_repeat=false) override;
          virtual void virtual_control_button_down_func(AllegroFlare::Player* player=nullptr, AllegroFlare::VirtualControllers::Base* virtual_controller=nullptr, int virtual_controller_button_num=0, bool is_repeat=false) override;
          virtual void virtual_control_axis_change_func(ALLEGRO_EVENT* ev=nullptr) override;

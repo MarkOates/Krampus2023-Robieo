@@ -27,6 +27,7 @@ Screen::Screen(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::BitmapBi
    , model_bin(model_bin)
    , game_configuration(game_configuration)
    , entity_pool()
+   , player_controlled_entity(nullptr)
    , scene_renderer()
    , current_level_identifier("[unset-current_level]")
    , current_level(nullptr)
@@ -140,6 +141,10 @@ void Screen::load_level_by_identifier(std::string level_identifier)
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Screen::load_level_by_identifier: error: guard \"game_configuration\" not met");
    }
+   player_controlled_entity = nullptr;
+   // TODO: Clear pool
+
+
    AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityFactory entity_factory;
    entity_factory.set_bitmap_bin(bitmap_bin);
    entity_factory.set_model_bin(model_bin);
@@ -180,6 +185,10 @@ void Screen::load_level_by_identifier(std::string level_identifier)
    env->get_placement_ref().position.x = 0;
    env->get_placement_ref().position.y = 0;
    entity_pool.add(env);
+
+
+   player_controlled_entity = dynamic_cube;
+
 
 
    return;
@@ -307,13 +316,13 @@ void Screen::update()
 {
    // Spin our shadow casted light
    AllegroFlare::Camera3D *light = scene_renderer.get_shadow_map_buffer_ref().get_light();
-   light->spin -= 0.001f;
+   //light->spin -= 0.001f;
 
    // Pan the camera
    AllegroFlare::Camera3D *primary_camera = scene_renderer.find_primary_camera_3d();
-   primary_camera->stepout.z += 0.01;
-   primary_camera->spin += 0.0005;
-   primary_camera->tilt += 0.0008;
+   //primary_camera->stepout.z += 0.01;
+   //primary_camera->spin += 0.0005;
+   //primary_camera->tilt += 0.0008;
 
    // Rotate objects in the scene
    //item->get_placement_ref().rotation.x += 0.005;
@@ -386,6 +395,48 @@ void Screen::primary_timer_func()
    }
    update();
    render();
+   return;
+}
+
+void Screen::key_down_func(ALLEGRO_EVENT* ev)
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::key_down_func]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::key_down_func: error: guard \"initialized\" not met");
+   }
+   if (!(event_emitter))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::key_down_func]: error: guard \"event_emitter\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::key_down_func: error: guard \"event_emitter\" not met");
+   }
+   switch(ev->keyboard.keycode)
+   {
+      case ALLEGRO_KEY_UP: {
+         //move_development_cursor_up();
+      } break;
+
+      case ALLEGRO_KEY_DOWN: {
+         //move_development_cursor_down();
+      } break;
+
+      case ALLEGRO_KEY_LEFT: {
+         //move_development_cursor_down();
+      } break;
+
+      case ALLEGRO_KEY_RIGHT: {
+         //move_development_cursor_down();
+      } break;
+
+      default: {
+         //attempt_an_action_at(ev->keyboard.keycode);
+      } break;
+   }
+
    return;
 }
 
