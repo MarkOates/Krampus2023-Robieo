@@ -294,9 +294,14 @@ methods:
       //primary_camera->tilt += 0.0008;
 
       // HERE:
-      if (player_controlled_entity)
 
-      auto player_entity_as = get_player_controlled_entity_as();
+      //player_control_velocity.x = -0.001;
+      if (player_controlled_entity)
+      {
+         auto player_entity_as = get_player_controlled_entity_as();
+         player_entity_as->get_placement_ref().position.x += player_control_velocity.x;
+         player_entity_as->get_placement_ref().position.z += player_control_velocity.y;
+      }
 
       // Rotate objects in the scene
       //item->get_placement_ref().rotation.x += 0.005;
