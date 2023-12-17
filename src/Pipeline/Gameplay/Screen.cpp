@@ -153,6 +153,16 @@ bool Screen::trivial_collide(AllegroFlare::Vec3D p1, AllegroFlare::Vec3D p2, flo
    return squared_distance < min_distance_squared;
 }
 
+void Screen::set_primary_camera_to_gameplay_view()
+{
+   AllegroFlare::Camera3D *primary_camera = scene_renderer.find_primary_camera_3d();
+   primary_camera->stepout = { 0.0, 0.0, 18.0 };
+   primary_camera->spin = 0.5;
+   primary_camera->tilt = 0.75;
+   primary_camera->zoom = 3.0;
+   return;
+}
+
 void Screen::load_level_by_identifier(std::string level_identifier)
 {
    if (!(game_configuration))
@@ -179,10 +189,10 @@ void Screen::load_level_by_identifier(std::string level_identifier)
       entity_factory.create_camera_3d();
    AllegroFlare::Camera3D &camera = camera_entity->get_camera_3d_ref();
    camera_entity->set("primary_camera");
-   camera.stepout = { 0.0, 0.0, 18.0 };
-   camera.spin = 0.5;
-   camera.tilt = 0.75;
-   camera.zoom = 3.0;
+   //camera.stepout = { 0.0, 0.0, 18.0 };
+   //camera.spin = 0.5;
+   //camera.tilt = 0.75;
+   //camera.zoom = 3.0;
    entity_pool.add(camera_entity);
 
    // TODO: Use an EntityFactory for this setup
@@ -235,6 +245,11 @@ void Screen::load_level_by_identifier(std::string level_identifier)
    // Assign our "special" items
    player_controlled_entity = dynamic_cube;
    goal_entity = item;
+
+
+
+   // Set our initial positions
+   set_primary_camera_to_gameplay_view();
 
 
    // Start the game
@@ -512,6 +527,12 @@ void Screen::update()
       }
    }
 
+
+
+   //if (is_state(SUSPEND_FOR_DIALOG))
+   //{
+      
+   //}
 
    // Check player collision on item
    //if (player_controlled_entity && goal_entity)
