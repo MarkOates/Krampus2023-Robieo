@@ -59,6 +59,7 @@ namespace Pipeline
          uint32_t state;
          bool state_is_busy;
          float state_changed_at;
+         bool player_is_colliding_on_goal;
 
       protected:
 
@@ -91,6 +92,7 @@ namespace Pipeline
          void update();
          void render();
          void call_on_finished_callback_func();
+         virtual void on_event(ALLEGRO_EVENT* ev=nullptr) override;
          virtual void game_event_func(AllegroFlare::GameEvent* game_event=nullptr) override;
          virtual void primary_timer_func() override;
          virtual void key_up_func(ALLEGRO_EVENT* ev=nullptr) override;

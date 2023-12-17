@@ -233,6 +233,9 @@
   "AllegroFlare/Vec3D": [
     "Pipeline/Gameplay/Screen"
   ],
+  "ALLEGRO_FLARE_EVENT_DIALOG_SWITCHED_OUT": [
+    "Pipeline/Gameplay/Screen"
+  ],
   "AllegroFlare/Frameworks/Full": [
     "Pipeline/Runner"
   ],

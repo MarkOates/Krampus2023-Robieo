@@ -803,6 +803,10 @@ table td
   <td class="property">state_changed_at</td>
   <td class="property">float</td>
 </tr>
+<tr>
+  <td class="property">player_is_colliding_on_goal</td>
+  <td class="property">bool</td>
+</tr>
     </table>
 </div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
@@ -856,6 +860,9 @@ table td
 </tr>
 <tr>
   <td class="method">call_on_finished_callback_func()</td>
+</tr>
+<tr>
+  <td class="method">on_event(ALLEGRO_EVENT* ev=nullptr)</td>
 </tr>
 <tr>
   <td class="method">game_event_func(AllegroFlare::GameEvent* game_event=nullptr)</td>
@@ -961,6 +968,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Vec3D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Vec3D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FLARE_EVENT_DIALOG_SWITCHED_OUT&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/EventNames.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -1449,6 +1459,9 @@ table td
     "Pipeline/Gameplay/Screen"
   ],
   "AllegroFlare/Vec3D": [
+    "Pipeline/Gameplay/Screen"
+  ],
+  "ALLEGRO_FLARE_EVENT_DIALOG_SWITCHED_OUT": [
     "Pipeline/Gameplay/Screen"
   ],
   "AllegroFlare/Frameworks/Full": [

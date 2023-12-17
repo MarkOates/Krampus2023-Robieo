@@ -2,6 +2,7 @@
 
 #include <Pipeline/Gameplay/Screen.hpp>
 
+#include <AllegroFlare/EventNames.hpp>
 #include <AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/DynamicModel3D.hpp>
 #include <AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityFactory.hpp>
 #include <AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityRenderFlags.hpp>
@@ -40,6 +41,7 @@ Screen::Screen(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::BitmapBi
    , state(STATE_UNDEF)
    , state_is_busy(false)
    , state_changed_at(0.0f)
+   , player_is_colliding_on_goal(false)
 {
 }
 
@@ -255,6 +257,7 @@ void Screen::load_level_by_identifier(std::string level_identifier)
    // Assign our "special" items
    player_controlled_entity = dynamic_cube;
    goal_entity = item;
+   player_is_colliding_on_goal = false; // This needs to be changed to an "enter" collision e.g. "exit" collision
 
 
 
@@ -429,6 +432,7 @@ void Screen::on_player_entity_collide(AllegroFlare::GraphicsPipelines::DynamicEn
    if (colliding_entity == goal_entity)
    {
       // Handle goal collision
+      //player_is_colliding_on_goal = true;
       set_state(STATE_SUSPEND_FOR_DIALOG);
       event_emitter->emit_activate_dialog_node_by_name_event("start_node");
       //call_on_finished_callback_func();
@@ -533,7 +537,12 @@ void Screen::update()
          );
          if (collides)
          {
-            on_player_entity_collide(goal_entity_as);
+            if (!player_is_colliding_on_goal) on_player_entity_collide(goal_entity_as);
+            player_is_colliding_on_goal = true;
+         }
+         else
+         {
+            player_is_colliding_on_goal = false;
          }
       }
    }
@@ -598,6 +607,22 @@ void Screen::call_on_finished_callback_func()
 {
    // TODO: Test this callback call
    if (on_finished_callback_func) on_finished_callback_func(this, on_finished_callback_func_user_data);
+}
+
+void Screen::on_event(ALLEGRO_EVENT* ev)
+{
+   if (!(ev))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::on_event]: error: guard \"ev\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::on_event: error: guard \"ev\" not met");
+   }
+   if (ev->type == ALLEGRO_FLARE_EVENT_DIALOG_SWITCHED_OUT && is_state(STATE_SUSPEND_FOR_DIALOG))
+   {
+      set_state(STATE_PLAYING_GAME);
+   }
+   return;
 }
 
 void Screen::game_event_func(AllegroFlare::GameEvent* game_event)
