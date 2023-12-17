@@ -196,7 +196,7 @@ void Screen::load_level_by_identifier(std::string level_identifier)
       new AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D();
    dynamic_cube->set_model_3d(model_bin->auto_get("rounded_unit_cube-01.obj"));
    dynamic_cube->set_model_3d_texture(bitmap_bin->auto_get("uv.png"));
-   dynamic_cube->get_placement_ref().position.x = 1.5;
+   dynamic_cube->get_placement_ref().position.x = 2.5;
    dynamic_cube->get_placement_ref().position.y = 0.5;
    entity_pool.add(dynamic_cube);
 
@@ -426,7 +426,7 @@ void Screen::update()
          bool collides = trivial_collide(
             player_entity_as->get_placement_ref().position,
             goal_entity_as->get_placement_ref().position,
-            100.0
+            1.0
          );
          if (collides)
          {
