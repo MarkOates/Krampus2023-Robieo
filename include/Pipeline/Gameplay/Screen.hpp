@@ -19,6 +19,7 @@
 #include <Pipeline/Gameplay/Level.hpp>
 #include <Pipeline/Gameplay/Screen.hpp>
 #include <allegro5/allegro.h>
+#include <cstdint>
 #include <functional>
 #include <string>
 
@@ -33,6 +34,13 @@ namespace Pipeline
          static constexpr char* TYPE = (char*)"Pipeline/Gameplay/Screen";
 
       private:
+         enum State
+         {
+            STATE_UNDEF = 0,
+            STATE_REVEALING,
+            STATE_AWAITING_USER_INPUT,
+            STATE_CLOSING_DOWN,
+         };
          AllegroFlare::EventEmitter* event_emitter;
          AllegroFlare::BitmapBin* bitmap_bin;
          AllegroFlare::FontBin* font_bin;
@@ -48,6 +56,9 @@ namespace Pipeline
          std::function<void(Pipeline::Gameplay::Screen*, void*)> on_finished_callback_func;
          void* on_finished_callback_func_user_data;
          bool initialized;
+         uint32_t state;
+         bool state_is_busy;
+         float state_changed_at;
 
       protected:
 
@@ -62,6 +73,7 @@ namespace Pipeline
          AllegroFlare::GameConfigurations::Base* get_game_configuration() const;
          std::function<void(Pipeline::Gameplay::Screen*, void*)> get_on_finished_callback_func() const;
          void* get_on_finished_callback_func_user_data() const;
+         uint32_t get_state() const;
          void set_event_emitter(AllegroFlare::EventEmitter* event_emitter=nullptr);
          void set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin=nullptr);
          void set_font_bin(AllegroFlare::FontBin* font_bin=nullptr);
@@ -73,6 +85,7 @@ namespace Pipeline
          virtual void on_deactivate() override;
          AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D* get_player_controlled_entity_as();
          AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D* get_goal_entity_as();
+         void on_player_entity_collide(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D* colliding_entity=nullptr);
          void update();
          void render();
          void call_on_finished_callback_func();
@@ -83,6 +96,11 @@ namespace Pipeline
          virtual void virtual_control_button_up_func(AllegroFlare::Player* player=nullptr, AllegroFlare::VirtualControllers::Base* virtual_controller=nullptr, int virtual_controller_button_num=0, bool is_repeat=false) override;
          virtual void virtual_control_button_down_func(AllegroFlare::Player* player=nullptr, AllegroFlare::VirtualControllers::Base* virtual_controller=nullptr, int virtual_controller_button_num=0, bool is_repeat=false) override;
          virtual void virtual_control_axis_change_func(ALLEGRO_EVENT* ev=nullptr) override;
+         void set_state(uint32_t state=STATE_UNDEF, bool override_if_busy=false);
+         void update_state(float time_now=al_get_time());
+         static bool is_valid_state(uint32_t state=STATE_UNDEF);
+         bool is_state(uint32_t possible_state=STATE_UNDEF);
+         float infer_current_state_age(float time_now=al_get_time());
       };
    }
 }

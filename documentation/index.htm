@@ -791,6 +791,18 @@ table td
   <td class="property">TYPE</td>
   <td class="property">char*</td>
 </tr>
+<tr>
+  <td class="property">state</td>
+  <td class="property">uint32_t</td>
+</tr>
+<tr>
+  <td class="property">state_is_busy</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">state_changed_at</td>
+  <td class="property">float</td>
+</tr>
     </table>
 </div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
@@ -828,6 +840,9 @@ table td
   <td class="method">get_goal_entity_as()</td>
 </tr>
 <tr>
+  <td class="method">on_player_entity_collide(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D* colliding_entity=nullptr)</td>
+</tr>
+<tr>
   <td class="method">update()</td>
 </tr>
 <tr>
@@ -856,6 +871,21 @@ table td
 </tr>
 <tr>
   <td class="method">virtual_control_axis_change_func(ALLEGRO_EVENT* ev=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">set_state(uint32_t state=STATE_UNDEF, bool override_if_busy=false)</td>
+</tr>
+<tr>
+  <td class="method">update_state(float time_now=al_get_time())</td>
+</tr>
+<tr>
+  <td class="method">is_valid_state(uint32_t state=STATE_UNDEF)</td>
+</tr>
+<tr>
+  <td class="method">is_state(uint32_t possible_state=STATE_UNDEF)</td>
+</tr>
+<tr>
+  <td class="method">infer_current_state_age(float time_now=al_get_time())</td>
 </tr>
     </table>
 </div>    <h3>Dependencies</h3>

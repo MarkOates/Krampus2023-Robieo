@@ -9,6 +9,7 @@
 #include <Pipeline/Gameplay/Level.hpp>
 #include <allegro5/allegro_primitives.h>
 #include <iostream>
+#include <set>
 #include <sstream>
 #include <stdexcept>
 
@@ -36,6 +37,9 @@ Screen::Screen(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::BitmapBi
    , on_finished_callback_func()
    , on_finished_callback_func_user_data(nullptr)
    , initialized(false)
+   , state(STATE_UNDEF)
+   , state_is_busy(false)
+   , state_changed_at(0.0f)
 {
 }
 
@@ -78,6 +82,12 @@ std::function<void(Pipeline::Gameplay::Screen*, void*)> Screen::get_on_finished_
 void* Screen::get_on_finished_callback_func_user_data() const
 {
    return on_finished_callback_func_user_data;
+}
+
+
+uint32_t Screen::get_state() const
+{
+   return state;
 }
 
 
@@ -379,6 +389,15 @@ AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D
    return as;
 }
 
+void Screen::on_player_entity_collide(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D* colliding_entity)
+{
+   if (colliding_entity == goal_entity)
+   {
+      // Handle goal collision
+   }
+   return;
+}
+
 void Screen::update()
 {
    // Spin our shadow casted light
@@ -436,7 +455,7 @@ void Screen::update()
          );
          if (collides)
          {
-            std::cout << "You win!" << std::endl;
+            on_player_entity_collide(goal_entity_as);
          }
       }
    }
@@ -645,6 +664,92 @@ void Screen::virtual_control_axis_change_func(ALLEGRO_EVENT* ev)
    }
    // TODO: this function
    return;
+}
+
+void Screen::set_state(uint32_t state, bool override_if_busy)
+{
+   if (!(is_valid_state(state)))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::set_state]: error: guard \"is_valid_state(state)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::set_state: error: guard \"is_valid_state(state)\" not met");
+   }
+   if (this->state == state) return;
+   if (!override_if_busy && state_is_busy) return;
+   uint32_t previous_state = this->state;
+
+   switch (state)
+   {
+      case STATE_REVEALING:
+      break;
+
+      case STATE_AWAITING_USER_INPUT:
+      break;
+
+      case STATE_CLOSING_DOWN:
+      break;
+
+      default:
+         throw std::runtime_error("weird error");
+      break;
+   }
+
+   this->state = state;
+   state_changed_at = al_get_time();
+
+   return;
+}
+
+void Screen::update_state(float time_now)
+{
+   if (!(is_valid_state(state)))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::update_state]: error: guard \"is_valid_state(state)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::update_state: error: guard \"is_valid_state(state)\" not met");
+   }
+   float age = infer_current_state_age(time_now);
+
+   switch (state)
+   {
+      case STATE_REVEALING:
+      break;
+
+      case STATE_AWAITING_USER_INPUT:
+      break;
+
+      case STATE_CLOSING_DOWN:
+      break;
+
+      default:
+         throw std::runtime_error("weird error");
+      break;
+   }
+
+   return;
+}
+
+bool Screen::is_valid_state(uint32_t state)
+{
+   std::set<uint32_t> valid_states =
+   {
+      STATE_REVEALING,
+      STATE_AWAITING_USER_INPUT,
+      STATE_CLOSING_DOWN,
+   };
+   return (valid_states.count(state) > 0);
+}
+
+bool Screen::is_state(uint32_t possible_state)
+{
+   return (state == possible_state);
+}
+
+float Screen::infer_current_state_age(float time_now)
+{
+   return (time_now - state_changed_at);
 }
 
 
