@@ -439,12 +439,15 @@ void Screen::update()
       player_entity_as->get_placement_ref().position.z += y_prime;
 
       // Update the player model rotation to face the moving direction
-      AllegroFlare::Vec2D prime(x_prime, y_prime);
-      float angle_in_radians = prime.get_angle();
-      float angle_in_degrees = angle_in_radians * (180.0 / ALLEGRO_PI);
-      float angle_in_units = angle_in_degrees / 360.0f;
-      player_entity_as->get_placement_ref().rotation.y = -angle_in_units;
-      //{ 0.0, -0.25, 0.0 };
+      if (fabs(x_prime) + fabs(y_prime) > 0.001) // Only update the rotation if the player is moving
+      {
+         AllegroFlare::Vec2D prime(x_prime, y_prime);
+         float angle_in_radians = prime.get_angle();
+         float angle_in_degrees = angle_in_radians * (180.0 / ALLEGRO_PI);
+         float angle_in_units = angle_in_degrees / 360.0f;
+
+         player_entity_as->get_placement_ref().rotation.y = -angle_in_units;
+      }
 
 
       if (lock_camera_on_player_controlled_entity)
