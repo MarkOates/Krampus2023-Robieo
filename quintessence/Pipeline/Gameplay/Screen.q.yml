@@ -235,7 +235,7 @@ methods:
       //dynamic_cube->set_model_3d_texture(bitmap_bin->auto_get("uv.png"));
       dynamic_cube->get_placement_ref().position.x = 2.5;
       dynamic_cube->get_placement_ref().position.y = 0.5;
-      dynamic_cube->get_placement_ref().scale = { 0.1, 0.1, 0.1 };
+      dynamic_cube->get_placement_ref().scale = { 0.08, 0.08, 0.08 };
       dynamic_cube->get_placement_ref().rotation = { 0.0, -0.25, 0.0 };
       entity_pool.add(dynamic_cube);
 
@@ -424,7 +424,10 @@ methods:
 
          // Update the player model rotation to face the moving direction
          AllegroFlare::Vec2D prime(x_prime, y_prime);
-         //player_entity_as->get_placement_ref().rotation.y = prime.get_angle() / (3.14 * 2) -0.25;
+         float angle_in_radians = prime.get_angle();
+         float angle_in_degrees = angle_in_radians * (180.0 / ALLEGRO_PI);
+         float angle_in_units = angle_in_degrees / 360.0f;
+         player_entity_as->get_placement_ref().rotation.y = -angle_in_units;
          //{ 0.0, -0.25, 0.0 };
 
 
