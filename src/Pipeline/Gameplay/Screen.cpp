@@ -204,10 +204,14 @@ void Screen::load_level_by_identifier(std::string level_identifier)
    // TODO: Use an EntityFactory for this setup
    AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D *dynamic_cube = 
       new AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D();
-   dynamic_cube->set_model_3d(model_bin->auto_get("rounded_unit_cube-01.obj"));
-   dynamic_cube->set_model_3d_texture(bitmap_bin->auto_get("uv.png"));
+   dynamic_cube->set_model_3d(model_bin->auto_get("robot-02.obj"));
+   dynamic_cube->set_model_3d_texture(bitmap_bin->auto_get("robot-textured-02-uv.jpg"));
+   //dynamic_cube->set_model_3d(model_bin->auto_get("rounded_unit_cube-01.obj"));
+   //dynamic_cube->set_model_3d_texture(bitmap_bin->auto_get("uv.png"));
    dynamic_cube->get_placement_ref().position.x = 2.5;
    dynamic_cube->get_placement_ref().position.y = 0.5;
+   dynamic_cube->get_placement_ref().scale = { 0.1, 0.1, 0.1 };
+   dynamic_cube->get_placement_ref().rotation = { 0.0, -0.25, 0.0 };
    entity_pool.add(dynamic_cube);
 
    std::string world_model_name = level_identifier; //"world-1-01";
