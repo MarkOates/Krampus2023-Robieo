@@ -262,7 +262,6 @@ void Screen::load_level_by_identifier(std::string level_identifier)
    entity_pool.add(player_character);
 
 
-
    //
    // Load the world obj model file, and process it.
    // extract the entities (like goals, environment model, etc)
@@ -325,8 +324,6 @@ void Screen::load_level_by_identifier(std::string level_identifier)
    }
 
 
-
-
    //
    // Load the dialog bank
    //
@@ -347,7 +344,6 @@ void Screen::load_level_by_identifier(std::string level_identifier)
    framework->set_dialog_system_dialog_node_bank(node_bank);
 
 
-
    //
    // Assign our "special" items
    //
@@ -355,7 +351,6 @@ void Screen::load_level_by_identifier(std::string level_identifier)
    player_controlled_entity = player_character;
    //goal_entity = item;
    player_is_colliding_on_goal = false; // This needs to be changed to an "enter" collision e.g. "exit" collision
-
 
 
    //
