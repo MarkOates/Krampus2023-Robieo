@@ -311,6 +311,8 @@ void Screen::load_level_by_identifier(std::string level_identifier)
          entity_pool.add(item);
 
          goal_entity = item;
+
+         world_model->remove_named_object("goal");
       }
 
       // Create the environment object
