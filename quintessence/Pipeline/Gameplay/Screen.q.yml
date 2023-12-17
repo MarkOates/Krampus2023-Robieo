@@ -213,17 +213,21 @@ methods:
     body: |
       player_controlled_entity = nullptr;
       player_control_velocity = { 0.0f, 0.0f };
-
       goal_entity = nullptr;
 
-      // TODO: Clear pool
+
+      // TODO: Clear model_bin and the entity_pool
+      //model_bin->clear();
+      //entity_pool.clear();
 
 
+      // Create our entity_factory
       AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityFactory entity_factory;
       entity_factory.set_bitmap_bin(bitmap_bin);
       entity_factory.set_model_bin(model_bin);
 
 
+      // Create the Camera
       AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Camera3D* camera_entity =
          entity_factory.create_camera_3d();
       AllegroFlare::Camera3D &camera = camera_entity->get_camera_3d_ref();
@@ -238,8 +242,8 @@ methods:
       dynamic_cube->set_model_3d_texture(bitmap_bin->auto_get("robot-textured-02-uv.jpg"));
       //dynamic_cube->set_model_3d(model_bin->auto_get("rounded_unit_cube-01.obj"));
       //dynamic_cube->set_model_3d_texture(bitmap_bin->auto_get("uv.png"));
-      dynamic_cube->get_placement_ref().position.x = 2.5;
-      dynamic_cube->get_placement_ref().position.y = 0.5;
+      dynamic_cube->get_placement_ref().position.x = 0.0f; //2.5;
+      dynamic_cube->get_placement_ref().position.y = 0.0f; //0.5;
       dynamic_cube->get_placement_ref().scale = { 0.08, 0.08, 0.08 };
       dynamic_cube->get_placement_ref().rotation = { 0.0, -0.25, 0.0 };
       entity_pool.add(dynamic_cube);
