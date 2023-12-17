@@ -463,6 +463,15 @@ void Screen::update()
             float current = fmod(current_angle_in_units, 1.0f);
             float angular_distance = (target - current);
 
+            if (angular_distance > 0.5f)
+            {
+               angular_distance -= 1.0f;  // If the distance is more than 0.5, subtract 1 to go the shorter way
+            }
+            else if (angular_distance < -0.5f)
+            {
+               angular_distance += 1.0f;  // If the distance is less than -0.5, add 1 to go the shorter way
+            }
+
             final_angle = angular_distance * rate + current;
          }
 
