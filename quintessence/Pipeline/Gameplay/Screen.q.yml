@@ -152,8 +152,10 @@ methods:
          entity_factory.create_camera_3d();
       AllegroFlare::Camera3D &camera = camera_entity->get_camera_3d_ref();
       camera_entity->set("primary_camera");
-      camera.stepout = { 0, 1.0, 4.0 };
-      camera.spin = 0.1;
+      camera.stepout = { 0.0, 0.0, 15.0 };
+      camera.spin = 0.25;
+      camera.tilt = 0.75;
+      camera.zoom = 3.0;
       entity_pool.add(camera_entity);
 
       // TODO: Use an EntityFactory for this setup
