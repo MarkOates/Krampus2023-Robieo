@@ -170,6 +170,12 @@ void Screen::load_level_by_identifier(std::string level_identifier)
    item->get_placement_ref().position.y = 1.0;
    item->get_placement_ref().rotation.x = 0.05;
    item->get_placement_ref().rotation.z = 0.03547;
+   //item->get_placement_ref().scale.y = 1.0;
+   //item->get_placement_ref().scale.x = 0.5;
+   //item->get_placement_ref().scale.z = 0.5;
+   //item->get_placement_ref().velocity.y = 1.0;
+   //item->get_placement_ref().sc.x = 0.05;
+   //item->get_placement_ref().scale.z = 0.03547;
    entity_pool.add(item);
 
    // TODO: Use an EntityFactory for this setup
