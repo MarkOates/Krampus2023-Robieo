@@ -236,6 +236,9 @@
   "ALLEGRO_FLARE_EVENT_DIALOG_SWITCHED_OUT": [
     "Pipeline/Gameplay/Screen"
   ],
+  "AllegroFlare/ALLEGRO_VERTEX_WITH_NORMAL": [
+    "Pipeline/Gameplay/Screen"
+  ],
   "AllegroFlare/Frameworks/Full": [
     "Pipeline/Runner"
   ],

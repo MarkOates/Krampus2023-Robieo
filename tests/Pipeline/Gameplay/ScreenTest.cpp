@@ -81,7 +81,7 @@ TEST_F(Pipeline_Gameplay_ScreenTestWithAllegroFrameworksFullFixture,
    get_framework_ref().set_dialog_system_dialog_node_bank(node_bank);
 
 
-   screen.load_level_by_identifier("world-1-01");
+   screen.load_level_by_identifier("world-1-04");
 
    framework_register_and_activate_screen("screen", &screen);
 
