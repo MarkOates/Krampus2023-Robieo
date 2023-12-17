@@ -233,6 +233,9 @@ void Screen::load_level_by_identifier(std::string level_identifier)
    goal_entity = item;
 
 
+   // Start the game
+   set_state(STATE_PLAYING_GAME);
+
 
    return;
    // Destroy the current level
@@ -391,9 +394,12 @@ AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D
 
 void Screen::on_player_entity_collide(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D* colliding_entity)
 {
+   if (!is_state(STATE_PLAYING_GAME)) return;
+
    if (colliding_entity == goal_entity)
    {
       // Handle goal collision
+      set_state(STATE_REACHED_GOAL);
    }
    return;
 }
@@ -559,6 +565,8 @@ void Screen::key_up_func(ALLEGRO_EVENT* ev)
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Screen::key_up_func: error: guard \"event_emitter\" not met");
    }
+   if (!is_state(STATE_PLAYING_GAME)) return;
+
    switch(ev->keyboard.keycode)
    {
       case ALLEGRO_KEY_UP:
@@ -595,6 +603,8 @@ void Screen::key_down_func(ALLEGRO_EVENT* ev)
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Screen::key_down_func: error: guard \"event_emitter\" not met");
    }
+   if (!is_state(STATE_PLAYING_GAME)) return;
+
    float player_velocity = 0.04;
    switch(ev->keyboard.keycode)
    {
@@ -681,14 +691,16 @@ void Screen::set_state(uint32_t state, bool override_if_busy)
 
    switch (state)
    {
-      case STATE_REVEALING:
-      break;
+      case STATE_REVEALING: {
+         player_control_velocity = {0, 0};
+      } break;
 
       case STATE_PLAYING_GAME:
       break;
 
-      case STATE_REACHED_GOAL:
-      break;
+      case STATE_REACHED_GOAL: {
+         player_control_velocity = {0, 0};
+      } break;
 
       default:
          throw std::runtime_error("weird error");

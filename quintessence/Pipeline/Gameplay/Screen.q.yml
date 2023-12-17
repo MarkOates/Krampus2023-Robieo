@@ -258,6 +258,9 @@ methods:
       goal_entity = item;
 
 
+      // Start the game
+      set_state(STATE_PLAYING_GAME);
+
 
       return;
       // Destroy the current level
@@ -375,9 +378,12 @@ methods:
         type: AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D*
         default_argument: nullptr
     body: |
+      if (!is_state(STATE_PLAYING_GAME)) return;
+
       if (colliding_entity == goal_entity)
       {
          // Handle goal collision
+         set_state(STATE_REACHED_GOAL);
       }
       return;
 
@@ -526,6 +532,8 @@ methods:
         default_argument: nullptr
     guards: [ initialized, event_emitter ]
     body: |
+      if (!is_state(STATE_PLAYING_GAME)) return;
+
       switch(ev->keyboard.keycode)
       {
          case ALLEGRO_KEY_UP:
@@ -556,6 +564,8 @@ methods:
         default_argument: nullptr
     guards: [ initialized, event_emitter ]
     body: |
+      if (!is_state(STATE_PLAYING_GAME)) return;
+
       float player_velocity = 0.04;
       switch(ev->keyboard.keycode)
       {
@@ -662,14 +672,16 @@ methods:
 
       switch (state)
       {
-         case STATE_REVEALING:
-         break;
+         case STATE_REVEALING: {
+            player_control_velocity = {0, 0};
+         } break;
 
          case STATE_PLAYING_GAME:
          break;
 
-         case STATE_REACHED_GOAL:
-         break;
+         case STATE_REACHED_GOAL: {
+            player_control_velocity = {0, 0};
+         } break;
 
          default:
             throw std::runtime_error("weird error");
