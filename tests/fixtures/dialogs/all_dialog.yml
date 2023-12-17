@@ -1,7 +1,7 @@
 - name: start_node
   type: multipage_with_options
   data:
-    speaker: Villager
+    speaker: ""
     pages:
       - Amazing! Thank you so much for delivering my package.
       - I can't wait to find out what's inside...
