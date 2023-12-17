@@ -439,24 +439,23 @@ methods:
             }
             else
             {
+               // Smoothly rotate our player character to the direction of travel
                float target_angle_in_units = -angle_in_units;
                float current_angle_in_units = player_entity_as->get_placement_ref().rotation.y;
 
-               float rate = 0.1;
+               float rotation_rate = 0.1;
                float target = fmod(target_angle_in_units, 1.0f);
                float current = fmod(current_angle_in_units, 1.0f);
                float angular_distance = (target - current);
 
-               if (angular_distance > 0.5f)
-               {
-                  angular_distance -= 1.0f;  // If the distance is more than 0.5, subtract 1 to go the shorter way
-               }
-               else if (angular_distance < -0.5f)
-               {
-                  angular_distance += 1.0f;  // If the distance is less than -0.5, add 1 to go the shorter way
-               }
+               // Use "angular wraparound" to ensure the player doesn't do an unnecessary full 360
+               // If the distance is more than 0.5, subtract 1 to go the shorter way
+               // If the distance is less than -0.5, add 1 to go the shorter way
+               if (angular_distance > 0.5f) angular_distance -= 1.0f;
+               else if (angular_distance < -0.5f) angular_distance += 1.0f;
 
-               final_angle = angular_distance * rate + current;
+               // Set the final angle
+               final_angle = angular_distance * rotation_rate + current;
             }
 
             player_entity_as->get_placement_ref().rotation.y = final_angle;
