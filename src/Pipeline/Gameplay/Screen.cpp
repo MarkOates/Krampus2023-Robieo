@@ -319,8 +319,7 @@ void Screen::load_level_by_identifier(std::string level_identifier)
 
 
    AllegroFlare::DialogTree::NodeBank node_bank;
-   std::string dialog_filename =
-      "/Users/markoates/Repos/Pipeline/tests/fixtures/dialogs/all_dialog.yml"; // CRITICAL: change this file
+   std::string dialog_filename = framework->get_data_folder_path() + "/dialogs/all_dialog.yml";
    AllegroFlare::DialogTree::YAMLLoader yaml_loader;
    yaml_loader.load_file(dialog_filename);
    node_bank = yaml_loader.get_node_bank();

@@ -72,16 +72,6 @@ TEST_F(Pipeline_Gameplay_ScreenTestWithAllegroFrameworksFullFixture,
    screen.initialize();
 
 
-   //// Load a dialog bank into the system
-   //AllegroFlare::DialogTree::NodeBank node_bank;
-   //std::string dialog_filename =
-      //"/Users/markoates/Repos/Pipeline/tests/fixtures/dialogs/all_dialog.yml";
-   //AllegroFlare::DialogTree::YAMLLoader yaml_loader;
-   //yaml_loader.load_file(dialog_filename);
-   //node_bank = yaml_loader.get_node_bank();
-   //get_framework_ref().set_dialog_system_dialog_node_bank(node_bank);
-
-
    screen.load_level_by_identifier("world-1-04");
 
    framework_register_and_activate_screen("screen", &screen);
