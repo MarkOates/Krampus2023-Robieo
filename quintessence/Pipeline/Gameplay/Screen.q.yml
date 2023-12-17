@@ -177,12 +177,18 @@ methods:
       dynamic_cube->get_placement_ref().position.y = 0.5;
       entity_pool.add(dynamic_cube);
 
+      std::string world_model_name = level_identifier; //"world-1-01";
+      std::string world_model_obj_name = world_model_name + ".obj";
+      std::string world_model_texture_name = world_model_name + ".png";
+
       AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D *env = 
          new AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D();
-      //env->set_model_3d(model_bin->auto_get("simple_scene-01.obj"));
       env->set_model_3d(model_bin->auto_get("world-1-01.obj"));
+      //env->set_model_3d(model_bin->auto_get("simple_scene-01.obj"));
+      env->set_model_3d(model_bin->auto_get(world_model_obj_name));
       //rounded_unit_cube-01.obj"));
-      env->set_model_3d_texture(bitmap_bin->auto_get("simple_scene-01-1024.jpg"));
+      //env->set_model_3d_texture(bitmap_bin->auto_get("simple_scene-01-1024.jpg"));
+      env->set_model_3d_texture(bitmap_bin->auto_get(world_model_texture_name));
       env->get_placement_ref().position.x = 0;
       env->get_placement_ref().position.y = 0;
       entity_pool.add(env);
@@ -322,6 +328,11 @@ methods:
             light->position.z = player_entity_as->get_placement_ref().position.z;
          }
       }
+
+
+      // Check player collision on item
+      
+
 
       // Rotate objects in the scene
       //item->get_placement_ref().rotation.x += 0.005;
