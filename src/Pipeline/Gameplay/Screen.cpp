@@ -339,7 +339,7 @@ void Screen::update()
 {
    // Spin our shadow casted light
    AllegroFlare::Camera3D *light = scene_renderer.get_shadow_map_buffer_ref().get_light();
-   light->spin = 0.5f;
+   light->spin = -1.0f;
 
    // Pan the camera
    AllegroFlare::Camera3D *primary_camera = scene_renderer.find_primary_camera_3d();
@@ -350,6 +350,7 @@ void Screen::update()
    // HERE:
 
    //player_control_velocity.x = -0.001;
+   bool lock_light_on_player_controlled_entity = true;
    bool lock_camera_on_player_controlled_entity = true;
    if (player_controlled_entity)
    {
@@ -362,6 +363,13 @@ void Screen::update()
          primary_camera->position.x = player_entity_as->get_placement_ref().position.x;
          primary_camera->position.y = player_entity_as->get_placement_ref().position.y;
          primary_camera->position.z = player_entity_as->get_placement_ref().position.z;
+      }
+
+      if (lock_light_on_player_controlled_entity)
+      {
+         light->position.x = player_entity_as->get_placement_ref().position.x;
+         light->position.y = player_entity_as->get_placement_ref().position.y;
+         light->position.z = player_entity_as->get_placement_ref().position.z;
       }
    }
 
