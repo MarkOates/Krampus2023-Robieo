@@ -400,6 +400,7 @@ void Screen::on_player_entity_collide(AllegroFlare::GraphicsPipelines::DynamicEn
    {
       // Handle goal collision
       set_state(STATE_REACHED_GOAL);
+      //call_on_finished_callback_func();
    }
    return;
 }
@@ -627,6 +628,11 @@ void Screen::key_down_func(ALLEGRO_EVENT* ev)
          player_control_velocity.x = player_velocity;
          //move_development_cursor_down();
       } break;
+
+      // TODO: Deliver the package with "enter"
+      //case ALLEGRO_KEY_ENTER: {
+         //attempt_to_deliver_package();
+      //} break;
 
       default: {
          //attempt_an_action_at(ev->keyboard.keycode);
