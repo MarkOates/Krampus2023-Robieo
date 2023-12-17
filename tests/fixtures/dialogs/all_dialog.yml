@@ -1,0 +1,88 @@
+- name: start_node
+  type: multipage_with_options
+  data:
+    speaker: Villager
+    pages:
+      - Amazing! Thank you so much for delivering my package.
+      - I can't wait to find out what's inside...
+    options:
+      - text: You're welcome!
+        type: exit_dialog
+
+- name: villager_response_1
+  type: multipage_with_options
+  data:
+    speaker: Villager
+    pages:
+      - Strange tracks, you say? That's intriguing! Can you show me where you found them?
+    options:
+      - text: Of course, follow me. I'll lead you to the spot.
+        type: go_to_node
+        data: { target_node_name: villager_response_4 }
+      - text: Sorry, I can't. It's too dangerous out there.
+        type: go_to_node
+        data: { target_node_name: villager_response_5 }
+
+- name: villager_response_2
+  type: multipage_with_options
+  data:
+    speaker: Villager
+    pages:
+      - Eerie whispers? That's terrifying! What did you hear, and where did it come from?
+    options:
+      - text: I heard them coming from the old abandoned mill near the river.
+        type: go_to_node
+        data: { target_node_name: villager_response_6 }
+      - text: I'm not sure where it came from. It was just unsettling.
+        type: go_to_node
+        data: { target_node_name: villager_response_7 }
+
+- name: villager_response_3
+  type: multipage_with_options
+  data:
+    speaker: Villager
+    pages:
+      - That's alright, stranger. We're all worried about our missing friends and family. If you hear anything, please let us know.
+    options:
+      - text: I'll keep an ear out and inform you if I learn anything.
+        type: exit_dialog
+
+- name: villager_response_4
+  type: multipage_with_options
+  data:
+    speaker: Villager
+    pages:
+      - Thank you for your help. Let's go check those tracks together.
+    options:
+      - text: Lead the way.
+        type: exit_dialog
+
+- name: villager_response_5
+  type: multipage_with_options
+  data:
+    speaker: Villager
+    pages:
+      - I understand. It's a dangerous world out there. Please be careful.
+    options:
+      - text: I will. Take care.
+        type: exit_dialog
+
+- name: villager_response_6
+  type: multipage_with_options
+  data:
+    speaker: Villager
+    pages:
+      - The old mill, you say? That's where some villagers went missing! Let's investigate it together.
+    options:
+      - text: Lead the way.
+        type: exit_dialog
+
+- name: villager_response_7
+  type: multipage_with_options
+  data:
+    speaker: Villager
+    pages:
+      - It's alright, stranger. The darkness in these woods can play tricks on the mind. Just be cautious.
+    options:
+      - text: I will. Stay safe.
+        type: exit_dialog

@@ -403,7 +403,7 @@ void Screen::on_player_entity_collide(AllegroFlare::GraphicsPipelines::DynamicEn
    if (colliding_entity == goal_entity)
    {
       // Handle goal collision
-      set_state(STATE_REACHED_GOAL);
+      set_state(STATE_SUSPEND_FOR_DIALOG);
       event_emitter->emit_activate_dialog_node_by_name_event("start_node");
       //call_on_finished_callback_func();
    }
@@ -749,7 +749,7 @@ void Screen::set_state(uint32_t state, bool override_if_busy)
       case STATE_PLAYING_GAME:
       break;
 
-      case STATE_REACHED_GOAL: {
+      case STATE_SUSPEND_FOR_DIALOG: {
          player_control_velocity = {0, 0};
       } break;
 
@@ -783,7 +783,7 @@ void Screen::update_state(float time_now)
       case STATE_PLAYING_GAME:
       break;
 
-      case STATE_REACHED_GOAL:
+      case STATE_SUSPEND_FOR_DIALOG:
       break;
 
       default:
@@ -800,7 +800,7 @@ bool Screen::is_valid_state(uint32_t state)
    {
       STATE_REVEALING,
       STATE_PLAYING_GAME,
-      STATE_REACHED_GOAL,
+      STATE_SUSPEND_FOR_DIALOG,
    };
    return (valid_states.count(state) > 0);
 }
