@@ -14,6 +14,7 @@
 #include <AllegroFlare/Player.hpp>
 #include <AllegroFlare/Screens/Base.hpp>
 #include <AllegroFlare/Vec2D.hpp>
+#include <AllegroFlare/Vec3D.hpp>
 #include <AllegroFlare/VirtualControllers/Base.hpp>
 #include <Pipeline/Gameplay/Level.hpp>
 #include <Pipeline/Gameplay/Screen.hpp>
@@ -40,6 +41,7 @@ namespace Pipeline
          AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool entity_pool;
          AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base* player_controlled_entity;
          AllegroFlare::Vec2D player_control_velocity;
+         AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base* goal_entity;
          AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::SceneRenderer2 scene_renderer;
          std::string current_level_identifier;
          Pipeline::Gameplay::Level* current_level;
@@ -64,11 +66,13 @@ namespace Pipeline
          void set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin=nullptr);
          void set_font_bin(AllegroFlare::FontBin* font_bin=nullptr);
          void set_model_bin(AllegroFlare::ModelBin* model_bin=nullptr);
+         bool trivial_collide(AllegroFlare::Vec3D p1={0.0f, 0.0f, 0.0f}, AllegroFlare::Vec3D p2={0.0f, 0.0f, 0.0f}, float min_distance=10.0f);
          void load_level_by_identifier(std::string level_identifier="[unset-level_identifier]");
          void initialize();
          virtual void on_activate() override;
          virtual void on_deactivate() override;
          AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D* get_player_controlled_entity_as();
+         AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D* get_goal_entity_as();
          void update();
          void render();
          void call_on_finished_callback_func();

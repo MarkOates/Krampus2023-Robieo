@@ -760,6 +760,10 @@ table td
   <td class="property">AllegroFlare::Vec2D</td>
 </tr>
 <tr>
+  <td class="property">goal_entity</td>
+  <td class="property">AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base*</td>
+</tr>
+<tr>
   <td class="property">scene_renderer</td>
   <td class="property">AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::SceneRenderer2</td>
 </tr>
@@ -803,6 +807,9 @@ table td
   <td class="method">set_model_bin(AllegroFlare::ModelBin* model_bin=nullptr)</td>
 </tr>
 <tr>
+  <td class="method">trivial_collide(AllegroFlare::Vec3D p1={0.0f, 0.0f, 0.0f}, AllegroFlare::Vec3D p2={0.0f, 0.0f, 0.0f}, float min_distance=10.0f)</td>
+</tr>
+<tr>
   <td class="method">load_level_by_identifier(std::string level_identifier=&quot;[unset-level_identifier]&quot;)</td>
 </tr>
 <tr>
@@ -816,6 +823,9 @@ table td
 </tr>
 <tr>
   <td class="method">get_player_controlled_entity_as()</td>
+</tr>
+<tr>
+  <td class="method">get_goal_entity_as()</td>
 </tr>
 <tr>
   <td class="method">update()</td>
@@ -912,6 +922,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Vec2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Vec2D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Vec3D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Vec3D.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -1397,6 +1410,9 @@ table td
     "Pipeline/Gameplay/Screen"
   ],
   "AllegroFlare/Vec2D": [
+    "Pipeline/Gameplay/Screen"
+  ],
+  "AllegroFlare/Vec3D": [
     "Pipeline/Gameplay/Screen"
   ],
   "AllegroFlare/Frameworks/Full": [

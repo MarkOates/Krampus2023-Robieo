@@ -48,6 +48,10 @@ properties:
     type: AllegroFlare::Vec2D
     init_with: ''
 
+  - name: goal_entity
+    type: AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base*
+    init_with: nullptr
+
   - name: scene_renderer
     type: AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::SceneRenderer2
     init_with: ''
@@ -131,6 +135,26 @@ methods:
       return;
 
 
+  - name: trivial_collide
+    type: bool
+    parameters:
+      - name: p1
+        type: AllegroFlare::Vec3D
+        default_argument: '{0.0f, 0.0f, 0.0f}'
+      - name: p2
+        type: AllegroFlare::Vec3D
+        default_argument: '{0.0f, 0.0f, 0.0f}'
+      - name: min_distance
+        type: float
+        default_argument: 10.0f
+    body: |
+      float squared_distance = (p1.x - p2.x) * (p1.x - p2.x)
+                             + (p1.y - p2.y) * (p1.y - p2.y)
+                             + (p1.z - p2.z) * (p1.z - p2.z);
+      float min_distance_squared = min_distance * min_distance;
+      return squared_distance < min_distance_squared;
+
+
   - name: load_level_by_identifier
     parameters:
       - name: level_identifier
@@ -140,6 +164,9 @@ methods:
     body: |
       player_controlled_entity = nullptr;
       player_control_velocity = { 0.0f, 0.0f };
+
+      goal_entity = nullptr;
+
       // TODO: Clear pool
 
 
@@ -201,7 +228,9 @@ methods:
       //level_identifier
 
 
+      // Assign our "special" items
       player_controlled_entity = dynamic_cube;
+      goal_entity = item;
 
 
 
@@ -297,6 +326,24 @@ methods:
       return as;
 
 
+  - name: get_goal_entity_as
+    type: AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D*
+    body: |
+      if (!goal_entity->is_type(
+               AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D::TYPE
+            )
+         )
+      {
+         throw std::runtime_error("unexpected player controlled entity type");
+      }
+
+      AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D *as =
+         static_cast<AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D *>(
+            goal_entity
+         );
+      return as;
+
+
   - name: update
     body: |
       // Spin our shadow casted light
@@ -333,10 +380,32 @@ methods:
             light->position.y = player_entity_as->get_placement_ref().position.y;
             light->position.z = player_entity_as->get_placement_ref().position.z;
          }
+
+         if (!goal_entity)
+         {
+            throw std::runtime_error("Pipeline::Gameplay::Screen::update: no goal_entity");
+         }
+         else
+         {
+            auto goal_entity_as = get_goal_entity_as();
+            bool collides = trivial_collide(
+               player_entity_as->get_placement_ref().position,
+               goal_entity_as->get_placement_ref().position,
+               100.0
+            );
+            if (collides)
+            {
+               std::cout << "You win!" << std::endl;
+            }
+         }
       }
 
 
       // Check player collision on item
+      //if (player_controlled_entity && goal_entity)
+      //{
+         //auto player_entity_as = get_player_controlled_entity_as();
+      //}
       
 
 
@@ -579,5 +648,7 @@ dependencies:
     headers: [ AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/Base.hpp ]
   - symbol: AllegroFlare::Vec2D
     headers: [ AllegroFlare/Vec2D.hpp ]
+  - symbol: AllegroFlare::Vec3D
+    headers: [ AllegroFlare/Vec3D.hpp ]
 
 

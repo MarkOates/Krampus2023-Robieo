@@ -29,6 +29,7 @@ Screen::Screen(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::BitmapBi
    , entity_pool()
    , player_controlled_entity(nullptr)
    , player_control_velocity()
+   , goal_entity(nullptr)
    , scene_renderer()
    , current_level_identifier("[unset-current_level]")
    , current_level(nullptr)
@@ -133,6 +134,15 @@ void Screen::set_model_bin(AllegroFlare::ModelBin* model_bin)
    return;
 }
 
+bool Screen::trivial_collide(AllegroFlare::Vec3D p1, AllegroFlare::Vec3D p2, float min_distance)
+{
+   float squared_distance = (p1.x - p2.x) * (p1.x - p2.x)
+                          + (p1.y - p2.y) * (p1.y - p2.y)
+                          + (p1.z - p2.z) * (p1.z - p2.z);
+   float min_distance_squared = min_distance * min_distance;
+   return squared_distance < min_distance_squared;
+}
+
 void Screen::load_level_by_identifier(std::string level_identifier)
 {
    if (!(game_configuration))
@@ -144,6 +154,9 @@ void Screen::load_level_by_identifier(std::string level_identifier)
    }
    player_controlled_entity = nullptr;
    player_control_velocity = { 0.0f, 0.0f };
+
+   goal_entity = nullptr;
+
    // TODO: Clear pool
 
 
@@ -205,7 +218,9 @@ void Screen::load_level_by_identifier(std::string level_identifier)
    //level_identifier
 
 
+   // Assign our "special" items
    player_controlled_entity = dynamic_cube;
+   goal_entity = item;
 
 
 
@@ -347,6 +362,23 @@ AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D
    return as;
 }
 
+AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D* Screen::get_goal_entity_as()
+{
+   if (!goal_entity->is_type(
+            AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D::TYPE
+         )
+      )
+   {
+      throw std::runtime_error("unexpected player controlled entity type");
+   }
+
+   AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D *as =
+      static_cast<AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D *>(
+         goal_entity
+      );
+   return as;
+}
+
 void Screen::update()
 {
    // Spin our shadow casted light
@@ -383,10 +415,32 @@ void Screen::update()
          light->position.y = player_entity_as->get_placement_ref().position.y;
          light->position.z = player_entity_as->get_placement_ref().position.z;
       }
+
+      if (!goal_entity)
+      {
+         throw std::runtime_error("Pipeline::Gameplay::Screen::update: no goal_entity");
+      }
+      else
+      {
+         auto goal_entity_as = get_goal_entity_as();
+         bool collides = trivial_collide(
+            player_entity_as->get_placement_ref().position,
+            goal_entity_as->get_placement_ref().position,
+            100.0
+         );
+         if (collides)
+         {
+            std::cout << "You win!" << std::endl;
+         }
+      }
    }
 
 
    // Check player collision on item
+   //if (player_controlled_entity && goal_entity)
+   //{
+      //auto player_entity_as = get_player_controlled_entity_as();
+   //}
 
 
 
