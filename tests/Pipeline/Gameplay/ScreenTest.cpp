@@ -68,6 +68,11 @@ TEST_F(Pipeline_Gameplay_ScreenTestWithAllegroFrameworksFullFixture,
    screen.set_game_configuration(&game_configuration),
    screen.initialize();
 
+   // For now, this seems like the most direct way to load it
+   get_framework_ref().get_dialog_system_ref().load_dialog_node_bank_from_file(
+      "/Users/markoates/Repos/Pipeline/tests/fixtures/dialogs/branching_dialog_with_long_text.yml"
+   );
+
    screen.load_level_by_identifier("world-1-01");
 
    framework_register_and_activate_screen("screen", &screen);
