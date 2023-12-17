@@ -186,12 +186,14 @@ void Screen::load_level_by_identifier(std::string level_identifier)
       throw std::runtime_error("Screen::load_level_by_identifier: error: guard \"game_configuration\" not met");
    }
    player_controlled_entity = nullptr;
+   player_is_colliding_on_goal = false; // TODO: Replace this with a list of colliding objects
    player_control_velocity = { 0.0f, 0.0f };
    goal_entity = nullptr;
 
 
+   // Clear our resources so they can be processed from freshly loaded models
+   model_bin->clear();
    // TODO: Clear model_bin and the entity_pool
-   //model_bin->clear();
    //entity_pool.clear();
 
 
@@ -201,7 +203,7 @@ void Screen::load_level_by_identifier(std::string level_identifier)
    entity_factory.set_model_bin(model_bin);
 
 
-   // Create the Camera
+   // Create the camera
    AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Camera3D* camera_entity =
       entity_factory.create_camera_3d();
    AllegroFlare::Camera3D &camera = camera_entity->get_camera_3d_ref();
@@ -209,34 +211,35 @@ void Screen::load_level_by_identifier(std::string level_identifier)
    entity_pool.add(camera_entity);
 
 
-   // TODO: Use an EntityFactory for this setup
-   AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D *dynamic_cube = 
+   // Create the player character
+   AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D *player_character = 
       new AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D();
-   dynamic_cube->set_model_3d(model_bin->auto_get("robot-02.obj"));
-   dynamic_cube->set_model_3d_texture(bitmap_bin->auto_get("robot-textured-02-uv.jpg"));
-   //dynamic_cube->set_model_3d(model_bin->auto_get("rounded_unit_cube-01.obj"));
-   //dynamic_cube->set_model_3d_texture(bitmap_bin->auto_get("uv.png"));
-   dynamic_cube->get_placement_ref().position.x = 0.0f; //2.5;
-   dynamic_cube->get_placement_ref().position.y = 0.0f; //0.5;
-   dynamic_cube->get_placement_ref().scale = { 0.08, 0.08, 0.08 };
-   dynamic_cube->get_placement_ref().rotation = { 0.0, -0.25, 0.0 };
-   entity_pool.add(dynamic_cube);
+   player_character->set_model_3d(model_bin->auto_get("robot-02.obj"));
+   player_character->set_model_3d_texture(bitmap_bin->auto_get("robot-textured-02-uv.jpg"));
+   //player_character->get_placement_ref().position.x = 0.0f; //2.5;
+   //player_character->get_placement_ref().position.y = 0.0f; //0.5;
+   player_character->get_placement_ref().scale = { 0.08, 0.08, 0.08 };
+   player_character->get_placement_ref().rotation = { 0.0, -0.25, 0.0 };
+   entity_pool.add(player_character);
+
+
+   // Load the world obj model file, and process it to extract the entities (like goals, environment model, etc)
 
    std::string world_model_name = level_identifier; //"world-1-01";
    std::string world_model_obj_name = world_model_name + ".obj";
    std::string world_model_texture_name = world_model_name + ".png";
-   AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D *env = 
-      new AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D();
-   env->set_model_3d(model_bin->auto_get("world-1-01.obj"));
-   //env->set_model_3d(model_bin->auto_get("simple_scene-01.obj"));
-   env->set_model_3d(model_bin->auto_get(world_model_obj_name));
-   //rounded_unit_cube-01.obj"));
-   //env->set_model_3d_texture(bitmap_bin->auto_get("simple_scene-01-1024.jpg"));
-   env->set_model_3d_texture(bitmap_bin->auto_get(world_model_texture_name));
-   env->get_placement_ref().position.x = 0;
-   env->get_placement_ref().position.y = 0;
-   entity_pool.add(env);
-   //level_identifier
+   //AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D *env = 
+      //new AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D();
+   //env->set_model_3d(model_bin->auto_get("world-1-01.obj"));
+   ////env->set_model_3d(model_bin->auto_get("simple_scene-01.obj"));
+   //env->set_model_3d(model_bin->auto_get(world_model_obj_name));
+   ////rounded_unit_cube-01.obj"));
+   ////env->set_model_3d_texture(bitmap_bin->auto_get("simple_scene-01-1024.jpg"));
+   //env->set_model_3d_texture(bitmap_bin->auto_get(world_model_texture_name));
+   //env->get_placement_ref().position.x = 0;
+   //env->get_placement_ref().position.y = 0;
+   //entity_pool.add(env);
+   ////level_identifier
 
 
    // Attempt to extract a named object from the environment model
@@ -248,6 +251,9 @@ void Screen::load_level_by_identifier(std::string level_identifier)
    }
    else
    {
+      // Extract named objects and build entities from them
+
+      // Find and create the goal
       std::vector<AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL> named_object_vertices =
          world_model->extract_named_object_vertices("goal");
       if (named_object_vertices.empty())
@@ -276,11 +282,20 @@ void Screen::load_level_by_identifier(std::string level_identifier)
 
          goal_entity = item;
       }
+
+      // Create the environment object
+      AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D *env = 
+         new AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D();
+      env->set_model_3d(model_bin->auto_get(world_model_obj_name));
+      env->set_model_3d_texture(bitmap_bin->auto_get(world_model_texture_name));
+      env->get_placement_ref().position.x = 0;
+      env->get_placement_ref().position.y = 0;
+      entity_pool.add(env);
    }
 
 
    // Assign our "special" items
-   player_controlled_entity = dynamic_cube;
+   player_controlled_entity = player_character;
    //goal_entity = item;
    player_is_colliding_on_goal = false; // This needs to be changed to an "enter" collision e.g. "exit" collision
 
