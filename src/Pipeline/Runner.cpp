@@ -326,6 +326,9 @@ void Runner::initialize()
    rolling_credits_screen.initialize();
 
    // Setup our main gameplay screen
+   primary_gameplay_screen.set_framework(framework); // NOTE: Only required to set the node bank. Definitely open
+                                                     // to alternatives so that framework does not need to be
+                                                     // injected here
    primary_gameplay_screen.set_event_emitter(event_emitter);
    primary_gameplay_screen.set_bitmap_bin(bitmap_bin);
    primary_gameplay_screen.set_font_bin(font_bin);

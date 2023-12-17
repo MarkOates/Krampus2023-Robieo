@@ -728,6 +728,10 @@ table td
     <h3>Properties</h3>
 <div class="property-box properties">     <table>
 <tr>
+  <td class="property">framework</td>
+  <td class="property">AllegroFlare::Frameworks::Full*</td>
+</tr>
+<tr>
   <td class="property">event_emitter</td>
   <td class="property">AllegroFlare::EventEmitter*</td>
 </tr>
@@ -810,6 +814,9 @@ table td
     </table>
 </div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
+<tr>
+  <td class="method">set_framework(AllegroFlare::Frameworks::Full* framework=nullptr)</td>
+</tr>
 <tr>
   <td class="method">set_event_emitter(AllegroFlare::EventEmitter* event_emitter=nullptr)</td>
 </tr>
@@ -974,6 +981,15 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/ALLEGRO_VERTEX_WITH_NORMAL.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogTree::NodeBank&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogTree/NodeBank.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogTree::YAMLLoader&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogTree/YAMLLoader.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Frameworks::Full&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Frameworks/Full.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -1384,7 +1400,8 @@ table td
     "Pipeline/Gameplay/Level"
   ],
   "AllegroFlare/DialogTree/NodeBank": [
-    "Pipeline/GameConfigurations/Main"
+    "Pipeline/GameConfigurations/Main",
+    "Pipeline/Gameplay/Screen"
   ],
   "AllegroFlare/DialogTree/NodeBankFactory": [
     "Pipeline/GameConfigurations/Main"
@@ -1470,7 +1487,11 @@ table td
   "AllegroFlare/ALLEGRO_VERTEX_WITH_NORMAL": [
     "Pipeline/Gameplay/Screen"
   ],
+  "AllegroFlare/DialogTree/YAMLLoader": [
+    "Pipeline/Gameplay/Screen"
+  ],
   "AllegroFlare/Frameworks/Full": [
+    "Pipeline/Gameplay/Screen",
     "Pipeline/Runner"
   ],
   "AllegroFlare/Routers/Standard": [

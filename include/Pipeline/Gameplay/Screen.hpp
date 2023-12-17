@@ -4,6 +4,7 @@
 #include <AllegroFlare/BitmapBin.hpp>
 #include <AllegroFlare/EventEmitter.hpp>
 #include <AllegroFlare/FontBin.hpp>
+#include <AllegroFlare/Frameworks/Full.hpp>
 #include <AllegroFlare/GameConfigurations/Base.hpp>
 #include <AllegroFlare/GameEvent.hpp>
 #include <AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/Base.hpp>
@@ -41,6 +42,7 @@ namespace Pipeline
             STATE_PLAYING_GAME,
             STATE_SUSPEND_FOR_DIALOG,
          };
+         AllegroFlare::Frameworks::Full* framework;
          AllegroFlare::EventEmitter* event_emitter;
          AllegroFlare::BitmapBin* bitmap_bin;
          AllegroFlare::FontBin* font_bin;
@@ -65,7 +67,7 @@ namespace Pipeline
 
 
       public:
-         Screen(AllegroFlare::EventEmitter* event_emitter=nullptr, AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::ModelBin* model_bin=nullptr, AllegroFlare::GameConfigurations::Base* game_configuration=nullptr);
+         Screen(AllegroFlare::Frameworks::Full* framework=nullptr, AllegroFlare::EventEmitter* event_emitter=nullptr, AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::ModelBin* model_bin=nullptr, AllegroFlare::GameConfigurations::Base* game_configuration=nullptr);
          virtual ~Screen();
 
          void set_game_configuration(AllegroFlare::GameConfigurations::Base* game_configuration);
@@ -75,6 +77,7 @@ namespace Pipeline
          std::function<void(Pipeline::Gameplay::Screen*, void*)> get_on_finished_callback_func() const;
          void* get_on_finished_callback_func_user_data() const;
          uint32_t get_state() const;
+         void set_framework(AllegroFlare::Frameworks::Full* framework=nullptr);
          void set_event_emitter(AllegroFlare::EventEmitter* event_emitter=nullptr);
          void set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin=nullptr);
          void set_font_bin(AllegroFlare::FontBin* font_bin=nullptr);

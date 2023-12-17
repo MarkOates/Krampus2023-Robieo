@@ -9,6 +9,11 @@ parent_classes:
 properties:
 
 
+  - name: framework
+    type: AllegroFlare::Frameworks::Full*
+    init_with: nullptr
+    constructor_arg: true
+
   - name: event_emitter
     type: AllegroFlare::EventEmitter*
     init_with: nullptr
@@ -119,6 +124,17 @@ enums:
 methods:
 
 
+  - name: set_framework
+    guards: [ (!initialized) ]
+    parameters:
+      - name: framework
+        type: AllegroFlare::Frameworks::Full*
+        default_argument: nullptr
+    body: |
+      this->framework = framework;
+      return;
+
+
   - name: set_event_emitter
     guards: [ (!initialized) ]
     parameters:
@@ -209,7 +225,7 @@ methods:
       - name: level_identifier
         type: std::string
         default_argument: '"[unset-level_identifier]"'
-    guards: [ game_configuration ]
+    guards: [ game_configuration, framework ]
     body: |
       player_controlled_entity = nullptr;
       player_is_colliding_on_goal = false; // TODO: Replace this with a list of colliding objects
@@ -320,6 +336,17 @@ methods:
       }
 
 
+
+      AllegroFlare::DialogTree::NodeBank node_bank;
+      std::string dialog_filename =
+         "/Users/markoates/Repos/Pipeline/tests/fixtures/dialogs/all_dialog.yml"; // CRITICAL: change this file
+      AllegroFlare::DialogTree::YAMLLoader yaml_loader;
+      yaml_loader.load_file(dialog_filename);
+      node_bank = yaml_loader.get_node_bank();
+      framework->set_dialog_system_dialog_node_bank(node_bank);
+
+
+
       // Assign our "special" items
       player_controlled_entity = player_character;
       //goal_entity = item;
@@ -365,6 +392,8 @@ methods:
      - Pipeline::GameConfigurations::Main
      - AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL
      - Pipeline::Gameplay::Level
+     - AllegroFlare::DialogTree::NodeBank
+     - AllegroFlare::DialogTree::YAMLLoader 
 
 
   - name: initialize
@@ -968,5 +997,11 @@ dependencies:
     headers: [ AllegroFlare/EventNames.hpp ]
   - symbol: AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL
     headers: [ AllegroFlare/ALLEGRO_VERTEX_WITH_NORMAL.hpp ]
+  - symbol: AllegroFlare::DialogTree::NodeBank
+    headers: [ AllegroFlare/DialogTree/NodeBank.hpp ]
+  - symbol: AllegroFlare::DialogTree::YAMLLoader
+    headers: [ AllegroFlare/DialogTree/YAMLLoader.hpp ]
+  - symbol: AllegroFlare::Frameworks::Full
+    headers: [ AllegroFlare/Frameworks/Full.hpp ]
 
 

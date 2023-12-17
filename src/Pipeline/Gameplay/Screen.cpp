@@ -3,6 +3,8 @@
 #include <Pipeline/Gameplay/Screen.hpp>
 
 #include <AllegroFlare/ALLEGRO_VERTEX_WITH_NORMAL.hpp>
+#include <AllegroFlare/DialogTree/NodeBank.hpp>
+#include <AllegroFlare/DialogTree/YAMLLoader.hpp>
 #include <AllegroFlare/EventNames.hpp>
 #include <AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/DynamicModel3D.hpp>
 #include <AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityFactory.hpp>
@@ -22,8 +24,9 @@ namespace Gameplay
 {
 
 
-Screen::Screen(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_bin, AllegroFlare::ModelBin* model_bin, AllegroFlare::GameConfigurations::Base* game_configuration)
+Screen::Screen(AllegroFlare::Frameworks::Full* framework, AllegroFlare::EventEmitter* event_emitter, AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_bin, AllegroFlare::ModelBin* model_bin, AllegroFlare::GameConfigurations::Base* game_configuration)
    : AllegroFlare::Screens::Base(Pipeline::Gameplay::Screen::TYPE)
+   , framework(framework)
    , event_emitter(event_emitter)
    , bitmap_bin(bitmap_bin)
    , font_bin(font_bin)
@@ -93,6 +96,19 @@ uint32_t Screen::get_state() const
    return state;
 }
 
+
+void Screen::set_framework(AllegroFlare::Frameworks::Full* framework)
+{
+   if (!((!initialized)))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::set_framework]: error: guard \"(!initialized)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::set_framework: error: guard \"(!initialized)\" not met");
+   }
+   this->framework = framework;
+   return;
+}
 
 void Screen::set_event_emitter(AllegroFlare::EventEmitter* event_emitter)
 {
@@ -184,6 +200,13 @@ void Screen::load_level_by_identifier(std::string level_identifier)
       error_message << "[Screen::load_level_by_identifier]: error: guard \"game_configuration\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Screen::load_level_by_identifier: error: guard \"game_configuration\" not met");
+   }
+   if (!(framework))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::load_level_by_identifier]: error: guard \"framework\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::load_level_by_identifier: error: guard \"framework\" not met");
    }
    player_controlled_entity = nullptr;
    player_is_colliding_on_goal = false; // TODO: Replace this with a list of colliding objects
@@ -292,6 +315,17 @@ void Screen::load_level_by_identifier(std::string level_identifier)
       env->get_placement_ref().position.y = 0;
       entity_pool.add(env);
    }
+
+
+
+   AllegroFlare::DialogTree::NodeBank node_bank;
+   std::string dialog_filename =
+      "/Users/markoates/Repos/Pipeline/tests/fixtures/dialogs/all_dialog.yml"; // CRITICAL: change this file
+   AllegroFlare::DialogTree::YAMLLoader yaml_loader;
+   yaml_loader.load_file(dialog_filename);
+   node_bank = yaml_loader.get_node_bank();
+   framework->set_dialog_system_dialog_node_bank(node_bank);
+
 
 
    // Assign our "special" items

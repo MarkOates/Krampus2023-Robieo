@@ -153,7 +153,8 @@
     "Pipeline/Gameplay/Level"
   ],
   "AllegroFlare/DialogTree/NodeBank": [
-    "Pipeline/GameConfigurations/Main"
+    "Pipeline/GameConfigurations/Main",
+    "Pipeline/Gameplay/Screen"
   ],
   "AllegroFlare/DialogTree/NodeBankFactory": [
     "Pipeline/GameConfigurations/Main"
@@ -239,7 +240,11 @@
   "AllegroFlare/ALLEGRO_VERTEX_WITH_NORMAL": [
     "Pipeline/Gameplay/Screen"
   ],
+  "AllegroFlare/DialogTree/YAMLLoader": [
+    "Pipeline/Gameplay/Screen"
+  ],
   "AllegroFlare/Frameworks/Full": [
+    "Pipeline/Gameplay/Screen",
     "Pipeline/Runner"
   ],
   "AllegroFlare/Routers/Standard": [
