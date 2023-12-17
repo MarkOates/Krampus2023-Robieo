@@ -430,7 +430,27 @@ methods:
             float angle_in_degrees = angle_in_radians * (180.0 / ALLEGRO_PI);
             float angle_in_units = angle_in_degrees / 360.0f;
 
-            player_entity_as->get_placement_ref().rotation.y = -angle_in_units;
+            bool smooth = true;
+            float final_angle = 0.0f;
+
+            if (!smooth)
+            {
+               final_angle = -angle_in_units;
+            }
+            else
+            {
+               float target_angle_in_units = -angle_in_units;
+               float current_angle_in_units = player_entity_as->get_placement_ref().rotation.y;
+
+               float rate = 0.1;
+               float target = fmod(target_angle_in_units, 1.0f);
+               float current = fmod(current_angle_in_units, 1.0f);
+               float angular_distance = (target - current);
+
+               final_angle = angular_distance * rate + current;
+            }
+
+            player_entity_as->get_placement_ref().rotation.y = final_angle;
          }
 
 
