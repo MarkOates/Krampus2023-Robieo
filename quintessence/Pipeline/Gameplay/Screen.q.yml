@@ -227,25 +227,38 @@ methods:
         default_argument: '"[unset-level_identifier]"'
     guards: [ game_configuration, framework ]
     body: |
+      //
+      // Set our local cached state variables to default
+      //
+
       player_controlled_entity = nullptr;
       player_is_colliding_on_goal = false; // TODO: Replace this with a list of colliding objects
       player_control_velocity = { 0.0f, 0.0f };
       goal_entity = nullptr;
 
 
+      //
       // Clear our resources so they can be processed from freshly loaded models
+      //
+
       model_bin->clear();
       // TODO: Clear model_bin and the entity_pool
       //entity_pool.clear();
 
 
+      //
       // Create our entity_factory
+      //
+
       AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityFactory entity_factory;
       entity_factory.set_bitmap_bin(bitmap_bin);
       entity_factory.set_model_bin(model_bin);
 
 
+      //
       // Create the camera
+      //
+
       AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Camera3D* camera_entity =
          entity_factory.create_camera_3d();
       AllegroFlare::Camera3D &camera = camera_entity->get_camera_3d_ref();
@@ -253,7 +266,10 @@ methods:
       entity_pool.add(camera_entity);
 
 
+      //
       // Create the player character
+      //
+
       AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D *player_character = 
          new AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D();
       player_character->set_model_3d(model_bin->auto_get("robot-02.obj"));
@@ -265,26 +281,18 @@ methods:
       entity_pool.add(player_character);
 
 
-      // Load the world obj model file, and process it to extract the entities (like goals, environment model, etc)
+
+      //
+      // Load the world obj model file, and process it.
+      // extract the entities (like goals, environment model, etc)
+      //
 
       std::string world_model_name = level_identifier; //"world-1-01";
       std::string world_model_obj_name = world_model_name + ".obj";
       std::string world_model_texture_name = world_model_name + ".png";
-      //AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D *env = 
-         //new AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D();
-      //env->set_model_3d(model_bin->auto_get("world-1-01.obj"));
-      ////env->set_model_3d(model_bin->auto_get("simple_scene-01.obj"));
-      //env->set_model_3d(model_bin->auto_get(world_model_obj_name));
-      ////rounded_unit_cube-01.obj"));
-      ////env->set_model_3d_texture(bitmap_bin->auto_get("simple_scene-01-1024.jpg"));
-      //env->set_model_3d_texture(bitmap_bin->auto_get(world_model_texture_name));
-      //env->get_placement_ref().position.x = 0;
-      //env->get_placement_ref().position.y = 0;
-      //entity_pool.add(env);
-      ////level_identifier
 
+      // Extract named object from the environment model
 
-      // Attempt to extract a named object from the environment model
       std::cout << "World model obj name: " << world_model_obj_name << std::endl;
       AllegroFlare::Model3D *world_model = model_bin->auto_get(world_model_obj_name);
       if (!world_model)
@@ -337,28 +345,50 @@ methods:
 
 
 
+
+      //
+      // Load the dialog bank
+      //
+
       AllegroFlare::DialogTree::NodeBank node_bank;
       std::string dialog_filename = framework->get_data_folder_path() + "/dialogs/all_dialog.yml";
       AllegroFlare::DialogTree::YAMLLoader yaml_loader;
       yaml_loader.load_file(dialog_filename);
       node_bank = yaml_loader.get_node_bank();
+
+      // Validate important dialog nodes exist
+      if (!node_bank.node_exists_by_name("package_delivery_response"))
+      {
+         throw std::runtime_error("Expecting \"package_delivery_response\" dialog node to exist but it does not.");
+      }
+
+
       framework->set_dialog_system_dialog_node_bank(node_bank);
 
 
 
+      //
       // Assign our "special" items
+      //
+
       player_controlled_entity = player_character;
       //goal_entity = item;
       player_is_colliding_on_goal = false; // This needs to be changed to an "enter" collision e.g. "exit" collision
 
 
 
+      //
       // Set our initial positions
+      //
+
       set_primary_camera_to_gameplay_view(); // This will be our default initialization position, and could be modified
                                              // in the next step by starting the game
 
 
+      //
       // Start the game
+      //
+
       set_state(STATE_PLAYING_GAME);
 
 
