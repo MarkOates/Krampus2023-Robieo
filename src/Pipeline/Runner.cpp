@@ -802,6 +802,7 @@ void Runner::run(std::string deployment_environment_mode)
    AllegroFlare::Frameworks::Full framework;
    framework.set_deployment_environment(deployment_environment_mode);
    //if (disable_escape_key_will_shutdown) framework.disable_escape_key_will_shutdown();
+   framework.set_render_surface_multisamples(0);
    framework.disable_mipmapping();
    framework.initialize();
 

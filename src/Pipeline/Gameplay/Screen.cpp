@@ -183,12 +183,14 @@ void Screen::load_level_by_identifier(std::string level_identifier)
 
    AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D *env = 
       new AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D();
-   env->set_model_3d(model_bin->auto_get("simple_scene-01.obj"));
+   //env->set_model_3d(model_bin->auto_get("simple_scene-01.obj"));
+   env->set_model_3d(model_bin->auto_get("world-1-01.obj"));
    //rounded_unit_cube-01.obj"));
    env->set_model_3d_texture(bitmap_bin->auto_get("simple_scene-01-1024.jpg"));
    env->get_placement_ref().position.x = 0;
    env->get_placement_ref().position.y = 0;
    entity_pool.add(env);
+   //level_identifier
 
 
    player_controlled_entity = dynamic_cube;
@@ -337,7 +339,7 @@ void Screen::update()
 {
    // Spin our shadow casted light
    AllegroFlare::Camera3D *light = scene_renderer.get_shadow_map_buffer_ref().get_light();
-   //light->spin -= 0.001f;
+   light->spin = 0.5f;
 
    // Pan the camera
    AllegroFlare::Camera3D *primary_camera = scene_renderer.find_primary_camera_3d();
