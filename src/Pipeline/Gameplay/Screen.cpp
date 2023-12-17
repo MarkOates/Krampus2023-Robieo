@@ -684,10 +684,10 @@ void Screen::set_state(uint32_t state, bool override_if_busy)
       case STATE_REVEALING:
       break;
 
-      case STATE_AWAITING_USER_INPUT:
+      case STATE_PLAYING_GAME:
       break;
 
-      case STATE_CLOSING_DOWN:
+      case STATE_REACHED_GOAL:
       break;
 
       default:
@@ -717,10 +717,10 @@ void Screen::update_state(float time_now)
       case STATE_REVEALING:
       break;
 
-      case STATE_AWAITING_USER_INPUT:
+      case STATE_PLAYING_GAME:
       break;
 
-      case STATE_CLOSING_DOWN:
+      case STATE_REACHED_GOAL:
       break;
 
       default:
@@ -736,8 +736,8 @@ bool Screen::is_valid_state(uint32_t state)
    std::set<uint32_t> valid_states =
    {
       STATE_REVEALING,
-      STATE_AWAITING_USER_INPUT,
-      STATE_CLOSING_DOWN,
+      STATE_PLAYING_GAME,
+      STATE_REACHED_GOAL,
    };
    return (valid_states.count(state) > 0);
 }

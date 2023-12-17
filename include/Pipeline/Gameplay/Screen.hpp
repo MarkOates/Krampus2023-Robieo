@@ -38,8 +38,8 @@ namespace Pipeline
          {
             STATE_UNDEF = 0,
             STATE_REVEALING,
-            STATE_AWAITING_USER_INPUT,
-            STATE_CLOSING_DOWN,
+            STATE_PLAYING_GAME,
+            STATE_REACHED_GOAL,
          };
          AllegroFlare::EventEmitter* event_emitter;
          AllegroFlare::BitmapBin* bitmap_bin;
