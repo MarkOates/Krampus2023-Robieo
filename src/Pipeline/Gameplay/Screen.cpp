@@ -404,6 +404,7 @@ void Screen::on_player_entity_collide(AllegroFlare::GraphicsPipelines::DynamicEn
    {
       // Handle goal collision
       set_state(STATE_REACHED_GOAL);
+      event_emitter->emit_activate_dialog_node_by_name_event("start_node");
       //call_on_finished_callback_func();
    }
    return;

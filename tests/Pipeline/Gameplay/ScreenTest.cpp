@@ -6,6 +6,8 @@
 #include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
 #include <AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture.hpp>
 //#include <AllegroFlare/Frameworks/Full.hpp>
+#include <AllegroFlare/DialogTree/NodeBank.hpp>
+#include <AllegroFlare/DialogTree/YAMLLoader.hpp>
 
 
 class TestGameConfiguration : public AllegroFlare::GameConfigurations::Base
@@ -68,10 +70,16 @@ TEST_F(Pipeline_Gameplay_ScreenTestWithAllegroFrameworksFullFixture,
    screen.set_game_configuration(&game_configuration),
    screen.initialize();
 
-   // For now, this seems like the most direct way to load it
-   get_framework_ref().get_dialog_system_ref().load_dialog_node_bank_from_file(
-      "/Users/markoates/Repos/Pipeline/tests/fixtures/dialogs/branching_dialog_with_long_text.yml"
-   );
+
+   // Load a dialog bank into the system
+   AllegroFlare::DialogTree::NodeBank node_bank;
+   std::string dialog_filename =
+      "/Users/markoates/Repos/Pipeline/tests/fixtures/dialogs/branching_dialog_with_long_text.yml";
+   AllegroFlare::DialogTree::YAMLLoader yaml_loader;
+   yaml_loader.load_file(dialog_filename);
+   node_bank = yaml_loader.get_node_bank();
+   get_framework_ref().set_dialog_system_dialog_node_bank(node_bank);
+
 
    screen.load_level_by_identifier("world-1-01");
 
