@@ -363,9 +363,15 @@ methods:
       bool lock_camera_on_player_controlled_entity = true;
       if (player_controlled_entity)
       {
+         // Translate the player control angles to be relative to the camera
+         float angle = primary_camera->spin;
+         float x_prime = player_control_velocity.x * cos(angle) - player_control_velocity.y * sin(angle);
+         float y_prime = player_control_velocity.x * sin(angle) + player_control_velocity.y * cos(angle);
+
+         // Move the player
          auto player_entity_as = get_player_controlled_entity_as();
-         player_entity_as->get_placement_ref().position.x += player_control_velocity.x;
-         player_entity_as->get_placement_ref().position.z += player_control_velocity.y;
+         player_entity_as->get_placement_ref().position.x += x_prime;
+         player_entity_as->get_placement_ref().position.z += y_prime;
 
          if (lock_camera_on_player_controlled_entity)
          {
