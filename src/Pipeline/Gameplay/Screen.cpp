@@ -163,6 +163,16 @@ void Screen::set_primary_camera_to_gameplay_view()
    return;
 }
 
+void Screen::set_primary_camera_to_dialog_view()
+{
+   AllegroFlare::Camera3D *primary_camera = scene_renderer.find_primary_camera_3d();
+   primary_camera->stepout = { 0.0, 0.0, 10.0 };
+   primary_camera->spin = 0.5 - 0.2;
+   primary_camera->tilt = 0.75 - 0.4;
+   primary_camera->zoom = 2.8;
+   return;
+}
+
 void Screen::load_level_by_identifier(std::string level_identifier)
 {
    if (!(game_configuration))
@@ -249,7 +259,8 @@ void Screen::load_level_by_identifier(std::string level_identifier)
 
 
    // Set our initial positions
-   set_primary_camera_to_gameplay_view();
+   set_primary_camera_to_gameplay_view(); // This will be our default initialization position, and could be modified
+                                          // in the next step by starting the game
 
 
    // Start the game
@@ -767,10 +778,12 @@ void Screen::set_state(uint32_t state, bool override_if_busy)
          player_control_velocity = {0, 0};
       } break;
 
-      case STATE_PLAYING_GAME:
-      break;
+      case STATE_PLAYING_GAME: {
+         set_primary_camera_to_gameplay_view();
+      } break;
 
       case STATE_SUSPEND_FOR_DIALOG: {
+         set_primary_camera_to_dialog_view();
          player_control_velocity = {0, 0};
       } break;
 
