@@ -4,11 +4,11 @@
 
 #include <AllegroFlare/ALLEGRO_VERTEX_WITH_NORMAL.hpp>
 #include <AllegroFlare/DialogTree/NodeBank.hpp>
-#include <AllegroFlare/DialogTree/YAMLLoader.hpp>
 #include <AllegroFlare/EventNames.hpp>
 #include <AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/DynamicModel3D.hpp>
 #include <AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityFactory.hpp>
 #include <AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityRenderFlags.hpp>
+#include <Pipeline/DialogNodeBankFactory.hpp>
 #include <Pipeline/GameConfigurations/Main.hpp>
 #include <Pipeline/Gameplay/Level.hpp>
 #include <allegro5/allegro_primitives.h>
@@ -196,12 +196,7 @@ void Screen::set_primary_camera_to_dialog_view()
 
 AllegroFlare::DialogTree::NodeBank Screen::build_dialog_node_bank()
 {
-   AllegroFlare::DialogTree::NodeBank node_bank;
-   std::string dialog_filename = framework->get_data_folder_path() + "/dialogs/all_dialog.yml";
-   AllegroFlare::DialogTree::YAMLLoader yaml_loader;
-   yaml_loader.load_file(dialog_filename);
-   node_bank = yaml_loader.get_node_bank();
-   return node_bank;
+   return Pipeline::DialogNodeBankFactory::build_production_game_node_bank();
 }
 
 void Screen::load_level_by_identifier(std::string level_identifier)

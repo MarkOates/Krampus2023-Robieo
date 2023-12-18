@@ -240,12 +240,12 @@
   "AllegroFlare/ALLEGRO_VERTEX_WITH_NORMAL": [
     "Pipeline/Gameplay/Screen"
   ],
-  "AllegroFlare/DialogTree/YAMLLoader": [
-    "Pipeline/Gameplay/Screen"
-  ],
   "AllegroFlare/Frameworks/Full": [
     "Pipeline/Gameplay/Screen",
     "Pipeline/Runner"
+  ],
+  "Pipeline/DialogNodeBankFactory": [
+    "Pipeline/Gameplay/Screen"
   ],
   "AllegroFlare/Routers/Standard": [
     "Pipeline/Runner"

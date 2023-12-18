@@ -7,7 +7,7 @@
 #include <AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture.hpp>
 //#include <AllegroFlare/Frameworks/Full.hpp>
 #include <AllegroFlare/DialogTree/NodeBank.hpp>
-#include <AllegroFlare/DialogTree/YAMLLoader.hpp>
+//#include <AllegroFlare/DialogTree/YAMLLoader.hpp>
 
 
 class TestGameConfiguration : public AllegroFlare::GameConfigurations::Base
