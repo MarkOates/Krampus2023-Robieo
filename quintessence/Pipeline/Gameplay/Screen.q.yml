@@ -371,11 +371,13 @@ methods:
             // Create our entity
             AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D *item = 
                new AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D();
-            item->set_model_3d(model_bin->auto_get("rounded_unit_cube-01.obj"));
-            item->set(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityRenderFlags::RENDER_WITH_SKYBOX);
+            item->set_model_3d(model_bin->auto_get("exit-01.obj"));
+            item->set_model_3d_texture(bitmap_bin->auto_get("exit-01.png"));
+            //item->set(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityRenderFlags::RENDER_WITH_SKYBOX);
             item->get_placement_ref().position = object_position;
-            item->get_placement_ref().rotation.x = 0.05;
-            item->get_placement_ref().rotation.z = 0.03547;
+            item->get_placement_ref().position.y = 0.0f;
+            item->get_placement_ref().rotation.x = 0.0;
+            item->get_placement_ref().rotation.z = 0.0;
             entity_pool.add(item);
 
             exit_entity = item;
