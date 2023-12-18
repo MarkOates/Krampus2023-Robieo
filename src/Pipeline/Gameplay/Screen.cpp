@@ -194,6 +194,16 @@ void Screen::set_primary_camera_to_dialog_view()
    return;
 }
 
+AllegroFlare::DialogTree::NodeBank Screen::build_dialog_node_bank()
+{
+   AllegroFlare::DialogTree::NodeBank node_bank;
+   std::string dialog_filename = framework->get_data_folder_path() + "/dialogs/all_dialog.yml";
+   AllegroFlare::DialogTree::YAMLLoader yaml_loader;
+   yaml_loader.load_file(dialog_filename);
+   node_bank = yaml_loader.get_node_bank();
+   return node_bank;
+}
+
 void Screen::load_level_by_identifier(std::string level_identifier)
 {
    if (!(game_configuration))
@@ -375,11 +385,7 @@ void Screen::load_level_by_identifier(std::string level_identifier)
    // Load the dialog bank
    //
 
-   AllegroFlare::DialogTree::NodeBank node_bank;
-   std::string dialog_filename = framework->get_data_folder_path() + "/dialogs/all_dialog.yml";
-   AllegroFlare::DialogTree::YAMLLoader yaml_loader;
-   yaml_loader.load_file(dialog_filename);
-   node_bank = yaml_loader.get_node_bank();
+   AllegroFlare::DialogTree::NodeBank node_bank = build_dialog_node_bank();
 
    // Validate important dialog nodes exist
    if (!node_bank.node_exists_by_name("package_delivery_response"))
