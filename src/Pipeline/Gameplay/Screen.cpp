@@ -36,6 +36,7 @@ Screen::Screen(AllegroFlare::Frameworks::Full* framework, AllegroFlare::EventEmi
    , player_controlled_entity(nullptr)
    , player_control_velocity()
    , goal_entity(nullptr)
+   , exit_entity(nullptr)
    , scene_renderer()
    , current_level_identifier("[unset-current_level]")
    , current_level(nullptr)
@@ -46,6 +47,7 @@ Screen::Screen(AllegroFlare::Frameworks::Full* framework, AllegroFlare::EventEmi
    , state_is_busy(false)
    , state_changed_at(0.0f)
    , player_is_colliding_on_goal(false)
+   , player_is_colliding_on_exit(false)
 {
 }
 
@@ -214,8 +216,10 @@ void Screen::load_level_by_identifier(std::string level_identifier)
 
    player_controlled_entity = nullptr;
    player_is_colliding_on_goal = false; // TODO: Replace this with a list of colliding objects
+   player_is_colliding_on_exit = false; // TODO: Replace this with a list of colliding objects
    player_control_velocity = { 0.0f, 0.0f };
    goal_entity = nullptr;
+   exit_entity = nullptr;
 
 
    //
@@ -224,7 +228,12 @@ void Screen::load_level_by_identifier(std::string level_identifier)
 
    model_bin->clear();
    // TODO: Clear model_bin and the entity_pool
-   //entity_pool.clear();
+   for (auto &entity : entity_pool.get_entity_pool_ref())
+   {
+      delete entity;
+      //entity_pool.clear();
+   }
+   entity_pool.get_entity_pool_ref().clear();
 
 
    //
@@ -282,10 +291,10 @@ void Screen::load_level_by_identifier(std::string level_identifier)
    else
    {
       // Extract named objects and build entities from them
+      std::vector<AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL> named_object_vertices;
 
       // Find and create the goal
-      std::vector<AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL> named_object_vertices =
-         world_model->extract_named_object_vertices("goal");
+      named_object_vertices = world_model->extract_named_object_vertices("goal");
       if (named_object_vertices.empty())
       {
          throw std::runtime_error("Named object \"goal\" appears to not exist.");
@@ -313,6 +322,37 @@ void Screen::load_level_by_identifier(std::string level_identifier)
          goal_entity = item;
 
          world_model->remove_named_object("goal");
+      }
+
+      // Find and create the exit
+      named_object_vertices = world_model->extract_named_object_vertices("exit");
+      if (named_object_vertices.empty())
+      {
+         throw std::runtime_error("Named object \"exit\" appears to not exist.");
+      }
+      else
+      {
+         // Just use the first vertex as the position of this named object
+         // TODO: Use a central point of the vertices
+         AllegroFlare::Vec3D object_position{
+            named_object_vertices[0].x,
+            named_object_vertices[0].y,
+            named_object_vertices[0].z,
+         };
+
+         // Create our entity
+         AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D *item = 
+            new AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D();
+         item->set_model_3d(model_bin->auto_get("rounded_unit_cube-01.obj"));
+         item->set(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityRenderFlags::RENDER_WITH_SKYBOX);
+         item->get_placement_ref().position = object_position;
+         item->get_placement_ref().rotation.x = 0.05;
+         item->get_placement_ref().rotation.z = 0.03547;
+         entity_pool.add(item);
+
+         exit_entity = item;
+
+         world_model->remove_named_object("exit");
       }
 
       // Create the environment object
@@ -353,6 +393,7 @@ void Screen::load_level_by_identifier(std::string level_identifier)
    player_controlled_entity = player_character;
    //goal_entity = item;
    player_is_colliding_on_goal = false; // This needs to be changed to an "enter" collision e.g. "exit" collision
+   player_is_colliding_on_exit = false; // This needs to be changed to an "enter" collision e.g. "exit" collision
 
 
    //
@@ -525,6 +566,23 @@ AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D
    return as;
 }
 
+AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D* Screen::get_exit_entity_as()
+{
+   if (!exit_entity->is_type(
+            AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D::TYPE
+         )
+      )
+   {
+      throw std::runtime_error("unexpected player controlled entity type");
+   }
+
+   AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D *as =
+      static_cast<AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D *>(
+         exit_entity
+      );
+   return as;
+}
+
 void Screen::on_player_entity_collide(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D* colliding_entity)
 {
    if (!is_state(STATE_PLAYING_GAME)) return;
@@ -536,6 +594,14 @@ void Screen::on_player_entity_collide(AllegroFlare::GraphicsPipelines::DynamicEn
       set_state(STATE_SUSPEND_FOR_DIALOG);
       event_emitter->emit_activate_dialog_node_by_name_event("package_delivery_response");
       //call_on_finished_callback_func();
+   }
+   if (colliding_entity == exit_entity)
+   {
+      // Handle goal collision
+      //player_is_colliding_on_goal = true;
+      //set_state(STATE_SUSPEND_FOR_DIALOG);
+      //event_emitter->emit_activate_dialog_node_by_name_event("package_delivery_response");
+      call_on_finished_callback_func();
    }
    return;
 }
@@ -643,6 +709,29 @@ void Screen::update()
          else
          {
             player_is_colliding_on_goal = false;
+         }
+      }
+
+      if (!exit_entity)
+      {
+         throw std::runtime_error("Pipeline::Gameplay::Screen::update: no exit_entity");
+      }
+      else
+      {
+         auto exit_entity_as = get_exit_entity_as();
+         bool collides = trivial_collide(
+            player_entity_as->get_placement_ref().position,
+            exit_entity_as->get_placement_ref().position,
+            1.0
+         );
+         if (collides)
+         {
+            if (!player_is_colliding_on_exit) on_player_entity_collide(exit_entity_as);
+            player_is_colliding_on_exit = true;
+         }
+         else
+         {
+            player_is_colliding_on_exit = false;
          }
       }
    }

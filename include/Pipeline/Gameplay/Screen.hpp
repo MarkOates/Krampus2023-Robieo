@@ -52,6 +52,7 @@ namespace Pipeline
          AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base* player_controlled_entity;
          AllegroFlare::Vec2D player_control_velocity;
          AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base* goal_entity;
+         AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base* exit_entity;
          AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::SceneRenderer2 scene_renderer;
          std::string current_level_identifier;
          Pipeline::Gameplay::Level* current_level;
@@ -62,6 +63,7 @@ namespace Pipeline
          bool state_is_busy;
          float state_changed_at;
          bool player_is_colliding_on_goal;
+         bool player_is_colliding_on_exit;
 
       protected:
 
@@ -91,6 +93,7 @@ namespace Pipeline
          virtual void on_deactivate() override;
          AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D* get_player_controlled_entity_as();
          AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D* get_goal_entity_as();
+         AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D* get_exit_entity_as();
          void on_player_entity_collide(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D* colliding_entity=nullptr);
          void update();
          void render();

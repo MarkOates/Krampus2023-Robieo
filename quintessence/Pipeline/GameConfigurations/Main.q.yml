@@ -29,7 +29,7 @@ methods:
         default_argument: '"[unset-identifier]"'
     body: |
       std::vector<std::pair<std::string, std::string>> result = {
-         { "World 1", "world-1-04" },
+         { "World 1", "world-1-05" },
          //{ "World 2", "world-2-01" },
          //{ "Forest Village 1", "forest_village_1" },
          //{ "Forest Village 2", "forest_village_2" },
