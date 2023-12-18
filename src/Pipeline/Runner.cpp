@@ -193,6 +193,12 @@ void Runner::initialize()
    title_screen.set_event_emitter(event_emitter);
    title_screen.set_menu_options( build_title_screen_menu_options());
    title_screen.set_font_bin(font_bin);
+   title_screen.set_bitmap_bin(bitmap_bin);
+   title_screen.set_title_bitmap_name("robieo-logo-1-02.png");
+   title_screen.set_title_position_x(1920/2);
+   title_screen.set_title_position_y(1080/2-50);
+   title_screen.set_menu_position_x(1920/2);
+   title_screen.set_menu_position_y(1080/2+100);
    std::string copyright_text = "© 2023 CLUBCATT Games         clubcatt.com         version " + release_info.get_version();
    title_screen.set_copyright_text(copyright_text);
    title_screen.set_background(&solid_black_background);
