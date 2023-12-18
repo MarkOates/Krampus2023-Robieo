@@ -77,7 +77,7 @@ methods:
     guards: [ (!initialized), (width >= 320) ]
     body: |
       // TODO: Test guard
-      this->shadow_depth_map_surface_width = shadow_depth_map_surface_width;
+      this->shadow_depth_map_surface_width = width;
       return;
 
 
@@ -89,7 +89,7 @@ methods:
     guards: [ (!initialized), (height >= 320) ]
     body: |
       // TODO: Test guard
-      this->shadow_depth_map_surface_height = shadow_depth_map_surface_height;
+      this->shadow_depth_map_surface_height = height;
       return;
 
 
@@ -101,7 +101,7 @@ methods:
     guards: [ (!initialized), (width >= 320) ]
     body: |
       // TODO: Test guard
-      this->result_surface_width = result_surface_width;
+      this->result_surface_width = width;
       return;
 
 
@@ -113,7 +113,7 @@ methods:
     guards: [ (!initialized), (height >= 240) ]
     body: |
       // TODO: Test guard
-      this->result_surface_height = result_surface_height;
+      this->result_surface_height = height;
       return;
 
 

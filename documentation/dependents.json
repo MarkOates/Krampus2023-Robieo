@@ -143,6 +143,26 @@
   "AllegroFlare/UsefulPHP": [
     "AllegroFlare/Shaders/ShadowMapping"
   ],
+  "AllegroFlare/DialogTree/NodeBank": [
+    "Pipeline/DialogNodeBankFactory",
+    "Pipeline/GameConfigurations/Main",
+    "Pipeline/Gameplay/Screen"
+  ],
+  "AllegroFlare/DialogTree/Nodes/MultipageWithOptions": [
+    "Pipeline/DialogNodeBankFactory",
+    "Pipeline/GameConfigurations/Main"
+  ],
+  "AllegroFlare/DialogTree/Nodes/ExitDialog": [
+    "Pipeline/DialogNodeBankFactory"
+  ],
+  "AllegroFlare/DialogTree/Nodes/ExitProgram": [
+    "Pipeline/DialogNodeBankFactory",
+    "Pipeline/GameConfigurations/Main"
+  ],
+  "AllegroFlare/DialogTree/NodeOptions/ExitDialog": [
+    "Pipeline/DialogNodeBankFactory",
+    "Pipeline/GameConfigurations/Main"
+  ],
   "AllegroFlare/GameConfigurations/Base": [
     "Pipeline/GameConfigurations/Main",
     "Pipeline/Gameplay/Screen",
@@ -152,26 +172,13 @@
     "Pipeline/GameConfigurations/Main",
     "Pipeline/Gameplay/Level"
   ],
-  "AllegroFlare/DialogTree/NodeBank": [
-    "Pipeline/GameConfigurations/Main",
-    "Pipeline/Gameplay/Screen"
-  ],
   "AllegroFlare/DialogTree/NodeBankFactory": [
     "Pipeline/GameConfigurations/Main"
   ],
   "AllegroFlare/DialogTree/Nodes/Wait": [
     "Pipeline/GameConfigurations/Main"
   ],
-  "AllegroFlare/DialogTree/Nodes/ExitProgram": [
-    "Pipeline/GameConfigurations/Main"
-  ],
-  "AllegroFlare/DialogTree/Nodes/MultipageWithOptions": [
-    "Pipeline/GameConfigurations/Main"
-  ],
   "AllegroFlare/DialogTree/NodeOptions/GoToNode": [
-    "Pipeline/GameConfigurations/Main"
-  ],
-  "AllegroFlare/DialogTree/NodeOptions/ExitDialog": [
     "Pipeline/GameConfigurations/Main"
   ],
   "Pipeline/Gameplay/Level": [

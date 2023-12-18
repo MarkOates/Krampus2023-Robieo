@@ -108,7 +108,7 @@ void ShadowMapBuffer::set_shadow_depth_map_surface_width(int width)
       throw std::runtime_error("ShadowMapBuffer::set_shadow_depth_map_surface_width: error: guard \"(width >= 320)\" not met");
    }
    // TODO: Test guard
-   this->shadow_depth_map_surface_width = shadow_depth_map_surface_width;
+   this->shadow_depth_map_surface_width = width;
    return;
 }
 
@@ -129,7 +129,7 @@ void ShadowMapBuffer::set_shadow_depth_map_surface_height(int height)
       throw std::runtime_error("ShadowMapBuffer::set_shadow_depth_map_surface_height: error: guard \"(height >= 320)\" not met");
    }
    // TODO: Test guard
-   this->shadow_depth_map_surface_height = shadow_depth_map_surface_height;
+   this->shadow_depth_map_surface_height = height;
    return;
 }
 
@@ -150,7 +150,7 @@ void ShadowMapBuffer::set_result_surface_width(int width)
       throw std::runtime_error("ShadowMapBuffer::set_result_surface_width: error: guard \"(width >= 320)\" not met");
    }
    // TODO: Test guard
-   this->result_surface_width = result_surface_width;
+   this->result_surface_width = width;
    return;
 }
 
@@ -171,7 +171,7 @@ void ShadowMapBuffer::set_result_surface_height(int height)
       throw std::runtime_error("ShadowMapBuffer::set_result_surface_height: error: guard \"(height >= 240)\" not met");
    }
    // TODO: Test guard
-   this->result_surface_height = result_surface_height;
+   this->result_surface_height = height;
    return;
 }
 
