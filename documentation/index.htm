@@ -1256,6 +1256,9 @@ table td
   <td class="method">build_title_screen_menu_options()</td>
 </tr>
 <tr>
+  <td class="method">mark_achievement_as_unlocked_and_save_progress(std::string achievement_identifier=&quot;[unset-achievement_identifier]&quot;)</td>
+</tr>
+<tr>
   <td class="method">on_route_event_unhandled_func(uint32_t unhandled_event=0, AllegroFlare::Routers::Standard* router=nullptr, void* user_data=nullptr)</td>
 </tr>
 <tr>
@@ -1380,6 +1383,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Pipeline::GameProgressAndStateInfo&quot;, &quot;headers&quot;=&gt;[&quot;Pipeline/GameProgressAndStateInfo.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::GameEventDatas::AchievementUnlocked&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/GameEventDatas/AchievementUnlocked.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -1731,6 +1737,9 @@ table td
     "Pipeline/Runner"
   ],
   "Pipeline/GameProgressAndStateInfo": [
+    "Pipeline/Runner"
+  ],
+  "AllegroFlare/GameEventDatas/AchievementUnlocked": [
     "Pipeline/Runner"
   ]
 }

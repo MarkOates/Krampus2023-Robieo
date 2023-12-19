@@ -344,5 +344,8 @@
   ],
   "Pipeline/GameProgressAndStateInfo": [
     "Pipeline/Runner"
+  ],
+  "AllegroFlare/GameEventDatas/AchievementUnlocked": [
+    "Pipeline/Runner"
   ]
 }
