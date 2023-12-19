@@ -381,6 +381,28 @@ void Runner::initialize()
 
    setup_sound_effects_and_music(&audio_controller);
 
+
+
+   // Load game_progress_and_state_info file
+   bool save_file_exists = std::filesystem::exists(game_progress_and_state_info_filename);
+   if (save_file_exists)
+   {
+      AllegroFlare::Logger::info_from(
+         "Pipeline::Runner::initialize",
+         "Save file found, loading..."
+      );
+
+      std::string save_file_contents = AllegroFlare::php::file_get_contents(game_progress_and_state_info_filename);
+      game_progress_and_state_info.import_from_string(save_file_contents);
+
+      AllegroFlare::Logger::info_from(
+         "Pipeline::Runner::initialize",
+         "Save file loaded successfully."
+      );
+   }
+
+
+
    // TODO: Load up our sound effects
    //audio_controller.set_and_load_sound_effect_elements({
       // { "menu_move", { "menu_move_tink-02.ogg", false, "restart" } }, // TODO: Throw on an unknown replay type
