@@ -374,7 +374,7 @@ void Runner::setup_sound_effects_and_music(AllegroFlare::AudioController* audio_
    }
    auto &audio_controller = *audio_controller_ptr;
 
-   std::map<std::string, AllegroFlare::AudioRepositoryElement> result = {
+   std::map<std::string, AllegroFlare::AudioRepositoryElement>{
      { "robot-holly_jolly", { "robio-sound-chip--have-a-holly-jolly--01.ogg", true, "ignore" } },
      //{ "level_1_music", { "8bit-dungeon-level-kevin-macleod-80kbps.ogg", true, "restart", 0.5 } },
      //{ "final_level_music", { "final-level-music-kevin-macleod-01.ogg", true, "restart", 1.0 } },
@@ -390,8 +390,15 @@ void Runner::setup_sound_effects_and_music(AllegroFlare::AudioController* audio_
 
    // TODO: Load up our music tracks
    audio_controller.set_and_load_music_track_elements({
-      // An example of how to load a music track:
-      //{ "intro_music", { "wanderer-01.ogg", true, "ignore" } },
+      //std::map<std::string, AllegroFlare::AudioRepositoryElement>{
+        { "robot-holly_jolly", { "robio-sound-chip--have-a-holly-jolly--01.ogg", true, "ignore" } },
+        //{ "level_1_music", { "8bit-dungeon-level-kevin-macleod-80kbps.ogg", true, "restart", 0.5 } },
+        //{ "final_level_music", { "final-level-music-kevin-macleod-01.ogg", true, "restart", 1.0 } },
+        //{ "boss_music", { "krampus-boss-01.ogg", true, "restart", 0.78 } },
+        //{ "dead_krampus_music", { "dead-krampus-01.ogg", false, "restart", 0.78 } },
+        //{ "win_music", { "win-music-01.ogg", false, "restart" } },
+        //{ "end_music", { "jingle-bells-calm.ogg", false, "restart", 0.8 } },
+      //}
    });
 
    return;

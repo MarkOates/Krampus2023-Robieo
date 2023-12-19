@@ -599,6 +599,7 @@ void Screen::on_player_entity_collide(AllegroFlare::GraphicsPipelines::DynamicEn
       //player_is_colliding_on_goal = true;
       set_state(STATE_SUSPEND_FOR_DIALOG);
       event_emitter->emit_activate_dialog_node_by_name_event("package_delivery_response");
+      event_emitter->emit_play_music_track_event("robot-holly_jolly");
       //call_on_finished_callback_func();
    }
    if (colliding_entity == exit_entity)
