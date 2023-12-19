@@ -205,7 +205,7 @@ void Screen::set_primary_camera_to_music_performance_view()
    primary_camera->stepout = { 0.0, 0.25, 6.0 };
    primary_camera->spin = 0.2;
    primary_camera->tilt = 0.2;
-   primary_camera->zoom = 3.2;
+   primary_camera->zoom = 3.1;
    return;
 }
 
@@ -1146,7 +1146,7 @@ void Screen::update_state(float time_now)
                float local = (normalized_age - 0.5) * 2;
                speed_multiplier = 1.0 - AllegroFlare::interpolator::slow_out(local);
             }
-            float zoom_speed = 0.00135f * speed_multiplier;
+            float zoom_speed = 0.0013f * speed_multiplier;
             //float zoom_speed = 0.0012f * speed_multiplier;
             primary_camera->zoom += zoom_speed;
          }
