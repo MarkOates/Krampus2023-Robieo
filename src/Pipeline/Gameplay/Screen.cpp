@@ -354,11 +354,12 @@ void Screen::load_level_by_identifier(std::string level_identifier)
       {
          // Just use the first vertex as the position of this named object
          // TODO: Use a central point of the vertices
-         AllegroFlare::Vec3D object_position{
-            named_object_vertices[0].x,
-            named_object_vertices[0].y,
-            named_object_vertices[0].z,
-         };
+         AllegroFlare::Vec3D object_position = lowest_y_vertex(named_object_vertices);
+         //AllegroFlare::Vec3D object_position{
+            //named_object_vertices[0].x,
+            //named_object_vertices[0].y,
+            //named_object_vertices[0].z,
+         //};
 
          // Create our entity
          AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D *item = 
@@ -388,11 +389,12 @@ void Screen::load_level_by_identifier(std::string level_identifier)
       {
          // Just use the first vertex as the position of this named object
          // TODO: Use a central point of the vertices
-         AllegroFlare::Vec3D object_position{
-            named_object_vertices[0].x,
-            named_object_vertices[0].y,
-            named_object_vertices[0].z,
-         };
+         AllegroFlare::Vec3D object_position = lowest_y_vertex(named_object_vertices);
+         //AllegroFlare::Vec3D object_position{
+            //named_object_vertices[0].x,
+            //named_object_vertices[0].y,
+            //named_object_vertices[0].z,
+         //};
 
          // Create our entity
          AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D *item = 
