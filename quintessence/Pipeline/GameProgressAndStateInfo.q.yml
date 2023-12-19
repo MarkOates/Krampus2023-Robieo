@@ -36,6 +36,31 @@ methods:
       return;
 
 
+  - name: export_to_string
+    type: std::string
+    virtual: true
+    override: true
+    body: |
+      nlohmann::json j = *this;
+      std::string string_dump = j.dump(2);
+      return string_dump;
+    body_dependency_symbols:
+      - Pipeline::JSONLoaders::Pipeline::GameProgressAndStateInfo
+
+
+  - name: import_from_string
+    parameters:
+      - name: data_string
+        type: std::string
+        default_argument: '"[unset-data_string]"'
+    virtual: true
+    override: true
+    body: |
+      nlohmann::json parsed_json = nlohmann::json::parse(data_string);
+      parsed_json.get_to(*this);
+    body_dependency_symbols:
+      - Pipeline::JSONLoaders::Pipeline::GameProgressAndStateInfo
+
 dependencies:
 
 
@@ -43,5 +68,7 @@ dependencies:
     headers: [ Pipeline/Base.hpp ]
   - symbol: AllegroFlare::GameProgressAndStateInfos::Base
     headers: [ AllegroFlare/GameProgressAndStateInfos/Base.hpp ]
+  - symbol: Pipeline::JSONLoaders::Pipeline::GameProgressAndStateInfo
+    headers: [ Pipeline/JSONLoaders/Pipeline/GameProgressAndStateInfo.hpp ]
 
 

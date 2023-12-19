@@ -2,7 +2,7 @@
 
 #include <Pipeline/GameProgressAndStateInfo.hpp>
 
-
+#include <Pipeline/JSONLoaders/Pipeline/GameProgressAndStateInfo.hpp>
 
 
 namespace Pipeline
@@ -43,6 +43,19 @@ void GameProgressAndStateInfo::mark_package_as_delivered(std::string delivered_p
 {
    delivered_package_identifiers.insert(delivered_package_identifier);
    return;
+}
+
+std::string GameProgressAndStateInfo::export_to_string()
+{
+   nlohmann::json j = *this;
+   std::string string_dump = j.dump(2);
+   return string_dump;
+}
+
+void GameProgressAndStateInfo::import_from_string(std::string data_string)
+{
+   nlohmann::json parsed_json = nlohmann::json::parse(data_string);
+   parsed_json.get_to(*this);
 }
 
 

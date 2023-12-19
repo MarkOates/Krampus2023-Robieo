@@ -23,6 +23,7 @@
 #include <AllegroFlare/Screens/Storyboard.hpp>
 #include <AllegroFlare/Screens/TitleScreen.hpp>
 #include <AllegroFlare/Screens/Version.hpp>
+#include <Pipeline/GameProgressAndStateInfo.hpp>
 #include <Pipeline/Gameplay/Screen.hpp>
 #include <ReleaseInfo.hpp>
 #include <cstdint>
@@ -62,6 +63,7 @@ namespace Pipeline
       AllegroFlare::Screens::RollingCredits rolling_credits_screen;
       Pipeline::Gameplay::Screen primary_gameplay_screen;
       AllegroFlare::GameConfigurations::Base* game_configuration;
+      Pipeline::GameProgressAndStateInfo game_progress_and_state_info;
       AllegroFlare::Elements::Backgrounds::ClearToColor solid_black_background;
       ReleaseInfo release_info;
       bool initialized;

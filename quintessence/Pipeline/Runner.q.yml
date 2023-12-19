@@ -98,6 +98,10 @@ properties:
     type: AllegroFlare::GameConfigurations::Base*
     init_with: nullptr
 
+  - name: game_progress_and_state_info
+    type: Pipeline::GameProgressAndStateInfo
+    init_with: ''
+
   - name: solid_black_background
     type: AllegroFlare::Elements::Backgrounds::ClearToColor
     init_with: ALLEGRO_COLOR{0, 0, 0, 1}
@@ -1001,5 +1005,7 @@ dependencies:
     headers: [ Pipeline/GameConfigurations/Main.hpp ]
   - symbol: AllegroFlare::AudioController
     headers: [ AllegroFlare/AudioController.hpp ]
+  - symbol: Pipeline::GameProgressAndStateInfo
+    headers: [ Pipeline/GameProgressAndStateInfo.hpp ]
 
 
