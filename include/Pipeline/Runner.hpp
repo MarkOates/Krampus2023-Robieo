@@ -84,6 +84,7 @@ namespace Pipeline
       void mark_package_as_delivered_and_save_progress(std::string package_identifier="[unset-package_identifier]");
       static bool on_route_event_unhandled_func(uint32_t unhandled_event=0, AllegroFlare::Routers::Standard* router=nullptr, void* user_data=nullptr);
       void continue_from_last_save();
+      bool all_packages_are_delivered();
       void setup_new_game_progress_and_state_info(AllegroFlare::GameSession* game_session=nullptr);
       void load_last_played_session_or_start_new(AllegroFlare::GameSession* game_session=nullptr);
       void setup_router();

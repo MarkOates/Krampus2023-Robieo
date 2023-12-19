@@ -534,6 +534,13 @@ void Runner::continue_from_last_save()
    return;
 }
 
+bool Runner::all_packages_are_delivered()
+{
+   // HERE
+   //if (game_progress_and_state_info.
+   return true;
+}
+
 void Runner::setup_new_game_progress_and_state_info(AllegroFlare::GameSession* game_session)
 {
    if (!(game_session))
@@ -743,11 +750,25 @@ void Runner::setup_router()
    );
    primary_gameplay_screen.set_on_finished_callback_func(
       [this](Pipeline::Gameplay::Screen* screen, void* data) {
-         this->router.emit_route_event(
-            AllegroFlare::Routers::Standard::EVENT_PRIMARY_GAMEPLAY_SCREEN_FINISHED,
-            nullptr,
-            al_get_time()
-         );
+         if (this->all_packages_are_delivered())
+         {
+            // TODO: Test
+            // Jump to credits
+            this->router.emit_route_event(
+               AllegroFlare::Routers::Standard::EVENT_ACTIVATE_GAME_WON_OUTRO_STORYBOARD_SCREEN,
+               nullptr,
+               al_get_time()
+            );
+         }
+         else
+         {
+            // "Finish" the gameplay screen
+            this->router.emit_route_event(
+               AllegroFlare::Routers::Standard::EVENT_PRIMARY_GAMEPLAY_SCREEN_FINISHED,
+               nullptr,
+               al_get_time()
+            );
+         }
       }
    );
    settings_screen.set_on_exit_callback_func(

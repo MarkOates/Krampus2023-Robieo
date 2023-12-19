@@ -600,6 +600,14 @@ methods:
       return;
 
 
+  - name: all_packages_are_delivered
+    type: bool
+    body: |
+      // HERE
+      //if (game_progress_and_state_info.
+      return true;
+
+
   - name: setup_new_game_progress_and_state_info
     parameters:
       - name: game_session
@@ -805,11 +813,25 @@ methods:
       );
       primary_gameplay_screen.set_on_finished_callback_func(
          [this](Pipeline::Gameplay::Screen* screen, void* data) {
-            this->router.emit_route_event(
-               AllegroFlare::Routers::Standard::EVENT_PRIMARY_GAMEPLAY_SCREEN_FINISHED,
-               nullptr,
-               al_get_time()
-            );
+            if (this->all_packages_are_delivered())
+            {
+               // TODO: Test
+               // Jump to credits
+               this->router.emit_route_event(
+                  AllegroFlare::Routers::Standard::EVENT_ACTIVATE_GAME_WON_OUTRO_STORYBOARD_SCREEN,
+                  nullptr,
+                  al_get_time()
+               );
+            }
+            else
+            {
+               // "Finish" the gameplay screen
+               this->router.emit_route_event(
+                  AllegroFlare::Routers::Standard::EVENT_PRIMARY_GAMEPLAY_SCREEN_FINISHED,
+                  nullptr,
+                  al_get_time()
+               );
+            }
          }
       );
       settings_screen.set_on_exit_callback_func(
