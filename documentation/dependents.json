@@ -274,6 +274,14 @@
   "AllegroFlare/Interpolators": [
     "Pipeline/Gameplay/Screen"
   ],
+  "Pipeline/GameProgressAndStateInfo": [
+    "Pipeline/Gameplay/Screen",
+    "Pipeline/Runner"
+  ],
+  "AllegroFlare/GameEventDatas/String": [
+    "Pipeline/Gameplay/Screen",
+    "Pipeline/Runner"
+  ],
   "AllegroFlare/Routers/Standard": [
     "Pipeline/Runner"
   ],
@@ -341,9 +349,6 @@
     "Pipeline/Runner"
   ],
   "AllegroFlare/AudioController": [
-    "Pipeline/Runner"
-  ],
-  "Pipeline/GameProgressAndStateInfo": [
     "Pipeline/Runner"
   ],
   "AllegroFlare/GameEventDatas/AchievementUnlocked": [

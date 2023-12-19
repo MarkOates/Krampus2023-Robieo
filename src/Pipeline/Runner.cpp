@@ -8,6 +8,7 @@
 #include <AllegroFlare/Frameworks/Full.hpp>
 #include <AllegroFlare/GameEventDatas/AchievementUnlocked.hpp>
 #include <AllegroFlare/GameEventDatas/ScreenActivated.hpp>
+#include <AllegroFlare/GameEventDatas/String.hpp>
 #include <AllegroFlare/GameSession.hpp>
 #include <AllegroFlare/LoadASavedGame/SaveSlots/Empty.hpp>
 #include <AllegroFlare/Logger.hpp>
@@ -94,7 +95,17 @@ void Runner::game_event_func(AllegroFlare::GameEvent* game_event)
    else if (game_event->get_type() == "package_delivered")
    {
       // TODO: Extract the package name from the event
-      mark_package_as_delivered_and_save_progress("a-generic-package-name");
+      if (game_event->get_data()->is_type(AllegroFlare::GameEventDatas::String::TYPE))
+      {
+         AllegroFlare::GameEventDatas::String *as =
+            static_cast<AllegroFlare::GameEventDatas::String *>(game_event->get_data());
+         //mark_achievement_as_unlocked_and_save_progress(as->get_achievement_identifier());
+         mark_package_as_delivered_and_save_progress(as->get_string()); //"a-generic-package-name");
+      }
+      else
+      {
+         throw std::runtime_error("Gameplay/Runner/game_event_func: unexpected type, expecting String event data");
+      }
    }
    return;
    return;
@@ -363,6 +374,7 @@ void Runner::initialize()
    primary_gameplay_screen.set_font_bin(font_bin);
    primary_gameplay_screen.set_model_bin(model_bin);
    primary_gameplay_screen.set_game_configuration(game_configuration); // TODO: Consider how to remove this dependency
+   primary_gameplay_screen.set_game_progress_and_state_info(&game_progress_and_state_info);
    primary_gameplay_screen.initialize();
 
 

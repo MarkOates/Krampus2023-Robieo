@@ -5,6 +5,7 @@
 #include <AllegroFlare/ALLEGRO_VERTEX_WITH_NORMAL.hpp>
 #include <AllegroFlare/DialogTree/NodeBank.hpp>
 #include <AllegroFlare/EventNames.hpp>
+#include <AllegroFlare/GameEventDatas/String.hpp>
 #include <AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/DynamicModel3D.hpp>
 #include <AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityFactory.hpp>
 #include <AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityRenderFlags.hpp>
@@ -33,6 +34,7 @@ Screen::Screen(AllegroFlare::Frameworks::Full* framework, AllegroFlare::EventEmi
    , font_bin(font_bin)
    , model_bin(model_bin)
    , game_configuration(game_configuration)
+   , game_progress_and_state_info(nullptr)
    , entity_pool()
    , player_controlled_entity(nullptr)
    , player_control_velocity()
@@ -68,6 +70,12 @@ void Screen::set_game_configuration(AllegroFlare::GameConfigurations::Base* game
 }
 
 
+void Screen::set_game_progress_and_state_info(Pipeline::GameProgressAndStateInfo* game_progress_and_state_info)
+{
+   this->game_progress_and_state_info = game_progress_and_state_info;
+}
+
+
 void Screen::set_on_finished_callback_func(std::function<void(Pipeline::Gameplay::Screen*, void*)> on_finished_callback_func)
 {
    this->on_finished_callback_func = on_finished_callback_func;
@@ -83,6 +91,12 @@ void Screen::set_on_finished_callback_func_user_data(void* on_finished_callback_
 AllegroFlare::GameConfigurations::Base* Screen::get_game_configuration() const
 {
    return game_configuration;
+}
+
+
+Pipeline::GameProgressAndStateInfo* Screen::get_game_progress_and_state_info() const
+{
+   return game_progress_and_state_info;
 }
 
 
@@ -1082,7 +1096,10 @@ void Screen::deactivate_music_performance()
 
    // Emit an event that the package was delivered
    event_emitter->emit_game_event(
-      AllegroFlare::GameEvent("package_delivered")
+      AllegroFlare::GameEvent(
+         "package_delivered",
+         new AllegroFlare::GameEventDatas::String("world-1-05")
+      )
    );
 
    set_state(STATE_PLAYING_GAME);

@@ -18,6 +18,7 @@
 #include <AllegroFlare/Vec2D.hpp>
 #include <AllegroFlare/Vec3D.hpp>
 #include <AllegroFlare/VirtualControllers/Base.hpp>
+#include <Pipeline/GameProgressAndStateInfo.hpp>
 #include <Pipeline/Gameplay/Level.hpp>
 #include <Pipeline/Gameplay/Screen.hpp>
 #include <allegro5/allegro.h>
@@ -50,6 +51,7 @@ namespace Pipeline
          AllegroFlare::FontBin* font_bin;
          AllegroFlare::ModelBin* model_bin;
          AllegroFlare::GameConfigurations::Base* game_configuration;
+         Pipeline::GameProgressAndStateInfo* game_progress_and_state_info;
          AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool entity_pool;
          AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base* player_controlled_entity;
          AllegroFlare::Vec2D player_control_velocity;
@@ -79,9 +81,11 @@ namespace Pipeline
          virtual ~Screen();
 
          void set_game_configuration(AllegroFlare::GameConfigurations::Base* game_configuration);
+         void set_game_progress_and_state_info(Pipeline::GameProgressAndStateInfo* game_progress_and_state_info);
          void set_on_finished_callback_func(std::function<void(Pipeline::Gameplay::Screen*, void*)> on_finished_callback_func);
          void set_on_finished_callback_func_user_data(void* on_finished_callback_func_user_data);
          AllegroFlare::GameConfigurations::Base* get_game_configuration() const;
+         Pipeline::GameProgressAndStateInfo* get_game_progress_and_state_info() const;
          std::function<void(Pipeline::Gameplay::Screen*, void*)> get_on_finished_callback_func() const;
          void* get_on_finished_callback_func_user_data() const;
          uint32_t get_state() const;

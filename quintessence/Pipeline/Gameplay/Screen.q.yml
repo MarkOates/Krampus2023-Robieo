@@ -41,6 +41,12 @@ properties:
     getter: true
     setter: true
 
+  - name: game_progress_and_state_info
+    type: Pipeline::GameProgressAndStateInfo*
+    init_with: nullptr
+    getter: true
+    setter: true
+
   - name: entity_pool
     type: AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool
     init_with: ''
@@ -1087,12 +1093,17 @@ methods:
 
       // Emit an event that the package was delivered
       event_emitter->emit_game_event(
-         AllegroFlare::GameEvent("package_delivered")
+         AllegroFlare::GameEvent(
+            "package_delivered",
+            new AllegroFlare::GameEventDatas::String("world-1-05")
+         )
       );
 
       set_state(STATE_PLAYING_GAME);
       // TODO: Consider how to re-activate current level music
       return;
+    body_dependency_symbols:
+      - AllegroFlare::GameEventDatas::String
 
 
   - name: set_state
@@ -1326,5 +1337,9 @@ dependencies:
     headers: [ AllegroFlare/MotionKit.hpp ]
   - symbol: AllegroFlare::Interpolators
     headers: [ AllegroFlare/Interpolators.hpp ]
+  - symbol: Pipeline::GameProgressAndStateInfo
+    headers: [ Pipeline/GameProgressAndStateInfo.hpp ]
+  - symbol: AllegroFlare::GameEventDatas::String
+    headers: [ AllegroFlare/GameEventDatas/String.hpp ]
 
 

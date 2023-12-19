@@ -839,6 +839,10 @@ table td
   <td class="property">AllegroFlare::GameConfigurations::Base*</td>
 </tr>
 <tr>
+  <td class="property">game_progress_and_state_info</td>
+  <td class="property">Pipeline::GameProgressAndStateInfo*</td>
+</tr>
+<tr>
   <td class="property">entity_pool</td>
   <td class="property">AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool</td>
 </tr>
@@ -1126,6 +1130,12 @@ table td
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Interpolators&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Interpolators.hpp&quot;]}</td>
 </tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Pipeline::GameProgressAndStateInfo&quot;, &quot;headers&quot;=&gt;[&quot;Pipeline/GameProgressAndStateInfo.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::GameEventDatas::String&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/GameEventDatas/String.hpp&quot;]}</td>
+</tr>
     </table>
 </div>  </div>
 </ul>
@@ -1403,6 +1413,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::UsefulPHP&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/UsefulPHP.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::GameEventDatas::String&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/GameEventDatas/String.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -1685,6 +1698,14 @@ table td
   "AllegroFlare/Interpolators": [
     "Pipeline/Gameplay/Screen"
   ],
+  "Pipeline/GameProgressAndStateInfo": [
+    "Pipeline/Gameplay/Screen",
+    "Pipeline/Runner"
+  ],
+  "AllegroFlare/GameEventDatas/String": [
+    "Pipeline/Gameplay/Screen",
+    "Pipeline/Runner"
+  ],
   "AllegroFlare/Routers/Standard": [
     "Pipeline/Runner"
   ],
@@ -1752,9 +1773,6 @@ table td
     "Pipeline/Runner"
   ],
   "AllegroFlare/AudioController": [
-    "Pipeline/Runner"
-  ],
-  "Pipeline/GameProgressAndStateInfo": [
     "Pipeline/Runner"
   ],
   "AllegroFlare/GameEventDatas/AchievementUnlocked": [
