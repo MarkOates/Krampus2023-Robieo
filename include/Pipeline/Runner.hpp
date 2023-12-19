@@ -81,6 +81,7 @@ namespace Pipeline
       void setup_sound_effects_and_music(AllegroFlare::AudioController* audio_controller_ptr=nullptr);
       std::vector<std::pair<std::string, std::string>> build_title_screen_menu_options();
       void mark_achievement_as_unlocked_and_save_progress(std::string achievement_identifier="[unset-achievement_identifier]");
+      void mark_package_as_delivered_and_save_progress(std::string package_identifier="[unset-package_identifier]");
       static bool on_route_event_unhandled_func(uint32_t unhandled_event=0, AllegroFlare::Routers::Standard* router=nullptr, void* user_data=nullptr);
       void continue_from_last_save();
       void setup_new_game_progress_and_state_info(AllegroFlare::GameSession* game_session=nullptr);

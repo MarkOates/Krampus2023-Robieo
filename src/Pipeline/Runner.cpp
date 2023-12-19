@@ -91,6 +91,12 @@ void Runner::game_event_func(AllegroFlare::GameEvent* game_event)
          throw std::runtime_error("Gameplay/Runner/game_event_func: unexpected AchievementUnlocked event data type");
       }
    }
+   else if (game_event->get_type() == "package_delivered")
+   {
+      // TODO: Extract the package name from the event
+      mark_package_as_delivered_and_save_progress("a-generic-package-name");
+   }
+   return;
    return;
 }
 
@@ -441,6 +447,16 @@ void Runner::mark_achievement_as_unlocked_and_save_progress(std::string achievem
 {
    // guards: [ game_progress_and_state_info ]
    game_progress_and_state_info.mark_achievement_as_unlocked(achievement_identifier);
+   std::string updated_save_file_content = game_progress_and_state_info.export_to_string();
+   AllegroFlare::php::file_put_contents(game_progress_and_state_info_filename, updated_save_file_content);
+   // TODO: Post some notification "saved" notification
+   return;
+}
+
+void Runner::mark_package_as_delivered_and_save_progress(std::string package_identifier)
+{
+   // guards: [ game_progress_and_state_info ]
+   game_progress_and_state_info.mark_package_as_delivered(package_identifier);
    std::string updated_save_file_content = game_progress_and_state_info.export_to_string();
    AllegroFlare::php::file_put_contents(game_progress_and_state_info_filename, updated_save_file_content);
    // TODO: Post some notification "saved" notification

@@ -1080,6 +1080,11 @@ void Screen::deactivate_music_performance()
    // Hide the input hings bar
    event_emitter->emit_hide_input_hints_bar_event();
 
+   // Emit an event that the package was delivered
+   event_emitter->emit_game_event(
+      AllegroFlare::GameEvent("package_delivered")
+   );
+
    set_state(STATE_PLAYING_GAME);
    // TODO: Consider how to re-activate current level music
    return;
