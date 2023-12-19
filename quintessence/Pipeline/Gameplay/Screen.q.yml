@@ -851,7 +851,10 @@ methods:
         default_argument: nullptr
     guards: [ game_event ]
     body: |
-      // game_configuration->handle_game_event(game_event);
+      if (game_event->is_type("perform_music"))
+      {
+         activate_music_performance(current_level_song_to_perform_identifier);
+      }
       return;
 
 

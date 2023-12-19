@@ -853,7 +853,10 @@ void Screen::game_event_func(AllegroFlare::GameEvent* game_event)
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Screen::game_event_func: error: guard \"game_event\" not met");
    }
-   // game_configuration->handle_game_event(game_event);
+   if (game_event->is_type("perform_music"))
+   {
+      activate_music_performance(current_level_song_to_perform_identifier);
+   }
    return;
 }
 
