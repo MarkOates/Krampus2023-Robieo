@@ -1018,7 +1018,7 @@ void Screen::activate_music_performance(std::string music_identifier)
    // Set our current song state variables
    // TODO: Validate music track exists
    currently_performing_song_identifier = music_identifier;
-   currently_performing_song_duration_sec = 2.0; // TODO: Replace this hard-coded value with the actual duration
+   currently_performing_song_duration_sec = 5.0; // TODO: Replace this hard-coded value with the actual duration
                                                  // of the currently_performing_song_identifier
 
    event_emitter->emit_play_music_track_event(currently_performing_song_identifier);
@@ -1113,6 +1113,9 @@ void Screen::update_state(float time_now)
          if (age >= currently_performing_song_duration_sec) deactivate_music_performance();
 
          // TODO: Rotate character (z)? along a sine wave
+         auto player_entity_as = get_player_controlled_entity_as();
+         player_entity_as->get_placement_ref().rotation.z = std::sin(age * 3) * 0.012;
+         //player_entity_as->get_placement_ref().position.z += y_prime;
       } break;
 
       default: {
