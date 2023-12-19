@@ -10,11 +10,15 @@ TEST(Pipeline_JSONLoaders_Pipeline_GameProgressAndStateInfoTest,
 {
    Pipeline::GameProgressAndStateInfo game_progress_and_state_info; //(4.0f);
    game_progress_and_state_info.set_delivered_package_identifiers({"package1", "package2"});
+   game_progress_and_state_info.set_achievement_identifiers({"made_achievements_feature"});
     
    nlohmann::json j = game_progress_and_state_info;
 
    std::string expected_values =
 R"({
+  "achievement_identifiers": [
+    "made_achievements_feature"
+  ],
   "delivered_package_identifiers": [
     "package1",
     "package2"
@@ -33,6 +37,9 @@ TEST(Pipeline_JSONLoaders_Pipeline_GameProgressAndStateInfoTest,
 
    std::string json =
 R"({
+  "achievement_identifiers": [
+    "made_achievements_feature"
+  ],
   "delivered_package_identifiers": [
     "package1",
     "package2"
@@ -44,8 +51,8 @@ R"({
 
    Pipeline::GameProgressAndStateInfo expected;
    expected.set_delivered_package_identifiers({"package1", "package2"});
+   expected.set_achievement_identifiers({"made_achievements_feature"});
 
-   // TODO: add comparison
    EXPECT_EQ(expected, game_progress_and_state_info);
 }
 
