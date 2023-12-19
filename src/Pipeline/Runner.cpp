@@ -17,6 +17,7 @@
 #include <AllegroFlare/UsefulPHP.hpp>
 #include <Pipeline/GameConfigurations/Main.hpp>
 #include <iostream>
+#include <set>
 #include <sstream>
 #include <stdexcept>
 
@@ -536,9 +537,16 @@ void Runner::continue_from_last_save()
 
 bool Runner::all_packages_are_delivered()
 {
-   // HERE
-   //if (game_progress_and_state_info.
-   return true;
+   if (!(game_configuration))
+   {
+      std::stringstream error_message;
+      error_message << "[Runner::all_packages_are_delivered]: error: guard \"game_configuration\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Runner::all_packages_are_delivered: error: guard \"game_configuration\" not met");
+   }
+   std::set<std::string> delivered_package_identifiers =
+      game_progress_and_state_info.get_delivered_package_identifiers();
+   return game_configuration->are_all_packages_delivered(delivered_package_identifiers);
 }
 
 void Runner::setup_new_game_progress_and_state_info(AllegroFlare::GameSession* game_session)

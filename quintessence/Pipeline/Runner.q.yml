@@ -95,7 +95,8 @@ properties:
     init_with: ''
 
   - name: game_configuration
-    type: AllegroFlare::GameConfigurations::Base*
+    xtype: AllegroFlare::GameConfigurations::Base*
+    type: Pipeline::GameConfigurations::Main*
     init_with: nullptr
 
   - name: game_progress_and_state_info
@@ -602,10 +603,13 @@ methods:
 
   - name: all_packages_are_delivered
     type: bool
+    guards: [ game_configuration ]
     body: |
-      // HERE
-      //if (game_progress_and_state_info.
-      return true;
+      std::set<std::string> delivered_package_identifiers =
+         game_progress_and_state_info.get_delivered_package_identifiers();
+      return game_configuration->are_all_packages_delivered(delivered_package_identifiers);
+    body_dependency_symbols:
+      - std::set
 
 
   - name: setup_new_game_progress_and_state_info

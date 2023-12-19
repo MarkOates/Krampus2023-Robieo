@@ -690,6 +690,9 @@ table td
 </div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
 <tr>
+  <td class="method">are_all_packages_delivered(std::set&lt;std::string&gt; delivered_package_identifiers={})</td>
+</tr>
+<tr>
   <td class="method">build_level_list_for_level_select_screen_by_identifier(std::string identifier=&quot;[unset-identifier]&quot;)</td>
 </tr>
 <tr>
@@ -730,6 +733,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Pipeline::Gameplay::Level&quot;, &quot;headers&quot;=&gt;[&quot;Pipeline/Gameplay/Level.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Logger&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Logger.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -1227,7 +1233,7 @@ table td
 </tr>
 <tr>
   <td class="property">game_configuration</td>
-  <td class="property">AllegroFlare::GameConfigurations::Base*</td>
+  <td class="property">Pipeline::GameConfigurations::Main*</td>
 </tr>
 <tr>
   <td class="property">game_progress_and_state_info</td>
@@ -1550,6 +1556,7 @@ table td
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer2",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer2",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowMapBuffer",
+    "Pipeline/GameConfigurations/Main",
     "Pipeline/Runner"
   ],
   "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowMapBuffer": [

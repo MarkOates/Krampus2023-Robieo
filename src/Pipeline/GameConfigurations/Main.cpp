@@ -3,9 +3,11 @@
 #include <Pipeline/GameConfigurations/Main.hpp>
 
 #include <AllegroFlare/DialogTree/NodeBankFactory.hpp>
+#include <AllegroFlare/Logger.hpp>
 #include <Pipeline/Gameplay/Level.hpp>
 #include <functional>
 #include <map>
+#include <set>
 #include <sstream>
 
 
@@ -25,6 +27,36 @@ Main::~Main()
 {
 }
 
+
+bool Main::are_all_packages_delivered(std::set<std::string> delivered_package_identifiers)
+{
+   std::vector<std::pair<std::string, std::string>> all_levels =
+      build_level_list_for_level_select_screen_by_identifier();
+
+   // Build a list of all packages (from the list of levels for the level select screen)
+   std::set<std::string> list_of_all_packages;
+   for (auto &level : all_levels)
+   {
+      std::string level_identifier = level.second;
+      list_of_all_packages.insert(level_identifier);
+   }
+
+   // Validate the list is sound (has the same number of elements as the level select screen)
+   if (list_of_all_packages.size() != all_levels.size())
+   {
+      // There are non-unique level identifiers. That's unexpected for this game
+      AllegroFlare::Logger::throw_error(
+         "Pipeline::GameConfigurations::Main::are_all_packages_delivered",
+         "When attempting to build the list_of_all_packages, it was not the same size as the levels for the level "
+            "select screen, indicating there are non-unique level identifiers in the list. That's unexpected for "
+            "this game."
+      );
+   }
+
+   // Return if the delivered packages an list of all packages are the same
+   // TODO: Test this
+   return list_of_all_packages == delivered_package_identifiers;
+}
 
 std::vector<std::pair<std::string, std::string>> Main::build_level_list_for_level_select_screen_by_identifier(std::string identifier)
 {
