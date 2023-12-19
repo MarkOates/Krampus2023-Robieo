@@ -1,0 +1,47 @@
+parent_classes:
+
+
+  - class: AllegroFlare::GameProgressAndStateInfos::Base
+    scope: public
+    init_with: Pipeline::GameProgressAndStateInfo::TYPE
+
+
+properties:
+
+
+  - name: delivered_package_identifiers
+    type: std::set<std::string>
+    init_with: '{}'
+    getter: true
+    setter: true
+    getter_ref: true
+
+  - name: TYPE
+    type: char*
+    init_with: '(char*)"Pipeline/GameProgressAndStateInfo"'
+    static: true
+    constexpr: true
+
+
+methods:
+
+
+  - name: mark_package_as_delivered
+    parameters:
+      - name: delivered_package_identifier
+        type: std::string
+        default_argument: '"[unset-delivered_package_identifier]"'
+    body: |
+      delivered_package_identifiers.insert(delivered_package_identifier);
+      return;
+
+
+dependencies:
+
+
+  - symbol: Pipeline::Base
+    headers: [ Pipeline/Base.hpp ]
+  - symbol: AllegroFlare::GameProgressAndStateInfos::Base
+    headers: [ AllegroFlare/GameProgressAndStateInfos/Base.hpp ]
+
+
