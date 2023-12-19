@@ -540,8 +540,8 @@ void Screen::on_activate()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Screen::on_activate: error: guard \"initialized\" not met");
    }
-   //emit_event_to_update_input_hints_bar();
-   //emit_show_and_size_input_hints_bar_event();
+   //TODO: emit_event_to_update_input_hints_bar();
+   //TODO: emit_show_and_size_input_hints_bar_event();
    return;
 }
 
@@ -554,7 +554,8 @@ void Screen::on_deactivate()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Screen::on_deactivate: error: guard \"initialized\" not met");
    }
-   //emit_hide_and_restore_size_input_hints_bar_event();
+   //TODO: emit_hide_and_restore_size_input_hints_bar_event();
+   //event_emitter->emit_hide_input_hints_bar_event();
    return;
 }
 
@@ -1030,6 +1031,21 @@ void Screen::activate_music_performance(std::string music_identifier)
    auto player_entity_as = get_player_controlled_entity_as();
    player_entity_as->get_placement_ref().rotation = { 0.0, -0.25, 0.0 };
 
+   // Set the control text @ bottom of screen to show skippable cutscene controls
+   std::vector<std::string> tokens = {
+      //"I", "%SPACER", "LABEL>>", "Toggle inventory", 
+      //"%SEPARATOR",
+      //"X", "%SPACER", "LABEL>>", "Exit", 
+      //"%SEPARATOR",
+      "X", "%SPACER", "LABEL>>", "Skip", 
+      //"%SEPARATOR",
+      //"P", "%SPACER", "LABEL>>", "Pause", 
+      //"%SEPARATOR",
+      //"SHIFT", "%SPACE", "%PLUS", "%SPACE", "ESC", "%SPACER", "LABEL>>", "Exit program", 
+   };
+   event_emitter->emit_set_input_hints_bar_event(tokens);
+   event_emitter->emit_show_input_hints_bar_event();
+
    // Play the music track
    event_emitter->emit_play_music_track_event(currently_performing_song_identifier);
 
@@ -1046,6 +1062,9 @@ void Screen::deactivate_music_performance()
                                                       // everything.
    currently_performing_song_identifier = "";
    currently_performing_song_duration_sec = 0.0;
+
+   // Hide the input hings bar
+   event_emitter->emit_hide_input_hints_bar_event();
 
    set_state(STATE_PLAYING_GAME);
    // TODO: Consider how to re-activate current level music
