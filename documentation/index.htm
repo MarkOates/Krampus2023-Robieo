@@ -1224,6 +1224,10 @@ table td
   <td class="property">Pipeline::GameProgressAndStateInfo</td>
 </tr>
 <tr>
+  <td class="property">game_progress_and_state_info_filename</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
   <td class="property">solid_black_background</td>
   <td class="property">AllegroFlare::Elements::Backgrounds::ClearToColor</td>
 </tr>
@@ -1394,6 +1398,9 @@ table td
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::GameEventDatas::AchievementUnlocked&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/GameEventDatas/AchievementUnlocked.hpp&quot;]}</td>
 </tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::UsefulPHP&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/UsefulPHP.hpp&quot;]}</td>
+</tr>
     </table>
 </div>  </div>
 </ul>
@@ -1542,7 +1549,8 @@ table td
     "AllegroFlare/Shaders/ShadowMapping"
   ],
   "AllegroFlare/UsefulPHP": [
-    "AllegroFlare/Shaders/ShadowMapping"
+    "AllegroFlare/Shaders/ShadowMapping",
+    "Pipeline/Runner"
   ],
   "AllegroFlare/DialogTree/NodeBank": [
     "Pipeline/DialogNodeBankFactory",

@@ -13,6 +13,7 @@
 #include <AllegroFlare/Logger.hpp>
 #include <AllegroFlare/RouteEventDatas/StartLevel.hpp>
 #include <AllegroFlare/StoryboardFactory.hpp>
+#include <AllegroFlare/UsefulPHP.hpp>
 #include <Pipeline/GameConfigurations/Main.hpp>
 #include <iostream>
 #include <sstream>
@@ -47,6 +48,7 @@ Runner::Runner(AllegroFlare::Frameworks::Full* framework, AllegroFlare::EventEmi
    , primary_gameplay_screen()
    , game_configuration(nullptr)
    , game_progress_and_state_info()
+   , game_progress_and_state_info_filename("./game_progress_and_state_info.sav")
    , solid_black_background(ALLEGRO_COLOR{0, 0, 0, 1})
    , release_info({})
    , initialized(false)
@@ -82,7 +84,7 @@ void Runner::game_event_func(AllegroFlare::GameEvent* game_event)
       {
          AllegroFlare::GameEventDatas::AchievementUnlocked *as =
             static_cast<AllegroFlare::GameEventDatas::AchievementUnlocked *>(game_event->get_data());
-         //mark_achievement_as_unlocked_and_save_progress(as->get_achievement_identifier());
+         mark_achievement_as_unlocked_and_save_progress(as->get_achievement_identifier());
       }
       else
       {
@@ -438,9 +440,9 @@ std::vector<std::pair<std::string, std::string>> Runner::build_title_screen_menu
 void Runner::mark_achievement_as_unlocked_and_save_progress(std::string achievement_identifier)
 {
    // guards: [ game_progress_and_state_info ]
-   // HERE: game_progress_and_state_info.mark_achievement_as_unlocked(achievement_identifier);
-   //std::string updated_save_file_content = game_progress_and_state_info.export_to_string();
-   //AllegroFlare::php::file_put_contents(game_progress_and_state_info_filename, updated_save_file_content);
+   game_progress_and_state_info.mark_achievement_as_unlocked(achievement_identifier);
+   std::string updated_save_file_content = game_progress_and_state_info.export_to_string();
+   AllegroFlare::php::file_put_contents(game_progress_and_state_info_filename, updated_save_file_content);
    // TODO: Post some notification "saved" notification
    return;
 }

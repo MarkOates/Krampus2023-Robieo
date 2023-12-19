@@ -141,7 +141,8 @@
     "AllegroFlare/Shaders/ShadowMapping"
   ],
   "AllegroFlare/UsefulPHP": [
-    "AllegroFlare/Shaders/ShadowMapping"
+    "AllegroFlare/Shaders/ShadowMapping",
+    "Pipeline/Runner"
   ],
   "AllegroFlare/DialogTree/NodeBank": [
     "Pipeline/DialogNodeBankFactory",

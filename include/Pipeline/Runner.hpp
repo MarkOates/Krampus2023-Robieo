@@ -64,6 +64,7 @@ namespace Pipeline
       Pipeline::Gameplay::Screen primary_gameplay_screen;
       AllegroFlare::GameConfigurations::Base* game_configuration;
       Pipeline::GameProgressAndStateInfo game_progress_and_state_info;
+      std::string game_progress_and_state_info_filename;
       AllegroFlare::Elements::Backgrounds::ClearToColor solid_black_background;
       ReleaseInfo release_info;
       bool initialized;

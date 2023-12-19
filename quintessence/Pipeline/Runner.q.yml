@@ -102,6 +102,10 @@ properties:
     type: Pipeline::GameProgressAndStateInfo
     init_with: ''
 
+  - name: game_progress_and_state_info_filename
+    type: std::string
+    init_with: '"./game_progress_and_state_info.sav"'
+
   - name: solid_black_background
     type: AllegroFlare::Elements::Backgrounds::ClearToColor
     init_with: ALLEGRO_COLOR{0, 0, 0, 1}
@@ -159,7 +163,7 @@ methods:
          {
             AllegroFlare::GameEventDatas::AchievementUnlocked *as =
                static_cast<AllegroFlare::GameEventDatas::AchievementUnlocked *>(game_event->get_data());
-            //mark_achievement_as_unlocked_and_save_progress(as->get_achievement_identifier());
+            mark_achievement_as_unlocked_and_save_progress(as->get_achievement_identifier());
          }
          else
          {
@@ -494,11 +498,13 @@ methods:
         default_argument: '"[unset-achievement_identifier]"'
     body: |
       // guards: [ game_progress_and_state_info ]
-      // HERE: game_progress_and_state_info.mark_achievement_as_unlocked(achievement_identifier);
-      //std::string updated_save_file_content = game_progress_and_state_info.export_to_string();
-      //AllegroFlare::php::file_put_contents(game_progress_and_state_info_filename, updated_save_file_content);
+      game_progress_and_state_info.mark_achievement_as_unlocked(achievement_identifier);
+      std::string updated_save_file_content = game_progress_and_state_info.export_to_string();
+      AllegroFlare::php::file_put_contents(game_progress_and_state_info_filename, updated_save_file_content);
       // TODO: Post some notification "saved" notification
       return;
+    body_dependency_symbols:
+      - AllegroFlare::UsefulPHP
 
 
   - name: on_route_event_unhandled_func
@@ -1037,5 +1043,7 @@ dependencies:
     headers: [ Pipeline/GameProgressAndStateInfo.hpp ]
   - symbol: AllegroFlare::GameEventDatas::AchievementUnlocked
     headers: [ AllegroFlare/GameEventDatas/AchievementUnlocked.hpp ]
+  - symbol: AllegroFlare::UsefulPHP
+    headers: [ AllegroFlare/UsefulPHP.hpp ]
 
 
