@@ -56,6 +56,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/Shaders/ShadowMapping.q.yml">quintessence/AllegroFlare/Shaders/ShadowMapping.q.yml</a></li>
   <li><a href="#quintessence/Pipeline/DialogNodeBankFactory.q.yml">quintessence/Pipeline/DialogNodeBankFactory.q.yml</a></li>
   <li><a href="#quintessence/Pipeline/GameConfigurations/Main.q.yml">quintessence/Pipeline/GameConfigurations/Main.q.yml</a></li>
+  <li><a href="#quintessence/Pipeline/GameProgressAndStateInfo.q.yml">quintessence/Pipeline/GameProgressAndStateInfo.q.yml</a></li>
   <li><a href="#quintessence/Pipeline/Gameplay/Level.q.yml">quintessence/Pipeline/Gameplay/Level.q.yml</a></li>
   <li><a href="#quintessence/Pipeline/Gameplay/Screen.q.yml">quintessence/Pipeline/Gameplay/Screen.q.yml</a></li>
   <li><a href="#quintessence/Pipeline/Runner.q.yml">quintessence/Pipeline/Runner.q.yml</a></li>
@@ -729,6 +730,38 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Pipeline::Gameplay::Level&quot;, &quot;headers&quot;=&gt;[&quot;Pipeline/Gameplay/Level.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/Pipeline/GameProgressAndStateInfo.q.yml">quintessence/Pipeline/GameProgressAndStateInfo.q.yml</h3>
+    <h4>Overview<h4>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">delivered_package_identifiers</td>
+  <td class="property">std::set&lt;std::string&gt;</td>
+</tr>
+<tr>
+  <td class="property">TYPE</td>
+  <td class="property">char*</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">mark_package_as_delivered(std::string delivered_package_identifier=&quot;[unset-delivered_package_identifier]&quot;)</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Pipeline::Base&quot;, &quot;headers&quot;=&gt;[&quot;Pipeline/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::GameProgressAndStateInfos::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/GameProgressAndStateInfos/Base.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -1527,6 +1560,12 @@ table td
   "Pipeline/Gameplay/Level": [
     "Pipeline/GameConfigurations/Main",
     "Pipeline/Gameplay/Screen"
+  ],
+  "Pipeline/Base": [
+    "Pipeline/GameProgressAndStateInfo"
+  ],
+  "AllegroFlare/GameProgressAndStateInfos/Base": [
+    "Pipeline/GameProgressAndStateInfo"
   ],
   "ALLEGRO_EVENT": [
     "Pipeline/Gameplay/Screen"
