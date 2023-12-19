@@ -1164,6 +1164,9 @@ table td
   <td class="method">initialize()</td>
 </tr>
 <tr>
+  <td class="method">setup_sound_effects_and_music(AllegroFlare::AudioController* audio_controller_ptr=nullptr)</td>
+</tr>
+<tr>
   <td class="method">build_title_screen_menu_options()</td>
 </tr>
 <tr>
@@ -1285,6 +1288,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Pipeline::GameConfigurations::Main&quot;, &quot;headers&quot;=&gt;[&quot;Pipeline/GameConfigurations/Main.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::AudioController&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/AudioController.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -1611,6 +1617,9 @@ table td
     "Pipeline/Runner"
   ],
   "AllegroFlare/LoadASavedGame/SaveSlots/Empty": [
+    "Pipeline/Runner"
+  ],
+  "AllegroFlare/AudioController": [
     "Pipeline/Runner"
   ]
 }

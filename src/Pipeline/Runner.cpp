@@ -342,7 +342,48 @@ void Runner::initialize()
    primary_gameplay_screen.set_game_configuration(game_configuration); // TODO: Consider how to remove this dependency
    primary_gameplay_screen.initialize();
 
+
+
+   setup_sound_effects_and_music(&audio_controller);
+
    // TODO: Load up our sound effects
+   //audio_controller.set_and_load_sound_effect_elements({
+      // { "menu_move", { "menu_move_tink-02.ogg", false, "restart" } }, // TODO: Throw on an unknown replay type
+   //});
+
+   // TODO: Load up our music tracks
+   //audio_controller.set_and_load_music_track_elements({
+      // An example of how to load a music track:
+      //{ "intro_music", { "wanderer-01.ogg", true, "ignore" } },
+   //});
+
+   // An example of how to play a music track:
+   // event_emitter->emit_play_music_track_event("intro_music");
+
+   return;
+}
+
+void Runner::setup_sound_effects_and_music(AllegroFlare::AudioController* audio_controller_ptr)
+{
+   if (!(audio_controller_ptr))
+   {
+      std::stringstream error_message;
+      error_message << "[Runner::setup_sound_effects_and_music]: error: guard \"audio_controller_ptr\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Runner::setup_sound_effects_and_music: error: guard \"audio_controller_ptr\" not met");
+   }
+   auto &audio_controller = *audio_controller_ptr;
+
+   std::map<std::string, AllegroFlare::AudioRepositoryElement> result = {
+     { "robot-holly_jolly", { "robio-sound-chip--have-a-holly-jolly--01.ogg", true, "ignore" } },
+     //{ "level_1_music", { "8bit-dungeon-level-kevin-macleod-80kbps.ogg", true, "restart", 0.5 } },
+     //{ "final_level_music", { "final-level-music-kevin-macleod-01.ogg", true, "restart", 1.0 } },
+     //{ "boss_music", { "krampus-boss-01.ogg", true, "restart", 0.78 } },
+     //{ "dead_krampus_music", { "dead-krampus-01.ogg", false, "restart", 0.78 } },
+     //{ "win_music", { "win-music-01.ogg", false, "restart" } },
+     //{ "end_music", { "jingle-bells-calm.ogg", false, "restart", 0.8 } },
+   };
+
    audio_controller.set_and_load_sound_effect_elements({
       // { "menu_move", { "menu_move_tink-02.ogg", false, "restart" } }, // TODO: Throw on an unknown replay type
    });
@@ -352,9 +393,6 @@ void Runner::initialize()
       // An example of how to load a music track:
       //{ "intro_music", { "wanderer-01.ogg", true, "ignore" } },
    });
-
-   // An example of how to play a music track:
-   // event_emitter->emit_play_music_track_event("intro_music");
 
    return;
 }

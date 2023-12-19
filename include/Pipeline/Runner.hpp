@@ -1,6 +1,7 @@
 #pragma once
 
 
+#include <AllegroFlare/AudioController.hpp>
 #include <AllegroFlare/BitmapBin.hpp>
 #include <AllegroFlare/Elements/Backgrounds/ClearToColor.hpp>
 #include <AllegroFlare/EventEmitter.hpp>
@@ -74,6 +75,7 @@ namespace Pipeline
 
       virtual void game_event_func(AllegroFlare::GameEvent* game_event=nullptr) override;
       void initialize();
+      void setup_sound_effects_and_music(AllegroFlare::AudioController* audio_controller_ptr=nullptr);
       std::vector<std::pair<std::string, std::string>> build_title_screen_menu_options();
       static bool on_route_event_unhandled_func(uint32_t unhandled_event=0, AllegroFlare::Routers::Standard* router=nullptr, void* user_data=nullptr);
       void continue_from_last_save();
