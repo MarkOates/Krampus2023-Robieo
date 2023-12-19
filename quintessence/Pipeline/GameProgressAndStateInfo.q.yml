@@ -8,6 +8,12 @@ parent_classes:
 
 properties:
 
+  - name: achievement_identifiers
+    type: std::set<std::string>
+    init_with: '{}'
+    getter: true
+    setter: true
+    getter_ref: true
 
   - name: delivered_package_identifiers
     type: std::set<std::string>
@@ -24,6 +30,16 @@ properties:
 
 
 methods:
+
+
+  - name: mark_achievement_as_unlocked
+    parameters:
+      - name: achievement_identifier
+        type: std::string
+        default_argument: '"[unset-achievement_identifier]"'
+    body: |
+      achievement_identifiers.insert(achievement_identifier);
+      return;
 
 
   - name: mark_package_as_delivered

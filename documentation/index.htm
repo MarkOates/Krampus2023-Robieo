@@ -741,6 +741,10 @@ table td
     <h3>Properties</h3>
 <div class="property-box properties">     <table>
 <tr>
+  <td class="property">achievement_identifiers</td>
+  <td class="property">std::set&lt;std::string&gt;</td>
+</tr>
+<tr>
   <td class="property">delivered_package_identifiers</td>
   <td class="property">std::set&lt;std::string&gt;</td>
 </tr>
@@ -751,6 +755,9 @@ table td
     </table>
 </div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
+<tr>
+  <td class="method">mark_achievement_as_unlocked(std::string achievement_identifier=&quot;[unset-achievement_identifier]&quot;)</td>
+</tr>
 <tr>
   <td class="method">mark_package_as_delivered(std::string delivered_package_identifier=&quot;[unset-delivered_package_identifier]&quot;)</td>
 </tr>
