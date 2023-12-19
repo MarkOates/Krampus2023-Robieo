@@ -5,6 +5,7 @@
 #include <AllegroFlare/DialogTree/NodeOptions/ExitDialog.hpp>
 #include <AllegroFlare/DialogTree/NodeOptions/GoToNode.hpp>
 #include <AllegroFlare/DialogTree/Nodes/EmitGameEvent.hpp>
+#include <AllegroFlare/DialogTree/Nodes/ExitDialog.hpp>
 #include <AllegroFlare/DialogTree/Nodes/ExitProgram.hpp>
 #include <AllegroFlare/DialogTree/Nodes/MultipageWithOptions.hpp>
 
@@ -44,8 +45,8 @@ AllegroFlare::DialogTree::NodeBank DialogNodeBankFactory::build_production_game_
             { 
                {
                   "Continue",
-                  //new AllegroFlare::DialogTree::NodeOptions::GoToNode("robot_prompts_performance"),
-                  new AllegroFlare::DialogTree::NodeOptions::ExitDialog(),
+                  new AllegroFlare::DialogTree::NodeOptions::GoToNode("robot_prompts_performance"),
+                  //new AllegroFlare::DialogTree::NodeOptions::ExitDialog(),
                   AllegroFlare::BitFlags<uint32_t>(0)
                },
                //{
@@ -59,6 +60,43 @@ AllegroFlare::DialogTree::NodeBank DialogNodeBankFactory::build_production_game_
             }
          )
       },
+      {
+         "robot_prompts_performance",
+         new AllegroFlare::DialogTree::Nodes::MultipageWithOptions
+         (
+            "Robieo", // Blank speaker
+            //{ "Are you sure you want to exit?" },
+            { // Dialog pages
+               "It is... my pleasure... to deliver.",
+               "As part of my protocol, I will now sing for you..."
+               "... a christmas carol."
+            },
+            { 
+               {
+                  "Continue",
+                  new AllegroFlare::DialogTree::NodeOptions::GoToNode("trigger_robot_perform_music"),
+                  //new AllegroFlare::DialogTree::NodeOptions::EmitGameEvent("perform_music", "exit_dialog"),
+                  AllegroFlare::BitFlags<uint32_t>(0)
+               },
+               //{
+                  //"No",
+                  //new AllegroFlare::DialogTree::NodeOptions::ExitDialog(),
+                  //// TODO: Add test to ensure this option is focused
+                  //AllegroFlare::BitFlags<uint32_t>(
+                     //AllegroFlare::DialogTree::Nodes::MultipageWithOptions::OptionFlags::FLAG_CURSOR_HERE_ON_SPAWN
+                  //)
+               //},
+            }
+         )
+      },
+      {
+         "trigger_robot_perform_music",
+         new AllegroFlare::DialogTree::Nodes::EmitGameEvent("perform_music", "exit_dialog")
+      },
+      {
+         "exit_dialog",
+         new AllegroFlare::DialogTree::Nodes::ExitDialog()
+      }
    });
 
    return node_bank;
