@@ -1122,7 +1122,17 @@ methods:
             // If age > song duration, exit
             if (age >= currently_performing_song_duration_sec) deactivate_music_performance();
 
-            // Rotate character (z)? along a sine wave
+            // Slowly dolly shot with the camera
+            // TODO: Consider doing this with a step-out?
+            AllegroFlare::Camera3D *primary_camera = scene_renderer.find_primary_camera_3d();
+            float DOLLY_SHOT_DURATION = 1.5;
+            if (age < DOLLY_SHOT_DURATION)
+            {
+               float zoom_speed = 0.0012f;
+               primary_camera->zoom += zoom_speed;
+            }
+
+            // Rotate character along a sine wave (dancing)
             auto player_entity_as = get_player_controlled_entity_as();
             player_entity_as->get_placement_ref().rotation.z = std::sin(age * 3) * 0.012;
          } break;
