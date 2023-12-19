@@ -163,6 +163,13 @@
     "Pipeline/DialogNodeBankFactory",
     "Pipeline/GameConfigurations/Main"
   ],
+  "AllegroFlare/DialogTree/NodeOptions/GoToNode": [
+    "Pipeline/DialogNodeBankFactory",
+    "Pipeline/GameConfigurations/Main"
+  ],
+  "AllegroFlare/DialogTree/Nodes/EmitGameEvent": [
+    "Pipeline/DialogNodeBankFactory"
+  ],
   "AllegroFlare/GameConfigurations/Base": [
     "Pipeline/GameConfigurations/Main",
     "Pipeline/Gameplay/Screen",
@@ -176,9 +183,6 @@
     "Pipeline/GameConfigurations/Main"
   ],
   "AllegroFlare/DialogTree/Nodes/Wait": [
-    "Pipeline/GameConfigurations/Main"
-  ],
-  "AllegroFlare/DialogTree/NodeOptions/GoToNode": [
     "Pipeline/GameConfigurations/Main"
   ],
   "Pipeline/Gameplay/Level": [

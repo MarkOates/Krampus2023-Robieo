@@ -3,6 +3,8 @@
 #include <Pipeline/DialogNodeBankFactory.hpp>
 
 #include <AllegroFlare/DialogTree/NodeOptions/ExitDialog.hpp>
+#include <AllegroFlare/DialogTree/NodeOptions/GoToNode.hpp>
+#include <AllegroFlare/DialogTree/Nodes/EmitGameEvent.hpp>
 #include <AllegroFlare/DialogTree/Nodes/ExitProgram.hpp>
 #include <AllegroFlare/DialogTree/Nodes/MultipageWithOptions.hpp>
 
@@ -28,7 +30,8 @@ AllegroFlare::DialogTree::NodeBank DialogNodeBankFactory::build_production_game_
    //AllegroFlare::DialogTree::YAMLLoader yaml_loader;
    //yaml_loader.load_file(dialog_filename);
    //node_bank = yaml_loader.get_node_bank();
-   node_bank.add_node(
+   node_bank.set_nodes({
+      {
          "package_delivery_response",
          new AllegroFlare::DialogTree::Nodes::MultipageWithOptions
          (
@@ -41,7 +44,7 @@ AllegroFlare::DialogTree::NodeBank DialogNodeBankFactory::build_production_game_
             { 
                {
                   "Continue",
-                  //new AllegroFlare::DialogTree::NodeOptions::GotoNode("System::INTERNAL::wait_before_exit_program"),
+                  //new AllegroFlare::DialogTree::NodeOptions::GoToNode("robot_prompts_performance"),
                   new AllegroFlare::DialogTree::NodeOptions::ExitDialog(),
                   AllegroFlare::BitFlags<uint32_t>(0)
                },
@@ -55,7 +58,8 @@ AllegroFlare::DialogTree::NodeBank DialogNodeBankFactory::build_production_game_
                //},
             }
          )
-      );
+      },
+   });
 
    return node_bank;
 }

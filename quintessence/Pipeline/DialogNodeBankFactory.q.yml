@@ -10,7 +10,8 @@ methods:
       //AllegroFlare::DialogTree::YAMLLoader yaml_loader;
       //yaml_loader.load_file(dialog_filename);
       //node_bank = yaml_loader.get_node_bank();
-      node_bank.add_node(
+      node_bank.set_nodes({
+         {
             "package_delivery_response",
             new AllegroFlare::DialogTree::Nodes::MultipageWithOptions
             (
@@ -23,7 +24,7 @@ methods:
                { 
                   {
                      "Continue",
-                     //new AllegroFlare::DialogTree::NodeOptions::GotoNode("System::INTERNAL::wait_before_exit_program"),
+                     //new AllegroFlare::DialogTree::NodeOptions::GoToNode("robot_prompts_performance"),
                      new AllegroFlare::DialogTree::NodeOptions::ExitDialog(),
                      AllegroFlare::BitFlags<uint32_t>(0)
                   },
@@ -37,13 +38,16 @@ methods:
                   //},
                }
             )
-         );
+         },
+      });
 
       return node_bank;
     body_dependency_symbols:
      - AllegroFlare::DialogTree::Nodes::MultipageWithOptions
      - AllegroFlare::DialogTree::Nodes::ExitProgram
+     - AllegroFlare::DialogTree::NodeOptions::GoToNode
      - AllegroFlare::DialogTree::NodeOptions::ExitDialog
+     - AllegroFlare::DialogTree::Nodes::EmitGameEvent
 
 
 dependencies:
@@ -59,5 +63,9 @@ dependencies:
     headers: [ AllegroFlare/DialogTree/Nodes/ExitProgram.hpp ]
   - symbol: AllegroFlare::DialogTree::NodeOptions::ExitDialog
     headers: [ AllegroFlare/DialogTree/NodeOptions/ExitDialog.hpp ]
+  - symbol: AllegroFlare::DialogTree::NodeOptions::GoToNode
+    headers: [ AllegroFlare/DialogTree/NodeOptions/GoToNode.hpp ]
+  - symbol: AllegroFlare::DialogTree::Nodes::EmitGameEvent
+    headers: [ AllegroFlare/DialogTree/Nodes/EmitGameEvent.hpp ]
 
 
