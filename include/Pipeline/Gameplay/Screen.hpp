@@ -42,6 +42,7 @@ namespace Pipeline
             STATE_REVEALING,
             STATE_PLAYING_GAME,
             STATE_SUSPEND_FOR_DIALOG,
+            STATE_PERFORMING_MUSIC,
          };
          AllegroFlare::Frameworks::Full* framework;
          AllegroFlare::EventEmitter* event_emitter;
@@ -57,6 +58,10 @@ namespace Pipeline
          AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::SceneRenderer2 scene_renderer;
          std::string current_level_identifier;
          Pipeline::Gameplay::Level* current_level;
+         std::string current_level_song_to_perform_identifier;
+         float current_level_song_to_perform_duration_sec;
+         std::string currently_performing_song_identifier;
+         float currently_performing_song_duration_sec;
          std::function<void(Pipeline::Gameplay::Screen*, void*)> on_finished_callback_func;
          void* on_finished_callback_func_user_data;
          bool initialized;
@@ -88,6 +93,7 @@ namespace Pipeline
          bool trivial_collide(AllegroFlare::Vec3D p1={0.0f, 0.0f, 0.0f}, AllegroFlare::Vec3D p2={0.0f, 0.0f, 0.0f}, float min_distance=10.0f);
          void set_primary_camera_to_gameplay_view();
          void set_primary_camera_to_dialog_view();
+         void set_primary_camera_to_music_performance_view();
          AllegroFlare::DialogTree::NodeBank build_dialog_node_bank();
          void load_level_by_identifier(std::string level_identifier="[unset-level_identifier]");
          void initialize();
@@ -108,6 +114,8 @@ namespace Pipeline
          virtual void virtual_control_button_up_func(AllegroFlare::Player* player=nullptr, AllegroFlare::VirtualControllers::Base* virtual_controller=nullptr, int virtual_controller_button_num=0, bool is_repeat=false) override;
          virtual void virtual_control_button_down_func(AllegroFlare::Player* player=nullptr, AllegroFlare::VirtualControllers::Base* virtual_controller=nullptr, int virtual_controller_button_num=0, bool is_repeat=false) override;
          virtual void virtual_control_axis_change_func(ALLEGRO_EVENT* ev=nullptr) override;
+         void activate_music_performance(std::string music_identifier="[unset-music_identifier]");
+         void deactivate_music_performance();
          void set_state(uint32_t state=STATE_UNDEF, bool override_if_busy=false);
          void update_state(float time_now=al_get_time());
          static bool is_valid_state(uint32_t state=STATE_UNDEF);

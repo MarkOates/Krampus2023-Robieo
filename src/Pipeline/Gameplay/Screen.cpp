@@ -40,6 +40,10 @@ Screen::Screen(AllegroFlare::Frameworks::Full* framework, AllegroFlare::EventEmi
    , scene_renderer()
    , current_level_identifier("[unset-current_level]")
    , current_level(nullptr)
+   , current_level_song_to_perform_identifier("")
+   , current_level_song_to_perform_duration_sec(0.0f)
+   , currently_performing_song_identifier("")
+   , currently_performing_song_duration_sec(0.0f)
    , on_finished_callback_func()
    , on_finished_callback_func_user_data(nullptr)
    , initialized(false)
@@ -191,6 +195,16 @@ void Screen::set_primary_camera_to_dialog_view()
    primary_camera->spin = 0.5 - 0.2;
    primary_camera->tilt = 0.75 - 0.4;
    primary_camera->zoom = 2.8;
+   return;
+}
+
+void Screen::set_primary_camera_to_music_performance_view()
+{
+   AllegroFlare::Camera3D *primary_camera = scene_renderer.find_primary_camera_3d();
+   primary_camera->stepout = { 0.0, 0.0, 6.0 };
+   primary_camera->spin = 0.2;
+   primary_camera->tilt = 0.2;
+   primary_camera->zoom = 3.2;
    return;
 }
 
@@ -388,8 +402,13 @@ void Screen::load_level_by_identifier(std::string level_identifier)
       throw std::runtime_error("Expecting \"package_delivery_response\" dialog node to exist but it does not.");
    }
 
-
    framework->set_dialog_system_dialog_node_bank(node_bank);
+
+
+   //
+   // Load the song to play for this level
+   //
+   current_level_song_to_perform_identifier = "robot-holly_jolly";
 
 
    //
@@ -615,6 +634,9 @@ void Screen::on_player_entity_collide(AllegroFlare::GraphicsPipelines::DynamicEn
 
 void Screen::update()
 {
+   update_state(); // Consider if this would need to be moved to a different place, or if it conflicts
+                   // with the logic below
+
    // Spin our shadow casted light
    AllegroFlare::Camera3D *light = scene_renderer.get_shadow_map_buffer_ref().get_light();
    light->spin = -1.0f;
@@ -927,6 +949,16 @@ void Screen::key_down_func(ALLEGRO_EVENT* ev)
          //move_development_cursor_down();
       } break;
 
+      case ALLEGRO_KEY_P: {
+         activate_music_performance(current_level_song_to_perform_identifier);
+         //move_development_cursor_down();
+      } break;
+
+      case ALLEGRO_KEY_X: {
+         deactivate_music_performance();
+         //move_development_cursor_down();
+      } break;
+
       // TODO: Deliver the package with "enter"
       //case ALLEGRO_KEY_ENTER: {
          //attempt_to_deliver_package();
@@ -980,6 +1012,36 @@ void Screen::virtual_control_axis_change_func(ALLEGRO_EVENT* ev)
    return;
 }
 
+void Screen::activate_music_performance(std::string music_identifier)
+{
+   if (is_state(STATE_PERFORMING_MUSIC)) return; // TODO: Test this
+   // Set our current song state variables
+   // TODO: Validate music track exists
+   currently_performing_song_identifier = music_identifier;
+   currently_performing_song_duration_sec = 2.0; // TODO: Replace this hard-coded value with the actual duration
+                                                 // of the currently_performing_song_identifier
+
+   event_emitter->emit_play_music_track_event(currently_performing_song_identifier);
+
+   // Set the state
+   set_state(STATE_PERFORMING_MUSIC);
+   return;
+}
+
+void Screen::deactivate_music_performance()
+{
+   if (!is_state(STATE_PERFORMING_MUSIC)) return; // TODO: Test this
+
+   event_emitter->emit_stop_all_music_tracks_event(); // TODO: Consider if alternative would be better than stopping
+                                                      // everything.
+   currently_performing_song_identifier = "";
+   currently_performing_song_duration_sec = 0.0;
+
+   set_state(STATE_PLAYING_GAME);
+   // TODO: Consider how to re-activate current level music
+   return;
+}
+
 void Screen::set_state(uint32_t state, bool override_if_busy)
 {
    if (!(is_valid_state(state)))
@@ -1008,6 +1070,10 @@ void Screen::set_state(uint32_t state, bool override_if_busy)
          player_control_velocity = {0, 0};
       } break;
 
+      case STATE_PERFORMING_MUSIC: {
+         set_primary_camera_to_music_performance_view();
+      } break;
+
       default:
          throw std::runtime_error("weird error");
       break;
@@ -1032,18 +1098,26 @@ void Screen::update_state(float time_now)
 
    switch (state)
    {
-      case STATE_REVEALING:
-      break;
+      case STATE_REVEALING: {
+      } break;
 
-      case STATE_PLAYING_GAME:
-      break;
+      case STATE_PLAYING_GAME: {
+      } break;
 
-      case STATE_SUSPEND_FOR_DIALOG:
-      break;
+      case STATE_SUSPEND_FOR_DIALOG: {
+      } break;
 
-      default:
+      case STATE_PERFORMING_MUSIC: {
+         // TODO: Have camera zoom in slowly
+         // TODO: If age > song duration, exit
+         if (age >= currently_performing_song_duration_sec) deactivate_music_performance();
+
+         // TODO: Rotate character (z)? along a sine wave
+      } break;
+
+      default: {
          throw std::runtime_error("weird error");
-      break;
+      } break;
    }
 
    return;
@@ -1056,6 +1130,7 @@ bool Screen::is_valid_state(uint32_t state)
       STATE_REVEALING,
       STATE_PLAYING_GAME,
       STATE_SUSPEND_FOR_DIALOG,
+      STATE_PERFORMING_MUSIC,
    };
    return (valid_states.count(state) > 0);
 }
