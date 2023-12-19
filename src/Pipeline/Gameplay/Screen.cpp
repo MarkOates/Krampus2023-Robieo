@@ -8,6 +8,7 @@
 #include <AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/DynamicModel3D.hpp>
 #include <AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityFactory.hpp>
 #include <AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityRenderFlags.hpp>
+#include <AllegroFlare/Interpolators.hpp>
 #include <Pipeline/DialogNodeBankFactory.hpp>
 #include <Pipeline/GameConfigurations/Main.hpp>
 #include <Pipeline/Gameplay/Level.hpp>
@@ -1018,7 +1019,8 @@ void Screen::activate_music_performance(std::string music_identifier)
    // Set our current song state variables
    // TODO: Validate music track exists
    currently_performing_song_identifier = music_identifier;
-   currently_performing_song_duration_sec = 5.0; // TODO: Replace this hard-coded value with the actual duration
+   currently_performing_song_duration_sec = 15.0; // TODO: Replace this hard-coded value with the actual duration
+   //currently_performing_song_duration_sec = 5.0; // TODO: Replace this hard-coded value with the actual duration
                                                  // of the currently_performing_song_identifier
 
    // Set the player to a good front-facing rotation for performance 
@@ -1090,6 +1092,16 @@ void Screen::set_state(uint32_t state, bool override_if_busy)
    return;
 }
 
+float Screen::normalize_age_no_clamp(float start_time, float end_time, float time_now)
+{
+   // TODO: Consider that capping to 1.0 if past may not be preferred
+   float length = (end_time - start_time);
+   float time_now_in_range = time_now - start_time;
+   if (length == 0.0f) return 0.0f;
+   //if (time_now_in_range >= length) return 1.0f;
+   return time_now_in_range / length;
+}
+
 void Screen::update_state(float time_now)
 {
    if (!(is_valid_state(state)))
@@ -1120,10 +1132,22 @@ void Screen::update_state(float time_now)
          // Slowly dolly shot with the camera
          // TODO: Consider doing this with a step-out?
          AllegroFlare::Camera3D *primary_camera = scene_renderer.find_primary_camera_3d();
-         float DOLLY_SHOT_DURATION = 1.5;
-         if (age < DOLLY_SHOT_DURATION)
+         float DOLLY_SHOT_DURATION = 12.0;
+         float normalized_age = normalize_age_no_clamp(
+               state_changed_at,
+               state_changed_at + DOLLY_SHOT_DURATION,
+               time_now
+            );
+         if (normalized_age >= 0.0f && normalized_age <= 1.0f)
          {
-            float zoom_speed = 0.0012f;
+            float speed_multiplier = 1.0; // - AllegroFlare::interpolator::fast_in(normalized_age);
+            if (normalized_age >= 0.5)
+            {
+               float local = (normalized_age - 0.5) * 2;
+               speed_multiplier = 1.0 - AllegroFlare::interpolator::slow_out(local);
+            }
+            float zoom_speed = 0.00135f * speed_multiplier;
+            //float zoom_speed = 0.0012f * speed_multiplier;
             primary_camera->zoom += zoom_speed;
          }
 

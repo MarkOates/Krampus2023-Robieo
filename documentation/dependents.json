@@ -254,6 +254,12 @@
   "Pipeline/DialogNodeBankFactory": [
     "Pipeline/Gameplay/Screen"
   ],
+  "AllegroFlare/MotionKit": [
+    "Pipeline/Gameplay/Screen"
+  ],
+  "AllegroFlare/Interpolators": [
+    "Pipeline/Gameplay/Screen"
+  ],
   "AllegroFlare/Routers/Standard": [
     "Pipeline/Runner"
   ],

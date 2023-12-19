@@ -117,6 +117,7 @@ namespace Pipeline
          void activate_music_performance(std::string music_identifier="[unset-music_identifier]");
          void deactivate_music_performance();
          void set_state(uint32_t state=STATE_UNDEF, bool override_if_busy=false);
+         static float normalize_age_no_clamp(float start_time=0.0f, float end_time=0.0f, float time_now=0.0f);
          void update_state(float time_now=al_get_time());
          static bool is_valid_state(uint32_t state=STATE_UNDEF);
          bool is_state(uint32_t possible_state=STATE_UNDEF);
