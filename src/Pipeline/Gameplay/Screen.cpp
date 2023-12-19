@@ -929,6 +929,19 @@ void Screen::key_down_func(ALLEGRO_EVENT* ev)
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Screen::key_down_func: error: guard \"event_emitter\" not met");
    }
+   if (is_state(STATE_PERFORMING_MUSIC))
+   {
+      switch(ev->keyboard.keycode)
+      {
+         case ALLEGRO_KEY_X: {
+            deactivate_music_performance();
+         } break;
+
+         default: {
+         } break;
+      }
+   }
+
    if (!is_state(STATE_PLAYING_GAME)) return;
 
    float player_velocity = 0.04;
@@ -959,10 +972,10 @@ void Screen::key_down_func(ALLEGRO_EVENT* ev)
          //move_development_cursor_down();
       } break;
 
-      case ALLEGRO_KEY_X: {
-         deactivate_music_performance();
-         //move_development_cursor_down();
-      } break;
+      //case ALLEGRO_KEY_X: {
+         //deactivate_music_performance();
+         ////move_development_cursor_down();
+      //} break;
 
       // TODO: Deliver the package with "enter"
       //case ALLEGRO_KEY_ENTER: {
@@ -1045,6 +1058,7 @@ void Screen::activate_music_performance(std::string music_identifier)
    };
    event_emitter->emit_set_input_hints_bar_event(tokens);
    event_emitter->emit_show_input_hints_bar_event();
+   event_emitter->emit_set_input_hints_bar_text_opacity_event(1.0);
 
    // Play the music track
    event_emitter->emit_play_music_track_event(currently_performing_song_identifier);

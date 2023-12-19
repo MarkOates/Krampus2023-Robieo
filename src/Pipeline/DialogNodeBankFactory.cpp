@@ -68,7 +68,7 @@ AllegroFlare::DialogTree::NodeBank DialogNodeBankFactory::build_production_game_
             //{ "Are you sure you want to exit?" },
             { // Dialog pages
                "It is... my pleasure... to deliver.",
-               "As part of my protocol, I will now sing for you..."
+               "As part of my protocol, I will now sing for you...",
                "... a christmas carol."
             },
             { 
