@@ -1146,7 +1146,7 @@ void Screen::update_state(float time_now)
                float local = (normalized_age - 0.5) * 2;
                speed_multiplier = 1.0 - AllegroFlare::interpolator::slow_out(local);
             }
-            float zoom_speed = 0.0013f * speed_multiplier;
+            float zoom_speed = 0.001f * speed_multiplier;
             //float zoom_speed = 0.0012f * speed_multiplier;
             primary_camera->zoom += zoom_speed;
          }
