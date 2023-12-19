@@ -248,7 +248,7 @@ methods:
   - name: set_primary_camera_to_music_performance_view
     body: |
       AllegroFlare::Camera3D *primary_camera = scene_renderer.find_primary_camera_3d();
-      primary_camera->stepout = { 0.0, 0.0, 6.0 };
+      primary_camera->stepout = { 0.0, 0.25, 6.0 };
       primary_camera->spin = 0.2;
       primary_camera->tilt = 0.2;
       primary_camera->zoom = 3.2;
@@ -1027,6 +1027,11 @@ methods:
       currently_performing_song_duration_sec = 5.0; // TODO: Replace this hard-coded value with the actual duration
                                                     // of the currently_performing_song_identifier
 
+      // Set the player to a good front-facing rotation for performance 
+      auto player_entity_as = get_player_controlled_entity_as();
+      player_entity_as->get_placement_ref().rotation = { 0.0, -0.25, 0.0 };
+
+      // Play the music track
       event_emitter->emit_play_music_track_event(currently_performing_song_identifier);
 
       // Set the state
@@ -1114,13 +1119,12 @@ methods:
 
          case STATE_PERFORMING_MUSIC: {
             // TODO: Have camera zoom in slowly
-            // TODO: If age > song duration, exit
+            // If age > song duration, exit
             if (age >= currently_performing_song_duration_sec) deactivate_music_performance();
 
-            // TODO: Rotate character (z)? along a sine wave
+            // Rotate character (z)? along a sine wave
             auto player_entity_as = get_player_controlled_entity_as();
             player_entity_as->get_placement_ref().rotation.z = std::sin(age * 3) * 0.012;
-            //player_entity_as->get_placement_ref().position.z += y_prime;
          } break;
 
          default: {
