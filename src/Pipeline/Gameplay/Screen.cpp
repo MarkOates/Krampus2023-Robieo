@@ -228,6 +228,23 @@ AllegroFlare::DialogTree::NodeBank Screen::build_dialog_node_bank()
    return Pipeline::DialogNodeBankFactory::build_production_game_node_bank();
 }
 
+AllegroFlare::Vec3D Screen::lowest_y_vertex(std::vector<AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL> vertices)
+{
+   if (!((!vertices.empty())))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::lowest_y_vertex]: error: guard \"(!vertices.empty())\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::lowest_y_vertex: error: guard \"(!vertices.empty())\" not met");
+   }
+   AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL result = vertices[0];
+   for (auto &vertex : vertices)
+   {
+      if (vertex.y < result.y) result = vertex;
+   }
+   return AllegroFlare::Vec3D{result.x, result.y, result.z};
+}
+
 void Screen::load_level_by_identifier(std::string level_identifier)
 {
    if (!(game_configuration))

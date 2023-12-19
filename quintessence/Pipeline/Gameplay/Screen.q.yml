@@ -269,6 +269,22 @@ methods:
       - Pipeline::DialogNodeBankFactory
 
 
+  - name: lowest_y_vertex
+    type: AllegroFlare::Vec3D
+    parameters:
+      - name: vertices
+        type: std::vector<AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL>
+        default_argument: '{}'
+    guards: [ (!vertices.empty()) ]
+    body: |
+      AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL result = vertices[0];
+      for (auto &vertex : vertices)
+      {
+         if (vertex.y < result.y) result = vertex;
+      }
+      return AllegroFlare::Vec3D{result.x, result.y, result.z};
+
+
   - name: load_level_by_identifier
     parameters:
       - name: level_identifier

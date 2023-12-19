@@ -1,6 +1,7 @@
 #pragma once
 
 
+#include <AllegroFlare/ALLEGRO_VERTEX_WITH_NORMAL.hpp>
 #include <AllegroFlare/BitmapBin.hpp>
 #include <AllegroFlare/DialogTree/NodeBank.hpp>
 #include <AllegroFlare/EventEmitter.hpp>
@@ -25,6 +26,7 @@
 #include <cstdint>
 #include <functional>
 #include <string>
+#include <vector>
 
 
 namespace Pipeline
@@ -99,6 +101,7 @@ namespace Pipeline
          void set_primary_camera_to_dialog_view();
          void set_primary_camera_to_music_performance_view();
          AllegroFlare::DialogTree::NodeBank build_dialog_node_bank();
+         AllegroFlare::Vec3D lowest_y_vertex(std::vector<AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL> vertices={});
          void load_level_by_identifier(std::string level_identifier="[unset-level_identifier]");
          void initialize();
          virtual void on_activate() override;
