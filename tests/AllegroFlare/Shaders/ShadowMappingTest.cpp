@@ -13,7 +13,8 @@ TEST(AllegroFlare_Shaders_ShadowMappingTest, can_be_created_without_blowing_up)
 TEST(AllegroFlare_Shaders_ShadowMappingTest, initialize__will_not_blow_up)
 {
    // TODO: Use a relative test fixture path
-   std::string fixture_data_path_for_shaders = "/Users/markoates/Repos/Pipeline/tests/fixtures/shaders/";
+   //std::string fixture_data_path_for_shaders = "/Users/markoates/Repos/Pipeline/tests/fixtures/shaders/";
+   std::string fixture_data_path_for_shaders = "/Users/markoates/Repos/Pipeline/bin/data/shaders/";
 
    al_init();
    al_set_new_display_flags(ALLEGRO_PROGRAMMABLE_PIPELINE | ALLEGRO_OPENGL);

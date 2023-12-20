@@ -12,7 +12,6 @@ properties:
   - name: data_path_for_shaders
     type: std::string
     init_with: '""'
-    xinit_with: '(char*)"/Users/markoates/Repos/Pipeline/tests/fixtures/shaders/"'
     getter: true
     setter: true
 
