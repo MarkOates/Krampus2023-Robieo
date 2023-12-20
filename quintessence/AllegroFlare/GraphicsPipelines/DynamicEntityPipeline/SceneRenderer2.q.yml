@@ -162,7 +162,6 @@ functions:
       // Render the shadow_buffer_bitmap
       shadow_map_buffer.render();
       ALLEGRO_BITMAP* shadow_buffer_bitmap = shadow_map_buffer.get_result_bitmap();
-      //al_save_bitmap("/Users/markoates/Desktop/shadow_buffer_bitmap.png", scene_renderer.shadow_map_buffer_ref().get_result_bitmap());
 
 
 
