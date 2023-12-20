@@ -21,6 +21,17 @@ TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_DepthBufferRendererT
 }
 
 
+TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_DepthBufferRendererTest,
+   data_path_for_shaders__is_set_to_the_default_value)
+{
+   AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::DepthBuffer shadow_depth_map_renderer;
+   EXPECT_EQ(
+      shadow_depth_map_renderer.get_data_path_for_shaders(),
+      AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::DepthBuffer::DEFAULT_DATA_PATH_FOR_SHADERS
+   );
+}
+
+
 TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_DepthBufferRendererTestWithAllegroRenderingFixtureTest,
    render__does_not_blow_up)
 {

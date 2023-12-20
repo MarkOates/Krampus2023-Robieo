@@ -26,10 +26,12 @@ namespace DynamicEntityPipeline
 
 ShadowDepthMapRenderer2::ShadowDepthMapRenderer2(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool* entity_pool)
    : entity_pool(entity_pool)
+   , data_path_for_shaders(DEFAULT_DATA_PATH_FOR_SHADERS)
    , depth_map_shader(nullptr)
    , casting_light({})
    , render_surface()
    , render_surface_is_setup(false)
+   , shader_is_initialized(false)
 {
 }
 
@@ -57,6 +59,12 @@ AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool* ShadowDepthM
 }
 
 
+std::string ShadowDepthMapRenderer2::get_data_path_for_shaders() const
+{
+   return data_path_for_shaders;
+}
+
+
 AllegroFlare::Camera3D ShadowDepthMapRenderer2::get_casting_light() const
 {
    return casting_light;
@@ -69,10 +77,28 @@ AllegroFlare::Camera3D &ShadowDepthMapRenderer2::get_casting_light_ref()
 }
 
 
+void ShadowDepthMapRenderer2::set_data_path_for_shaders(std::string data_path_for_shaders)
+{
+   if (!((!shader_is_initialized)))
+   {
+      std::stringstream error_message;
+      error_message << "[ShadowDepthMapRenderer2::set_data_path_for_shaders]: error: guard \"(!shader_is_initialized)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("ShadowDepthMapRenderer2::set_data_path_for_shaders: error: guard \"(!shader_is_initialized)\" not met");
+   }
+   this->data_path_for_shaders = data_path_for_shaders;
+}
+
 ALLEGRO_BITMAP* ShadowDepthMapRenderer2::get_result_surface_bitmap()
 {
    return render_surface.obtain_surface();
    //return result_surface_bitmap;
+}
+
+bool ShadowDepthMapRenderer2::data_path_for_shaders_is_default()
+{
+   // TODO: Test this
+   return data_path_for_shaders == DEFAULT_DATA_PATH_FOR_SHADERS;
 }
 
 void ShadowDepthMapRenderer2::setup_result_surface_bitmap(int width, int height)
@@ -90,6 +116,13 @@ void ShadowDepthMapRenderer2::setup_result_surface_bitmap(int width, int height)
 
 void ShadowDepthMapRenderer2::init_shader()
 {
+   if (!((!shader_is_initialized)))
+   {
+      std::stringstream error_message;
+      error_message << "[ShadowDepthMapRenderer2::init_shader]: error: guard \"(!shader_is_initialized)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("ShadowDepthMapRenderer2::init_shader: error: guard \"(!shader_is_initialized)\" not met");
+   }
    if (!((!depth_map_shader)))
    {
       std::stringstream error_message;
@@ -97,21 +130,31 @@ void ShadowDepthMapRenderer2::init_shader()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("ShadowDepthMapRenderer2::init_shader: error: guard \"(!depth_map_shader)\" not met");
    }
+   if (!((!data_path_for_shaders_is_default())))
+   {
+      std::stringstream error_message;
+      error_message << "[ShadowDepthMapRenderer2::init_shader]: error: guard \"(!data_path_for_shaders_is_default())\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("ShadowDepthMapRenderer2::init_shader: error: guard \"(!data_path_for_shaders_is_default())\" not met");
+   }
    // TODO: Change this folder path
-   std::string ROOT_PATH_TO_DATA_FOLDER = "/Users/markoates/Repos/allegro_flare/bin/";
+   std::string ROOT_PATH_TO_DATA_FOLDER = data_path_for_shaders;
+   //std::string ROOT_PATH_TO_DATA_FOLDER = "/Users/markoates/Repos/allegro_flare/bin/";
 
    std::string vertex_filename;
    std::string vertex_file_content;
    std::string fragment_filename;
    std::string fragment_file_content;
 
-   vertex_filename = ROOT_PATH_TO_DATA_FOLDER + "data/shaders/depth_vertex.glsl";
+   vertex_filename = ROOT_PATH_TO_DATA_FOLDER + "depth_vertex.glsl";
    vertex_file_content = AllegroFlare::php::file_get_contents(vertex_filename);
-   fragment_filename = ROOT_PATH_TO_DATA_FOLDER + "data/shaders/depth_fragment.glsl";
+   fragment_filename = ROOT_PATH_TO_DATA_FOLDER + "depth_fragment.glsl";
    fragment_file_content = AllegroFlare::php::file_get_contents(fragment_filename);
 
    depth_map_shader = new AllegroFlare::Shaders::Base("Base", vertex_file_content, fragment_file_content);
    depth_map_shader->initialize();
+
+   shader_is_initialized = true;
 
    return;
 }
@@ -130,7 +173,12 @@ void ShadowDepthMapRenderer2::init_camera_defaults()
 void ShadowDepthMapRenderer2::destroy()
 {
    //if (backbuffer_is_setup && backbuffer_is_managed_by_this_class) al_destroy_bitmap(backbuffer_sub_bitmap);
-   if (depth_map_shader) { delete depth_map_shader; depth_map_shader = nullptr; } // NOTE: Does this destroy the
+   if (depth_map_shader)
+   {
+      delete depth_map_shader;
+      depth_map_shader = nullptr;
+      shader_is_initialized = false;
+   } // NOTE: Does this destroy the
                                                                                   // shader? Does Shaders::Base have
                                                                                   // a destructor here?
    //if (result_surface_bitmap) { al_destroy_bitmap(result_surface_bitmap); result_surface_bitmap = nullptr; }

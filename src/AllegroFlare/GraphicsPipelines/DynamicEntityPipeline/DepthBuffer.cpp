@@ -25,7 +25,7 @@ namespace DynamicEntityPipeline
 
 DepthBuffer::DepthBuffer(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool* entity_pool)
    : entity_pool(entity_pool)
-   , data_path_for_shaders("")
+   , data_path_for_shaders(DEFAULT_DATA_PATH_FOR_SHADERS)
    , depth_map_shader(nullptr)
    , casting_light({})
    , render_surface()
@@ -109,6 +109,8 @@ void DepthBuffer::setup_result_surface_bitmap(int width, int height)
 
 bool DepthBuffer::data_path_for_shaders_is_default()
 {
+   // TODO: Test this
+   // TODO: Test that "data_path_for_shaders" is initialized to this default
    return data_path_for_shaders == DEFAULT_DATA_PATH_FOR_SHADERS;
 }
 

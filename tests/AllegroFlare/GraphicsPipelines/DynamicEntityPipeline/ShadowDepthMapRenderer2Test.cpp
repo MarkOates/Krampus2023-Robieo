@@ -20,14 +20,28 @@ TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_ShadowDepthMapRender
 }
 
 
+TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_ShadowDepthMapRendererTest,
+   data_path_for_shaders__is_set_to_the_default_value)
+{
+   AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowDepthMapRenderer2 shadow_depth_map_renderer;
+   EXPECT_EQ(
+      shadow_depth_map_renderer.get_data_path_for_shaders(),
+      AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowDepthMapRenderer2::DEFAULT_DATA_PATH_FOR_SHADERS
+   );
+}
+
+
 TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_ShadowDepthMapRendererTestWithAllegroRenderingFixtureTest,
    render__does_not_blow_up)
 {
    AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool entity_pool;
    AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowDepthMapRenderer2 shadow_depth_map_renderer;
 
+   std::string DATA_PATH_FOR_SHADERS = "/Users/markoates/Repos/allegro_flare/bin/data/shaders/";
+
    // Setup our classes
    shadow_depth_map_renderer.set_entity_pool(&entity_pool);
+   shadow_depth_map_renderer.set_data_path_for_shaders(DATA_PATH_FOR_SHADERS);
    //shadow_depth_map_renderer.setup_backbuffer_from_display(al_get_current_display()); // TODO: switch this to primary
                                                                                       // display from framework
    shadow_depth_map_renderer.setup_result_surface_bitmap(1920, 1080);
@@ -50,8 +64,11 @@ TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_ShadowDepthMapRender
    AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool entity_pool;
    AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowDepthMapRenderer2 shadow_depth_map_renderer;
 
+   std::string DATA_PATH_FOR_SHADERS = "/Users/markoates/Repos/allegro_flare/bin/data/shaders/";
+
    // Setup our classes
    shadow_depth_map_renderer.set_entity_pool(&entity_pool);
+   shadow_depth_map_renderer.set_data_path_for_shaders(DATA_PATH_FOR_SHADERS);
    //shadow_depth_map_renderer.setup_backbuffer_from_display(get_display());
    shadow_depth_map_renderer.setup_result_surface_bitmap(1920, 1080);
    //shadow_depth_map_renderer.setup_result_surface_bitmap();
@@ -96,8 +113,11 @@ TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_ShadowDepthMapRender
    AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowDepthMapRenderer2 shadow_depth_map_renderer;
    AllegroFlare::Camera3D &light = shadow_depth_map_renderer.get_casting_light_ref();
 
+   std::string DATA_PATH_FOR_SHADERS = "/Users/markoates/Repos/allegro_flare/bin/data/shaders/";
+
    // Setup our classes
    shadow_depth_map_renderer.set_entity_pool(&entity_pool);
+   shadow_depth_map_renderer.set_data_path_for_shaders(DATA_PATH_FOR_SHADERS);
    //shadow_depth_map_renderer.setup_backbuffer_from_display(get_display());
    shadow_depth_map_renderer.setup_result_surface_bitmap(1920, 1080);
    //shadow_depth_map_renderer.setup_result_surface_bitmap();

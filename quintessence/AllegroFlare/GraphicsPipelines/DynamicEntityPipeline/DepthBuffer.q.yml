@@ -10,7 +10,7 @@ properties:
 
   - name: data_path_for_shaders
     type: std::string
-    init_with: '""'
+    init_with: DEFAULT_DATA_PATH_FOR_SHADERS
     getter: true
     setter: explicit
 
@@ -91,6 +91,8 @@ functions:
   - name: data_path_for_shaders_is_default
     type: bool
     body: |
+       // TODO: Test this
+       // TODO: Test that "data_path_for_shaders" is initialized to this default
        return data_path_for_shaders == DEFAULT_DATA_PATH_FOR_SHADERS;
 
 
