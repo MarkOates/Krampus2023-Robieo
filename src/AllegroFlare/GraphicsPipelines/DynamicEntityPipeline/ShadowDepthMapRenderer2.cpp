@@ -139,7 +139,6 @@ void ShadowDepthMapRenderer2::init_shader()
    }
    // TODO: Change this folder path
    std::string ROOT_PATH_TO_DATA_FOLDER = data_path_for_shaders;
-   //std::string ROOT_PATH_TO_DATA_FOLDER = "/Users/markoates/Repos/allegro_flare/bin/";
 
    std::string vertex_filename;
    std::string vertex_file_content;
