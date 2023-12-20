@@ -836,23 +836,27 @@ void Screen::render()
    scene_renderer.render();
    ALLEGRO_BITMAP *render_surface = scene_renderer.get_render_surface_ref().obtain_surface();
 
-   bool save_bitmaps = false;
-   if (save_bitmaps)
-   {
-      al_save_bitmap(
-         "/Users/markoates/Desktop/shadow_buffer_bitmap.png",
-         scene_renderer.get_shadow_map_buffer_ref().get_result_bitmap()
-      );
-      //shadow_map_buffer.get_result_bitmap();
-      al_save_bitmap(
-         "/Users/markoates/Desktop/render_surface.png",
-         render_surface
-      );
-   }
-
    al_set_target_bitmap(initial_target_bitmap);
    al_draw_bitmap(render_surface, 0, 0, 0);
    //al_draw_filled_rectangle(0, 0, 300, 300, ALLEGRO_COLOR{1, 0, 0, 1});
+   return;
+}
+
+void Screen::save_bitmap_buffers_to_files()
+{
+   ALLEGRO_BITMAP *render_surface = scene_renderer.get_render_surface_ref().obtain_surface();
+
+   // Save the shadow_buffer
+   al_save_bitmap(
+      "/Users/markoates/Desktop/shadow_buffer_bitmap.png",
+      scene_renderer.get_shadow_map_buffer_ref().get_result_bitmap()
+   );
+
+   // Save the shadow_buffer
+   al_save_bitmap(
+      "/Users/markoates/Desktop/render_surface.png",
+      scene_renderer.get_render_surface_ref().obtain_surface()
+   );
    return;
 }
 
@@ -962,6 +966,18 @@ void Screen::key_down_func(ALLEGRO_EVENT* ev)
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Screen::key_down_func: error: guard \"event_emitter\" not met");
    }
+   // Debugging
+   switch(ev->keyboard.keycode)
+   {
+      case ALLEGRO_KEY_R: {
+         save_bitmap_buffers_to_files();
+      } break;
+
+      default: {
+      } break;
+   }
+
+   // Cancel out of music performance
    if (is_state(STATE_PERFORMING_MUSIC))
    {
       switch(ev->keyboard.keycode)
@@ -977,6 +993,7 @@ void Screen::key_down_func(ALLEGRO_EVENT* ev)
 
    if (!is_state(STATE_PLAYING_GAME)) return;
 
+   // Normal gameplay controls
    float player_velocity = 0.04;
    switch(ev->keyboard.keycode)
    {

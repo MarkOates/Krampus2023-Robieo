@@ -112,6 +112,7 @@ namespace Pipeline
          void on_player_entity_collide(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D* colliding_entity=nullptr);
          void update();
          void render();
+         void save_bitmap_buffers_to_files();
          void call_on_finished_callback_func();
          virtual void on_event(ALLEGRO_EVENT* ev=nullptr) override;
          virtual void game_event_func(AllegroFlare::GameEvent* game_event=nullptr) override;

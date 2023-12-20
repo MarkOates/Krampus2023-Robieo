@@ -17,6 +17,7 @@ namespace Shaders
 
 ShadowMapping::ShadowMapping()
    : AllegroFlare::Shaders::Base(AllegroFlare::Shaders::ShadowMapping::TYPE)
+   , data_path_for_shaders((char*)"/Users/markoates/Repos/Pipeline/tests/fixtures/shaders/")
    , initialized(false)
 {
 }
@@ -26,6 +27,28 @@ ShadowMapping::~ShadowMapping()
 {
 }
 
+
+void ShadowMapping::set_data_path_for_shaders(std::string data_path_for_shaders)
+{
+   this->data_path_for_shaders = data_path_for_shaders;
+}
+
+
+std::string ShadowMapping::get_data_path_for_shaders() const
+{
+   return data_path_for_shaders;
+}
+
+
+std::string ShadowMapping::full_path_to_vertex_source_file()
+{
+   return data_path_for_shaders + std::string(vertex_source_filename);
+}
+
+std::string ShadowMapping::full_path_to_fragment_source_file()
+{
+   return data_path_for_shaders + std::string(fragment_source_filename);
+}
 
 void ShadowMapping::initialize()
 {
@@ -50,19 +73,26 @@ void ShadowMapping::activate()
 
 std::string ShadowMapping::obtain_vertex_source()
 {
-   return AllegroFlare::php::file_get_contents(vertex_source_filename);
+   if (!(std::filesystem::exists(full_path_to_vertex_source_file())))
+   {
+      std::stringstream error_message;
+      error_message << "[ShadowMapping::obtain_vertex_source]: error: guard \"std::filesystem::exists(full_path_to_vertex_source_file())\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("ShadowMapping::obtain_vertex_source: error: guard \"std::filesystem::exists(full_path_to_vertex_source_file())\" not met");
+   }
+   return AllegroFlare::php::file_get_contents(full_path_to_vertex_source_file());
 }
 
 std::string ShadowMapping::obtain_fragment_source()
 {
-   if (!(std::filesystem::exists(fragment_source_filename)))
+   if (!(std::filesystem::exists(full_path_to_fragment_source_file())))
    {
       std::stringstream error_message;
-      error_message << "[ShadowMapping::obtain_fragment_source]: error: guard \"std::filesystem::exists(fragment_source_filename)\" not met.";
+      error_message << "[ShadowMapping::obtain_fragment_source]: error: guard \"std::filesystem::exists(full_path_to_fragment_source_file())\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ShadowMapping::obtain_fragment_source: error: guard \"std::filesystem::exists(fragment_source_filename)\" not met");
+      throw std::runtime_error("ShadowMapping::obtain_fragment_source: error: guard \"std::filesystem::exists(full_path_to_fragment_source_file())\" not met");
    }
-   return AllegroFlare::php::file_get_contents(fragment_source_filename);
+   return AllegroFlare::php::file_get_contents(full_path_to_fragment_source_file());
 }
 
 

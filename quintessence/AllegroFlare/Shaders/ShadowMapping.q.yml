@@ -9,21 +9,21 @@ parent_classes:
 properties:
 
 
-  - name: TYPE
-    type: char*
-    init_with: '(char*)"AllegroFlare/Shaders/ShadowMapping"'
-    static: true
-    constexpr: true
+  - name: data_path_for_shaders
+    type: std::string
+    init_with: '(char*)"/Users/markoates/Repos/Pipeline/tests/fixtures/shaders/"'
+    getter: true
+    setter: true
 
   - name: vertex_source_filename
     type: char*
-    init_with: '(char*)"/Users/markoates/Repos/Pipeline/tests/fixtures/shaders/start_vertex.glsl"'
+    init_with: '(char*)"start_vertex.glsl"'
     static: true
     constexpr: true
 
   - name: fragment_source_filename
     type: char*
-    init_with: '(char*)"/Users/markoates/Repos/Pipeline/tests/fixtures/shaders/start_fragment.glsl"'
+    init_with: '(char*)"start_fragment.glsl"'
     static: true
     constexpr: true
 
@@ -31,8 +31,26 @@ properties:
     type: bool
     init_with: false
 
+  - name: TYPE
+    type: char*
+    init_with: '(char*)"AllegroFlare/Shaders/ShadowMapping"'
+    static: true
+    constexpr: true
+
 
 functions:
+
+
+  - name: full_path_to_vertex_source_file
+    type: std::string
+    body: |
+      return data_path_for_shaders + std::string(vertex_source_filename);
+
+
+  - name: full_path_to_fragment_source_file
+    type: std::string
+    body: |
+      return data_path_for_shaders + std::string(fragment_source_filename);
 
 
   - name: initialize
@@ -54,11 +72,11 @@ functions:
 
   - name: obtain_vertex_source
     type: std::string
-    static: true
+    xstatic: true
     private: true
-    xguards: [ 'std::filesystem::exists(vertex_source_filename)' ]
+    guards: [ 'std::filesystem::exists(full_path_to_vertex_source_file())' ]
     body: |
-      return AllegroFlare::php::file_get_contents(vertex_source_filename);
+      return AllegroFlare::php::file_get_contents(full_path_to_vertex_source_file());
     body_dependency_symbols:
       - std::filesystem
       - AllegroFlare::UsefulPHP
@@ -66,11 +84,11 @@ functions:
 
   - name: obtain_fragment_source
     type: std::string
-    static: true
+    xstatic: true
     private: true
-    guards: [ 'std::filesystem::exists(fragment_source_filename)' ]
+    guards: [ 'std::filesystem::exists(full_path_to_fragment_source_file())' ]
     body: |
-      return AllegroFlare::php::file_get_contents(fragment_source_filename);
+      return AllegroFlare::php::file_get_contents(full_path_to_fragment_source_file());
     body_dependency_symbols:
       - std::filesystem
       - AllegroFlare::UsefulPHP

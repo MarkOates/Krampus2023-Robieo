@@ -823,23 +823,27 @@ methods:
       scene_renderer.render();
       ALLEGRO_BITMAP *render_surface = scene_renderer.get_render_surface_ref().obtain_surface();
 
-      bool save_bitmaps = false;
-      if (save_bitmaps)
-      {
-         al_save_bitmap(
-            "/Users/markoates/Desktop/shadow_buffer_bitmap.png",
-            scene_renderer.get_shadow_map_buffer_ref().get_result_bitmap()
-         );
-         //shadow_map_buffer.get_result_bitmap();
-         al_save_bitmap(
-            "/Users/markoates/Desktop/render_surface.png",
-            render_surface
-         );
-      }
-
       al_set_target_bitmap(initial_target_bitmap);
       al_draw_bitmap(render_surface, 0, 0, 0);
       //al_draw_filled_rectangle(0, 0, 300, 300, ALLEGRO_COLOR{1, 0, 0, 1});
+      return;
+
+
+  - name: save_bitmap_buffers_to_files
+    body: |
+      ALLEGRO_BITMAP *render_surface = scene_renderer.get_render_surface_ref().obtain_surface();
+
+      // Save the shadow_buffer
+      al_save_bitmap(
+         "/Users/markoates/Desktop/shadow_buffer_bitmap.png",
+         scene_renderer.get_shadow_map_buffer_ref().get_result_bitmap()
+      );
+
+      // Save the shadow_buffer
+      al_save_bitmap(
+         "/Users/markoates/Desktop/render_surface.png",
+         scene_renderer.get_render_surface_ref().obtain_surface()
+      );
       return;
 
 
@@ -934,6 +938,18 @@ methods:
         default_argument: nullptr
     guards: [ initialized, event_emitter ]
     body: |
+      // Debugging
+      switch(ev->keyboard.keycode)
+      {
+         case ALLEGRO_KEY_R: {
+            save_bitmap_buffers_to_files();
+         } break;
+
+         default: {
+         } break;
+      }
+
+      // Cancel out of music performance
       if (is_state(STATE_PERFORMING_MUSIC))
       {
          switch(ev->keyboard.keycode)
@@ -949,6 +965,7 @@ methods:
 
       if (!is_state(STATE_PLAYING_GAME)) return;
 
+      // Normal gameplay controls
       float player_velocity = 0.04;
       switch(ev->keyboard.keycode)
       {
