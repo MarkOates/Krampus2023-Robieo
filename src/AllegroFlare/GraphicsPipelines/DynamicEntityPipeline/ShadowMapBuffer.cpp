@@ -226,6 +226,7 @@ void ShadowMapBuffer::initialize()
       shadow_depth_map_surface_width, 
       shadow_depth_map_surface_height
    );
+   shadow_depth_map_renderer.set_data_path_for_shaders(data_path_for_shaders);
    shadow_depth_map_renderer.init_shader();
    shadow_depth_map_renderer.set_entity_pool(entity_pool);
    shadow_depth_map_renderer.init_camera_defaults(); // NOTE: The camera defaults seem to be weird

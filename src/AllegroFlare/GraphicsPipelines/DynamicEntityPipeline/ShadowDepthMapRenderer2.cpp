@@ -146,9 +146,9 @@ void ShadowDepthMapRenderer2::init_shader()
    std::string fragment_filename;
    std::string fragment_file_content;
 
-   vertex_filename = ROOT_PATH_TO_DATA_FOLDER + "depth_vertex.glsl";
+   vertex_filename = ROOT_PATH_TO_DATA_FOLDER + "depth_map_renderer_vertex.glsl";
    vertex_file_content = AllegroFlare::php::file_get_contents(vertex_filename);
-   fragment_filename = ROOT_PATH_TO_DATA_FOLDER + "depth_fragment.glsl";
+   fragment_filename = ROOT_PATH_TO_DATA_FOLDER + "depth_map_renderer_fragment.glsl";
    fragment_file_content = AllegroFlare::php::file_get_contents(fragment_filename);
 
    depth_map_shader = new AllegroFlare::Shaders::Base("Base", vertex_file_content, fragment_file_content);

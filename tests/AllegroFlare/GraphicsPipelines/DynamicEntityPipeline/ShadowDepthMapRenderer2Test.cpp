@@ -37,7 +37,7 @@ TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_ShadowDepthMapRender
    AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool entity_pool;
    AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowDepthMapRenderer2 shadow_depth_map_renderer;
 
-   std::string DATA_PATH_FOR_SHADERS = "/Users/markoates/Repos/allegro_flare/bin/data/shaders/";
+   std::string DATA_PATH_FOR_SHADERS = "/Users/markoates/Repos/Pipeline/bin/data/shaders/";
 
    // Setup our classes
    shadow_depth_map_renderer.set_entity_pool(&entity_pool);
@@ -64,7 +64,7 @@ TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_ShadowDepthMapRender
    AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool entity_pool;
    AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowDepthMapRenderer2 shadow_depth_map_renderer;
 
-   std::string DATA_PATH_FOR_SHADERS = "/Users/markoates/Repos/allegro_flare/bin/data/shaders/";
+   std::string DATA_PATH_FOR_SHADERS = "/Users/markoates/Repos/Pipeline/bin/data/shaders/";
 
    // Setup our classes
    shadow_depth_map_renderer.set_entity_pool(&entity_pool);
@@ -113,7 +113,7 @@ TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_ShadowDepthMapRender
    AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowDepthMapRenderer2 shadow_depth_map_renderer;
    AllegroFlare::Camera3D &light = shadow_depth_map_renderer.get_casting_light_ref();
 
-   std::string DATA_PATH_FOR_SHADERS = "/Users/markoates/Repos/allegro_flare/bin/data/shaders/";
+   std::string DATA_PATH_FOR_SHADERS = "/Users/markoates/Repos/Pipeline/bin/data/shaders/";
 
    // Setup our classes
    shadow_depth_map_renderer.set_entity_pool(&entity_pool);
