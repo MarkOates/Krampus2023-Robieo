@@ -835,22 +835,27 @@ methods:
     body: |
       ALLEGRO_BITMAP *render_surface = scene_renderer.get_render_surface_ref().obtain_surface();
 
-      std::string location_for_saving_files = "/Users/markoates/Desktop/";
+      std::string location_for_saving_files = "tmp/";
+      bool directory_creation_successful = al_make_directory(location_for_saving_files.c_str());
+      if (!directory_creation_successful)
+      {
+         // TODO: Consider if should throw, create notification, something else.
+      }
 
       // Save the shadow depth map render
-      al_save_bitmap(
+      bool file1_ok = al_save_bitmap(
          (location_for_saving_files + "shadow_depth_map_bitmap.png").c_str(),
          scene_renderer.get_shadow_map_buffer_ref().get_shadow_depth_map_renderer_ref().get_result_surface_bitmap()
       );
 
       // Save the shadow_buffer
-      al_save_bitmap(
+      bool file2_ok = al_save_bitmap(
          (location_for_saving_files + "shadow_buffer_bitmap.png").c_str(),
          scene_renderer.get_shadow_map_buffer_ref().get_result_bitmap()
       );
 
       // Save the scene
-      al_save_bitmap(
+      bool file3_ok = al_save_bitmap(
          (location_for_saving_files + "render_surface.png").c_str(),
          scene_renderer.get_render_surface_ref().obtain_surface()
       );
