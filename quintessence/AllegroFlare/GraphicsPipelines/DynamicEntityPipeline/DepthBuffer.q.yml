@@ -8,6 +8,12 @@ properties:
     getter: true
     setter: true
 
+  - name: data_path_for_shaders
+    type: std::string
+    init_with: '""'
+    getter: true
+    setter: explicit
+
   - name: depth_map_shader
     type: AllegroFlare::Shaders::Base*
     init_with: nullptr
@@ -29,8 +35,29 @@ properties:
     type: bool
     init_with: false
 
+  - name: shader_is_initialized
+    type: bool
+    init_with: false
+
+  - name: DEFAULT_DATA_PATH_FOR_SHADERS
+    type: char*
+    init_with: '(char*)"[unset-data_path_for_shaders]"'
+    static: true
+    constexpr: true
+
+
 
 functions:
+
+
+  - name: set_data_path_for_shaders
+    parameters:
+      - name: data_path_for_shaders
+        type: std::string
+        default_argument: DEFAULT_DATA_PATH_FOR_SHADERS
+    guards: [ (!shader_is_initialized) ]
+    body: |
+      this->data_path_for_shaders = data_path_for_shaders;
 
 
   - name: get_result_surface_bitmap
@@ -61,28 +88,50 @@ functions:
       return;
 
 
+  - name: data_path_for_shaders_is_default
+    type: bool
+    body: |
+       return data_path_for_shaders == DEFAULT_DATA_PATH_FOR_SHADERS;
+
+
   - name: init_shader
-    guards: [ '(!depth_map_shader)' ]
+    guards: [ (!shader_is_initialized), (!depth_map_shader), (!data_path_for_shaders_is_default()) ]
     body: |
       // TODO: Change this folder path
-      std::string ROOT_PATH_TO_DATA_FOLDER = "/Users/markoates/Repos/allegro_flare/bin/";
+      //std::string ROOT_PATH_TO_DATA_FOLDER = "/Users/markoates/Repos/allegro_flare/bin/";
+      std::string ROOT_PATH_TO_DATA_FOLDER = data_path_for_shaders; //"/Users/markoates/Repos/allegro_flare/bin/";
 
       std::string vertex_filename;
       std::string vertex_file_content;
       std::string fragment_filename;
       std::string fragment_file_content;
 
-      vertex_filename = ROOT_PATH_TO_DATA_FOLDER + "data/shaders/depth_vertex.glsl";
+      vertex_filename = ROOT_PATH_TO_DATA_FOLDER + "depth_vertex.glsl";
+      //vertex_file_content = AllegroFlare::php::file_get_contents(vertex_filename);
+      fragment_filename = ROOT_PATH_TO_DATA_FOLDER + "depth_fragment.glsl";
+
+      if (!std::filesystem::exists(vertex_filename))
+      {
+         throw std::runtime_error("vertex_filename not existo!");
+      }
+      if (!std::filesystem::exists(fragment_filename))
+      {
+         throw std::runtime_error("fragment_filename not existo!");
+      }
+
+
       vertex_file_content = AllegroFlare::php::file_get_contents(vertex_filename);
-      fragment_filename = ROOT_PATH_TO_DATA_FOLDER + "data/shaders/depth_fragment.glsl";
       fragment_file_content = AllegroFlare::php::file_get_contents(fragment_filename);
 
       depth_map_shader = new AllegroFlare::Shaders::Base("Base", vertex_file_content, fragment_file_content);
       depth_map_shader->initialize();
+
+      shader_is_initialized = true;
      
       return;
     body_dependency_symbols:
       - AllegroFlare::php
+      - std::filesystem
 
 
   - name: init_camera_defaults
@@ -99,7 +148,12 @@ functions:
   - name: destroy
     body: |
       //if (backbuffer_is_setup && backbuffer_is_managed_by_this_class) al_destroy_bitmap(backbuffer_sub_bitmap);
-      if (depth_map_shader) { delete depth_map_shader; depth_map_shader = nullptr; } // NOTE: Does this destroy the
+      if (depth_map_shader)
+      {
+         delete depth_map_shader;
+         depth_map_shader = nullptr;
+         shader_is_initialized = false;
+      } // NOTE: Does this destroy the
                                                                                      // shader? Does Shaders::Base have
                                                                                      // a destructor here?
       //if (result_surface_bitmap) { al_destroy_bitmap(result_surface_bitmap); result_surface_bitmap = nullptr; }
@@ -108,7 +162,7 @@ functions:
 
 
   - name: render
-    guards: [ entity_pool ]
+    guards: [ entity_pool, shader_is_initialized ]
     body: |
       // TODO: store and restore states on glEnable/glCullFace, etc
       // https://www.khronos.org/registry/OpenGL-Refpages/gl2.1/xhtml/glIsEnabled.xml

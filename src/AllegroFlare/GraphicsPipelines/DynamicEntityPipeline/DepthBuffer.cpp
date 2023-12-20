@@ -9,6 +9,7 @@
 #include <AllegroFlare/UsefulPHP.hpp>
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_opengl.h>
+#include <filesystem>
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
@@ -24,10 +25,12 @@ namespace DynamicEntityPipeline
 
 DepthBuffer::DepthBuffer(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool* entity_pool)
    : entity_pool(entity_pool)
+   , data_path_for_shaders("")
    , depth_map_shader(nullptr)
    , casting_light({})
    , render_surface()
    , render_surface_is_setup(false)
+   , shader_is_initialized(false)
 {
 }
 
@@ -55,6 +58,12 @@ AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool* DepthBuffer:
 }
 
 
+std::string DepthBuffer::get_data_path_for_shaders() const
+{
+   return data_path_for_shaders;
+}
+
+
 AllegroFlare::Camera3D DepthBuffer::get_casting_light() const
 {
    return casting_light;
@@ -66,6 +75,18 @@ AllegroFlare::Camera3D &DepthBuffer::get_casting_light_ref()
    return casting_light;
 }
 
+
+void DepthBuffer::set_data_path_for_shaders(std::string data_path_for_shaders)
+{
+   if (!((!shader_is_initialized)))
+   {
+      std::stringstream error_message;
+      error_message << "[DepthBuffer::set_data_path_for_shaders]: error: guard \"(!shader_is_initialized)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("DepthBuffer::set_data_path_for_shaders: error: guard \"(!shader_is_initialized)\" not met");
+   }
+   this->data_path_for_shaders = data_path_for_shaders;
+}
 
 ALLEGRO_BITMAP* DepthBuffer::get_result_surface_bitmap()
 {
@@ -86,8 +107,20 @@ void DepthBuffer::setup_result_surface_bitmap(int width, int height)
    return;
 }
 
+bool DepthBuffer::data_path_for_shaders_is_default()
+{
+   return data_path_for_shaders == DEFAULT_DATA_PATH_FOR_SHADERS;
+}
+
 void DepthBuffer::init_shader()
 {
+   if (!((!shader_is_initialized)))
+   {
+      std::stringstream error_message;
+      error_message << "[DepthBuffer::init_shader]: error: guard \"(!shader_is_initialized)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("DepthBuffer::init_shader: error: guard \"(!shader_is_initialized)\" not met");
+   }
    if (!((!depth_map_shader)))
    {
       std::stringstream error_message;
@@ -95,21 +128,43 @@ void DepthBuffer::init_shader()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("DepthBuffer::init_shader: error: guard \"(!depth_map_shader)\" not met");
    }
+   if (!((!data_path_for_shaders_is_default())))
+   {
+      std::stringstream error_message;
+      error_message << "[DepthBuffer::init_shader]: error: guard \"(!data_path_for_shaders_is_default())\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("DepthBuffer::init_shader: error: guard \"(!data_path_for_shaders_is_default())\" not met");
+   }
    // TODO: Change this folder path
-   std::string ROOT_PATH_TO_DATA_FOLDER = "/Users/markoates/Repos/allegro_flare/bin/";
+   //std::string ROOT_PATH_TO_DATA_FOLDER = "/Users/markoates/Repos/allegro_flare/bin/";
+   std::string ROOT_PATH_TO_DATA_FOLDER = data_path_for_shaders; //"/Users/markoates/Repos/allegro_flare/bin/";
 
    std::string vertex_filename;
    std::string vertex_file_content;
    std::string fragment_filename;
    std::string fragment_file_content;
 
-   vertex_filename = ROOT_PATH_TO_DATA_FOLDER + "data/shaders/depth_vertex.glsl";
+   vertex_filename = ROOT_PATH_TO_DATA_FOLDER + "depth_vertex.glsl";
+   //vertex_file_content = AllegroFlare::php::file_get_contents(vertex_filename);
+   fragment_filename = ROOT_PATH_TO_DATA_FOLDER + "depth_fragment.glsl";
+
+   if (!std::filesystem::exists(vertex_filename))
+   {
+      throw std::runtime_error("vertex_filename not existo!");
+   }
+   if (!std::filesystem::exists(fragment_filename))
+   {
+      throw std::runtime_error("fragment_filename not existo!");
+   }
+
+
    vertex_file_content = AllegroFlare::php::file_get_contents(vertex_filename);
-   fragment_filename = ROOT_PATH_TO_DATA_FOLDER + "data/shaders/depth_fragment.glsl";
    fragment_file_content = AllegroFlare::php::file_get_contents(fragment_filename);
 
    depth_map_shader = new AllegroFlare::Shaders::Base("Base", vertex_file_content, fragment_file_content);
    depth_map_shader->initialize();
+
+   shader_is_initialized = true;
 
    return;
 }
@@ -128,7 +183,12 @@ void DepthBuffer::init_camera_defaults()
 void DepthBuffer::destroy()
 {
    //if (backbuffer_is_setup && backbuffer_is_managed_by_this_class) al_destroy_bitmap(backbuffer_sub_bitmap);
-   if (depth_map_shader) { delete depth_map_shader; depth_map_shader = nullptr; } // NOTE: Does this destroy the
+   if (depth_map_shader)
+   {
+      delete depth_map_shader;
+      depth_map_shader = nullptr;
+      shader_is_initialized = false;
+   } // NOTE: Does this destroy the
                                                                                   // shader? Does Shaders::Base have
                                                                                   // a destructor here?
    //if (result_surface_bitmap) { al_destroy_bitmap(result_surface_bitmap); result_surface_bitmap = nullptr; }
@@ -144,6 +204,13 @@ void DepthBuffer::render()
       error_message << "[DepthBuffer::render]: error: guard \"entity_pool\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("DepthBuffer::render: error: guard \"entity_pool\" not met");
+   }
+   if (!(shader_is_initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[DepthBuffer::render]: error: guard \"shader_is_initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("DepthBuffer::render: error: guard \"shader_is_initialized\" not met");
    }
    // TODO: store and restore states on glEnable/glCullFace, etc
    // https://www.khronos.org/registry/OpenGL-Refpages/gl2.1/xhtml/glIsEnabled.xml
