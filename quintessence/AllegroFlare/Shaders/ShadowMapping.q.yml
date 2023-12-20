@@ -11,7 +11,8 @@ properties:
 
   - name: data_path_for_shaders
     type: std::string
-    init_with: '(char*)"/Users/markoates/Repos/Pipeline/tests/fixtures/shaders/"'
+    init_with: '""'
+    xinit_with: '(char*)"/Users/markoates/Repos/Pipeline/tests/fixtures/shaders/"'
     getter: true
     setter: true
 
@@ -43,12 +44,14 @@ functions:
 
   - name: full_path_to_vertex_source_file
     type: std::string
+    guards: [ (!data_path_for_shaders.empty()) ]
     body: |
       return data_path_for_shaders + std::string(vertex_source_filename);
 
 
   - name: full_path_to_fragment_source_file
     type: std::string
+    guards: [ (!data_path_for_shaders.empty()) ]
     body: |
       return data_path_for_shaders + std::string(fragment_source_filename);
 
@@ -74,20 +77,35 @@ functions:
     type: std::string
     xstatic: true
     private: true
-    guards: [ 'std::filesystem::exists(full_path_to_vertex_source_file())' ]
+    xguards: [ 'std::filesystem::exists(full_path_to_vertex_source_file())' ]
     body: |
+      if (!std::filesystem::exists(full_path_to_vertex_source_file()))
+      {
+         AllegroFlare::Logger::throw_error(
+            "AllegroFlare::Shaders::ShadowMapping::obtain_vertex_source",
+            "Could not load file \"" + full_path_to_vertex_source_file() + "\""
+         );
+      }
       return AllegroFlare::php::file_get_contents(full_path_to_vertex_source_file());
     body_dependency_symbols:
       - std::filesystem
       - AllegroFlare::UsefulPHP
+      - AllegroFlare::Logger
 
 
   - name: obtain_fragment_source
     type: std::string
     xstatic: true
     private: true
-    guards: [ 'std::filesystem::exists(full_path_to_fragment_source_file())' ]
+    xguards: [ 'std::filesystem::exists(full_path_to_fragment_source_file())' ]
     body: |
+      if (!std::filesystem::exists(full_path_to_fragment_source_file()))
+      {
+         AllegroFlare::Logger::throw_error(
+            "AllegroFlare::Shaders::ShadowMapping::obtain_fragment_source",
+            "Could not load file \"" + full_path_to_fragment_source_file() + "\""
+         );
+      }
       return AllegroFlare::php::file_get_contents(full_path_to_fragment_source_file());
     body_dependency_symbols:
       - std::filesystem
@@ -97,6 +115,8 @@ functions:
 dependencies:
 
 
+  - symbol: AllegroFlare::Logger
+    headers: [ AllegroFlare/Logger.hpp ]
   - symbol: AllegroFlare::Shaders::Base
     headers: [ AllegroFlare/Shaders/Base.hpp ]
   - symbol: ALLEGRO_COLOR

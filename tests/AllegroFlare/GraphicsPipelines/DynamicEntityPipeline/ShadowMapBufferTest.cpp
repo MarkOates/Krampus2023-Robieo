@@ -87,6 +87,7 @@ TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_ShadowMapBufferTestW
 
    AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowMapBuffer scene_renderer;
    scene_renderer.set_entity_pool(&entity_pool);
+   scene_renderer.set_data_path_for_shaders(get_fixtures_path() + "shaders/");
    scene_renderer.set_result_surface_width(1920 / 4);
    scene_renderer.set_result_surface_height(1080 / 4);
    scene_renderer.initialize();

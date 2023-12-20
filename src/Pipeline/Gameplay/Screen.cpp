@@ -503,6 +503,13 @@ void Screen::initialize()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Screen::initialize: error: guard \"(!initialized)\" not met");
    }
+   if (!(framework))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::initialize]: error: guard \"framework\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::initialize: error: guard \"framework\" not met");
+   }
    if (!(al_is_system_installed()))
    {
       std::stringstream error_message;
@@ -554,6 +561,7 @@ void Screen::initialize()
    }
    // Setup scene renderer
    scene_renderer.set_entity_pool(&entity_pool);
+   scene_renderer.set_data_path_for_shaders(framework->get_data_folder_path() + "shaders/");
    //scene_renderer.setup_result_surface_bitmap(1920 / 3, 1080 / 3);
    scene_renderer.setup_result_surface_bitmap(1920, 1080); // For some reason, 
    scene_renderer.setup_shadow_map_buffer();

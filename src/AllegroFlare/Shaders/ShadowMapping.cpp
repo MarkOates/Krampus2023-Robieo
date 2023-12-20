@@ -2,6 +2,7 @@
 
 #include <AllegroFlare/Shaders/ShadowMapping.hpp>
 
+#include <AllegroFlare/Logger.hpp>
 #include <AllegroFlare/UsefulPHP.hpp>
 #include <filesystem>
 #include <iostream>
@@ -17,7 +18,7 @@ namespace Shaders
 
 ShadowMapping::ShadowMapping()
    : AllegroFlare::Shaders::Base(AllegroFlare::Shaders::ShadowMapping::TYPE)
-   , data_path_for_shaders((char*)"/Users/markoates/Repos/Pipeline/tests/fixtures/shaders/")
+   , data_path_for_shaders("")
    , initialized(false)
 {
 }
@@ -42,11 +43,25 @@ std::string ShadowMapping::get_data_path_for_shaders() const
 
 std::string ShadowMapping::full_path_to_vertex_source_file()
 {
+   if (!((!data_path_for_shaders.empty())))
+   {
+      std::stringstream error_message;
+      error_message << "[ShadowMapping::full_path_to_vertex_source_file]: error: guard \"(!data_path_for_shaders.empty())\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("ShadowMapping::full_path_to_vertex_source_file: error: guard \"(!data_path_for_shaders.empty())\" not met");
+   }
    return data_path_for_shaders + std::string(vertex_source_filename);
 }
 
 std::string ShadowMapping::full_path_to_fragment_source_file()
 {
+   if (!((!data_path_for_shaders.empty())))
+   {
+      std::stringstream error_message;
+      error_message << "[ShadowMapping::full_path_to_fragment_source_file]: error: guard \"(!data_path_for_shaders.empty())\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("ShadowMapping::full_path_to_fragment_source_file: error: guard \"(!data_path_for_shaders.empty())\" not met");
+   }
    return data_path_for_shaders + std::string(fragment_source_filename);
 }
 
@@ -73,24 +88,24 @@ void ShadowMapping::activate()
 
 std::string ShadowMapping::obtain_vertex_source()
 {
-   if (!(std::filesystem::exists(full_path_to_vertex_source_file())))
+   if (!std::filesystem::exists(full_path_to_vertex_source_file()))
    {
-      std::stringstream error_message;
-      error_message << "[ShadowMapping::obtain_vertex_source]: error: guard \"std::filesystem::exists(full_path_to_vertex_source_file())\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ShadowMapping::obtain_vertex_source: error: guard \"std::filesystem::exists(full_path_to_vertex_source_file())\" not met");
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::Shaders::ShadowMapping::obtain_vertex_source",
+         "Could not load file \"" + full_path_to_vertex_source_file() + "\""
+      );
    }
    return AllegroFlare::php::file_get_contents(full_path_to_vertex_source_file());
 }
 
 std::string ShadowMapping::obtain_fragment_source()
 {
-   if (!(std::filesystem::exists(full_path_to_fragment_source_file())))
+   if (!std::filesystem::exists(full_path_to_fragment_source_file()))
    {
-      std::stringstream error_message;
-      error_message << "[ShadowMapping::obtain_fragment_source]: error: guard \"std::filesystem::exists(full_path_to_fragment_source_file())\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ShadowMapping::obtain_fragment_source: error: guard \"std::filesystem::exists(full_path_to_fragment_source_file())\" not met");
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::Shaders::ShadowMapping::obtain_fragment_source",
+         "Could not load file \"" + full_path_to_fragment_source_file() + "\""
+      );
    }
    return AllegroFlare::php::file_get_contents(full_path_to_fragment_source_file());
 }

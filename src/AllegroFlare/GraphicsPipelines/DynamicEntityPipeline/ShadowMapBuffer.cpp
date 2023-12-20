@@ -23,6 +23,7 @@ namespace DynamicEntityPipeline
 
 ShadowMapBuffer::ShadowMapBuffer(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool* entity_pool)
    : entity_pool(entity_pool)
+   , data_path_for_shaders("")
    , shadow_mapping_shader()
    , shadow_depth_map_surface_width(1920)
    , shadow_depth_map_surface_height(1080)
@@ -43,6 +44,12 @@ ShadowMapBuffer::~ShadowMapBuffer()
 AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool* ShadowMapBuffer::get_entity_pool() const
 {
    return entity_pool;
+}
+
+
+std::string ShadowMapBuffer::get_data_path_for_shaders() const
+{
+   return data_path_for_shaders;
 }
 
 
@@ -88,6 +95,19 @@ void ShadowMapBuffer::set_entity_pool(AllegroFlare::GraphicsPipelines::DynamicEn
    shadow_depth_map_renderer.set_entity_pool(entity_pool);
    // TODO: Test guard
    //this->result_surface_width = result_surface_width;
+   return;
+}
+
+void ShadowMapBuffer::set_data_path_for_shaders(std::string data_path_for_shaders)
+{
+   if (!((!initialized)))
+   {
+      std::stringstream error_message;
+      error_message << "[ShadowMapBuffer::set_data_path_for_shaders]: error: guard \"(!initialized)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("ShadowMapBuffer::set_data_path_for_shaders: error: guard \"(!initialized)\" not met");
+   }
+   this->data_path_for_shaders = data_path_for_shaders;
    return;
 }
 
@@ -210,6 +230,7 @@ void ShadowMapBuffer::initialize()
    shadow_depth_map_renderer.set_entity_pool(entity_pool);
    shadow_depth_map_renderer.init_camera_defaults(); // NOTE: The camera defaults seem to be weird
 
+   shadow_mapping_shader.set_data_path_for_shaders(data_path_for_shaders);
    shadow_mapping_shader.initialize();
 
    result_surface.set_surface_width(result_surface_width);

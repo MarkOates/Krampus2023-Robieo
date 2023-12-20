@@ -17,6 +17,12 @@ properties:
     getter: true
     setter: true
 
+  - name: data_path_for_shaders
+    type: std::string
+    init_with: '""'
+    getter: true
+    setter: explicit
+
   - name: shadow_map_buffer
     type: AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowMapBuffer
     init_with: ''
@@ -41,8 +47,23 @@ properties:
     type: bool
     init_with: false
 
+  - name: shadow_map_buffer_is_setup
+    type: bool
+    init_with: false
+
 
 functions:
+
+
+  - name: set_data_path_for_shaders
+    parameters:
+      - name: data_path_for_shaders
+        type: std::string
+        default_argument: '"[unset-data_path_for_shaders]"'
+    guards: [ (!shadow_map_buffer_is_setup) ]
+    body: |
+      this->data_path_for_shaders = data_path_for_shaders;
+      return;
 
 
   - name: setup_result_surface_bitmap
@@ -68,9 +89,12 @@ functions:
   - name: setup_shadow_map_buffer
     body: |
       shadow_map_buffer.set_entity_pool(entity_pool);
+      shadow_map_buffer.set_data_path_for_shaders(data_path_for_shaders); //get_fixtures_path() + "shaders/");
       shadow_map_buffer.set_result_surface_width(1920 / 2);
       shadow_map_buffer.set_result_surface_height(1080 / 2);
       shadow_map_buffer.initialize();
+
+      shadow_map_buffer_is_setup = true;
       return;
 
 
@@ -124,7 +148,12 @@ functions:
 
 
   - name: render
-    guards: [ entity_pool, multitexture_shader_is_setup, render_surface_is_setup, cubemapping_is_setup ]
+    guards:
+      - entity_pool
+      - multitexture_shader_is_setup
+      - render_surface_is_setup
+      - cubemapping_is_setup
+      - shadow_map_buffer_is_setup
     body: |
       AllegroFlare::Camera3D *primary_camera = find_primary_camera_3d();
 

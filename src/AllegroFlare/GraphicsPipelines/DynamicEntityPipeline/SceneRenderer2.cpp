@@ -28,11 +28,13 @@ SceneRenderer2::SceneRenderer2(AllegroFlare::GraphicsPipelines::DynamicEntityPip
    : cubemap_shader()
    , multitexture_shader()
    , entity_pool(entity_pool)
+   , data_path_for_shaders("")
    , shadow_map_buffer()
    , render_surface()
    , render_surface_is_setup(false)
    , cubemapping_is_setup(false)
    , multitexture_shader_is_setup(false)
+   , shadow_map_buffer_is_setup(false)
 {
 }
 
@@ -54,6 +56,12 @@ AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool* SceneRendere
 }
 
 
+std::string SceneRenderer2::get_data_path_for_shaders() const
+{
+   return data_path_for_shaders;
+}
+
+
 AllegroFlare::Shaders::Cubemap &SceneRenderer2::get_cubemap_shader_ref()
 {
    return cubemap_shader;
@@ -72,6 +80,19 @@ AllegroFlare::RenderSurfaces::Bitmap &SceneRenderer2::get_render_surface_ref()
 }
 
 
+void SceneRenderer2::set_data_path_for_shaders(std::string data_path_for_shaders)
+{
+   if (!((!shadow_map_buffer_is_setup)))
+   {
+      std::stringstream error_message;
+      error_message << "[SceneRenderer2::set_data_path_for_shaders]: error: guard \"(!shadow_map_buffer_is_setup)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("SceneRenderer2::set_data_path_for_shaders: error: guard \"(!shadow_map_buffer_is_setup)\" not met");
+   }
+   this->data_path_for_shaders = data_path_for_shaders;
+   return;
+}
+
 void SceneRenderer2::setup_result_surface_bitmap(int width, int height)
 {
    render_surface.set_surface_width(width);
@@ -88,9 +109,12 @@ void SceneRenderer2::setup_result_surface_bitmap(int width, int height)
 void SceneRenderer2::setup_shadow_map_buffer()
 {
    shadow_map_buffer.set_entity_pool(entity_pool);
+   shadow_map_buffer.set_data_path_for_shaders(data_path_for_shaders); //get_fixtures_path() + "shaders/");
    shadow_map_buffer.set_result_surface_width(1920 / 2);
    shadow_map_buffer.set_result_surface_height(1080 / 2);
    shadow_map_buffer.initialize();
+
+   shadow_map_buffer_is_setup = true;
    return;
 }
 
@@ -181,6 +205,13 @@ void SceneRenderer2::render()
       error_message << "[SceneRenderer2::render]: error: guard \"cubemapping_is_setup\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("SceneRenderer2::render: error: guard \"cubemapping_is_setup\" not met");
+   }
+   if (!(shadow_map_buffer_is_setup))
+   {
+      std::stringstream error_message;
+      error_message << "[SceneRenderer2::render]: error: guard \"shadow_map_buffer_is_setup\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("SceneRenderer2::render: error: guard \"shadow_map_buffer_is_setup\" not met");
    }
    AllegroFlare::Camera3D *primary_camera = find_primary_camera_3d();
 

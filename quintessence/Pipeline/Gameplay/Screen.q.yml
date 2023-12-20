@@ -536,6 +536,7 @@ methods:
   - name: initialize
     guards:
       - (!initialized)
+      - framework
       - al_is_system_installed()
       - al_is_primitives_addon_initialized()
       - al_is_font_addon_initialized()
@@ -546,6 +547,7 @@ methods:
     body: |
       // Setup scene renderer
       scene_renderer.set_entity_pool(&entity_pool);
+      scene_renderer.set_data_path_for_shaders(framework->get_data_folder_path() + "shaders/");
       //scene_renderer.setup_result_surface_bitmap(1920 / 3, 1080 / 3);
       scene_renderer.setup_result_surface_bitmap(1920, 1080); // For some reason, 
       scene_renderer.setup_shadow_map_buffer();

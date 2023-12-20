@@ -123,6 +123,7 @@
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer2",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer2",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowMapBuffer",
+    "AllegroFlare/Shaders/ShadowMapping",
     "Pipeline/GameConfigurations/Main",
     "Pipeline/Runner"
   ],

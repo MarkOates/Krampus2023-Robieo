@@ -27,11 +27,13 @@ namespace AllegroFlare
             AllegroFlare::Shaders::Cubemap cubemap_shader;
             AllegroFlare::Shaders::Multitexture multitexture_shader;
             AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool* entity_pool;
+            std::string data_path_for_shaders;
             AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowMapBuffer shadow_map_buffer;
             AllegroFlare::RenderSurfaces::Bitmap render_surface;
             bool render_surface_is_setup;
             bool cubemapping_is_setup;
             bool multitexture_shader_is_setup;
+            bool shadow_map_buffer_is_setup;
 
          protected:
 
@@ -42,9 +44,11 @@ namespace AllegroFlare
 
             void set_entity_pool(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool* entity_pool);
             AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool* get_entity_pool() const;
+            std::string get_data_path_for_shaders() const;
             AllegroFlare::Shaders::Cubemap &get_cubemap_shader_ref();
             AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowMapBuffer &get_shadow_map_buffer_ref();
             AllegroFlare::RenderSurfaces::Bitmap &get_render_surface_ref();
+            void set_data_path_for_shaders(std::string data_path_for_shaders="[unset-data_path_for_shaders]");
             void setup_result_surface_bitmap(int width=1920, int height=1080);
             void setup_shadow_map_buffer();
             void setup_cubemapping(std::string cube_map_texture_filename="[unset-cube_map_texture_filename]");

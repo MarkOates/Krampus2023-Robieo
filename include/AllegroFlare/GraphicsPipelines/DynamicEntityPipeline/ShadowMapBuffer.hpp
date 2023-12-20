@@ -11,6 +11,7 @@
 #include <AllegroFlare/RenderSurfaces/Bitmap.hpp>
 #include <AllegroFlare/Shaders/ShadowMapping.hpp>
 #include <allegro5/allegro.h>
+#include <string>
 
 
 namespace AllegroFlare
@@ -23,6 +24,7 @@ namespace AllegroFlare
          {
          private:
             AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool* entity_pool;
+            std::string data_path_for_shaders;
             AllegroFlare::Shaders::ShadowMapping shadow_mapping_shader;
             int shadow_depth_map_surface_width;
             int shadow_depth_map_surface_height;
@@ -40,6 +42,7 @@ namespace AllegroFlare
             ~ShadowMapBuffer();
 
             AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool* get_entity_pool() const;
+            std::string get_data_path_for_shaders() const;
             int get_shadow_depth_map_surface_width() const;
             int get_shadow_depth_map_surface_height() const;
             int get_result_surface_width() const;
@@ -47,6 +50,7 @@ namespace AllegroFlare
             AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowDepthMapRenderer2 &get_shadow_depth_map_renderer_ref();
             AllegroFlare::RenderSurfaces::Bitmap &get_result_surface_ref();
             void set_entity_pool(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool* entity_pool=nullptr);
+            void set_data_path_for_shaders(std::string data_path_for_shaders="[unset-data_path_for_shaders]");
             void set_shadow_depth_map_surface_width(int width=1920);
             void set_shadow_depth_map_surface_height(int height=1920);
             void set_result_surface_width(int width=1920);

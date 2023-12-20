@@ -8,6 +8,12 @@ properties:
     getter: true
     setter: explicit
 
+  - name: data_path_for_shaders
+    type: std::string
+    init_with: '""'
+    getter: true
+    setter: explicit
+
   - name: shadow_mapping_shader
     type: AllegroFlare::Shaders::ShadowMapping
     init_with: ''
@@ -66,6 +72,17 @@ methods:
       shadow_depth_map_renderer.set_entity_pool(entity_pool);
       // TODO: Test guard
       //this->result_surface_width = result_surface_width;
+      return;
+
+
+  - name: set_data_path_for_shaders
+    parameters:
+      - name: data_path_for_shaders
+        type: std::string
+        default_argument: '"[unset-data_path_for_shaders]"'
+    guards: [ (!initialized) ]
+    body: |
+      this->data_path_for_shaders = data_path_for_shaders;
       return;
 
 
@@ -142,6 +159,7 @@ methods:
       shadow_depth_map_renderer.set_entity_pool(entity_pool);
       shadow_depth_map_renderer.init_camera_defaults(); // NOTE: The camera defaults seem to be weird
 
+      shadow_mapping_shader.set_data_path_for_shaders(data_path_for_shaders);
       shadow_mapping_shader.initialize();
 
       result_surface.set_surface_width(result_surface_width);
