@@ -44,11 +44,15 @@ TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_SceneRendererTestWit
    // Create our entity pool
    AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool entity_pool;
 
+   // Use a production shader path
+   std::string DATA_PATH_FOR_SHADERS = "/Users/markoates/Repos/Pipeline/bin/data/shaders/";
+
    // Create our graphics pipeline
    AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::SceneRenderer2 scene_renderer;
    scene_renderer.set_entity_pool(&entity_pool);
    scene_renderer.setup_result_surface_bitmap(1920 / 3, 1080 / 3);
-   scene_renderer.set_data_path_for_shaders(get_fixtures_path() + "shaders/");
+   scene_renderer.set_data_path_for_shaders(DATA_PATH_FOR_SHADERS);
+   //scene_renderer.set_data_path_for_shaders(get_fixtures_path() + "shaders/");
    scene_renderer.setup_shadow_map_buffer();
    scene_renderer.setup_cubemapping(get_fixtures_path() + "bitmaps/black_prism_1-01.png");
    scene_renderer.setup_multitexture_shader();
