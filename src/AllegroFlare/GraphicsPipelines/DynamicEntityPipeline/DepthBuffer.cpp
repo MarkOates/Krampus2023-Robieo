@@ -98,8 +98,8 @@ void DepthBuffer::setup_result_surface_bitmap(int width, int height)
 {
    render_surface.set_surface_width(width);
    render_surface.set_surface_height(height);
-   render_surface.set_multisamples(0);
-   render_surface.set_depth(32);
+   render_surface.set_multisamples(0); // Does this affect anything?
+   render_surface.set_depth(32); // Depth?
    render_surface.initialize();
 
    render_surface_is_setup = true;

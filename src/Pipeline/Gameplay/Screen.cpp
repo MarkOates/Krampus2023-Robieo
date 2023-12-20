@@ -854,21 +854,23 @@ void Screen::save_bitmap_buffers_to_files()
 {
    ALLEGRO_BITMAP *render_surface = scene_renderer.get_render_surface_ref().obtain_surface();
 
+   std::string location_for_saving_files = "/Users/markoates/Desktop/";
+
    // Save the shadow depth map render
    al_save_bitmap(
-      "/Users/markoates/Desktop/shadow_depth_map_bitmap.png",
+      (location_for_saving_files + "shadow_depth_map_bitmap.png").c_str(),
       scene_renderer.get_shadow_map_buffer_ref().get_shadow_depth_map_renderer_ref().get_result_surface_bitmap()
    );
 
    // Save the shadow_buffer
    al_save_bitmap(
-      "/Users/markoates/Desktop/shadow_buffer_bitmap.png",
+      (location_for_saving_files + "shadow_buffer_bitmap.png").c_str(),
       scene_renderer.get_shadow_map_buffer_ref().get_result_bitmap()
    );
 
    // Save the scene
    al_save_bitmap(
-      "/Users/markoates/Desktop/render_surface.png",
+      (location_for_saving_files + "render_surface.png").c_str(),
       scene_renderer.get_render_surface_ref().obtain_surface()
    );
    return;
