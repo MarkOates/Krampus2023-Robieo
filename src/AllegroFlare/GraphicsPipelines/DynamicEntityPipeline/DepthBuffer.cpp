@@ -136,8 +136,7 @@ void DepthBuffer::init_shader()
       throw std::runtime_error("DepthBuffer::init_shader: error: guard \"(!data_path_for_shaders_is_default())\" not met");
    }
    // TODO: Change this folder path
-   //std::string ROOT_PATH_TO_DATA_FOLDER = "/Users/markoates/Repos/allegro_flare/bin/";
-   std::string ROOT_PATH_TO_DATA_FOLDER = data_path_for_shaders; //"/Users/markoates/Repos/allegro_flare/bin/";
+   std::string ROOT_PATH_TO_DATA_FOLDER = data_path_for_shaders;
 
    std::string vertex_filename;
    std::string vertex_file_content;
