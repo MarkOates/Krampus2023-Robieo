@@ -12,8 +12,8 @@ namespace AllegroFlare
       class ShadowMapping : public AllegroFlare::Shaders::Base
       {
       public:
-         static constexpr char* vertex_source_filename = (char*)"start_vertex.glsl";
-         static constexpr char* fragment_source_filename = (char*)"start_fragment.glsl";
+         static constexpr char* vertex_source_filename = (char*)"shadow_mapping_vertex.glsl";
+         static constexpr char* fragment_source_filename = (char*)"shadow_mapping_fragment.glsl";
          static constexpr char* TYPE = (char*)"AllegroFlare/Shaders/ShadowMapping";
 
       private:

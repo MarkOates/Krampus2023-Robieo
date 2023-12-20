@@ -17,13 +17,13 @@ properties:
 
   - name: vertex_source_filename
     type: char*
-    init_with: '(char*)"start_vertex.glsl"'
+    init_with: '(char*)"shadow_mapping_vertex.glsl"'
     static: true
     constexpr: true
 
   - name: fragment_source_filename
     type: char*
-    init_with: '(char*)"start_fragment.glsl"'
+    init_with: '(char*)"shadow_mapping_fragment.glsl"'
     static: true
     constexpr: true
 
