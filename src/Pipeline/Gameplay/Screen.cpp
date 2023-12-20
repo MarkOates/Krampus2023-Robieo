@@ -297,6 +297,10 @@ void Screen::load_level_by_identifier(std::string level_identifier)
 
 
    //
+   // level_identifier
+   current_level_identifier = level_identifier;
+
+   //
    // Create the camera
    //
 
@@ -1155,7 +1159,7 @@ void Screen::deactivate_music_performance()
    event_emitter->emit_game_event(
       AllegroFlare::GameEvent(
          "package_delivered",
-         new AllegroFlare::GameEventDatas::String("world-1-05")
+         new AllegroFlare::GameEventDatas::String(current_level_identifier) //"world-1-05")
       )
    );
 

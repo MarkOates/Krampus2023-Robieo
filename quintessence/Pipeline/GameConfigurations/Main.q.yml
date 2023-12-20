@@ -37,6 +37,18 @@ methods:
          list_of_all_packages.insert(level_identifier);
       }
 
+
+      for (const auto& element : list_of_all_packages) {
+         if (delivered_package_identifiers.find(element) == delivered_package_identifiers.end()) {
+            // Element from set1 is not present in set2
+            return false;
+         }
+      }
+      return true;
+       //All elements from set1 are present in set2
+      //return true;
+
+
       // Validate the list is sound (has the same number of elements as the level select screen)
       if (list_of_all_packages.size() != all_levels.size())
       {

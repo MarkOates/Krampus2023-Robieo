@@ -328,6 +328,10 @@ methods:
 
 
       //
+      // level_identifier
+      current_level_identifier = level_identifier;
+
+      //
       // Create the camera
       //
 
@@ -1145,7 +1149,7 @@ methods:
       event_emitter->emit_game_event(
          AllegroFlare::GameEvent(
             "package_delivered",
-            new AllegroFlare::GameEventDatas::String("world-1-05")
+            new AllegroFlare::GameEventDatas::String(current_level_identifier) //"world-1-05")
          )
       );
 
