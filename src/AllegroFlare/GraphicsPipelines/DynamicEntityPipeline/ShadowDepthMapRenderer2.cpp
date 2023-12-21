@@ -160,7 +160,7 @@ void ShadowDepthMapRenderer2::init_shader()
 
 void ShadowDepthMapRenderer2::init_camera_defaults()
 {
-   casting_light.stepout = vec3d(0, 0, 15); // NOTE: This uses 15 meters as a z stepout
+   casting_light.stepout = vec3d(0, 0, 21); // NOTE: This uses 15 meters as a z stepout
    float light_time_of_day = 0.15f;
    casting_light.tilt = 3.141592653 * light_time_of_day; // light_time_of_day = 0.05; // sunrise
                                                          //                     0.5; // high noon
@@ -313,11 +313,6 @@ void ShadowDepthMapRenderer2::setup_transform_for_light(ALLEGRO_TRANSFORM* trans
       // quality of shadow, but will have a range of about 15-20 meters; a divisor of 2 will double that size, but
       // reduce the resolution of the shadow. Original engine had a default of 1.0f;
 
-   // Adding some rotation
-   //static float rotation = 0.0f;
-   //rotation += 0.01f;
-   //al_rotate_transform_3d(&casting_light_projection_transform, 0, 1, 0, rotation);
-
 
    al_orthographic_transform(
       transform,
@@ -326,7 +321,7 @@ void ShadowDepthMapRenderer2::setup_transform_for_light(ALLEGRO_TRANSFORM* trans
       -0.0, // was -30.0, consider making this variable
       al_get_bitmap_width(bitmap),
       -al_get_bitmap_height(bitmap),
-      -20.0 // was -30.0, consider making this variable
+      -27.0 // was -30.0, consider making this variable
    );
 
    // TODO: Remove this line:
