@@ -301,8 +301,8 @@ void ShadowMapBuffer::render()
    shadow_depth_map_renderer.setup_transform_for_light(&transform);
 
    // Set the uniforms on the shader
-   shadow_mapping_shader.set_sampler("me__depth_pass_sampler", shadow_depth_map_render, 0);
-   shadow_mapping_shader.set_mat4("me__depth_pass_transform", &transform);
+   shadow_mapping_shader.set_sampler("my_depth_pass_sampler", shadow_depth_map_render, 0);
+   shadow_mapping_shader.set_mat4("my_depth_pass_transform", &transform);
 
 
 
@@ -323,7 +323,7 @@ void ShadowMapBuffer::render()
       ALLEGRO_TRANSFORM object_transform;
 
       //al_identity_transform(&object_transform);
-      //shadow_mapping_shader->set_mat4("me__object_position_transform", &object_transform);
+      //shadow_mapping_shader->set_mat4("my_object_position_transform", &object_transform);
 
 
       // Extract the model type that is being rendered
@@ -340,7 +340,7 @@ void ShadowMapBuffer::render()
 
          // Pass along the transform to the shader
          placement->build_transform(&object_transform);
-         shadow_mapping_shader.set_mat4("me__object_position_transform", &object_transform);
+         shadow_mapping_shader.set_mat4("my_object_position_transform", &object_transform);
 
          // Draw the model (make sure the texture is nullptr, because the depth_pass_sampler is using unit 0)
          model->set_texture(nullptr);
