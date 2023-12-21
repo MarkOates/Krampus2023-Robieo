@@ -459,6 +459,39 @@ methods:
       }
 
 
+
+      // Mushrooms
+      int mushrooms_found = 0;
+      if (world_model)
+      {
+         std::string object_name = "mushroom";
+         std::string model_name = "mushroom-01.obj";
+         std::string texture_name = "mushroom-01.png";
+
+         std::vector<std::vector<AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL>> objects_vertices =
+            world_model->extract_named_objects_vertices(object_name);
+
+         for (auto &object_vertices : objects_vertices)
+         {
+             AllegroFlare::Vec3D object_position = lowest_y_vertex(object_vertices);
+
+             AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D *env = 
+                new AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D();
+             env->set_model_3d(model_bin->auto_get(world_model_obj_name));
+             env->set_model_3d_texture(bitmap_bin->auto_get(world_model_texture_name));
+             env->get_placement_ref().position = object_position;
+             //env->get_placement_ref().position.y = 0.0; // NOTE: The objects will always be placed at 0
+             entity_pool.add(env);
+
+             mushrooms_found++;
+         }
+
+          world_model->remove_named_objects(object_name);
+      }
+      std::cout << "Found " << mushrooms_found << " mushrooms" << std::endl;
+
+
+
       //
       // Load the dialog bank
       //
