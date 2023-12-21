@@ -733,6 +733,8 @@ void Screen::on_player_entity_collide(AllegroFlare::GraphicsPipelines::DynamicEn
       // TODO: Add the attribute "COLLECTED_AT"
       // TODO: Play sound effect
 
+      // TODO: Consider preventing player from collecting more than the max allowable for this item
+
       // Add item to inventory
       if (!game_progress_and_state_info) throw std::runtime_error("Gameplay::Screen::on_player_entity_collide AGH!");
       game_progress_and_state_info->add_item_to_inventory("mushroom");
