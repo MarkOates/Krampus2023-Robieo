@@ -13,7 +13,7 @@ GameProgressAndStateInfo::GameProgressAndStateInfo()
    : AllegroFlare::GameProgressAndStateInfos::Base(Pipeline::GameProgressAndStateInfo::TYPE)
    , achievement_identifiers({})
    , delivered_package_identifiers({})
-   , inventory({})
+   , inventory_item_identifiers({})
 {
 }
 
@@ -35,9 +35,9 @@ void GameProgressAndStateInfo::set_delivered_package_identifiers(std::set<std::s
 }
 
 
-void GameProgressAndStateInfo::set_inventory(std::vector<std::string> inventory)
+void GameProgressAndStateInfo::set_inventory_item_identifiers(std::vector<std::string> inventory_item_identifiers)
 {
-   this->inventory = inventory;
+   this->inventory_item_identifiers = inventory_item_identifiers;
 }
 
 
@@ -53,9 +53,9 @@ std::set<std::string> GameProgressAndStateInfo::get_delivered_package_identifier
 }
 
 
-std::vector<std::string> GameProgressAndStateInfo::get_inventory() const
+std::vector<std::string> GameProgressAndStateInfo::get_inventory_item_identifiers() const
 {
-   return inventory;
+   return inventory_item_identifiers;
 }
 
 
@@ -71,9 +71,9 @@ std::set<std::string> &GameProgressAndStateInfo::get_delivered_package_identifie
 }
 
 
-std::vector<std::string> &GameProgressAndStateInfo::get_inventory_ref()
+std::vector<std::string> &GameProgressAndStateInfo::get_inventory_item_identifiers_ref()
 {
-   return inventory;
+   return inventory_item_identifiers;
 }
 
 
@@ -91,7 +91,7 @@ void GameProgressAndStateInfo::mark_package_as_delivered(std::string delivered_p
 
 void GameProgressAndStateInfo::add_item_to_inventory(std::string item_identifier)
 {
-   inventory.push_back(item_identifier);
+   inventory_item_identifiers.push_back(item_identifier);
    return;
 }
 

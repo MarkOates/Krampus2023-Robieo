@@ -10,10 +10,12 @@ TEST(Pipeline_Testing_Comparison_Pipeline_GameProgressAndStateInfoTest,
    Pipeline::GameProgressAndStateInfo object;
    object.set_delivered_package_identifiers({"foo", "bar", "baz"});
    object.set_achievement_identifiers({"bonk", "boop"});
+   object.set_inventory_item_identifiers({"apple", "pear"});
 
    Pipeline::GameProgressAndStateInfo other_object;
    other_object.set_delivered_package_identifiers({"foo", "bar", "baz"});
    other_object.set_achievement_identifiers({"bonk", "boop"});
+   other_object.set_inventory_item_identifiers({"apple", "pear"});
 
    EXPECT_EQ(object, other_object);
 }
@@ -25,10 +27,12 @@ TEST(FadeToWhite_Testing_Comparison_FadeToWhite_GameProgressAndStateInfoTest,
    Pipeline::GameProgressAndStateInfo object;
    object.set_delivered_package_identifiers({"foo", "far", "faz"});
    object.set_achievement_identifiers({"bonk", "boop"});
+   object.set_inventory_item_identifiers({"apple", "pear"});
 
    Pipeline::GameProgressAndStateInfo other_object;
    other_object.set_delivered_package_identifiers({"foo", "far", "faz"});
    other_object.set_achievement_identifiers({"bonk", "boop"});
+   other_object.set_inventory_item_identifiers({"apple", "pear"});
 
    EXPECT_EQ(object, other_object);
 }
@@ -40,10 +44,12 @@ TEST(Pipeline_Testing_Comparison_Pipeline_GameProgressAndStateInfoTest,
    Pipeline::GameProgressAndStateInfo object;
    object.set_delivered_package_identifiers({"foo", "far", "faz"});
    object.set_achievement_identifiers({"bonk", "boop"});
+   object.set_inventory_item_identifiers({"apple", "boop"});
 
    Pipeline::GameProgressAndStateInfo other_object;
    other_object.set_delivered_package_identifiers({"booo", "barr", "bazz"});
    other_object.set_achievement_identifiers({"bonk", "boop"});
+   object.set_inventory_item_identifiers({"bananna", "orange"});
 
    EXPECT_NE(object, other_object);
 }
