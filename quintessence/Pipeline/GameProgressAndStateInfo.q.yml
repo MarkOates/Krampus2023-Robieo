@@ -23,7 +23,7 @@ properties:
     getter_ref: true
 
   - name: inventory_item_identifiers
-    type: std::vector<std::string>
+    type: std::multiset<std::string>
     init_with: '{}'
     getter: true
     setter: true
@@ -65,7 +65,7 @@ methods:
         type: std::string
         default_argument: '"[unset-item_identifier]"'
     body: |
-      inventory_item_identifiers.push_back(item_identifier);
+      inventory_item_identifiers.insert(item_identifier);
       return;
 
 
@@ -97,6 +97,8 @@ methods:
 dependencies:
 
 
+  - symbol: std::multiset
+    headers: [ set ]
   - symbol: Pipeline::Base
     headers: [ Pipeline/Base.hpp ]
   - symbol: AllegroFlare::GameProgressAndStateInfos::Base

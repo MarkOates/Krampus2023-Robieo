@@ -192,6 +192,9 @@
     "Pipeline/GameConfigurations/Main",
     "Pipeline/Gameplay/Screen"
   ],
+  "std/multiset": [
+    "Pipeline/GameProgressAndStateInfo"
+  ],
   "Pipeline/Base": [
     "Pipeline/GameProgressAndStateInfo"
   ],

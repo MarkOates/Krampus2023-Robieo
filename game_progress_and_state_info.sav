@@ -1,14 +1,5 @@
 {
   "achievement_identifiers": [],
-  "delivered_package_identifiers": [
-    "level-4-02",
-    "level-4-04",
-    "level-4-05",
-    "world-2-05",
-    "world-2-06",
-    "world-3-03",
-    "world-3-04",
-    "world-3-05",
-    "world-3-09"
-  ]
+  "delivered_package_identifiers": [],
+  "inventory_item_identifiers": []
 }

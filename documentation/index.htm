@@ -823,7 +823,7 @@ table td
 </tr>
 <tr>
   <td class="property">inventory_item_identifiers</td>
-  <td class="property">std::vector&lt;std::string&gt;</td>
+  <td class="property">std::multiset&lt;std::string&gt;</td>
 </tr>
 <tr>
   <td class="property">TYPE</td>
@@ -850,6 +850,9 @@ table td
     </table>
 </div>    <h3>Dependencies</h3>
 <div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::multiset&quot;, &quot;headers&quot;=&gt;[&quot;set&quot;]}</td>
+</tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Pipeline::Base&quot;, &quot;headers&quot;=&gt;[&quot;Pipeline/Base.hpp&quot;]}</td>
 </tr>
@@ -1716,6 +1719,9 @@ table td
   "Pipeline/Gameplay/Level": [
     "Pipeline/GameConfigurations/Main",
     "Pipeline/Gameplay/Screen"
+  ],
+  "std/multiset": [
+    "Pipeline/GameProgressAndStateInfo"
   ],
   "Pipeline/Base": [
     "Pipeline/GameProgressAndStateInfo"
