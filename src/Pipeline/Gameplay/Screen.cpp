@@ -447,9 +447,11 @@ void Screen::load_level_by_identifier(std::string level_identifier)
 
           AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D *env = 
              new AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D();
-          env->set_model_3d(model_bin->auto_get(world_model_obj_name));
-          env->set_model_3d_texture(bitmap_bin->auto_get(world_model_texture_name));
+          env->set_model_3d(model_bin->auto_get(model_name));
+          env->set_model_3d_texture(bitmap_bin->auto_get(texture_name));
           env->get_placement_ref().position = object_position;
+          env->get_placement_ref().scale = { 0.2, 0.2, 0.2 };
+          env->get_placement_ref().rotation.y = 0.01;
           //env->get_placement_ref().position.y = 0.0; // NOTE: The objects will always be placed at 0
           entity_pool.add(env);
 
