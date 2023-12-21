@@ -39,6 +39,7 @@ namespace Pipeline
          static constexpr char* TYPE = (char*)"Pipeline/Gameplay/Screen";
          static constexpr char* ATTRIBUTE_COLLECTABLE_BY_PLAYER = (char*)"collectable_by_player";
          static constexpr char* ATTRIBUTE_ITEM_TYPE = (char*)"item_type";
+         static constexpr char* ATTRIBUTE_ITEM_PICKUP_SOUND = (char*)"item_pickup_sound";
 
       private:
          enum State

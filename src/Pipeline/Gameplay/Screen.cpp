@@ -455,6 +455,7 @@ void Screen::load_level_by_identifier(std::string level_identifier)
 
           object->set(ATTRIBUTE_COLLECTABLE_BY_PLAYER);
           object->set(ATTRIBUTE_ITEM_TYPE, "mushroom");
+          object->set(ATTRIBUTE_ITEM_PICKUP_SOUND, "mushroom_pickup");
           //env->set(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityRenderFlags::RENDER_WITH_SKYBOX);
 
           //env->get_placement_ref().position.y = 0.0; // NOTE: The objects will always be placed at 0
@@ -732,6 +733,11 @@ void Screen::on_player_entity_collide(AllegroFlare::GraphicsPipelines::DynamicEn
       // TODO: Add the attribute "COLLECTED"
       // TODO: Add the attribute "COLLECTED_AT"
       // TODO: Play sound effect
+      if (colliding_entity->exists(ATTRIBUTE_ITEM_PICKUP_SOUND))
+      {
+         std::string pickup_sound_effect = colliding_entity->get(ATTRIBUTE_ITEM_PICKUP_SOUND);
+         event_emitter->emit_play_sound_effect_event(pickup_sound_effect);
+      }
 
       // TODO: Consider preventing player from collecting more than the max allowable for this item
 
