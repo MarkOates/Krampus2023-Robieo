@@ -708,7 +708,7 @@ AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D
 
    AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D *as =
       static_cast<AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D *>(
-         exit_entity
+         colliding_entity
       );
    return as;
 }
@@ -729,6 +729,9 @@ void Screen::on_player_entity_collide(AllegroFlare::GraphicsPipelines::DynamicEn
    else if (colliding_entity->exists(ATTRIBUTE_ITEM_TYPE, "mushroom"))
    {
       // TODO: collect this mushroom fam
+      delete colliding_entity;
+      entity_pool.remove(colliding_entity);
+      // TODO: Remove from "colliding" objects (if that list ever exists)
    }
    return;
 }
@@ -870,6 +873,7 @@ void Screen::update()
       // Check collidable entities
       std::vector<AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base*> collidables =
          entity_pool.find_all_with_attribute(ATTRIBUTE_COLLECTABLE_BY_PLAYER);
+      //std::cout << "collidables.size(): " << collidables.size() << std::endl; // DEBU
       for (auto &collidable : collidables)
       {
          //bool player_is_already_colliding_on_this_object = false; // TODO: Extract item from list of items
@@ -880,16 +884,13 @@ void Screen::update()
          bool player_is_currently_colliding_with_this_object = trivial_collide(
             player_entity_as->get_placement_ref().position,
             this_collidable_as->get_placement_ref().position,
-            1.0
+            0.7
          );
 
          if (player_is_currently_colliding_with_this_object)
          {
             on_player_entity_collide(this_collidable_as);
          }
-         //else
-         //{
-         //}
       }
    }
 
