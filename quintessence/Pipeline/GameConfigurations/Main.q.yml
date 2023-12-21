@@ -80,7 +80,7 @@ methods:
     body: |
       std::vector<std::pair<std::string, std::string>> result = {
          { "World 1", "world-2-06" },
-         { "World 2", "world-3-02" },
+         { "World 2", "world-3-03" },
          //{ "World 2", "world-2-01" },
          //{ "Forest Village 1", "forest_village_1" },
          //{ "Forest Village 2", "forest_village_2" },
