@@ -728,10 +728,18 @@ void Screen::on_player_entity_collide(AllegroFlare::GraphicsPipelines::DynamicEn
    }
    else if (colliding_entity->exists(ATTRIBUTE_ITEM_TYPE, "mushroom"))
    {
-      // TODO: collect this mushroom fam
-      delete colliding_entity; // TODO: Don't delete here, delete in a follow-up step
+      // Collect this mushroom
+      // TODO: Add the attribute "COLLECTED"
+      // TODO: Add the attribute "COLLECTED_AT"
+      // TODO: Play sound effect
+
+      // Add item to inventory
+      if (!game_progress_and_state_info) throw std::runtime_error("Gameplay::Screen::on_player_entity_collide AGH!");
+      game_progress_and_state_info->add_item_to_inventory("mushroom");
+
+      // Delete the entity and remove it from the scene (for now. Later, do a collect animation)
+      delete colliding_entity; // TODO: Don't delete here, delete in a follow-up pass after collision and everything
       entity_pool.remove(colliding_entity);
-      // TODO: Remove from "colliding" objects (if that list ever exists)
    }
    return;
 }
