@@ -454,7 +454,7 @@ void Screen::load_level_by_identifier(std::string level_identifier)
           object->get_placement_ref().rotation.y = 0.01;
 
           object->set(ATTRIBUTE_COLLECTABLE_BY_PLAYER);
-          object->set(ATTRIBUTE_ITEM_KIND, "mushroom");
+          object->set(ATTRIBUTE_ITEM_TYPE, "mushroom");
           //env->set(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityRenderFlags::RENDER_WITH_SKYBOX);
 
           //env->get_placement_ref().position.y = 0.0; // NOTE: The objects will always be placed at 0
@@ -696,6 +696,23 @@ AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D
    return as;
 }
 
+AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D* Screen::get_entity_as_dynamic_model_3d(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base* colliding_entity)
+{
+   if (!exit_entity->is_type(
+            AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D::TYPE
+         )
+      )
+   {
+      throw std::runtime_error("unexpected entity type not being DynamicModel3D");
+   }
+
+   AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D *as =
+      static_cast<AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D *>(
+         exit_entity
+      );
+   return as;
+}
+
 void Screen::on_player_entity_collide(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D* colliding_entity)
 {
    if (!is_state(STATE_PLAYING_GAME)) return;
@@ -709,10 +726,10 @@ void Screen::on_player_entity_collide(AllegroFlare::GraphicsPipelines::DynamicEn
    {
       call_on_finished_callback_func();
    }
-   //else if (colliding_entity == exit_entity)
-   //{
-      //call_on_finished_callback_func();
-   //}
+   else if (colliding_entity->exists(ATTRIBUTE_ITEM_TYPE, "mushroom"))
+   {
+      // TODO: collect this mushroom fam
+   }
    return;
 }
 
@@ -802,6 +819,7 @@ void Screen::update()
          light->position.z = player_entity_as->get_placement_ref().position.z;
       }
 
+      // Check collide with goal
       if (!goal_entity)
       {
          throw std::runtime_error("Pipeline::Gameplay::Screen::update: no goal_entity");
@@ -825,6 +843,7 @@ void Screen::update()
          }
       }
 
+      // Check collide with exit
       if (!exit_entity)
       {
          throw std::runtime_error("Pipeline::Gameplay::Screen::update: no exit_entity");
@@ -846,6 +865,31 @@ void Screen::update()
          {
             player_is_colliding_on_exit = false;
          }
+      }
+
+      // Check collidable entities
+      std::vector<AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base*> collidables =
+         entity_pool.find_all_with_attribute(ATTRIBUTE_COLLECTABLE_BY_PLAYER);
+      for (auto &collidable : collidables)
+      {
+         //bool player_is_already_colliding_on_this_object = false; // TODO: Extract item from list of items
+
+         AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D* this_collidable_as =
+            get_entity_as_dynamic_model_3d(collidable);
+
+         bool player_is_currently_colliding_with_this_object = trivial_collide(
+            player_entity_as->get_placement_ref().position,
+            this_collidable_as->get_placement_ref().position,
+            1.0
+         );
+
+         if (player_is_currently_colliding_with_this_object)
+         {
+            on_player_entity_collide(this_collidable_as);
+         }
+         //else
+         //{
+         //}
       }
    }
 

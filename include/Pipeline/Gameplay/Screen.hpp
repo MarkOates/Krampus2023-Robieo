@@ -38,7 +38,7 @@ namespace Pipeline
       public:
          static constexpr char* TYPE = (char*)"Pipeline/Gameplay/Screen";
          static constexpr char* ATTRIBUTE_COLLECTABLE_BY_PLAYER = (char*)"collectable_by_player";
-         static constexpr char* ATTRIBUTE_ITEM_KIND = (char*)"item_kind";
+         static constexpr char* ATTRIBUTE_ITEM_TYPE = (char*)"item_type";
 
       private:
          enum State
@@ -111,6 +111,7 @@ namespace Pipeline
          AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D* get_player_controlled_entity_as();
          AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D* get_goal_entity_as();
          AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D* get_exit_entity_as();
+         AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D* get_entity_as_dynamic_model_3d(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base* colliding_entity=nullptr);
          void on_player_entity_collide(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D* colliding_entity=nullptr);
          void update();
          void render();
