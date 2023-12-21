@@ -432,7 +432,8 @@ void Runner::setup_sound_effects_and_music(AllegroFlare::AudioController* audio_
    }
    auto &audio_controller = *audio_controller_ptr;
    std::string RESTART = AllegroFlare::AudioRepositoryElement::OVERPLAY_STRATEGY_RESTART;
-   std::string IGNORE = AllegroFlare::AudioRepositoryElement::OVERPLAY_STRATEGY_IGNORE;
+   // NOTE: For some reason "IGNORE" is already a qualified id or something on win, so have to use "__IGNORE" instead
+   std::string __IGNORE = AllegroFlare::AudioRepositoryElement::OVERPLAY_STRATEGY_IGNORE;
 
    audio_controller.set_and_load_sound_effect_elements({
      { "mushroom_pickup", { "mushroom-sound-03.ogg", false, RESTART, 0.8 } },
@@ -442,7 +443,7 @@ void Runner::setup_sound_effects_and_music(AllegroFlare::AudioController* audio_
    // TODO: Load up our music tracks
    audio_controller.set_and_load_music_track_elements({
       //std::map<std::string, AllegroFlare::AudioRepositoryElement>{
-     { "robot-holly_jolly", { "robio-sound-chip--have-a-holly-jolly--01.ogg", false, IGNORE } },
+     { "robot-holly_jolly", { "robio-sound-chip--have-a-holly-jolly--01.ogg", false, __IGNORE } },
       //}
    });
 
