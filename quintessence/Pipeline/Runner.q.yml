@@ -485,16 +485,18 @@ methods:
     guards: [ audio_controller_ptr ]
     body: |
       auto &audio_controller = *audio_controller_ptr;
+      std::string RESTART = AllegroFlare::AudioRepositoryElement::OVERPLAY_STRATEGY_RESTART;
+      std::string IGNORE = AllegroFlare::AudioRepositoryElement::OVERPLAY_STRATEGY_IGNORE;
 
       audio_controller.set_and_load_sound_effect_elements({
-        { "mushroom_pickup", { "mushroom-sound-03.ogg", false, "restart", 0.8 } },
+        { "mushroom_pickup", { "mushroom-sound-03.ogg", false, RESTART, 0.8 } },
          // { "menu_move", { "menu_move_tink-02.ogg", false, "restart" } }, // TODO: Throw on an unknown replay type
       });
 
       // TODO: Load up our music tracks
       audio_controller.set_and_load_music_track_elements({
          //std::map<std::string, AllegroFlare::AudioRepositoryElement>{
-        { "robot-holly_jolly", { "robio-sound-chip--have-a-holly-jolly--01.ogg", false, "ignore" } },
+        { "robot-holly_jolly", { "robio-sound-chip--have-a-holly-jolly--01.ogg", false, IGNORE } },
          //}
       });
 
