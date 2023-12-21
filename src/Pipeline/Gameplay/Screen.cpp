@@ -452,6 +452,9 @@ void Screen::load_level_by_identifier(std::string level_identifier)
           object->get_placement_ref().position = object_position;
           object->get_placement_ref().scale = { 0.2, 0.2, 0.2 };
           object->get_placement_ref().rotation.y = 0.01;
+
+          object->set(ATTRIBUTE_COLLECTABLE_BY_PLAYER);
+          object->set(ATTRIBUTE_ITEM_KIND, "mushroom");
           //env->set(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityRenderFlags::RENDER_WITH_SKYBOX);
 
           //env->get_placement_ref().position.y = 0.0; // NOTE: The objects will always be placed at 0
@@ -699,21 +702,17 @@ void Screen::on_player_entity_collide(AllegroFlare::GraphicsPipelines::DynamicEn
 
    if (colliding_entity == goal_entity)
    {
-      // Handle goal collision
-      //player_is_colliding_on_goal = true;
       set_state(STATE_SUSPEND_FOR_DIALOG);
       event_emitter->emit_activate_dialog_node_by_name_event("package_delivery_response");
-      //event_emitter->emit_play_music_track_event("robot-holly_jolly");
-      //call_on_finished_callback_func();
    }
-   if (colliding_entity == exit_entity)
+   else if (colliding_entity == exit_entity)
    {
-      // Handle goal collision
-      //player_is_colliding_on_goal = true;
-      //set_state(STATE_SUSPEND_FOR_DIALOG);
-      //event_emitter->emit_activate_dialog_node_by_name_event("package_delivery_response");
       call_on_finished_callback_func();
    }
+   //else if (colliding_entity == exit_entity)
+   //{
+      //call_on_finished_callback_func();
+   //}
    return;
 }
 

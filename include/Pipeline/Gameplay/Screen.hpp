@@ -37,6 +37,8 @@ namespace Pipeline
       {
       public:
          static constexpr char* TYPE = (char*)"Pipeline/Gameplay/Screen";
+         static constexpr char* ATTRIBUTE_COLLECTABLE_BY_PLAYER = (char*)"collectable_by_player";
+         static constexpr char* ATTRIBUTE_ITEM_KIND = (char*)"item_kind";
 
       private:
          enum State
