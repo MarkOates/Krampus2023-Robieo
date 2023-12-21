@@ -13,6 +13,7 @@ GameProgressAndStateInfo::GameProgressAndStateInfo()
    : AllegroFlare::GameProgressAndStateInfos::Base(Pipeline::GameProgressAndStateInfo::TYPE)
    , achievement_identifiers({})
    , delivered_package_identifiers({})
+   , inventory({})
 {
 }
 
@@ -34,6 +35,12 @@ void GameProgressAndStateInfo::set_delivered_package_identifiers(std::set<std::s
 }
 
 
+void GameProgressAndStateInfo::set_inventory(std::vector<std::string> inventory)
+{
+   this->inventory = inventory;
+}
+
+
 std::set<std::string> GameProgressAndStateInfo::get_achievement_identifiers() const
 {
    return achievement_identifiers;
@@ -43,6 +50,12 @@ std::set<std::string> GameProgressAndStateInfo::get_achievement_identifiers() co
 std::set<std::string> GameProgressAndStateInfo::get_delivered_package_identifiers() const
 {
    return delivered_package_identifiers;
+}
+
+
+std::vector<std::string> GameProgressAndStateInfo::get_inventory() const
+{
+   return inventory;
 }
 
 
@@ -58,6 +71,12 @@ std::set<std::string> &GameProgressAndStateInfo::get_delivered_package_identifie
 }
 
 
+std::vector<std::string> &GameProgressAndStateInfo::get_inventory_ref()
+{
+   return inventory;
+}
+
+
 void GameProgressAndStateInfo::mark_achievement_as_unlocked(std::string achievement_identifier)
 {
    achievement_identifiers.insert(achievement_identifier);
@@ -67,6 +86,12 @@ void GameProgressAndStateInfo::mark_achievement_as_unlocked(std::string achievem
 void GameProgressAndStateInfo::mark_package_as_delivered(std::string delivered_package_identifier)
 {
    delivered_package_identifiers.insert(delivered_package_identifier);
+   return;
+}
+
+void GameProgressAndStateInfo::add_item_to_inventory(std::string item_identifier)
+{
+   inventory.push_back(item_identifier);
    return;
 }
 
