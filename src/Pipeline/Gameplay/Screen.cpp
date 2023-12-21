@@ -729,7 +729,7 @@ void Screen::on_player_entity_collide(AllegroFlare::GraphicsPipelines::DynamicEn
    else if (colliding_entity->exists(ATTRIBUTE_ITEM_TYPE, "mushroom"))
    {
       // TODO: collect this mushroom fam
-      delete colliding_entity;
+      delete colliding_entity; // TODO: Don't delete here, delete in a follow-up step
       entity_pool.remove(colliding_entity);
       // TODO: Remove from "colliding" objects (if that list ever exists)
    }
