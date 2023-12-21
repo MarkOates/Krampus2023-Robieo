@@ -539,11 +539,8 @@ methods:
         type: std::string
         default_argument: '"[unset-achievement_identifier]"'
     body: |
-      // guards: [ game_progress_and_state_info ]
       game_progress_and_state_info.mark_achievement_as_unlocked(achievement_identifier);
-      std::string updated_save_file_content = game_progress_and_state_info.export_to_string();
-      AllegroFlare::php::file_put_contents(game_progress_and_state_info_filename, updated_save_file_content);
-      // TODO: Post some notification "saved" notification
+      save_progress();
       return;
     body_dependency_symbols:
       - AllegroFlare::UsefulPHP
@@ -555,11 +552,18 @@ methods:
         type: std::string
         default_argument: '"[unset-package_identifier]"'
     body: |
-      // guards: [ game_progress_and_state_info ]
       game_progress_and_state_info.mark_package_as_delivered(package_identifier);
+      save_progress();
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::UsefulPHP
+
+
+  - name: save_progress
+    body: |
+      // TODO: Post some notification "saved" notification
       std::string updated_save_file_content = game_progress_and_state_info.export_to_string();
       AllegroFlare::php::file_put_contents(game_progress_and_state_info_filename, updated_save_file_content);
-      // TODO: Post some notification "saved" notification
       return;
     body_dependency_symbols:
       - AllegroFlare::UsefulPHP
@@ -817,6 +821,11 @@ methods:
       );
       primary_gameplay_screen.set_on_finished_callback_func(
          [this](Pipeline::Gameplay::Screen* screen, void* data) {
+            // TODO: Test
+
+            // Save progress
+            save_progress();
+
             if (this->all_packages_are_delivered())
             {
                // TODO: Test
@@ -829,6 +838,7 @@ methods:
             }
             else
             {
+            // TODO: Test
                // "Finish" the gameplay screen
                this->router.emit_route_event(
                   AllegroFlare::Routers::Standard::EVENT_PRIMARY_GAMEPLAY_SCREEN_FINISHED,
