@@ -284,6 +284,18 @@
     "Pipeline/Gameplay/Screen",
     "Pipeline/Runner"
   ],
+  "std/cos": [
+    "Pipeline/Gameplay/Screen"
+  ],
+  "std/sin": [
+    "Pipeline/Gameplay/Screen"
+  ],
+  "std/fabs": [
+    "Pipeline/Gameplay/Screen"
+  ],
+  "std/fmod": [
+    "Pipeline/Gameplay/Screen"
+  ],
   "AllegroFlare/Routers/Standard": [
     "Pipeline/Runner"
   ],

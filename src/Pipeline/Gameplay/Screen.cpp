@@ -14,6 +14,7 @@
 #include <Pipeline/GameConfigurations/Main.hpp>
 #include <Pipeline/Gameplay/Level.hpp>
 #include <allegro5/allegro_primitives.h>
+#include <cmath>
 #include <iostream>
 #include <set>
 #include <sstream>
@@ -703,8 +704,8 @@ void Screen::update()
    {
       // Translate the player control angles to be relative to the camera
       float angle = primary_camera->spin;
-      float x_prime = player_control_velocity.x * cos(angle) - player_control_velocity.y * sin(angle);
-      float y_prime = player_control_velocity.x * sin(angle) + player_control_velocity.y * cos(angle);
+      float x_prime = player_control_velocity.x * std::cos(angle) - player_control_velocity.y * std::sin(angle);
+      float y_prime = player_control_velocity.x * std::sin(angle) + player_control_velocity.y * std::cos(angle);
 
       // Move the player
       auto player_entity_as = get_player_controlled_entity_as();
@@ -712,7 +713,7 @@ void Screen::update()
       player_entity_as->get_placement_ref().position.z += y_prime;
 
       // Update the player model rotation to face the moving direction
-      if (fabs(x_prime) + fabs(y_prime) > 0.001) // Only update the rotation if the player is moving
+      if (std::fabs(x_prime) + std::fabs(y_prime) > 0.001) // Only update the rotation if the player is moving
       {
          AllegroFlare::Vec2D prime(x_prime, y_prime);
          float angle_in_radians = prime.get_angle();
@@ -733,8 +734,8 @@ void Screen::update()
             float current_angle_in_units = player_entity_as->get_placement_ref().rotation.y;
 
             float rotation_rate = 0.1;
-            float target = fmod(target_angle_in_units, 1.0f);
-            float current = fmod(current_angle_in_units, 1.0f);
+            float target = std::fmod(target_angle_in_units, 1.0f);
+            float current = std::fmod(current_angle_in_units, 1.0f);
             float angular_distance = (target - current);
 
             // Use "angular wraparound" to ensure the player doesn't do an unnecessary full 360
