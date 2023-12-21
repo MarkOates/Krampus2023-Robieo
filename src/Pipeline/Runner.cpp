@@ -433,7 +433,7 @@ void Runner::setup_sound_effects_and_music(AllegroFlare::AudioController* audio_
    auto &audio_controller = *audio_controller_ptr;
 
    audio_controller.set_and_load_sound_effect_elements({
-     { "mushroom_pickup", { "mushroom-sound-03.ogg", false, "overplay", 0.8 } },
+     { "mushroom_pickup", { "mushroom-sound-03.ogg", false, "restart", 0.8 } },
       // { "menu_move", { "menu_move_tink-02.ogg", false, "restart" } }, // TODO: Throw on an unknown replay type
    });
 
