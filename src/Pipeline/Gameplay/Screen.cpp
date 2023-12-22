@@ -943,7 +943,8 @@ void Screen::on_player_entity_enter_collide(AllegroFlare::GraphicsPipelines::Dyn
       std::string npc_identifier = colliding_entity->get(ATTRIBUTE_NPC_IDENTIFIER);
       if (npc_identifier == NPC_FORREST_IN_THE_FOREST)
       {
-         bool mushroom_quest_is_finished = game_progress_and_state_info->is_quest_completed("mushroom_quest");
+         std::string quest_name = "mushroom_quest";
+         bool mushroom_quest_is_finished = game_progress_and_state_info->is_quest_completed(quest_name);
          if (!mushroom_quest_is_finished)
          {
             int num_mushrooms_in_inventory =
@@ -953,6 +954,7 @@ void Screen::on_player_entity_enter_collide(AllegroFlare::GraphicsPipelines::Dyn
             {
                // On completed
                std::string dialog_to_activate = Pipeline::DialogNodeBankFactory::DIALOG_FOREST_NPC_COMPLETES_QUEST;
+               game_progress_and_state_info->mark_quest_as_completed(quest_name);
                set_state(STATE_SUSPEND_FOR_DIALOG);
                event_emitter->emit_activate_dialog_node_by_name_event(dialog_to_activate);
             }
@@ -963,6 +965,13 @@ void Screen::on_player_entity_enter_collide(AllegroFlare::GraphicsPipelines::Dyn
                set_state(STATE_SUSPEND_FOR_DIALOG);
                event_emitter->emit_activate_dialog_node_by_name_event(dialog_to_activate);
             }
+         }
+         else
+         {
+            // Quest is already complete
+            std::string dialog_to_activate = Pipeline::DialogNodeBankFactory::DIALOG_FOREST_NPC_QUEST_ALREADY_COMPLETE;
+            set_state(STATE_SUSPEND_FOR_DIALOG);
+            event_emitter->emit_activate_dialog_node_by_name_event(dialog_to_activate);
          }
       }
       else
@@ -1305,6 +1314,10 @@ void Screen::game_event_func(AllegroFlare::GameEvent* game_event)
    {
       activate_music_performance(current_level_song_to_perform_identifier);
    }
+   //else if (game_event->is_type("collect_special_item"))
+   //{
+      //activate_music_performance(current_level_song_to_perform_identifier);
+   //}
    return;
 }
 

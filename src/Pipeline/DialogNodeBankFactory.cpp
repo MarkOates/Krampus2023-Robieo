@@ -112,6 +112,7 @@ AllegroFlare::DialogTree::NodeBank DialogNodeBankFactory::build_production_game_
             { // Dialog pages
                "I really like the forest.",
                "The mushrooms around here are especially wonderful.",
+               "If you can find 10 mushrooms and bring them to me, I'll might have something special for you.",
             },
             { 
                {
@@ -140,6 +141,26 @@ AllegroFlare::DialogTree::NodeBank DialogNodeBankFactory::build_production_game_
             }
          )
       },
+      {
+         DIALOG_FOREST_NPC_QUEST_ALREADY_COMPLETE,
+         new AllegroFlare::DialogTree::Nodes::MultipageWithOptions
+         (
+            "Forrest", // Blank speaker
+            { // Dialog pages
+               "Mushrooms really are great, huh?",
+            },
+            { 
+               {
+                  "Exit",
+                  new AllegroFlare::DialogTree::NodeOptions::ExitDialog(),
+                  AllegroFlare::BitFlags<uint32_t>(0)
+               },
+            }
+         )
+      },
+
+
+
 
    });
 
