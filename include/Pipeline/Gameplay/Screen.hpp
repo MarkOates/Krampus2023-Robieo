@@ -25,6 +25,7 @@
 #include <allegro5/allegro.h>
 #include <cstdint>
 #include <functional>
+#include <set>
 #include <string>
 #include <vector>
 
@@ -77,6 +78,7 @@ namespace Pipeline
          float state_changed_at;
          bool player_is_colliding_on_goal;
          bool player_is_colliding_on_exit;
+         std::set<intptr_t> entities_player_entity_is_colliding_with;
 
       protected:
 

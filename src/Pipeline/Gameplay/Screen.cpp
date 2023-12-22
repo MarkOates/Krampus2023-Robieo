@@ -56,6 +56,7 @@ Screen::Screen(AllegroFlare::Frameworks::Full* framework, AllegroFlare::EventEmi
    , state_changed_at(0.0f)
    , player_is_colliding_on_goal(false)
    , player_is_colliding_on_exit(false)
+   , entities_player_entity_is_colliding_with({})
 {
 }
 
@@ -272,6 +273,7 @@ void Screen::load_level_by_identifier(std::string level_identifier)
    player_control_velocity = { 0.0f, 0.0f };
    goal_entity = nullptr;
    exit_entity = nullptr;
+   entities_player_entity_is_colliding_with.clear();
 
 
    //
@@ -905,9 +907,35 @@ void Screen::update()
             0.7
          );
 
+         bool player_is_previously_colliding_with_this_object =
+            entities_player_entity_is_colliding_with.find((intptr_t)collidable)
+               != entities_player_entity_is_colliding_with.end();
+
          if (player_is_currently_colliding_with_this_object)
          {
-            on_player_entity_collide(this_collidable_as);
+            if (!player_is_previously_colliding_with_this_object)
+            {
+               // On enter
+               entities_player_entity_is_colliding_with.insert((intptr_t)collidable);
+               on_player_entity_collide(this_collidable_as); // TODO: Change to "...on_enter_collide"
+            }
+            else
+            {
+               // Already colliding, do nothing
+            }
+            //on_player_entity_collide(this_collidable_as);
+         }
+         else
+         {
+            if (player_is_previously_colliding_with_this_object)
+            {
+               // On exit
+               entities_player_entity_is_colliding_with.erase((intptr_t)collidable);
+            }
+            else
+            {
+               // Do nothing, no collision now or after.
+            }
          }
       }
    }
