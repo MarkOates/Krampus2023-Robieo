@@ -455,7 +455,7 @@ void Screen::load_level_by_identifier(std::string level_identifier)
           object->get_placement_ref().scale = { 0.2, 0.2, 0.2 };
           object->get_placement_ref().rotation.y = 0.01;
 
-          object->set(ATTRIBUTE_COLLECTABLE_BY_PLAYER);
+          object->set(ATTRIBUTE_COLLIDABLE_BY_PLAYER);
           object->set(ATTRIBUTE_ITEM_TYPE, "mushroom");
           object->set(ATTRIBUTE_ITEM_PICKUP_SOUND, "mushroom_pickup");
           //env->set(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityRenderFlags::RENDER_WITH_SKYBOX);
@@ -734,7 +734,9 @@ void Screen::on_player_entity_collide(AllegroFlare::GraphicsPipelines::DynamicEn
       // Collect this mushroom
       // TODO: Add the attribute "COLLECTED"
       // TODO: Add the attribute "COLLECTED_AT"
-      // TODO: Play sound effect
+      // TODO: Remove the attribute "ATTRIBUTE_COLLIDABLE_BY_PLAYER"
+
+      // Play sound effect
       if (colliding_entity->exists(ATTRIBUTE_ITEM_PICKUP_SOUND))
       {
          std::string pickup_sound_effect = colliding_entity->get(ATTRIBUTE_ITEM_PICKUP_SOUND);
@@ -750,6 +752,8 @@ void Screen::on_player_entity_collide(AllegroFlare::GraphicsPipelines::DynamicEn
       // Delete the entity and remove it from the scene (for now. Later, do a collect animation)
       delete colliding_entity; // TODO: Don't delete here, delete in a follow-up pass after collision and everything
       entity_pool.remove(colliding_entity);
+      // Remove the entity from the list of entities_player_entity_is_colliding_with
+      entities_player_entity_is_colliding_with.erase((intptr_t)colliding_entity);
    }
    return;
 }
@@ -892,7 +896,7 @@ void Screen::update()
 
       // Check collidable entities
       std::vector<AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base*> collidables =
-         entity_pool.find_all_with_attribute(ATTRIBUTE_COLLECTABLE_BY_PLAYER);
+         entity_pool.find_all_with_attribute(ATTRIBUTE_COLLIDABLE_BY_PLAYER);
       //std::cout << "collidables.size(): " << collidables.size() << std::endl; // DEBU
       for (auto &collidable : collidables)
       {
@@ -921,7 +925,8 @@ void Screen::update()
             }
             else
             {
-               // Already colliding, do nothing
+               // Already colliding, do nothing.
+               // TODO: Maybe have a collided_at for certain collision objects?
             }
             //on_player_entity_collide(this_collidable_as);
          }
@@ -930,7 +935,9 @@ void Screen::update()
             if (player_is_previously_colliding_with_this_object)
             {
                // On exit
+               // TODO: Consider checking presence before erasing (?)
                entities_player_entity_is_colliding_with.erase((intptr_t)collidable);
+               // TODO: Maybe have a exited_collision_at for certain collision objects?
             }
             else
             {
