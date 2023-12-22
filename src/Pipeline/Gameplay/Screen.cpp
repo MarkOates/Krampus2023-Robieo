@@ -557,8 +557,7 @@ void Screen::load_level_by_identifier(std::string level_identifier)
 
 
       // TODO: Link them together
-      portal_1->set(ATTRIBUTE_RELATED_PORTAL, (void*)portal_2);
-      portal_2->set(ATTRIBUTE_RELATED_PORTAL, (void*)portal_1);
+      // TODO: Make a list of paired portals
 
 
       // Add them to the pool
@@ -828,6 +827,10 @@ void Screen::on_player_entity_collide(AllegroFlare::GraphicsPipelines::DynamicEn
    else if (colliding_entity == exit_entity)
    {
       call_on_finished_callback_func();
+   }
+   else if (colliding_entity->exists(ATTRIBUTE_IS_PORTAL))
+   {
+      // TODO: Find associated portal
    }
    else if (colliding_entity->exists(ATTRIBUTE_ITEM_TYPE, "mushroom"))
    {

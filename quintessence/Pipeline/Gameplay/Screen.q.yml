@@ -167,12 +167,6 @@ properties:
     static: true
     constexpr: true
 
-  - name: ATTRIBUTE_RELATED_PORTAL
-    type: char*
-    init_with: '(char*)"related_portal"'
-    static: true
-    constexpr: true
-
 
 enums:
 
@@ -620,8 +614,7 @@ methods:
 
 
          // TODO: Link them together
-         portal_1->set(ATTRIBUTE_RELATED_PORTAL, (void*)portal_2);
-         portal_2->set(ATTRIBUTE_RELATED_PORTAL, (void*)portal_1);
+         // TODO: Make a list of paired portals
 
 
          // Add them to the pool
@@ -852,6 +845,10 @@ methods:
       else if (colliding_entity == exit_entity)
       {
          call_on_finished_callback_func();
+      }
+      else if (colliding_entity->exists(ATTRIBUTE_IS_PORTAL))
+      {
+         // TODO: Find associated portal
       }
       else if (colliding_entity->exists(ATTRIBUTE_ITEM_TYPE, "mushroom"))
       {
