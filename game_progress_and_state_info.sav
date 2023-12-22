@@ -1,19 +1,8 @@
 {
   "achievement_identifiers": [],
-  "completed_quest_identifiers": [
-    "mushroom_quest"
+  "completed_quest_identifiers": [ ],
+  "delivered_package_identifiers": [
+    "level-4-06"
   ],
-  "delivered_package_identifiers": [],
-  "inventory_item_identifiers": [
-    "mushroom",
-    "mushroom",
-    "mushroom",
-    "mushroom",
-    "mushroom",
-    "mushroom",
-    "mushroom",
-    "mushroom",
-    "mushroom",
-    "mushroom"
-  ]
+  "inventory_item_identifiers": []
 }
