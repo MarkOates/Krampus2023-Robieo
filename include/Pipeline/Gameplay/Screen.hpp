@@ -26,6 +26,7 @@
 #include <allegro5/allegro.h>
 #include <cstdint>
 #include <functional>
+#include <map>
 #include <set>
 #include <string>
 #include <vector>
@@ -80,7 +81,8 @@ namespace Pipeline
          float state_changed_at;
          bool player_is_colliding_on_goal;
          bool player_is_colliding_on_exit;
-         std::set<intptr_t> entities_player_entity_is_colliding_with;
+         std::set<AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base*> entities_player_entity_is_colliding_with;
+         std::map<AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base*, AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base*> portal_entity_associations;
 
       protected:
 

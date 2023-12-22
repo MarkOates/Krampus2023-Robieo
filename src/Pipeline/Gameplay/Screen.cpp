@@ -58,6 +58,7 @@ Screen::Screen(AllegroFlare::Frameworks::Full* framework, AllegroFlare::EventEmi
    , player_is_colliding_on_goal(false)
    , player_is_colliding_on_exit(false)
    , entities_player_entity_is_colliding_with({})
+   , portal_entity_associations({})
 {
 }
 
@@ -312,6 +313,7 @@ void Screen::load_level_by_identifier(std::string level_identifier)
    goal_entity = nullptr;
    exit_entity = nullptr;
    entities_player_entity_is_colliding_with.clear();
+   portal_entity_associations.clear();
 
 
    //
@@ -558,6 +560,9 @@ void Screen::load_level_by_identifier(std::string level_identifier)
 
       // TODO: Link them together
       // TODO: Make a list of paired portals
+      // TODO: Make sure entity does not already have a key present exist
+      portal_entity_associations[portal_2] = portal_1;
+      portal_entity_associations[portal_1] = portal_2;
 
 
       // Add them to the pool
@@ -856,7 +861,7 @@ void Screen::on_player_entity_collide(AllegroFlare::GraphicsPipelines::DynamicEn
       delete colliding_entity; // TODO: Don't delete here, delete in a follow-up pass after collision and everything
       entity_pool.remove(colliding_entity);
       // Remove the entity from the list of entities_player_entity_is_colliding_with
-      entities_player_entity_is_colliding_with.erase((intptr_t)colliding_entity);
+      entities_player_entity_is_colliding_with.erase(colliding_entity);
    }
    return;
 }
@@ -1015,7 +1020,7 @@ void Screen::update()
          );
 
          bool player_is_previously_colliding_with_this_object =
-            entities_player_entity_is_colliding_with.find((intptr_t)collidable)
+            entities_player_entity_is_colliding_with.find(collidable)
                != entities_player_entity_is_colliding_with.end();
 
          if (player_is_currently_colliding_with_this_object)
@@ -1023,7 +1028,7 @@ void Screen::update()
             if (!player_is_previously_colliding_with_this_object)
             {
                // On enter
-               entities_player_entity_is_colliding_with.insert((intptr_t)collidable);
+               entities_player_entity_is_colliding_with.insert(collidable);
                on_player_entity_collide(this_collidable_as); // TODO: Change to "...on_enter_collide"
             }
             else
@@ -1039,7 +1044,7 @@ void Screen::update()
             {
                // On exit
                // TODO: Consider checking presence before erasing (?)
-               entities_player_entity_is_colliding_with.erase((intptr_t)collidable);
+               entities_player_entity_is_colliding_with.erase(collidable);
                // TODO: Maybe have a exited_collision_at for certain collision objects?
             }
             else
