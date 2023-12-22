@@ -772,12 +772,14 @@ void Screen::update()
    //player_control_velocity.x = -0.001;
    bool lock_light_on_player_controlled_entity = true;
    bool lock_camera_on_player_controlled_entity = true;
+
    if (player_controlled_entity)
    {
+      AllegroFlare::Vec2D controlled_entity_velocity = player_control_velocity * 0.04;
       // Translate the player control angles to be relative to the camera
       float angle = primary_camera->spin;
-      float x_prime = player_control_velocity.x * std::cos(angle) - player_control_velocity.y * std::sin(angle);
-      float y_prime = player_control_velocity.x * std::sin(angle) + player_control_velocity.y * std::cos(angle);
+      float x_prime = controlled_entity_velocity.x * std::cos(angle) - controlled_entity_velocity.y * std::sin(angle);
+      float y_prime = controlled_entity_velocity.x * std::sin(angle) + controlled_entity_velocity.y * std::cos(angle);
 
       // Move the player
       auto player_entity_as = get_player_controlled_entity_as();
@@ -1117,7 +1119,7 @@ void Screen::key_down_func(ALLEGRO_EVENT* ev)
    if (!is_state(STATE_PLAYING_GAME)) return;
 
    // Normal gameplay controls
-   float player_velocity = 0.04;
+   float player_velocity = 1.0; // Was 0.04
    switch(ev->keyboard.keycode)
    {
       case ALLEGRO_KEY_UP: {
@@ -1157,6 +1159,106 @@ void Screen::key_down_func(ALLEGRO_EVENT* ev)
 
       default: {
          //attempt_an_action_at(ev->keyboard.keycode);
+      } break;
+   }
+
+   return;
+}
+
+void Screen::joy_button_down_func(ALLEGRO_EVENT* ev)
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::joy_button_down_func]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::joy_button_down_func: error: guard \"initialized\" not met");
+   }
+   if (!(ev))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::joy_button_down_func]: error: guard \"ev\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::joy_button_down_func: error: guard \"ev\" not met");
+   }
+   if (!(event_emitter))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::joy_button_down_func]: error: guard \"event_emitter\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::joy_button_down_func: error: guard \"event_emitter\" not met");
+   }
+   // Cancel out of music performance
+   if (is_state(STATE_PERFORMING_MUSIC))
+   {
+      //switch(ev->joystick.keycode)
+      //{
+         //case ALLEGRO_KEY_X: {
+            //deactivate_music_performance();
+         //} break;
+
+         //default: {
+            //deactivate_music_performance();
+         //} break;
+      //}
+   }
+
+   if (!is_state(STATE_PLAYING_GAME)) return;
+
+   return;
+}
+
+void Screen::joy_axis_func(ALLEGRO_EVENT* ev)
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::joy_axis_func]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::joy_axis_func: error: guard \"initialized\" not met");
+   }
+   if (!(ev))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::joy_axis_func]: error: guard \"ev\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::joy_axis_func: error: guard \"ev\" not met");
+   }
+   if (!(event_emitter))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::joy_axis_func]: error: guard \"event_emitter\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::joy_axis_func: error: guard \"event_emitter\" not met");
+   }
+   if (!is_state(STATE_PLAYING_GAME)) return;
+
+   //std::cout << "joy event (" << ev->joystick.id << ")" << std::endl;
+   //std::cout << "   stick: " << ev->joystick.stick << std::endl;
+   //std::cout << "   axis: " << ev->joystick.axis << std::endl;
+   //std::cout << "   pos: " << ev->joystick.pos << std::endl;
+
+   int stick = ev->joystick.stick;
+   int axis = ev->joystick.axis;
+   float pos = ev->joystick.pos;
+   switch (stick)
+   {
+      case 0: { // The primary joystick, on the left
+        if (axis == 0) // horizontal axis
+        {
+           player_control_velocity.x = pos;
+           
+        }
+        else if (axis == 1)
+        {
+           player_control_velocity.y = pos;
+        }
+      } break;
+
+      case 1: { // The secondary joystick, on the right
+      } break;
+
+      case 2: { // The hat, on the left
       } break;
    }
 
