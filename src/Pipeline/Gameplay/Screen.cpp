@@ -864,18 +864,59 @@ void Screen::on_player_entity_collide(AllegroFlare::GraphicsPipelines::DynamicEn
 
 void Screen::on_player_entity_enter_collide(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D* colliding_entity)
 {
+   if (!(player_controlled_entity))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::on_player_entity_enter_collide]: error: guard \"player_controlled_entity\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::on_player_entity_enter_collide: error: guard \"player_controlled_entity\" not met");
+   }
    if (!is_state(STATE_PLAYING_GAME)) return;
 
    if (colliding_entity->exists(ATTRIBUTE_IS_PORTAL))
    {
       // TODO: Find teleport to next portal
       // Find this portal in list of portals
+      AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D* this_portal =
+         colliding_entity;
+      AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D* target_portal = nullptr;
+      
       // Get the correlated portal
+      // TODO: Confirm exists
+      if (portal_entity_associations.find(this_portal) == portal_entity_associations.end())
+      {
+         // This portal doesn't have an entry in the "portal_entity_associations"
+         AllegroFlare::Logger::throw_error(
+            "Pipeline::Gameplay::Screen::on_player_entity_enter_collide",
+            "Expecting there to be an entry for portal (to find the correlated destination portal) but there was "
+               "none in the list."
+         );
+      }
+      target_portal = portal_entity_associations[this_portal];
+      if (!target_portal)
+      {
+         // This portal doesn't have an entry in the "portal_entity_associations"
+         AllegroFlare::Logger::throw_error(
+            "Pipeline::Gameplay::Screen::on_player_entity_enter_collide",
+            "The portal was found in the list of \"portal_entity_associations\" but its target portal was a nullptr."
+         );
+      }
+
       // Extract the correlated portal's position
+      AllegroFlare::Vec3D target_portal_position = target_portal->get_placement_ref().position;
+
       // Place the player character at the destiation portal
-      // add to "colliding_with"
+      get_player_controlled_entity_as()->get_placement_ref().position = target_portal_position;
+
+      // Add target_portal to "colliding_with"
          // consider that the calling loop could process a "continuing to collide with" on this entered portal or not
-      // remove current portal from "colliding_with"
+      // TODO: Confirm is not already in the list
+      entities_player_entity_is_colliding_with.insert(target_portal);
+      
+      // Remove the this_portal from "colliding_with"
+      // TODO: Confirm is already in the list
+      // TODO: Confirm is removed from list
+      entities_player_entity_is_colliding_with.erase(this_portal);
    }
    return;
 }

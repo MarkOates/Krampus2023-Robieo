@@ -82,7 +82,7 @@ namespace Pipeline
          bool player_is_colliding_on_goal;
          bool player_is_colliding_on_exit;
          std::set<AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base*> entities_player_entity_is_colliding_with;
-         std::map<AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base*, AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base*> portal_entity_associations;
+         std::map<AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D*, AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D*> portal_entity_associations;
 
       protected:
 
