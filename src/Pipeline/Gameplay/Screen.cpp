@@ -820,7 +820,7 @@ AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D
    return as;
 }
 
-void Screen::on_player_entity_collide(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D* colliding_entity)
+void Screen::on_player_entity_raw_collide(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D* colliding_entity)
 {
    if (!is_state(STATE_PLAYING_GAME)) return;
 
@@ -832,32 +832,6 @@ void Screen::on_player_entity_collide(AllegroFlare::GraphicsPipelines::DynamicEn
    else if (colliding_entity == exit_entity)
    {
       call_on_finished_callback_func();
-   }
-   else if (colliding_entity->exists(ATTRIBUTE_ITEM_TYPE, "mushroom"))
-   {
-      // Collect this mushroom
-      // TODO: Add the attribute "COLLECTED"
-      // TODO: Add the attribute "COLLECTED_AT"
-      // TODO: Remove the attribute "ATTRIBUTE_COLLIDABLE_BY_PLAYER"
-
-      // Play sound effect
-      if (colliding_entity->exists(ATTRIBUTE_ITEM_PICKUP_SOUND))
-      {
-         std::string pickup_sound_effect = colliding_entity->get(ATTRIBUTE_ITEM_PICKUP_SOUND);
-         event_emitter->emit_play_sound_effect_event(pickup_sound_effect);
-      }
-
-      // TODO: Consider preventing player from collecting more than the max allowable for this item
-
-      // Add item to inventory
-      if (!game_progress_and_state_info) throw std::runtime_error("Gameplay::Screen::on_player_entity_collide AGH!");
-      game_progress_and_state_info->add_item_to_inventory("mushroom");
-
-      // Delete the entity and remove it from the scene (for now. Later, do a collect animation)
-      delete colliding_entity; // TODO: Don't delete here, delete in a follow-up pass after collision and everything
-      entity_pool.remove(colliding_entity);
-      // Remove the entity from the list of entities_player_entity_is_colliding_with
-      entities_player_entity_is_colliding_with.erase(colliding_entity);
    }
    return;
 }
@@ -917,6 +891,32 @@ void Screen::on_player_entity_enter_collide(AllegroFlare::GraphicsPipelines::Dyn
       // TODO: Confirm is already in the list
       // TODO: Confirm is removed from list
       entities_player_entity_is_colliding_with.erase(this_portal);
+   }
+   else if (colliding_entity->exists(ATTRIBUTE_ITEM_TYPE, "mushroom"))
+   {
+      // Collect this mushroom
+      // TODO: Add the attribute "COLLECTED"
+      // TODO: Add the attribute "COLLECTED_AT"
+      // TODO: Remove the attribute "ATTRIBUTE_COLLIDABLE_BY_PLAYER"
+
+      // Play sound effect
+      if (colliding_entity->exists(ATTRIBUTE_ITEM_PICKUP_SOUND))
+      {
+         std::string pickup_sound_effect = colliding_entity->get(ATTRIBUTE_ITEM_PICKUP_SOUND);
+         event_emitter->emit_play_sound_effect_event(pickup_sound_effect);
+      }
+
+      // TODO: Consider preventing player from collecting more than the max allowable for this item
+
+      // Add item to inventory
+      if (!game_progress_and_state_info) throw std::runtime_error("Gameplay::Screen::on_player_entity_raw_collide AGH!");
+      game_progress_and_state_info->add_item_to_inventory("mushroom");
+
+      // Delete the entity and remove it from the scene (for now. Later, do a collect animation)
+      delete colliding_entity; // TODO: Don't delete here, delete in a follow-up pass after collision and everything
+      entity_pool.remove(colliding_entity);
+      // Remove the entity from the list of entities_player_entity_is_colliding_with
+      entities_player_entity_is_colliding_with.erase(colliding_entity);
    }
    return;
 }
@@ -1032,7 +1032,7 @@ void Screen::update()
          );
          if (collides)
          {
-            if (!player_is_colliding_on_goal) on_player_entity_collide(goal_entity_as);
+            if (!player_is_colliding_on_goal) on_player_entity_raw_collide(goal_entity_as);
             player_is_colliding_on_goal = true;
          }
          else
@@ -1056,7 +1056,7 @@ void Screen::update()
          );
          if (collides)
          {
-            if (!player_is_colliding_on_exit) on_player_entity_collide(exit_entity_as);
+            if (!player_is_colliding_on_exit) on_player_entity_raw_collide(exit_entity_as);
             player_is_colliding_on_exit = true;
          }
          else
