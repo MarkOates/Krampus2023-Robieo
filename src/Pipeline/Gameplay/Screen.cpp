@@ -248,14 +248,14 @@ AllegroFlare::Vec3D Screen::lowest_y_vertex(std::vector<AllegroFlare::ALLEGRO_VE
    return AllegroFlare::Vec3D{result.x, result.y, result.z};
 }
 
-void Screen::find_portal_named_object_identifiers(AllegroFlare::Model3D* world_model)
+std::set<std::string> Screen::find_named_object_identifiers_for_portals(AllegroFlare::Model3D* world_model)
 {
    if (!(world_model))
    {
       std::stringstream error_message;
-      error_message << "[Screen::find_portal_named_object_identifiers]: error: guard \"world_model\" not met.";
+      error_message << "[Screen::find_named_object_identifiers_for_portals]: error: guard \"world_model\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::find_portal_named_object_identifiers: error: guard \"world_model\" not met");
+      throw std::runtime_error("Screen::find_named_object_identifiers_for_portals: error: guard \"world_model\" not met");
    }
    std::set<std::string> portal_names;
    std::vector<AllegroFlare::Model3D::named_object> &named_objects = world_model->named_objects;
@@ -282,7 +282,7 @@ void Screen::find_portal_named_object_identifiers(AllegroFlare::Model3D* world_m
       }
    }
 
-   return;
+   return portal_names;
 }
 
 void Screen::load_level_by_identifier(std::string level_identifier)
@@ -507,6 +507,33 @@ void Screen::load_level_by_identifier(std::string level_identifier)
        world_model->remove_named_objects(object_name);
    }
    std::cout << "Found " << mushrooms_found << " mushrooms" << std::endl;
+
+
+
+   // Portals
+   std::set<std::string> portal_identifiers = find_named_object_identifiers_for_portals(world_model);
+
+   for (auto &portal_identifier : portal_identifiers)
+   {
+      std::vector<std::vector<AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL>> objects_vertices =
+         world_model->extract_named_objects_vertices(portal_identifier);
+
+      // Validate there are exactly 2
+      if (objects_vertices.size() != 2)
+      {
+         AllegroFlare::Logger::throw_error(
+            "Pipeline::Gameplay::Screen::load_level_by_identifier",
+            "Expecting there to be only 2 objects with a portal name, but there were \""
+               + std::to_string(objects_vertices.size()) + "\" with the name \"" + portal_identifier + "\""
+         );
+      }
+
+      std::vector<AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL> portal_1_vertices = objects_vertices[0];
+
+
+
+      std::vector<AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL> portal_2_vertices = objects_vertices[1];
+   }
 
 
 
