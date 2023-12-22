@@ -42,3 +42,15 @@ TEST(Pipeline_GameProgressAndStateInfoTest, is_quest_completed__will_return_true
 }
 
 
+TEST(Pipeline_GameProgressAndStateInfoTest,
+   count_num_items_in_inventory_with_identifier__will_return_the_number_of_a_particular_item_in_the_inventory)
+{
+   Pipeline::GameProgressAndStateInfo game_progress_and_state_info;
+   game_progress_and_state_info.add_item_to_inventory("mushroom");
+   game_progress_and_state_info.add_item_to_inventory("mushroom");
+   game_progress_and_state_info.add_item_to_inventory("mushroom");
+   game_progress_and_state_info.add_item_to_inventory("mushroom");
+   EXPECT_EQ(4, game_progress_and_state_info.count_num_items_in_inventory_with_identifier("mushroom"));
+}
+
+

@@ -86,6 +86,16 @@ methods:
       return;
 
 
+  - name: count_num_items_in_inventory_with_identifier
+    type: int
+    parameters:
+      - name: item_identifier
+        type: std::string
+        default_argument: '"[unset-item_identifier]"'
+    body: |
+      return inventory_item_identifiers.count(item_identifier);
+
+
   - name: is_quest_completed
     type: bool
     parameters:

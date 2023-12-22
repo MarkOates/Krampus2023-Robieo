@@ -120,6 +120,11 @@ void GameProgressAndStateInfo::add_item_to_inventory(std::string item_identifier
    return;
 }
 
+int GameProgressAndStateInfo::count_num_items_in_inventory_with_identifier(std::string item_identifier)
+{
+   return inventory_item_identifiers.count(item_identifier);
+}
+
 bool GameProgressAndStateInfo::is_quest_completed(std::string completed_quest_identifier)
 {
    return (completed_quest_identifiers.find(completed_quest_identifier) != completed_quest_identifiers.end());

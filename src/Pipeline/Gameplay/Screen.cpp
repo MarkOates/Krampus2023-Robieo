@@ -943,9 +943,13 @@ void Screen::on_player_entity_enter_collide(AllegroFlare::GraphicsPipelines::Dyn
       std::string npc_identifier = colliding_entity->get(ATTRIBUTE_NPC_IDENTIFIER);
       if (npc_identifier == NPC_FORREST_IN_THE_FOREST)
       {
-         std::string dialog_to_activate = Pipeline::DialogNodeBankFactory::DIALOG_FOREST_NPC_LIKES_MUSHROOMS;
-         set_state(STATE_SUSPEND_FOR_DIALOG);
-         event_emitter->emit_activate_dialog_node_by_name_event(dialog_to_activate);
+         bool mushroom_quest_is_finished = game_progress_and_state_info->is_quest_completed("mushroom_quest");
+         if (!mushroom_quest_is_finished)
+         {
+            std::string dialog_to_activate = Pipeline::DialogNodeBankFactory::DIALOG_FOREST_NPC_LIKES_MUSHROOMS;
+            set_state(STATE_SUSPEND_FOR_DIALOG);
+            event_emitter->emit_activate_dialog_node_by_name_event(dialog_to_activate);
+         }
       }
       else
       {

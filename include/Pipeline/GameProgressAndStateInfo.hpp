@@ -42,6 +42,7 @@ namespace Pipeline
       void mark_package_as_delivered(std::string delivered_package_identifier="[unset-delivered_package_identifier]");
       void mark_quest_as_completed(std::string completed_quest_identifier="[unset-completed_quest_identifier]");
       void add_item_to_inventory(std::string item_identifier="[unset-item_identifier]");
+      int count_num_items_in_inventory_with_identifier(std::string item_identifier="[unset-item_identifier]");
       bool is_quest_completed(std::string completed_quest_identifier="[unset-completed_quest_identifier]");
       virtual std::string export_to_string() override;
       virtual void import_from_string(std::string data_string="[unset-data_string]") override;
