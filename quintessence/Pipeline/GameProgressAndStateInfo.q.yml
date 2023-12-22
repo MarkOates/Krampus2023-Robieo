@@ -29,6 +29,13 @@ properties:
     setter: true
     getter_ref: true
 
+  - name: completed_quest_identifiers
+    type: std::set<std::string>
+    init_with: '{}'
+    getter: true
+    setter: true
+    getter_ref: true
+
   - name: TYPE
     type: char*
     init_with: '(char*)"Pipeline/GameProgressAndStateInfo"'
@@ -59,6 +66,16 @@ methods:
       return;
 
 
+  - name: mark_quest_as_completed
+    parameters:
+      - name: completed_quest_identifier
+        type: std::string
+        default_argument: '"[unset-completed_quest_identifier]"'
+    body: |
+      completed_quest_identifiers.insert(completed_quest_identifier);
+      return;
+
+
   - name: add_item_to_inventory
     parameters:
       - name: item_identifier
@@ -67,6 +84,16 @@ methods:
     body: |
       inventory_item_identifiers.insert(item_identifier);
       return;
+
+
+  - name: is_quest_completed
+    type: bool
+    parameters:
+      - name: completed_quest_identifier
+        type: std::string
+        default_argument: '"[unset-completed_quest_identifier]"'
+    body: |
+      return (completed_quest_identifiers.find(completed_quest_identifier) != completed_quest_identifiers.end());
 
 
   - name: export_to_string

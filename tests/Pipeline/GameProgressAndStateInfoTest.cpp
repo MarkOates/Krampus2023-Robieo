@@ -26,3 +26,19 @@ TEST(Pipeline_GameProgressAndStateInfoTest, type__has_the_expected_value_matchin
 }
 
 
+TEST(Pipeline_GameProgressAndStateInfoTest,
+   is_quest_completed__will_return_false_if_the_quest_identifier_is_not_in_the_list)
+{
+   Pipeline::GameProgressAndStateInfo game_progress_and_state_info;
+   EXPECT_EQ(false, game_progress_and_state_info.is_quest_completed("a_quest_identifier_that_is_not_yet_finished"));
+}
+
+
+TEST(Pipeline_GameProgressAndStateInfoTest, is_quest_completed__will_return_true_if_the_quest_identifier_is_in_the_list)
+{
+   Pipeline::GameProgressAndStateInfo game_progress_and_state_info;
+   game_progress_and_state_info.mark_quest_as_completed("a_completed_quest");
+   EXPECT_EQ(true, game_progress_and_state_info.is_quest_completed("a_completed_quest"));
+}
+
+

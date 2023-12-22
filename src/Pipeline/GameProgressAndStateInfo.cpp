@@ -14,6 +14,7 @@ GameProgressAndStateInfo::GameProgressAndStateInfo()
    , achievement_identifiers({})
    , delivered_package_identifiers({})
    , inventory_item_identifiers({})
+   , completed_quest_identifiers({})
 {
 }
 
@@ -41,6 +42,12 @@ void GameProgressAndStateInfo::set_inventory_item_identifiers(std::multiset<std:
 }
 
 
+void GameProgressAndStateInfo::set_completed_quest_identifiers(std::set<std::string> completed_quest_identifiers)
+{
+   this->completed_quest_identifiers = completed_quest_identifiers;
+}
+
+
 std::set<std::string> GameProgressAndStateInfo::get_achievement_identifiers() const
 {
    return achievement_identifiers;
@@ -56,6 +63,12 @@ std::set<std::string> GameProgressAndStateInfo::get_delivered_package_identifier
 std::multiset<std::string> GameProgressAndStateInfo::get_inventory_item_identifiers() const
 {
    return inventory_item_identifiers;
+}
+
+
+std::set<std::string> GameProgressAndStateInfo::get_completed_quest_identifiers() const
+{
+   return completed_quest_identifiers;
 }
 
 
@@ -77,6 +90,12 @@ std::multiset<std::string> &GameProgressAndStateInfo::get_inventory_item_identif
 }
 
 
+std::set<std::string> &GameProgressAndStateInfo::get_completed_quest_identifiers_ref()
+{
+   return completed_quest_identifiers;
+}
+
+
 void GameProgressAndStateInfo::mark_achievement_as_unlocked(std::string achievement_identifier)
 {
    achievement_identifiers.insert(achievement_identifier);
@@ -89,10 +108,21 @@ void GameProgressAndStateInfo::mark_package_as_delivered(std::string delivered_p
    return;
 }
 
+void GameProgressAndStateInfo::mark_quest_as_completed(std::string completed_quest_identifier)
+{
+   completed_quest_identifiers.insert(completed_quest_identifier);
+   return;
+}
+
 void GameProgressAndStateInfo::add_item_to_inventory(std::string item_identifier)
 {
    inventory_item_identifiers.insert(item_identifier);
    return;
+}
+
+bool GameProgressAndStateInfo::is_quest_completed(std::string completed_quest_identifier)
+{
+   return (completed_quest_identifiers.find(completed_quest_identifier) != completed_quest_identifiers.end());
 }
 
 std::string GameProgressAndStateInfo::export_to_string()
