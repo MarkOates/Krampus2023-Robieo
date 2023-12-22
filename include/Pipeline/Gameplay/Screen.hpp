@@ -13,6 +13,7 @@
 #include <AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/DynamicModel3D.hpp>
 #include <AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityPool.hpp>
 #include <AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer2.hpp>
+#include <AllegroFlare/Model3D.hpp>
 #include <AllegroFlare/ModelBin.hpp>
 #include <AllegroFlare/Player.hpp>
 #include <AllegroFlare/Screens/Base.hpp>
@@ -107,6 +108,7 @@ namespace Pipeline
          void set_primary_camera_to_music_performance_view();
          AllegroFlare::DialogTree::NodeBank build_dialog_node_bank();
          AllegroFlare::Vec3D lowest_y_vertex(std::vector<AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL> vertices={});
+         void find_portal_named_object_identifiers(AllegroFlare::Model3D* world_model=nullptr);
          void load_level_by_identifier(std::string level_identifier="[unset-level_identifier]");
          void initialize();
          virtual void on_activate() override;

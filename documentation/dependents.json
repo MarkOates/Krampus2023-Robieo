@@ -95,7 +95,8 @@
   ],
   "AllegroFlare/Model3D": [
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer2",
-    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowMapBuffer"
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowMapBuffer",
+    "Pipeline/Gameplay/Screen"
   ],
   "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/Camera3D": [
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer2",
@@ -125,6 +126,7 @@
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowMapBuffer",
     "AllegroFlare/Shaders/ShadowMapping",
     "Pipeline/GameConfigurations/Main",
+    "Pipeline/Gameplay/Screen",
     "Pipeline/Runner"
   ],
   "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowMapBuffer": [

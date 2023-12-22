@@ -10,6 +10,7 @@
 #include <AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityFactory.hpp>
 #include <AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityRenderFlags.hpp>
 #include <AllegroFlare/Interpolators.hpp>
+#include <AllegroFlare/Logger.hpp>
 #include <Pipeline/DialogNodeBankFactory.hpp>
 #include <Pipeline/GameConfigurations/Main.hpp>
 #include <Pipeline/Gameplay/Level.hpp>
@@ -245,6 +246,43 @@ AllegroFlare::Vec3D Screen::lowest_y_vertex(std::vector<AllegroFlare::ALLEGRO_VE
       if (vertex.y < result.y) result = vertex;
    }
    return AllegroFlare::Vec3D{result.x, result.y, result.z};
+}
+
+void Screen::find_portal_named_object_identifiers(AllegroFlare::Model3D* world_model)
+{
+   if (!(world_model))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::find_portal_named_object_identifiers]: error: guard \"world_model\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::find_portal_named_object_identifiers: error: guard \"world_model\" not met");
+   }
+   std::set<std::string> portal_names;
+   std::vector<AllegroFlare::Model3D::named_object> &named_objects = world_model->named_objects;
+   for (auto &named_object : named_objects)
+   {
+      std::string identifier = named_object.identifier;
+      if (identifier.compare(0, 7, "portal-") == 0)
+      {
+         portal_names.insert(identifier);
+      }
+   }
+
+   // Verify there are two of each
+   for (auto &portal_name : portal_names)
+   {
+      int num_with_name = world_model->count_num_named_objects_with_name(portal_name);
+      if (num_with_name != 2)
+      {
+         AllegroFlare::Logger::throw_error(
+            "Pipeline::Gameplay::Screen::find_portal_named_object_identfiers",
+            "Expecting there to be only 2 objects with a portal name, but there were \""
+               + std::to_string(num_with_name) + "\" with the name \"" + portal_name + "\""
+         );
+      }
+   }
+
+   return;
 }
 
 void Screen::load_level_by_identifier(std::string level_identifier)

@@ -1062,6 +1062,9 @@ table td
   <td class="method">lowest_y_vertex(std::vector&lt;AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL&gt; vertices={})</td>
 </tr>
 <tr>
+  <td class="method">find_portal_named_object_identifiers(AllegroFlare::Model3D* world_model=nullptr)</td>
+</tr>
+<tr>
   <td class="method">load_level_by_identifier(std::string level_identifier=&quot;[unset-level_identifier]&quot;)</td>
 </tr>
 <tr>
@@ -1218,10 +1221,16 @@ table td
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/Base.hpp&quot;]}</td>
 </tr>
 <tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Model3D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Model3D.hpp&quot;]}</td>
+</tr>
+<tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Vec2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Vec2D.hpp&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Vec3D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Vec3D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Logger&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Logger.hpp&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FLARE_EVENT_DIALOG_SWITCHED_OUT&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/EventNames.hpp&quot;]}</td>
@@ -1651,7 +1660,8 @@ table td
   ],
   "AllegroFlare/Model3D": [
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer2",
-    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowMapBuffer"
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowMapBuffer",
+    "Pipeline/Gameplay/Screen"
   ],
   "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/Camera3D": [
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer2",
@@ -1681,6 +1691,7 @@ table td
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowMapBuffer",
     "AllegroFlare/Shaders/ShadowMapping",
     "Pipeline/GameConfigurations/Main",
+    "Pipeline/Gameplay/Screen",
     "Pipeline/Runner"
   ],
   "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowMapBuffer": [

@@ -306,6 +306,43 @@ methods:
       return AllegroFlare::Vec3D{result.x, result.y, result.z};
 
 
+  - name: find_portal_named_object_identifiers
+    parameters:
+      - name: world_model
+        type: AllegroFlare::Model3D*
+        default_argument: nullptr
+    guards: [ world_model ]
+    body: |
+      std::set<std::string> portal_names;
+      std::vector<AllegroFlare::Model3D::named_object> &named_objects = world_model->named_objects;
+      for (auto &named_object : named_objects)
+      {
+         std::string identifier = named_object.identifier;
+         if (identifier.compare(0, 7, "portal-") == 0)
+         {
+            portal_names.insert(identifier);
+         }
+      }
+
+      // Verify there are two of each
+      for (auto &portal_name : portal_names)
+      {
+         int num_with_name = world_model->count_num_named_objects_with_name(portal_name);
+         if (num_with_name != 2)
+         {
+            AllegroFlare::Logger::throw_error(
+               "Pipeline::Gameplay::Screen::find_portal_named_object_identfiers",
+               "Expecting there to be only 2 objects with a portal name, but there were \""
+                  + std::to_string(num_with_name) + "\" with the name \"" + portal_name + "\""
+            );
+         }
+      }
+
+      return;
+    body_dependency_symbols:
+       - AllegroFlare::Logger
+
+
   - name: load_level_by_identifier
     parameters:
       - name: level_identifier
@@ -1610,10 +1647,14 @@ dependencies:
     headers: [ AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityRenderFlags.hpp ]
   - symbol: AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base
     headers: [ AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/Base.hpp ]
+  - symbol: AllegroFlare::Model3D
+    headers: [ AllegroFlare/Model3D.hpp ]
   - symbol: AllegroFlare::Vec2D
     headers: [ AllegroFlare/Vec2D.hpp ]
   - symbol: AllegroFlare::Vec3D
     headers: [ AllegroFlare/Vec3D.hpp ]
+  - symbol: AllegroFlare::Logger
+    headers: [ AllegroFlare/Logger.hpp ]
   - symbol: ALLEGRO_FLARE_EVENT_DIALOG_SWITCHED_OUT
     headers: [ AllegroFlare/EventNames.hpp ]
   - symbol: AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL
