@@ -112,7 +112,7 @@ AllegroFlare::DialogTree::NodeBank DialogNodeBankFactory::build_production_game_
             { // Dialog pages
                "I really like the forest.",
                "The mushrooms around here are especially wonderful.",
-               "If you can find 10 mushrooms and bring them to me, I'll might have something special for you.",
+               "If you can find 10 mushrooms and bring them to me, I would be amazed!",
             },
             { 
                {

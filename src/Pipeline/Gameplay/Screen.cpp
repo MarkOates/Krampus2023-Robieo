@@ -955,6 +955,7 @@ void Screen::on_player_entity_enter_collide(AllegroFlare::GraphicsPipelines::Dyn
                // On completed
                std::string dialog_to_activate = Pipeline::DialogNodeBankFactory::DIALOG_FOREST_NPC_COMPLETES_QUEST;
                game_progress_and_state_info->mark_quest_as_completed(quest_name);
+               emit_event_to_save_progress();
                set_state(STATE_SUSPEND_FOR_DIALOG);
                event_emitter->emit_activate_dialog_node_by_name_event(dialog_to_activate);
             }
