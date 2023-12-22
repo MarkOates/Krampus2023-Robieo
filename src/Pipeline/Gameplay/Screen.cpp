@@ -40,6 +40,7 @@ Screen::Screen(AllegroFlare::Frameworks::Full* framework, AllegroFlare::EventEmi
    , entity_pool()
    , player_controlled_entity(nullptr)
    , player_control_velocity()
+   , player_control_dashing(false)
    , goal_entity(nullptr)
    , exit_entity(nullptr)
    , scene_renderer()
@@ -310,6 +311,7 @@ void Screen::load_level_by_identifier(std::string level_identifier)
    player_is_colliding_on_goal = false; // TODO: Replace this with a list of colliding objects
    player_is_colliding_on_exit = false; // TODO: Replace this with a list of colliding objects
    player_control_velocity = { 0.0f, 0.0f };
+   player_control_dashing = false;
    goal_entity = nullptr;
    exit_entity = nullptr;
    entities_player_entity_is_colliding_with.clear();
@@ -1042,8 +1044,8 @@ void Screen::update()
    if (player_controlled_entity)
    {
       float speed_modifier = 1.0f;
-      bool player_controlled_entity_is_dashing = false; // TODO: Extract this from somewhere
-      if (player_controlled_entity_is_dashing) speed_modifier = 0.06f;
+      bool player_controlled_entity_is_dashing = player_control_dashing; // TODO: Extract this from somewhere
+      if (player_controlled_entity_is_dashing) speed_modifier = 0.09f;
       else speed_modifier = 0.046f;
 
       AllegroFlare::Vec2D controlled_entity_velocity = player_control_velocity * speed_modifier;
@@ -1371,6 +1373,10 @@ void Screen::key_up_func(ALLEGRO_EVENT* ev)
          player_control_velocity.x = 0;
       } break;
 
+      case ALLEGRO_KEY_R: {
+         player_control_dashing = false;
+      } break;
+
       default: {
          //attempt_an_action_at(ev->keyboard.keycode);
       } break;
@@ -1398,7 +1404,7 @@ void Screen::key_down_func(ALLEGRO_EVENT* ev)
    // Debugging
    switch(ev->keyboard.keycode)
    {
-      case ALLEGRO_KEY_R: {
+      case ALLEGRO_KEY_0: {
          save_bitmap_buffers_to_files();
       } break;
 
@@ -1445,10 +1451,14 @@ void Screen::key_down_func(ALLEGRO_EVENT* ev)
          //move_development_cursor_down();
       } break;
 
-      case ALLEGRO_KEY_P: {
-         activate_music_performance(current_level_song_to_perform_identifier);
-         //move_development_cursor_down();
+      case ALLEGRO_KEY_R: {
+         player_control_dashing = true;
       } break;
+
+      //case ALLEGRO_KEY_P: {
+         //activate_music_performance(current_level_song_to_perform_identifier);
+         ////move_development_cursor_down();
+      //} break;
 
       //case ALLEGRO_KEY_X: {
          //deactivate_music_performance();
@@ -1501,9 +1511,48 @@ void Screen::joy_button_down_func(ALLEGRO_EVENT* ev)
    {
       // Use just any button to skip performance
       deactivate_music_performance();
+      return;
    }
 
+
    if (!is_state(STATE_PLAYING_GAME)) return;
+
+   player_control_dashing = true; // Any button activates run
+
+   return;
+}
+
+void Screen::joy_button_up_func(ALLEGRO_EVENT* ev)
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::joy_button_up_func]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::joy_button_up_func: error: guard \"initialized\" not met");
+   }
+   if (!(ev))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::joy_button_up_func]: error: guard \"ev\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::joy_button_up_func: error: guard \"ev\" not met");
+   }
+   if (!(event_emitter))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::joy_button_up_func]: error: guard \"event_emitter\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::joy_button_up_func: error: guard \"event_emitter\" not met");
+   }
+   int button = ev->joystick.button;
+
+   std::cout << "joy button UP event (" << ev->joystick.id << ")" << std::endl;
+   std::cout << "   button: " << ev->joystick.button << std::endl;
+
+   if (!is_state(STATE_PLAYING_GAME)) return;
+
+   player_control_dashing = false; // Any button activates run
 
    return;
 }
@@ -1702,6 +1751,7 @@ void Screen::set_state(uint32_t state, bool override_if_busy)
    {
       case STATE_REVEALING: {
          player_control_velocity = {0, 0};
+         player_control_dashing = false;
       } break;
 
       case STATE_PLAYING_GAME: {
@@ -1711,6 +1761,7 @@ void Screen::set_state(uint32_t state, bool override_if_busy)
       case STATE_SUSPEND_FOR_DIALOG: {
          set_primary_camera_to_dialog_view();
          player_control_velocity = {0, 0};
+         player_control_dashing = false;
       } break;
 
       case STATE_PERFORMING_MUSIC: {

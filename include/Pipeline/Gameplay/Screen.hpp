@@ -67,6 +67,7 @@ namespace Pipeline
          AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool entity_pool;
          AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base* player_controlled_entity;
          AllegroFlare::Vec2D player_control_velocity;
+         bool player_control_dashing;
          AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base* goal_entity;
          AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base* exit_entity;
          AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::SceneRenderer2 scene_renderer;
@@ -136,6 +137,7 @@ namespace Pipeline
          virtual void key_up_func(ALLEGRO_EVENT* ev=nullptr) override;
          virtual void key_down_func(ALLEGRO_EVENT* ev=nullptr) override;
          virtual void joy_button_down_func(ALLEGRO_EVENT* ev=nullptr) override;
+         virtual void joy_button_up_func(ALLEGRO_EVENT* ev=nullptr) override;
          virtual void joy_axis_func(ALLEGRO_EVENT* ev=nullptr) override;
          virtual void virtual_control_button_up_func(AllegroFlare::Player* player=nullptr, AllegroFlare::VirtualControllers::Base* virtual_controller=nullptr, int virtual_controller_button_num=0, bool is_repeat=false) override;
          virtual void virtual_control_button_down_func(AllegroFlare::Player* player=nullptr, AllegroFlare::VirtualControllers::Base* virtual_controller=nullptr, int virtual_controller_button_num=0, bool is_repeat=false) override;
