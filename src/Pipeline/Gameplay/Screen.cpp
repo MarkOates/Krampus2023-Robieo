@@ -564,6 +564,10 @@ void Screen::load_level_by_identifier(std::string level_identifier)
       // Add them to the pool
       entity_pool.add(portal_1);
       entity_pool.add(portal_2);
+
+
+       // Remove the named objects from the world_model
+       world_model->remove_named_objects(portal_identifier);
    }
 
 
