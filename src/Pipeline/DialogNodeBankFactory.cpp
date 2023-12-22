@@ -122,6 +122,25 @@ AllegroFlare::DialogTree::NodeBank DialogNodeBankFactory::build_production_game_
             }
          )
       },
+      {
+         DIALOG_FOREST_NPC_COMPLETES_QUEST,
+         new AllegroFlare::DialogTree::Nodes::MultipageWithOptions
+         (
+            "Forrest", // Blank speaker
+            { // Dialog pages
+               "WOW! You found a bunch of mushrooms!",
+               "That's amazing!",
+            },
+            { 
+               {
+                  "Exit",
+                  new AllegroFlare::DialogTree::NodeOptions::ExitDialog(),
+                  AllegroFlare::BitFlags<uint32_t>(0)
+               },
+            }
+         )
+      },
+
    });
 
    return node_bank;
