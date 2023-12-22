@@ -895,6 +895,13 @@ methods:
       if (colliding_entity->exists(ATTRIBUTE_IS_PORTAL))
       {
          // TODO: Find teleport to next portal
+         // Find this portal in list of portals
+         // Get the correlated portal
+         // Extract the correlated portal's position
+         // Place the player character at the destiation portal
+         // add to "colliding_with"
+            // consider that the calling loop could process a "continuing to collide with" on this entered portal or not
+         // remove current portal from "colliding_with"
       }
       return;
 
