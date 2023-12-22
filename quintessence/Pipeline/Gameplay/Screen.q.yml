@@ -1085,7 +1085,11 @@ methods:
 
       if (player_controlled_entity)
       {
-         float speed_modifier = 0.046;
+         float speed_modifier = 1.0f;
+         bool player_controlled_entity_is_dashing = false; // TODO: Extract this from somewhere
+         if (player_controlled_entity_is_dashing) speed_modifier = 0.06f;
+         else speed_modifier = 0.046f;
+
          AllegroFlare::Vec2D controlled_entity_velocity = player_control_velocity * speed_modifier;
          // Translate the player control angles to be relative to the camera
          float angle = primary_camera->spin;
