@@ -833,10 +833,6 @@ void Screen::on_player_entity_collide(AllegroFlare::GraphicsPipelines::DynamicEn
    {
       call_on_finished_callback_func();
    }
-   else if (colliding_entity->exists(ATTRIBUTE_IS_PORTAL))
-   {
-      // TODO: Find associated portal
-   }
    else if (colliding_entity->exists(ATTRIBUTE_ITEM_TYPE, "mushroom"))
    {
       // Collect this mushroom
@@ -863,6 +859,25 @@ void Screen::on_player_entity_collide(AllegroFlare::GraphicsPipelines::DynamicEn
       // Remove the entity from the list of entities_player_entity_is_colliding_with
       entities_player_entity_is_colliding_with.erase(colliding_entity);
    }
+   return;
+}
+
+void Screen::on_player_entity_enter_collide(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D* colliding_entity)
+{
+   if (!is_state(STATE_PLAYING_GAME)) return;
+
+   if (colliding_entity->exists(ATTRIBUTE_IS_PORTAL))
+   {
+      // TODO: Find teleport to next portal
+   }
+   return;
+}
+
+void Screen::on_player_entity_exit_collide(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D* colliding_entity)
+{
+   if (!is_state(STATE_PLAYING_GAME)) return;
+
+   // No exit collisions at this point
    return;
 }
 
@@ -1029,23 +1044,23 @@ void Screen::update()
             {
                // On enter
                entities_player_entity_is_colliding_with.insert(collidable);
-               on_player_entity_collide(this_collidable_as); // TODO: Change to "...on_enter_collide"
+               // TODO: Maybe have an entered_collision_at for certain collision objects?
+               on_player_entity_enter_collide(this_collidable_as);
             }
             else
             {
-               // Already colliding, do nothing.
-               // TODO: Maybe have a collided_at for certain collision objects?
+               // Continuing to collide. So, already colliding, do nothing.
             }
-            //on_player_entity_collide(this_collidable_as);
          }
          else
          {
             if (player_is_previously_colliding_with_this_object)
             {
                // On exit
-               // TODO: Consider checking presence before erasing (?)
+               // TODO: Consider checking presence before erasing
                entities_player_entity_is_colliding_with.erase(collidable);
                // TODO: Maybe have a exited_collision_at for certain collision objects?
+               on_player_entity_exit_collide(this_collidable_as);
             }
             else
             {
