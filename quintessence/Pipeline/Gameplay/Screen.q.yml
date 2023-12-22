@@ -161,6 +161,19 @@ properties:
     static: true
     constexpr: true
 
+  - name: ATTRIBUTE_IS_PORTAL
+    type: char*
+    init_with: '(char*)"is_portal"'
+    static: true
+    constexpr: true
+
+  - name: ATTRIBUTE_RELATED_PORTAL
+    type: char*
+    init_with: '(char*)"related_portal"'
+    static: true
+    constexpr: true
+
+
 enums:
 
 
@@ -562,6 +575,10 @@ methods:
 
       // Portals
       std::set<std::string> portal_identifiers = find_named_object_identifiers_for_portals(world_model);
+      
+      std::string portal_model_name = "portal-01.obj";
+      std::string portal_texture_name = "portal-01.png";
+      //std::string portal_model_scale = "portal-01.png";
 
       for (auto &portal_identifier : portal_identifiers)
       {
@@ -578,11 +595,38 @@ methods:
             );
          }
 
+         // Build "portal 1"
          std::vector<AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL> portal_1_vertices = objects_vertices[0];
+          AllegroFlare::Vec3D portal_1_position = lowest_y_vertex(portal_1_vertices);
+          AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D *portal_1 = 
+             new AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D();
+          portal_1->set_model_3d(model_bin->auto_get(portal_model_name));
+          portal_1->set_model_3d_texture(bitmap_bin->auto_get(portal_texture_name));
+          portal_1->get_placement_ref().position = portal_1_position;
+          portal_1->set(ATTRIBUTE_COLLIDABLE_BY_PLAYER);
+          portal_1->set(ATTRIBUTE_IS_PORTAL);
 
 
-
+         // Build "portal 2"
          std::vector<AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL> portal_2_vertices = objects_vertices[1];
+         AllegroFlare::Vec3D portal_2_position = lowest_y_vertex(portal_2_vertices);
+         AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D *portal_2 = 
+            new AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D();
+         portal_2->set_model_3d(model_bin->auto_get(portal_model_name));
+         portal_2->set_model_3d_texture(bitmap_bin->auto_get(portal_texture_name));
+         portal_2->get_placement_ref().position = portal_2_position;
+         portal_2->set(ATTRIBUTE_COLLIDABLE_BY_PLAYER);
+         portal_2->set(ATTRIBUTE_IS_PORTAL);
+
+
+         // TODO: Link them together
+         portal_1->set(ATTRIBUTE_RELATED_PORTAL, (void*)portal_2);
+         portal_2->set(ATTRIBUTE_RELATED_PORTAL, (void*)portal_1);
+
+
+         // Add them to the pool
+         entity_pool.add(portal_1);
+         entity_pool.add(portal_2);
       }
 
 

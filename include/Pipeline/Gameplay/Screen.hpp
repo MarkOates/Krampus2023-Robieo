@@ -42,6 +42,8 @@ namespace Pipeline
          static constexpr char* ATTRIBUTE_COLLIDABLE_BY_PLAYER = (char*)"collidable_by_player";
          static constexpr char* ATTRIBUTE_ITEM_TYPE = (char*)"item_type";
          static constexpr char* ATTRIBUTE_ITEM_PICKUP_SOUND = (char*)"item_pickup_sound";
+         static constexpr char* ATTRIBUTE_IS_PORTAL = (char*)"is_portal";
+         static constexpr char* ATTRIBUTE_RELATED_PORTAL = (char*)"related_portal";
 
       private:
          enum State
