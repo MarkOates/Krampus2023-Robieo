@@ -1665,6 +1665,8 @@ methods:
   - name: emit_event_to_save_progress
     guards: [ event_emitter ]
     body: |
+      // TODO: Test this
+      // TODO: Consider using a constant rather than "save_progress"
       event_emitter->emit_game_event(AllegroFlare::GameEvent("save_progress"));
       return;
 
