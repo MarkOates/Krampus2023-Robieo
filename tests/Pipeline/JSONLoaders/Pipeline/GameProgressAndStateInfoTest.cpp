@@ -12,6 +12,7 @@ TEST(Pipeline_JSONLoaders_Pipeline_GameProgressAndStateInfoTest,
    game_progress_and_state_info.set_delivered_package_identifiers({"package1", "package2"});
    game_progress_and_state_info.set_achievement_identifiers({"made_achievements_feature"});
    game_progress_and_state_info.set_inventory_item_identifiers({"apple", "pear"});
+   game_progress_and_state_info.set_completed_quest_identifiers({"music_maker"});
     
    nlohmann::json j = game_progress_and_state_info;
 
@@ -19,6 +20,9 @@ TEST(Pipeline_JSONLoaders_Pipeline_GameProgressAndStateInfoTest,
 R"({
   "achievement_identifiers": [
     "made_achievements_feature"
+  ],
+  "completed_quest_identifiers": [
+    "music_maker"
   ],
   "delivered_package_identifiers": [
     "package1",
@@ -45,6 +49,9 @@ R"({
   "achievement_identifiers": [
     "made_achievements_feature"
   ],
+  "completed_quest_identifiers": [
+    "music_maker"
+  ],
   "delivered_package_identifiers": [
     "package1",
     "package2"
@@ -62,6 +69,7 @@ R"({
    expected.set_delivered_package_identifiers({"package1", "package2"});
    expected.set_achievement_identifiers({"made_achievements_feature"});
    expected.set_inventory_item_identifiers({"apple", "pear"});
+   expected.set_completed_quest_identifiers({"music_maker"});
 
    EXPECT_EQ(expected, game_progress_and_state_info);
 }
