@@ -142,6 +142,7 @@ namespace Pipeline
          virtual void virtual_control_axis_change_func(ALLEGRO_EVENT* ev=nullptr) override;
          void activate_music_performance(std::string music_identifier="[unset-music_identifier]");
          void deactivate_music_performance();
+         void emit_event_to_save_progress();
          void set_state(uint32_t state=STATE_UNDEF, bool override_if_busy=false);
          static float normalize_age_no_clamp(float start_time=0.0f, float end_time=0.0f, float time_now=0.0f);
          void update_state(float time_now=al_get_time());

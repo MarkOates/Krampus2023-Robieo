@@ -1633,6 +1633,19 @@ void Screen::deactivate_music_performance()
    return;
 }
 
+void Screen::emit_event_to_save_progress()
+{
+   if (!(event_emitter))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::emit_event_to_save_progress]: error: guard \"event_emitter\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::emit_event_to_save_progress: error: guard \"event_emitter\" not met");
+   }
+   event_emitter->emit_game_event(AllegroFlare::GameEvent("save_progress"));
+   return;
+}
+
 void Screen::set_state(uint32_t state, bool override_if_busy)
 {
    if (!(is_valid_state(state)))

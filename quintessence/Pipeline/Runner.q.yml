@@ -186,6 +186,13 @@ methods:
             throw std::runtime_error("Gameplay/Runner/game_event_func: unexpected type, expecting String event data");
          }
       }
+      else if (game_event->get_type() == "save_progress")
+      {
+         // Simply save the progress of the game so far, consider adding a "saved" notification here or something
+         std::cout << "Saving progress...";
+         save_progress();
+         std::cout << "done." << std::endl;
+      }
       return;
       return;
     body_dependency_symbols:
