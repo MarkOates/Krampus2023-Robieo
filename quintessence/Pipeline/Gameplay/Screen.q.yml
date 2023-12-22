@@ -783,7 +783,7 @@ methods:
 
       if (player_controlled_entity)
       {
-         AllegroFlare::Vec2D controlled_entity_velocity = player_control_velocity * 0.04;
+         AllegroFlare::Vec2D controlled_entity_velocity = player_control_velocity * 0.046;
          // Translate the player control angles to be relative to the camera
          float angle = primary_camera->spin;
          float x_prime = controlled_entity_velocity.x * std::cos(angle) - controlled_entity_velocity.y * std::sin(angle);
