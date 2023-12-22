@@ -76,6 +76,7 @@ std::vector<std::pair<std::string, std::string>> Main::build_level_list_for_leve
       { "World 2", "world-2-06" },
       { "World 3", "world-3-09" },
       { "World 4", "level-4-05" },
+      { "World 5", "terminal-level-02" },
       //{ "World 2", "world-2-01" },
       //{ "Forest Village 1", "forest_village_1" },
       //{ "Forest Village 2", "forest_village_2" },
