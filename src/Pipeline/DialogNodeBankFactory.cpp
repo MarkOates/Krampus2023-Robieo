@@ -60,6 +60,9 @@ AllegroFlare::DialogTree::NodeBank DialogNodeBankFactory::build_production_game_
             }
          )
       },
+
+
+
       {
          "robot_prompts_performance",
          new AllegroFlare::DialogTree::Nodes::MultipageWithOptions
@@ -96,7 +99,29 @@ AllegroFlare::DialogTree::NodeBank DialogNodeBankFactory::build_production_game_
       {
          "exit_dialog",
          new AllegroFlare::DialogTree::Nodes::ExitDialog()
-      }
+      },
+
+
+
+      {
+         DIALOG_FOREST_NPC_LIKES_MUSHROOMS,
+         new AllegroFlare::DialogTree::Nodes::MultipageWithOptions
+         (
+            "Forrest", // Blank speaker
+            //{ "Are you sure you want to exit?" },
+            { // Dialog pages
+               "I really like the forest.",
+               "The mushrooms around here are especially wonderful.",
+            },
+            { 
+               {
+                  "Exit",
+                  new AllegroFlare::DialogTree::NodeOptions::ExitDialog(),
+                  AllegroFlare::BitFlags<uint32_t>(0)
+               },
+            }
+         )
+      },
    });
 
    return node_bank;

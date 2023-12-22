@@ -1,3 +1,13 @@
+properties:
+
+
+  - name: DIALOG_FOREST_NPC_LIKES_MUSHROOMS
+    type: char*
+    init_with: '(char*)"forest_npc_likes_mushrooms"'
+    static: true
+    constexpr: true
+
+
 methods:
 
 
@@ -39,6 +49,9 @@ methods:
                }
             )
          },
+
+
+
          {
             "robot_prompts_performance",
             new AllegroFlare::DialogTree::Nodes::MultipageWithOptions
@@ -75,7 +88,29 @@ methods:
          {
             "exit_dialog",
             new AllegroFlare::DialogTree::Nodes::ExitDialog()
-         }
+         },
+
+
+
+         {
+            DIALOG_FOREST_NPC_LIKES_MUSHROOMS,
+            new AllegroFlare::DialogTree::Nodes::MultipageWithOptions
+            (
+               "Forrest", // Blank speaker
+               //{ "Are you sure you want to exit?" },
+               { // Dialog pages
+                  "I really like the forest.",
+                  "The mushrooms around here are especially wonderful.",
+               },
+               { 
+                  {
+                     "Exit",
+                     new AllegroFlare::DialogTree::NodeOptions::ExitDialog(),
+                     AllegroFlare::BitFlags<uint32_t>(0)
+                  },
+               }
+            )
+         },
       });
 
       return node_bank;

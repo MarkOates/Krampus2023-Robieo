@@ -8,6 +8,9 @@ namespace Pipeline
 {
    class DialogNodeBankFactory
    {
+   public:
+      static constexpr char* DIALOG_FOREST_NPC_LIKES_MUSHROOMS = (char*)"forest_npc_likes_mushrooms";
+
    private:
 
    protected:
