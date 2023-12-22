@@ -172,6 +172,18 @@ properties:
     static: true
     constexpr: true
 
+  - name: ATTRIBUTE_IS_NPC
+    type: char*
+    init_with: '(char*)"is_npc"'
+    static: true
+    constexpr: true
+
+  - name: ATTRIBUTE_NPC_IDENTIFIER
+    type: char*
+    init_with: '(char*)"is_npc_identifier"'
+    static: true
+    constexpr: true
+
 
 enums:
 
@@ -570,6 +582,52 @@ methods:
           world_model->remove_named_objects(object_name);
       }
       std::cout << "Found " << mushrooms_found << " mushrooms" << std::endl;
+
+
+
+      // NPCs
+      int npcs_found = 0;
+      if (world_model)
+      {
+         std::string object_name = "npc1";
+         std::string model_name = "gator-character-01.obj";
+         std::string texture_name = "gator-character-01x.png";
+
+         std::vector<std::vector<AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL>> objects_vertices =
+            world_model->extract_named_objects_vertices(object_name);
+
+         if (objects_vertices.size() > 1) throw std::runtime_error(
+            "expecting only one (or none) objects named \"" + object_name + "\""
+         );
+
+         for (auto &object_vertices : objects_vertices)
+         {
+             AllegroFlare::Vec3D object_position = lowest_y_vertex(object_vertices);
+
+             AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D *object = 
+                new AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D();
+             object->set_model_3d(model_bin->auto_get(model_name));
+             object->set_model_3d_texture(bitmap_bin->auto_get(texture_name));
+             object->get_placement_ref().position = object_position;
+             //object->get_placement_ref().scale = { 0.2, 0.2, 0.2 };
+             //object->get_placement_ref().rotation.y = 0.01;
+
+             object->set(ATTRIBUTE_COLLIDABLE_BY_PLAYER);
+             object->set(ATTRIBUTE_IS_NPC);
+             object->set(ATTRIBUTE_NPC_IDENTIFIER);
+             //object->set(ATTRIBUTE_ITEM_TYPE, "mushroom");
+             //object->set(ATTRIBUTE_ITEM_PICKUP_SOUND, "mushroom_pickup");
+             //env->set(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityRenderFlags::RENDER_WITH_SKYBOX);
+
+             //env->get_placement_ref().position.y = 0.0; // NOTE: The objects will always be placed at 0
+             entity_pool.add(object);
+
+             npcs_found++;
+         }
+
+         world_model->remove_named_objects(object_name);
+      }
+      std::cout << "Found " << npcs_found << " npcs" << std::endl;
 
 
 
