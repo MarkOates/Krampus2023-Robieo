@@ -541,7 +541,7 @@ void Screen::load_level_by_identifier(std::string level_identifier)
 
           object->set(ATTRIBUTE_COLLIDABLE_BY_PLAYER);
           object->set(ATTRIBUTE_IS_NPC);
-          object->set(ATTRIBUTE_NPC_IDENTIFIER);
+          object->set(ATTRIBUTE_NPC_IDENTIFIER, NPC_FORREST_IN_THE_FOREST);
           //object->set(ATTRIBUTE_ITEM_TYPE, "mushroom");
           //object->set(ATTRIBUTE_ITEM_PICKUP_SOUND, "mushroom_pickup");
           //env->set(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityRenderFlags::RENDER_WITH_SKYBOX);
@@ -937,6 +937,21 @@ void Screen::on_player_entity_enter_collide(AllegroFlare::GraphicsPipelines::Dyn
       // TODO: Confirm is already in the list
       // TODO: Confirm is removed from list
       entities_player_entity_is_colliding_with.erase(this_portal);
+   }
+   else if (colliding_entity->exists(ATTRIBUTE_IS_NPC))
+   {
+      std::string npc_identifier = colliding_entity->get(ATTRIBUTE_NPC_IDENTIFIER);
+      if (npc_identifier == NPC_FORREST_IN_THE_FOREST)
+      {
+         std::string dialog_to_activate = Pipeline::DialogNodeBankFactory::DIALOG_FOREST_NPC_LIKES_MUSHROOMS;
+         set_state(STATE_SUSPEND_FOR_DIALOG);
+         event_emitter->emit_activate_dialog_node_by_name_event(dialog_to_activate);
+      }
+      else
+      {
+         // Unhandled case for this identifier
+         throw std::runtime_error("Eeks couldn't find npc handler!");
+      }
    }
    else if (colliding_entity->exists(ATTRIBUTE_ITEM_TYPE, "mushroom"))
    {

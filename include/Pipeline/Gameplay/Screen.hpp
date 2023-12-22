@@ -46,6 +46,7 @@ namespace Pipeline
          static constexpr char* ATTRIBUTE_IS_PORTAL = (char*)"is_portal";
          static constexpr char* ATTRIBUTE_IS_NPC = (char*)"is_npc";
          static constexpr char* ATTRIBUTE_NPC_IDENTIFIER = (char*)"is_npc_identifier";
+         static constexpr char* NPC_FORREST_IN_THE_FOREST = (char*)"forrest_in_the_forest";
 
       private:
          enum State
