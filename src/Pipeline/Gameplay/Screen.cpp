@@ -1234,6 +1234,7 @@ void Screen::joy_axis_func(ALLEGRO_EVENT* ev)
    //std::cout << "   stick: " << ev->joystick.stick << std::endl;
    //std::cout << "   axis: " << ev->joystick.axis << std::endl;
    //std::cout << "   pos: " << ev->joystick.pos << std::endl;
+   float min_stick_threshold = 0.2;
 
    int stick = ev->joystick.stick;
    int axis = ev->joystick.axis;
@@ -1243,12 +1244,25 @@ void Screen::joy_axis_func(ALLEGRO_EVENT* ev)
       case 0: { // The primary joystick, on the left
         if (axis == 0) // horizontal axis
         {
-           player_control_velocity.x = pos;
-           
+           if (std::fabs(pos) < min_stick_threshold)
+           {
+              player_control_velocity.x = 0;
+           }
+           else
+           {
+              player_control_velocity.x = pos;
+           }
         }
         else if (axis == 1)
         {
-           player_control_velocity.y = pos;
+           if (std::fabs(pos) < min_stick_threshold)
+           {
+              player_control_velocity.y = 0;
+           }
+           else
+           {
+              player_control_velocity.y = pos;
+           }
         }
       } break;
 
