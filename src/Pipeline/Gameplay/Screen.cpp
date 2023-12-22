@@ -1188,19 +1188,16 @@ void Screen::joy_button_down_func(ALLEGRO_EVENT* ev)
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Screen::joy_button_down_func: error: guard \"event_emitter\" not met");
    }
+   int button = ev->joystick.button;
+
+   std::cout << "joy button event (" << ev->joystick.id << ")" << std::endl;
+   std::cout << "   button: " << ev->joystick.button << std::endl;
+
    // Cancel out of music performance
    if (is_state(STATE_PERFORMING_MUSIC))
    {
-      //switch(ev->joystick.keycode)
-      //{
-         //case ALLEGRO_KEY_X: {
-            //deactivate_music_performance();
-         //} break;
-
-         //default: {
-            //deactivate_music_performance();
-         //} break;
-      //}
+      // Use just any button to skip performance
+      deactivate_music_performance();
    }
 
    if (!is_state(STATE_PLAYING_GAME)) return;

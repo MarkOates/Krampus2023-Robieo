@@ -1167,19 +1167,16 @@ methods:
         default_argument: nullptr
     guards: [ initialized, ev, event_emitter ]
     body: |
+      int button = ev->joystick.button;
+
+      std::cout << "joy button event (" << ev->joystick.id << ")" << std::endl;
+      std::cout << "   button: " << ev->joystick.button << std::endl;
+
       // Cancel out of music performance
       if (is_state(STATE_PERFORMING_MUSIC))
       {
-         //switch(ev->joystick.keycode)
-         //{
-            //case ALLEGRO_KEY_X: {
-               //deactivate_music_performance();
-            //} break;
-
-            //default: {
-               //deactivate_music_performance();
-            //} break;
-         //}
+         // Use just any button to skip performance
+         deactivate_music_performance();
       }
 
       if (!is_state(STATE_PLAYING_GAME)) return;
