@@ -1119,26 +1119,25 @@ void Screen::key_down_func(ALLEGRO_EVENT* ev)
    if (!is_state(STATE_PLAYING_GAME)) return;
 
    // Normal gameplay controls
-   float player_velocity = 1.0; // Was 0.04
    switch(ev->keyboard.keycode)
    {
       case ALLEGRO_KEY_UP: {
-         player_control_velocity.y = -player_velocity;
+         player_control_velocity.y = -1.0;
          //move_development_cursor_up();
       } break;
 
       case ALLEGRO_KEY_DOWN: {
-         player_control_velocity.y = player_velocity;
+         player_control_velocity.y = 1.0;
          //move_development_cursor_down();
       } break;
 
       case ALLEGRO_KEY_LEFT: {
-         player_control_velocity.x = -player_velocity;
+         player_control_velocity.x = -1.0;
          //move_development_cursor_down();
       } break;
 
       case ALLEGRO_KEY_RIGHT: {
-         player_control_velocity.x = player_velocity;
+         player_control_velocity.x = 1.0;
          //move_development_cursor_down();
       } break;
 
