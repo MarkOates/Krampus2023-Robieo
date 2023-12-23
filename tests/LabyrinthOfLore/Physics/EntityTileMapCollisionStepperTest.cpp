@@ -23,7 +23,7 @@ TEST(LabyrinthOfLore_Physics_EntityTileMapCollisionStepperTest, can_be_created_w
 TEST(LabyrinthOfLore_Physics_EntityTileMapCollisionStepperTest, accepts_reasonable_arguments_without_crashing)
 {
    LabyrinthOfLore::WorldMap::TileMap tile_map;
-    std::vector<LabyrinthOfLore::Entity::Base*> entities = {};
+    std::vector<AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D*> entities = {};
 
    LabyrinthOfLore::Physics::EntityTileMapCollisionStepper entity_tile_map_collision_stepper(tile_map, entities);
    SUCCEED();
@@ -32,7 +32,7 @@ TEST(LabyrinthOfLore_Physics_EntityTileMapCollisionStepperTest, accepts_reasonab
 TEST(LabyrinthOfLore_Physics_EntityTileMapCollisionStepperTest, process_step__works_with_reasonable_arguments)
 {
    LabyrinthOfLore::WorldMap::TileMap tile_map;
-   std::vector<LabyrinthOfLore::Entity::Base*> entities = {};
+   std::vector<AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D*> entities = {};
 
    LabyrinthOfLore::Physics::EntityTileMapCollisionStepper entity_tile_map_collision_stepper(tile_map, entities);
 
@@ -45,8 +45,8 @@ TEST(LabyrinthOfLore_Physics_EntityTileMapCollisionStepperTest,
 {
    LabyrinthOfLore::WorldMap::TileMap tile_map;
    tile_map.resize(10, 10, LabyrinthOfLore::WorldMap::Tile(0, 10.0));
-   LabyrinthOfLore::Entity::Base entity = LabyrinthOfLore::Entity::Base();
-   std::vector<LabyrinthOfLore::Entity::Base*> entities = { &entity };
+   AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D entity = AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D();
+   std::vector<AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D*> entities = { &entity };
 
    entity.get_placement_ref().position = AllegroFlare::vec3d(0.0, 0.0, 10.001);
    entity.get_velocity_ref().position = AllegroFlare::vec3d(0.3, 0.4, 0.2);
@@ -70,8 +70,8 @@ TEST(LabyrinthOfLore_Physics_EntityTileMapCollisionStepperTest,
 {
    LabyrinthOfLore::WorldMap::TileMap tile_map;
    tile_map.resize(10, 10, LabyrinthOfLore::WorldMap::Tile(0, 10.0));
-   LabyrinthOfLore::Entity::Base entity = LabyrinthOfLore::Entity::Base();
-   std::vector<LabyrinthOfLore::Entity::Base*> entities = { &entity };
+   AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D entity = AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D();
+   std::vector<AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D*> entities = { &entity };
 
    entity.get_placement_ref().position = AllegroFlare::vec3d(1.0, 1.0, 11.001);
    entity.get_velocity_ref().position = AllegroFlare::vec3d(-0.3, -0.4, -0.2);
@@ -95,8 +95,8 @@ TEST(LabyrinthOfLore_Physics_EntityTileMapCollisionStepperTest,
 {
    LabyrinthOfLore::WorldMap::TileMap tile_map;
    tile_map.resize(2, 1, LabyrinthOfLore::WorldMap::Tile(0, 10.0));
-   LabyrinthOfLore::Entity::Base entity = LabyrinthOfLore::Entity::Base();
-   std::vector<LabyrinthOfLore::Entity::Base*> entities = { &entity };
+   AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D entity = AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D();
+   std::vector<AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D*> entities = { &entity };
 
    float auto_ascend_threshold = LabyrinthOfLore::Physics::EntityTileMapCollisionStepper::get_auto_ascend_threshold();
 
@@ -123,8 +123,8 @@ TEST(LabyrinthOfLore_Physics_EntityTileMapCollisionStepperTest,
 {
    LabyrinthOfLore::WorldMap::TileMap tile_map;
    tile_map.resize(1, 2, LabyrinthOfLore::WorldMap::Tile(0, 10.0));
-   LabyrinthOfLore::Entity::Base entity = LabyrinthOfLore::Entity::Base();
-   std::vector<LabyrinthOfLore::Entity::Base*> entities = { &entity };
+   AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D entity = AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D();
+   std::vector<AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D*> entities = { &entity };
 
    float auto_ascend_threshold = LabyrinthOfLore::Physics::EntityTileMapCollisionStepper::get_auto_ascend_threshold();
 
@@ -160,8 +160,8 @@ TEST(LabyrinthOfLore_Physics_EntityTileMapCollisionStepperTest,
 {
    LabyrinthOfLore::WorldMap::TileMap tile_map;
    tile_map.resize(1, 1, LabyrinthOfLore::WorldMap::Tile(0, 10.0));
-   LabyrinthOfLore::Entity::Base entity = LabyrinthOfLore::Entity::Base();
-   std::vector<LabyrinthOfLore::Entity::Base*> entities = { &entity };
+   AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D entity = AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D();
+   std::vector<AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D*> entities = { &entity };
 
    entity.get_placement_ref().position = AllegroFlare::vec3d(0.5, 0.5, 10.5);
    entity.get_velocity_ref().position = AllegroFlare::vec3d(0.0, 0.0, -1.0);
@@ -186,8 +186,8 @@ TEST(LabyrinthOfLore_Physics_EntityTileMapCollisionStepperTest,
 {
    LabyrinthOfLore::WorldMap::TileMap tile_map;
    tile_map.resize(2, 1, LabyrinthOfLore::WorldMap::Tile(0, 10.0));
-   LabyrinthOfLore::Entity::Base entity = LabyrinthOfLore::Entity::Base();
-   std::vector<LabyrinthOfLore::Entity::Base*> entities = { &entity };
+   AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D entity = AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D();
+   std::vector<AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D*> entities = { &entity };
 
    float auto_ascend_threshold = LabyrinthOfLore::Physics::EntityTileMapCollisionStepper::get_auto_ascend_threshold();
 
@@ -214,11 +214,11 @@ TEST(LabyrinthOfLore_Physics_EntityTileMapCollisionStepperTest, process_step__pr
    LabyrinthOfLore::WorldMap::TileMap tile_map;
    tile_map.resize(3, 3, LabyrinthOfLore::WorldMap::Tile(0, 10.0));
 
-   LabyrinthOfLore::Entity::Base entity1 = LabyrinthOfLore::Entity::Base();
-   LabyrinthOfLore::Entity::Base entity2 = LabyrinthOfLore::Entity::Base();
-   LabyrinthOfLore::Entity::Base entity3 = LabyrinthOfLore::Entity::Base();
+   AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D entity1 = AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D();
+   AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D entity2 = AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D();
+   AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D entity3 = AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D();
 
-   std::vector<LabyrinthOfLore::Entity::Base*> entities = { &entity1, &entity2, &entity3 };
+   std::vector<AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D*> entities = { &entity1, &entity2, &entity3 };
 
    entity1.get_placement_ref().position = AllegroFlare::vec3d(0.5, 0.5, 10.001);
    entity1.get_velocity_ref().position = AllegroFlare::vec3d(1.0, 0.0, 0.0);
@@ -254,8 +254,8 @@ TEST(LabyrinthOfLore_Physics_EntityTileMapCollisionStepperTest,
 {
    LabyrinthOfLore::WorldMap::TileMap tile_map;
    tile_map.resize(10, 10, LabyrinthOfLore::WorldMap::Tile(0, -10.0));
-   LabyrinthOfLore::Entity::Base entity = LabyrinthOfLore::Entity::Base();
-   std::vector<LabyrinthOfLore::Entity::Base*> entities = { &entity };
+   AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D entity = AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D();
+   std::vector<AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D*> entities = { &entity };
 
    entity.get_placement_ref().position = AllegroFlare::vec3d(0.0, 0.0, 99.501);
    entity.get_velocity_ref().position = AllegroFlare::vec3d(0.0, 0.0, 1.0);
@@ -281,8 +281,8 @@ TEST(LabyrinthOfLore_Physics_EntityTileMapCollisionStepperTest,
    LabyrinthOfLore::WorldMap::TileMap tile_map;
    tile_map.resize(10, 10, LabyrinthOfLore::WorldMap::Tile(0, -10.0));
    tile_map.set_ceiling_height(ceiling_height);
-   LabyrinthOfLore::Entity::Base entity = LabyrinthOfLore::Entity::Base();
-   std::vector<LabyrinthOfLore::Entity::Base*> entities = { &entity };
+   AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D entity = AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D();
+   std::vector<AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D*> entities = { &entity };
 
    entity.get_placement_ref().position = AllegroFlare::vec3d(0.0, 0.0, ceiling_height - 0.5);
    entity.get_velocity_ref().position = AllegroFlare::vec3d(0.0, 0.0, 1.0);
@@ -306,8 +306,8 @@ TEST(LabyrinthOfLore_Physics_EntityTileMapCollisionStepperTest,
 {
    LabyrinthOfLore::WorldMap::TileMap tile_map;
    tile_map.resize(10, 10, LabyrinthOfLore::WorldMap::Tile(0, -10.0));
-   LabyrinthOfLore::Entity::Base entity = LabyrinthOfLore::Entity::Base();
-   std::vector<LabyrinthOfLore::Entity::Base*> entities = { &entity };
+   AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D entity = AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D();
+   std::vector<AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D*> entities = { &entity };
 
    entity.get_placement_ref().position = AllegroFlare::vec3d(0.0, 0.0, 0.501);
    entity.get_velocity_ref().position = AllegroFlare::vec3d(0.0, 0.0, -1.0);
@@ -331,8 +331,8 @@ TEST(LabyrinthOfLore_Physics_EntityTileMapCollisionStepperTest,
 {
    LabyrinthOfLore::WorldMap::TileMap tile_map;
    tile_map.resize(1, 1, LabyrinthOfLore::WorldMap::Tile(0, 10.0));
-   LabyrinthOfLore::Entity::Base entity = LabyrinthOfLore::Entity::Base();
-   std::vector<LabyrinthOfLore::Entity::Base*> entities = { &entity };
+   AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D entity = AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D();
+   std::vector<AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D*> entities = { &entity };
 
    entity.get_placement_ref().position = AllegroFlare::vec3d(0.5, 0.5, 10.001);
    entity.get_velocity_ref().position = AllegroFlare::vec3d(-1.0, -1.0, 0.0);
@@ -351,8 +351,8 @@ TEST(LabyrinthOfLore_Physics_EntityTileMapCollisionStepperTest,
 {
    LabyrinthOfLore::WorldMap::TileMap tile_map;
    tile_map.resize(1, 1, LabyrinthOfLore::WorldMap::Tile(0, 10.0));
-   LabyrinthOfLore::Entity::Base entity = LabyrinthOfLore::Entity::Base();
-   std::vector<LabyrinthOfLore::Entity::Base*> entities = { &entity };
+   AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D entity = AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D();
+   std::vector<AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D*> entities = { &entity };
 
    entity.get_placement_ref().position = AllegroFlare::vec3d(0.5, 0.5, 10.001);
    entity.get_velocity_ref().position = AllegroFlare::vec3d(1.0, 1.0, 0.0);
@@ -371,8 +371,8 @@ TEST(LabyrinthOfLore_Physics_EntityTileMapCollisionStepperTest,
 {
    LabyrinthOfLore::WorldMap::TileMap tile_map;
    tile_map.resize(9, 1, LabyrinthOfLore::WorldMap::Tile(0, 10.0));
-   LabyrinthOfLore::Entity::Base entity = LabyrinthOfLore::Entity::Base();
-   std::vector<LabyrinthOfLore::Entity::Base*> entities = { &entity };
+   AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D entity = AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D();
+   std::vector<AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D*> entities = { &entity };
 
    float auto_ascend_threshold = LabyrinthOfLore::Physics::EntityTileMapCollisionStepper::get_auto_ascend_threshold();
    tile_map.set_tile(0, 0, LabyrinthOfLore::WorldMap::Tile(0, 10.0 + auto_ascend_threshold*0));
@@ -405,8 +405,8 @@ TEST(LabyrinthOfLore_Physics_EntityTileMapCollisionStepperTest,
 {
    LabyrinthOfLore::WorldMap::TileMap tile_map;
    tile_map.resize(4, 4, LabyrinthOfLore::WorldMap::Tile(0, 10.0));
-   LabyrinthOfLore::Entity::Base entity = LabyrinthOfLore::Entity::Base();
-   std::vector<LabyrinthOfLore::Entity::Base*> entities = { &entity };
+   AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D entity = AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D();
+   std::vector<AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D*> entities = { &entity };
 
    float auto_ascend_threshold = LabyrinthOfLore::Physics::EntityTileMapCollisionStepper::get_auto_ascend_threshold();
    AllegroFlare::Placement3D &actual_placement = entity.get_placement_ref();
@@ -483,8 +483,8 @@ TEST(LabyrinthOfLore_Physics_EntityTileMapCollisionStepperTest,
 {
    LabyrinthOfLore::WorldMap::TileMap tile_map;
    tile_map.resize(2, 3, LabyrinthOfLore::WorldMap::Tile(0, 10.0));
-   LabyrinthOfLore::Entity::Base entity = LabyrinthOfLore::Entity::Base();
-   std::vector<LabyrinthOfLore::Entity::Base*> entities = { &entity };
+   AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D entity = AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D();
+   std::vector<AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D*> entities = { &entity };
 
    tile_map.set_tile(1, 0, LabyrinthOfLore::WorldMap::Tile(0, 11.0));
 
@@ -507,8 +507,8 @@ TEST(LabyrinthOfLore_Physics_EntityTileMapCollisionStepperTest,
 {
    LabyrinthOfLore::WorldMap::TileMap tile_map;
    tile_map.resize(2, 2, LabyrinthOfLore::WorldMap::Tile(0, 10.0));
-   LabyrinthOfLore::Entity::Base entity = LabyrinthOfLore::Entity::Base();
-   std::vector<LabyrinthOfLore::Entity::Base*> entities = { &entity };
+   AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D entity = AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D();
+   std::vector<AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D*> entities = { &entity };
 
    tile_map.set_tile(0, 0, LabyrinthOfLore::WorldMap::Tile(0, 11.0));
 
@@ -531,8 +531,8 @@ TEST(LabyrinthOfLore_Physics_EntityTileMapCollisionStepperTest,
 {
    LabyrinthOfLore::WorldMap::TileMap tile_map;
    tile_map.resize(2, 2, LabyrinthOfLore::WorldMap::Tile(0, 10.0));
-   LabyrinthOfLore::Entity::Base entity = LabyrinthOfLore::Entity::Base();
-   std::vector<LabyrinthOfLore::Entity::Base*> entities = { &entity };
+   AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D entity = AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D();
+   std::vector<AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D*> entities = { &entity };
 
    tile_map.set_tile(1, 1, LabyrinthOfLore::WorldMap::Tile(0, 11.0));
 
@@ -555,8 +555,8 @@ TEST(LabyrinthOfLore_Physics_EntityTileMapCollisionStepperTest,
 {
    LabyrinthOfLore::WorldMap::TileMap tile_map;
    tile_map.resize(2, 2, LabyrinthOfLore::WorldMap::Tile(0, 10.0));
-   LabyrinthOfLore::Entity::Base entity = LabyrinthOfLore::Entity::Base();
-   std::vector<LabyrinthOfLore::Entity::Base*> entities = { &entity };
+   AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D entity = AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D();
+   std::vector<AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D*> entities = { &entity };
 
    tile_map.set_tile(0, 1, LabyrinthOfLore::WorldMap::Tile(0, 11.0));
 
@@ -588,8 +588,8 @@ TEST(LabyrinthOfLore_Physics_EntityTileMapCollisionStepperTest, get_events_from_
 {
    LabyrinthOfLore::WorldMap::TileMap tile_map;
    tile_map.resize(2, 1, LabyrinthOfLore::WorldMap::Tile(0, 10.0));
-   LabyrinthOfLore::Entity::Base entity = LabyrinthOfLore::Entity::Base();
-   std::vector<LabyrinthOfLore::Entity::Base*> entities = { &entity };
+   AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D entity = AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D();
+   std::vector<AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D*> entities = { &entity };
 
    float auto_ascend_threshold = LabyrinthOfLore::Physics::EntityTileMapCollisionStepper::get_auto_ascend_threshold();
 
@@ -618,8 +618,8 @@ TEST(LabyrinthOfLore_Physics_EntityTileMapCollisionStepperTest, get_events_from_
 {
    LabyrinthOfLore::WorldMap::TileMap tile_map;
    tile_map.resize(2, 1, LabyrinthOfLore::WorldMap::Tile(0, 10.0));
-   LabyrinthOfLore::Entity::Base entity = LabyrinthOfLore::Entity::Base();
-   std::vector<LabyrinthOfLore::Entity::Base*> entities = { &entity };
+   AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D entity = AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D();
+   std::vector<AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D*> entities = { &entity };
 
    float auto_ascend_threshold = LabyrinthOfLore::Physics::EntityTileMapCollisionStepper::get_auto_ascend_threshold();
 
@@ -648,8 +648,8 @@ TEST(LabyrinthOfLore_Physics_EntityTileMapCollisionStepperTest, get_events_from_
 {
    LabyrinthOfLore::WorldMap::TileMap tile_map;
    tile_map.resize(1, 2, LabyrinthOfLore::WorldMap::Tile(0, 10.0));
-   LabyrinthOfLore::Entity::Base entity = LabyrinthOfLore::Entity::Base();
-   std::vector<LabyrinthOfLore::Entity::Base*> entities = { &entity };
+   AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D entity = AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D();
+   std::vector<AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D*> entities = { &entity };
 
    float auto_ascend_threshold = LabyrinthOfLore::Physics::EntityTileMapCollisionStepper::get_auto_ascend_threshold();
 
@@ -678,8 +678,8 @@ TEST(LabyrinthOfLore_Physics_EntityTileMapCollisionStepperTest, get_events_from_
 {
    LabyrinthOfLore::WorldMap::TileMap tile_map;
    tile_map.resize(1, 2, LabyrinthOfLore::WorldMap::Tile(0, 10.0));
-   LabyrinthOfLore::Entity::Base entity = LabyrinthOfLore::Entity::Base();
-   std::vector<LabyrinthOfLore::Entity::Base*> entities = { &entity };
+   AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D entity = AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D();
+   std::vector<AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D*> entities = { &entity };
 
    float auto_ascend_threshold = LabyrinthOfLore::Physics::EntityTileMapCollisionStepper::get_auto_ascend_threshold();
 
@@ -708,8 +708,8 @@ TEST(LabyrinthOfLore_Physics_EntityTileMapCollisionStepperTest, get_events_from_
 {
    LabyrinthOfLore::WorldMap::TileMap tile_map;
    tile_map.resize(3, 3, LabyrinthOfLore::WorldMap::Tile(0, 10.0));
-   LabyrinthOfLore::Entity::Base entity = LabyrinthOfLore::Entity::Base();
-   std::vector<LabyrinthOfLore::Entity::Base*> entities = { &entity };
+   AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D entity = AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D();
+   std::vector<AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D*> entities = { &entity };
 
    entity.get_placement_ref().position = AllegroFlare::vec3d(2.5, 1.5, 10.5);
    entity.get_velocity_ref().position = AllegroFlare::vec3d(0.0, 0.0, -0.729);
@@ -736,8 +736,8 @@ TEST(LabyrinthOfLore_Physics_EntityTileMapCollisionStepperTest, get_events_from_
 {
    LabyrinthOfLore::WorldMap::TileMap tile_map;
    tile_map.resize(3, 3, LabyrinthOfLore::WorldMap::Tile(0, 10.0));
-   LabyrinthOfLore::Entity::Base entity = LabyrinthOfLore::Entity::Base();
-   std::vector<LabyrinthOfLore::Entity::Base*> entities = { &entity };
+   AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D entity = AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D();
+   std::vector<AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D*> entities = { &entity };
 
    entity.get_placement_ref().position = AllegroFlare::vec3d(1.5, 1.5, 10.5);
    entity.get_velocity_ref().position = AllegroFlare::vec3d(0.681, 0.829, -0.729);
@@ -769,9 +769,9 @@ TEST(LabyrinthOfLore_Physics_EntityTileMapCollisionStepperTest, get_events_from_
    LabyrinthOfLore::WorldMap::TileMap tile_map;
    tile_map.resize(2, 2, LabyrinthOfLore::WorldMap::Tile(0, 10.0));
 
-   LabyrinthOfLore::Entity::Base entity1 = LabyrinthOfLore::Entity::Base();
-   LabyrinthOfLore::Entity::Base entity2 = LabyrinthOfLore::Entity::Base();
-   std::vector<LabyrinthOfLore::Entity::Base*> entities = { &entity1, &entity2 };
+   AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D entity1 = AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D();
+   AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D entity2 = AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D();
+   std::vector<AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D*> entities = { &entity1, &entity2 };
 
    tile_map.set_tile(0, 0, LabyrinthOfLore::WorldMap::Tile(82, 20.0));
    tile_map.set_tile(1, 1, LabyrinthOfLore::WorldMap::Tile(928, 20.0));
@@ -805,8 +805,8 @@ TEST(LabyrinthOfLore_Physics_EntityTileMapCollisionStepperTest,
 {
    LabyrinthOfLore::WorldMap::TileMap tile_map;
    tile_map.resize(2, 2, LabyrinthOfLore::WorldMap::Tile(0, 10.0));
-   LabyrinthOfLore::Entity::Base entity = LabyrinthOfLore::Entity::Base();
-   std::vector<LabyrinthOfLore::Entity::Base*> entities = { &entity };
+   AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D entity = AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D();
+   std::vector<AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D*> entities = { &entity };
 
    tile_map.set_tile(1, 0, LabyrinthOfLore::WorldMap::Tile(82, 10.0));
 
