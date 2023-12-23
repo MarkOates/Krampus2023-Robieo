@@ -1,0 +1,36 @@
+properties:
+  - name: entity
+    type: LabyrinthOfLore::Entity::Base*
+    init_with: nullptr
+    constructor_arg: true
+    getter: true
+  - name: tile_type
+    type: int
+    init_with: 0
+    constructor_arg: true
+    getter: true
+  - name: tile_x
+    type: int
+    init_with: 0
+    constructor_arg: true
+    getter: true
+  - name: tile_y
+    type: int
+    init_with: 0
+    constructor_arg: true
+    getter: true
+  - name: tile_face_collided_with
+    type: LabyrinthOfLore::WorldMap::tile_face_t
+    init_with: LabyrinthOfLore::WorldMap::TILE_FACE_NONE
+    constructor_arg: true
+    getter: true
+  - name: force
+    type: float
+    init_with: 0
+    constructor_arg: true
+    getter: true
+dependencies:
+  - symbol: LabyrinthOfLore::Entity::Base
+    headers: [ LabyrinthOfLore/Entity/Base.hpp ]
+  - symbol: LabyrinthOfLore::WorldMap::tile_face_t
+    headers: [ LabyrinthOfLore/WorldMap/TileFaceEnum.hpp ]
