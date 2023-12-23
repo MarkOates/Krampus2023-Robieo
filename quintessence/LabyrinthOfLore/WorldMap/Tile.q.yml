@@ -1,0 +1,17 @@
+properties:
+  - name: type
+    type: int
+    init_with: "-1"
+    getter: true
+    setter: true
+    constructor_arg: true
+  - name: height
+    type: float
+    init_with: 0.0
+    getter: true
+    setter: true
+    constructor_arg: true
+functions:
+  - name: run
+    type: std::string
+    body: return "Hello World!";
