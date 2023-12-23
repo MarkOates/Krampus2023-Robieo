@@ -689,8 +689,21 @@ void Screen::load_level_by_identifier(std::string level_identifier)
       )
    );
 
+   // A pillar too high
    result_tile_map->set_tile(
-      1, 1, LabyrinthOfLore::WorldMap::Tile(LabyrinthOfLore::WorldMap::NORMAL_GROUND_TILE, 5.0f));
+      1, 1, LabyrinthOfLore::WorldMap::Tile(LabyrinthOfLore::WorldMap::NORMAL_GROUND_TILE, 2.0f));
+
+   // A sequence of steps
+   result_tile_map->set_tile(
+      3, 1, LabyrinthOfLore::WorldMap::Tile(LabyrinthOfLore::WorldMap::NORMAL_GROUND_TILE, 0.2f));
+   result_tile_map->set_tile(
+      4, 1, LabyrinthOfLore::WorldMap::Tile(LabyrinthOfLore::WorldMap::NORMAL_GROUND_TILE, 0.4f));
+   result_tile_map->set_tile(
+      5, 1, LabyrinthOfLore::WorldMap::Tile(LabyrinthOfLore::WorldMap::NORMAL_GROUND_TILE, 0.6f));
+   result_tile_map->set_tile(
+      6, 1, LabyrinthOfLore::WorldMap::Tile(LabyrinthOfLore::WorldMap::NORMAL_GROUND_TILE, 0.8f));
+   result_tile_map->set_tile(
+      7, 1, LabyrinthOfLore::WorldMap::Tile(LabyrinthOfLore::WorldMap::NORMAL_GROUND_TILE, 1.0f));
 
 
    current_level_tile_map = result_tile_map;

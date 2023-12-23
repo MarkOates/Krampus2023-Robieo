@@ -35,7 +35,7 @@ methods:
       int inset = 2;
 
       float bottom_height = 0.0;
-      float top_height = 10.0;
+      float top_height = 2.0;
       ALLEGRO_COLOR tile_color = al_color_name("cyan");
 
       for (unsigned y=0; y<tile_map->get_height(); y++)
