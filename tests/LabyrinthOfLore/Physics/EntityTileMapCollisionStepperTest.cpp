@@ -54,12 +54,12 @@ TEST(LabyrinthOfLore_Physics_EntityTileMapCollisionStepperTest,
    LabyrinthOfLore::Physics::EntityTileMapCollisionStepper entity_tile_map_collision_stepper(tile_map, entities);
    entity_tile_map_collision_stepper.process_step();
 
-   allegro_flare::placement3d actual_placement = entity.get_placement_ref();
+   AllegroFlare::Placement3D actual_placement = entity.get_placement_ref();
    EXPECT_EQ(0.3f, actual_placement.position.x);
    EXPECT_EQ(0.4f, actual_placement.position.y);
    EXPECT_NEAR(10.201f, actual_placement.position.z, FLOATING_POINT_ERROR_MARGIN);
 
-   allegro_flare::placement3d actual_velocity = entity.get_velocity_ref();
+   AllegroFlare::Placement3D actual_velocity = entity.get_velocity_ref();
    EXPECT_EQ(0.3f, actual_velocity.position.x);
    EXPECT_EQ(0.4f, actual_velocity.position.y);
    EXPECT_EQ(0.2f, actual_velocity.position.z);
@@ -79,12 +79,12 @@ TEST(LabyrinthOfLore_Physics_EntityTileMapCollisionStepperTest,
    LabyrinthOfLore::Physics::EntityTileMapCollisionStepper entity_tile_map_collision_stepper(tile_map, entities);
    entity_tile_map_collision_stepper.process_step();
 
-   allegro_flare::placement3d actual_placement = entity.get_placement_ref();
+   AllegroFlare::Placement3D actual_placement = entity.get_placement_ref();
    EXPECT_EQ(0.7f, actual_placement.position.x);
    EXPECT_EQ(0.6f, actual_placement.position.y);
    EXPECT_NEAR(10.801f, actual_placement.position.z, FLOATING_POINT_ERROR_MARGIN);
 
-   allegro_flare::placement3d actual_velocity = entity.get_velocity_ref();
+   AllegroFlare::Placement3D actual_velocity = entity.get_velocity_ref();
    EXPECT_EQ(-0.3f, actual_velocity.position.x);
    EXPECT_EQ(-0.4f, actual_velocity.position.y);
    EXPECT_EQ(-0.2f, actual_velocity.position.z);
@@ -107,12 +107,12 @@ TEST(LabyrinthOfLore_Physics_EntityTileMapCollisionStepperTest,
    LabyrinthOfLore::Physics::EntityTileMapCollisionStepper entity_tile_map_collision_stepper(tile_map, entities);
    entity_tile_map_collision_stepper.process_step();
 
-   allegro_flare::placement3d actual_placement = entity.get_placement_ref();
+   AllegroFlare::Placement3D actual_placement = entity.get_placement_ref();
    EXPECT_EQ(0.5f, actual_placement.position.x);
    EXPECT_EQ(0.5f, actual_placement.position.y);
    EXPECT_NEAR(10.001f, actual_placement.position.z, FLOATING_POINT_ERROR_MARGIN);
 
-   allegro_flare::placement3d actual_velocity = entity.get_velocity_ref();
+   AllegroFlare::Placement3D actual_velocity = entity.get_velocity_ref();
    EXPECT_EQ(1.0f, actual_velocity.position.x);
    EXPECT_EQ(0.0f, actual_velocity.position.y);
    EXPECT_EQ(0.0f, actual_velocity.position.z);
@@ -135,12 +135,12 @@ TEST(LabyrinthOfLore_Physics_EntityTileMapCollisionStepperTest,
    LabyrinthOfLore::Physics::EntityTileMapCollisionStepper entity_tile_map_collision_stepper(tile_map, entities);
    entity_tile_map_collision_stepper.process_step();
 
-   allegro_flare::placement3d actual_placement = entity.get_placement_ref();
+   AllegroFlare::Placement3D actual_placement = entity.get_placement_ref();
    EXPECT_EQ(0.5f, actual_placement.position.x);
    EXPECT_EQ(0.5f, actual_placement.position.y);
    EXPECT_NEAR(10.001f, actual_placement.position.z, FLOATING_POINT_ERROR_MARGIN);
 
-   allegro_flare::placement3d actual_velocity = entity.get_velocity_ref();
+   AllegroFlare::Placement3D actual_velocity = entity.get_velocity_ref();
    EXPECT_EQ(0.0f, actual_velocity.position.x);
    EXPECT_EQ(1.0f, actual_velocity.position.y);
    EXPECT_EQ(0.0f, actual_velocity.position.z);
@@ -170,12 +170,12 @@ TEST(LabyrinthOfLore_Physics_EntityTileMapCollisionStepperTest,
    LabyrinthOfLore::Physics::EntityTileMapCollisionStepper entity_tile_map_collision_stepper(tile_map, entities);
    entity_tile_map_collision_stepper.process_step();
 
-   allegro_flare::placement3d actual_placement = entity.get_placement_ref();
+   AllegroFlare::Placement3D actual_placement = entity.get_placement_ref();
    EXPECT_EQ(0.5f, actual_placement.position.x);
    EXPECT_EQ(0.5f, actual_placement.position.y);
    EXPECT_NEAR(10.001f, actual_placement.position.z, FLOATING_POINT_ERROR_MARGIN);
 
-   allegro_flare::placement3d actual_velocity = entity.get_velocity_ref();
+   AllegroFlare::Placement3D actual_velocity = entity.get_velocity_ref();
    EXPECT_EQ(0.0f, actual_velocity.position.x);
    EXPECT_EQ(0.0f, actual_velocity.position.y);
    EXPECT_EQ(0.0f, actual_velocity.position.z);
@@ -198,12 +198,12 @@ TEST(LabyrinthOfLore_Physics_EntityTileMapCollisionStepperTest,
    LabyrinthOfLore::Physics::EntityTileMapCollisionStepper entity_tile_map_collision_stepper(tile_map, entities);
    entity_tile_map_collision_stepper.process_step();
 
-   allegro_flare::placement3d actual_placement = entity.get_placement_ref();
+   AllegroFlare::Placement3D actual_placement = entity.get_placement_ref();
    EXPECT_EQ(1.5f, actual_placement.position.x);
    EXPECT_EQ(0.5f, actual_placement.position.y);
    EXPECT_NEAR(10.0f + auto_ascend_threshold + 0.001f, actual_placement.position.z, FLOATING_POINT_ERROR_MARGIN);
 
-   allegro_flare::placement3d actual_velocity = entity.get_velocity_ref();
+   AllegroFlare::Placement3D actual_velocity = entity.get_velocity_ref();
    EXPECT_EQ(1.0f, actual_velocity.position.x);
    EXPECT_EQ(0.0f, actual_velocity.position.y);
    EXPECT_EQ(0.0f, actual_velocity.position.z);
@@ -232,9 +232,9 @@ TEST(LabyrinthOfLore_Physics_EntityTileMapCollisionStepperTest, process_step__pr
    LabyrinthOfLore::Physics::EntityTileMapCollisionStepper entity_tile_map_collision_stepper(tile_map, entities);
    entity_tile_map_collision_stepper.process_step();
 
-   allegro_flare::placement3d entity1_actual_placement = entity1.get_placement_ref();
-   allegro_flare::placement3d entity2_actual_placement = entity2.get_placement_ref();
-   allegro_flare::placement3d entity3_actual_placement = entity3.get_placement_ref();
+   AllegroFlare::Placement3D entity1_actual_placement = entity1.get_placement_ref();
+   AllegroFlare::Placement3D entity2_actual_placement = entity2.get_placement_ref();
+   AllegroFlare::Placement3D entity3_actual_placement = entity3.get_placement_ref();
 
    EXPECT_EQ(1.5f, entity1_actual_placement.position.x);
    EXPECT_EQ(0.5f, entity1_actual_placement.position.y);
@@ -263,12 +263,12 @@ TEST(LabyrinthOfLore_Physics_EntityTileMapCollisionStepperTest,
    LabyrinthOfLore::Physics::EntityTileMapCollisionStepper entity_tile_map_collision_stepper(tile_map, entities);
    entity_tile_map_collision_stepper.process_step();
 
-   allegro_flare::placement3d actual_placement = entity.get_placement_ref();
+   AllegroFlare::Placement3D actual_placement = entity.get_placement_ref();
    EXPECT_EQ(0.0f, actual_placement.position.x);
    EXPECT_EQ(0.0f, actual_placement.position.y);
    EXPECT_EQ(99.999f, actual_placement.position.z);
 
-   allegro_flare::placement3d actual_velocity = entity.get_velocity_ref();
+   AllegroFlare::Placement3D actual_velocity = entity.get_velocity_ref();
    EXPECT_EQ(0.0f, actual_velocity.position.x);
    EXPECT_EQ(0.0f, actual_velocity.position.y);
    EXPECT_EQ(0.0f, actual_velocity.position.z);
@@ -290,12 +290,12 @@ TEST(LabyrinthOfLore_Physics_EntityTileMapCollisionStepperTest,
    LabyrinthOfLore::Physics::EntityTileMapCollisionStepper entity_tile_map_collision_stepper(tile_map, entities);
    entity_tile_map_collision_stepper.process_step();
 
-   allegro_flare::placement3d actual_placement = entity.get_placement_ref();
+   AllegroFlare::Placement3D actual_placement = entity.get_placement_ref();
    EXPECT_EQ(0.0f, actual_placement.position.x);
    EXPECT_EQ(0.0f, actual_placement.position.y);
    EXPECT_EQ(3.999f, actual_placement.position.z);
 
-   allegro_flare::placement3d actual_velocity = entity.get_velocity_ref();
+   AllegroFlare::Placement3D actual_velocity = entity.get_velocity_ref();
    EXPECT_EQ(0.0f, actual_velocity.position.x);
    EXPECT_EQ(0.0f, actual_velocity.position.y);
    EXPECT_EQ(0.0f, actual_velocity.position.z);
@@ -315,12 +315,12 @@ TEST(LabyrinthOfLore_Physics_EntityTileMapCollisionStepperTest,
    LabyrinthOfLore::Physics::EntityTileMapCollisionStepper entity_tile_map_collision_stepper(tile_map, entities);
    entity_tile_map_collision_stepper.process_step();
 
-   allegro_flare::placement3d actual_placement = entity.get_placement_ref();
+   AllegroFlare::Placement3D actual_placement = entity.get_placement_ref();
    EXPECT_EQ(0.0f, actual_placement.position.x);
    EXPECT_EQ(0.0f, actual_placement.position.y);
    EXPECT_EQ(0.001f, actual_placement.position.z);
 
-   allegro_flare::placement3d actual_velocity = entity.get_velocity_ref();
+   AllegroFlare::Placement3D actual_velocity = entity.get_velocity_ref();
    EXPECT_EQ(0.0f, actual_velocity.position.x);
    EXPECT_EQ(0.0f, actual_velocity.position.y);
    EXPECT_EQ(0.0f, actual_velocity.position.z);
@@ -340,7 +340,7 @@ TEST(LabyrinthOfLore_Physics_EntityTileMapCollisionStepperTest,
    LabyrinthOfLore::Physics::EntityTileMapCollisionStepper entity_tile_map_collision_stepper(tile_map, entities);
    entity_tile_map_collision_stepper.process_step();
 
-   allegro_flare::placement3d actual_placement = entity.get_placement_ref();
+   AllegroFlare::Placement3D actual_placement = entity.get_placement_ref();
    EXPECT_NEAR(-0.5f, actual_placement.position.x, FLOATING_POINT_ERROR_MARGIN);
    EXPECT_NEAR(-0.5f, actual_placement.position.y, FLOATING_POINT_ERROR_MARGIN);
    EXPECT_NEAR(10.001f, actual_placement.position.z, FLOATING_POINT_ERROR_MARGIN);
@@ -360,7 +360,7 @@ TEST(LabyrinthOfLore_Physics_EntityTileMapCollisionStepperTest,
    LabyrinthOfLore::Physics::EntityTileMapCollisionStepper entity_tile_map_collision_stepper(tile_map, entities);
    entity_tile_map_collision_stepper.process_step();
 
-   allegro_flare::placement3d actual_placement = entity.get_placement_ref();
+   AllegroFlare::Placement3D actual_placement = entity.get_placement_ref();
    EXPECT_NEAR(1.5f, actual_placement.position.x, FLOATING_POINT_ERROR_MARGIN);
    EXPECT_NEAR(1.5f, actual_placement.position.y, FLOATING_POINT_ERROR_MARGIN);
    EXPECT_NEAR(10.001f, actual_placement.position.z, FLOATING_POINT_ERROR_MARGIN);
@@ -394,7 +394,7 @@ TEST(LabyrinthOfLore_Physics_EntityTileMapCollisionStepperTest,
       entity_tile_map_collision_stepper.process_step();
    }
 
-   allegro_flare::placement3d actual_placement = entity.get_placement_ref();
+   AllegroFlare::Placement3D actual_placement = entity.get_placement_ref();
    EXPECT_NEAR(8.5f, actual_placement.position.x, FLOATING_POINT_ERROR_MARGIN);
    EXPECT_NEAR(0.5f, actual_placement.position.y, FLOATING_POINT_ERROR_MARGIN);
    EXPECT_NEAR(12.001f, actual_placement.position.z, FLOATING_POINT_ERROR_MARGIN);
@@ -409,7 +409,7 @@ TEST(LabyrinthOfLore_Physics_EntityTileMapCollisionStepperTest,
    std::vector<LabyrinthOfLore::Entity::Base*> entities = { &entity };
 
    float auto_ascend_threshold = LabyrinthOfLore::Physics::EntityTileMapCollisionStepper::get_auto_ascend_threshold();
-   allegro_flare::placement3d &actual_placement = entity.get_placement_ref();
+   AllegroFlare::Placement3D &actual_placement = entity.get_placement_ref();
 
    // moving right
    tile_map.set_tile(0, 0, LabyrinthOfLore::WorldMap::Tile(0, 10.0 + auto_ascend_threshold*0));
@@ -497,7 +497,7 @@ TEST(LabyrinthOfLore_Physics_EntityTileMapCollisionStepperTest,
    entity_tile_map_collision_stepper.process_step();
    entity_tile_map_collision_stepper.process_step();
 
-   allegro_flare::placement3d &actual_placement = entity.get_placement_ref();
+   AllegroFlare::Placement3D &actual_placement = entity.get_placement_ref();
    EXPECT_NEAR(1.25f, actual_placement.position.x, FLOATING_POINT_ERROR_MARGIN);
    EXPECT_NEAR(1.75f, actual_placement.position.y, FLOATING_POINT_ERROR_MARGIN);
 }
@@ -521,7 +521,7 @@ TEST(LabyrinthOfLore_Physics_EntityTileMapCollisionStepperTest,
    entity_tile_map_collision_stepper.process_step();
    entity_tile_map_collision_stepper.process_step();
 
-   allegro_flare::placement3d &actual_placement = entity.get_placement_ref();
+   AllegroFlare::Placement3D &actual_placement = entity.get_placement_ref();
    EXPECT_NEAR(0.75f, actual_placement.position.x, FLOATING_POINT_ERROR_MARGIN);
    EXPECT_NEAR(1.75f, actual_placement.position.y, FLOATING_POINT_ERROR_MARGIN);
 }
@@ -545,7 +545,7 @@ TEST(LabyrinthOfLore_Physics_EntityTileMapCollisionStepperTest,
    entity_tile_map_collision_stepper.process_step();
    entity_tile_map_collision_stepper.process_step();
 
-   allegro_flare::placement3d &actual_placement = entity.get_placement_ref();
+   AllegroFlare::Placement3D &actual_placement = entity.get_placement_ref();
    EXPECT_NEAR(1.25f, actual_placement.position.x, FLOATING_POINT_ERROR_MARGIN);
    EXPECT_NEAR(0.25f, actual_placement.position.y, FLOATING_POINT_ERROR_MARGIN);
 }
@@ -569,7 +569,7 @@ TEST(LabyrinthOfLore_Physics_EntityTileMapCollisionStepperTest,
    entity_tile_map_collision_stepper.process_step();
    entity_tile_map_collision_stepper.process_step();
 
-   allegro_flare::placement3d &actual_placement = entity.get_placement_ref();
+   AllegroFlare::Placement3D &actual_placement = entity.get_placement_ref();
    EXPECT_NEAR(0.75f, actual_placement.position.x, FLOATING_POINT_ERROR_MARGIN);
    EXPECT_NEAR(0.25f, actual_placement.position.y, FLOATING_POINT_ERROR_MARGIN);
 }
