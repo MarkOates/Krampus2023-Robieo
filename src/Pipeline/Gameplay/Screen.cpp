@@ -1393,6 +1393,9 @@ void Screen::render()
    std::stringstream coordinates;
    coordinates << std::setprecision(3) << player_position.x << ", " << player_position.z;
    al_draw_text(ui_font, hud_text_color, 1920 - 300, 1080 - 200, ALLEGRO_ALIGN_RIGHT, coordinates.str().c_str());
+   std::stringstream coordinates2;
+   coordinates2 << std::setprecision(3) << player_position.y;
+   al_draw_text(ui_font, hud_text_color, 1920 - 300, 1080 - 200 + 20, ALLEGRO_ALIGN_RIGHT, coordinates2.str().c_str());
 
    return;
 }
