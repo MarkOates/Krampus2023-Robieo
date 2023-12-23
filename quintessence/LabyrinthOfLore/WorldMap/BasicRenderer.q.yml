@@ -1,0 +1,64 @@
+properties:
+
+
+  - name: tile_map
+    type: LabyrinthOfLore::WorldMap::TileMap
+    init_with: "{}"
+    constructor_arg: true
+
+
+methods:
+
+
+  - name: render
+    type: void
+    guards: [ al_is_primitives_addon_initialized() ]
+    body: |
+      int tile_width = 32;
+      int tile_height = 32;
+
+      float bottom_height = 0.0;
+      float top_height = 10.0;
+      ALLEGRO_COLOR tile_color = al_color_name("chartreuse");
+
+      for (unsigned y=0; y<tile_map.get_height(); y++)
+        for (unsigned x=0; x<tile_map.get_width(); x++)
+         {
+            LabyrinthOfLore::WorldMap::Tile tile = tile_map.get_tile(x, y);
+            float height_float = tile.get_height() / top_height;
+
+            ALLEGRO_COLOR this_tile_color = AllegroFlare::color::color(tile_color, height_float);
+
+            al_draw_filled_rectangle(
+               x * tile_width,
+               y * tile_height,
+               x * tile_width + tile_width,
+               y * tile_height + tile_height,
+               this_tile_color
+            );
+         }
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::color::color
+      - LabyrinthOfLore::WorldMap::Tile
+      - al_draw_filled_rectangle
+      - al_color_name
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::color::color
+    headers: [ AllegroFlare/Color.hpp ]
+  - symbol: LabyrinthOfLore::WorldMap::TileMap
+    headers: [ LabyrinthOfLore/WorldMap/TileMap.hpp ]
+  - symbol: LabyrinthOfLore::WorldMap::Tile
+    headers: [ LabyrinthOfLore/WorldMap/Tile.hpp ]
+  - symbol: al_draw_filled_rectangle
+    headers: [ allegro5/allegro_primitives.h ]
+  - symbol: al_color_name
+    headers: [ allegro5/allegro_color.h ]
+  - symbol: al_init_primitives_addon
+    headers: [ allegro5/allegro_primitives.h ]
+
+

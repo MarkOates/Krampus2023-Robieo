@@ -54,6 +54,10 @@ table td
   <li><a href="#quintessence/AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer2.q.yml">quintessence/AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer2.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowMapBuffer.q.yml">quintessence/AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowMapBuffer.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Shaders/ShadowMapping.q.yml">quintessence/AllegroFlare/Shaders/ShadowMapping.q.yml</a></li>
+  <li><a href="#quintessence/LabyrinthOfLore/Physics/EntityTileMapCollisionEvent.q.yml">quintessence/LabyrinthOfLore/Physics/EntityTileMapCollisionEvent.q.yml</a></li>
+  <li><a href="#quintessence/LabyrinthOfLore/Physics/EntityTileMapCollisionStepper.q.yml">quintessence/LabyrinthOfLore/Physics/EntityTileMapCollisionStepper.q.yml</a></li>
+  <li><a href="#quintessence/LabyrinthOfLore/WorldMap/BasicRenderer.q.yml">quintessence/LabyrinthOfLore/WorldMap/BasicRenderer.q.yml</a></li>
+  <li><a href="#quintessence/LabyrinthOfLore/WorldMap/Tile.q.yml">quintessence/LabyrinthOfLore/WorldMap/Tile.q.yml</a></li>
   <li><a href="#quintessence/Pipeline/DialogNodeBankFactory.q.yml">quintessence/Pipeline/DialogNodeBankFactory.q.yml</a></li>
   <li><a href="#quintessence/Pipeline/GameConfigurations/Main.q.yml">quintessence/Pipeline/GameConfigurations/Main.q.yml</a></li>
   <li><a href="#quintessence/Pipeline/GameProgressAndStateInfo.q.yml">quintessence/Pipeline/GameProgressAndStateInfo.q.yml</a></li>
@@ -708,6 +712,181 @@ table td
 </ul>
 <ul>
   <div class="component">
+    <h3 id="quintessence/LabyrinthOfLore/Physics/EntityTileMapCollisionEvent.q.yml">quintessence/LabyrinthOfLore/Physics/EntityTileMapCollisionEvent.q.yml</h3>
+    <h4>Overview<h4>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">entity</td>
+  <td class="property">AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D*</td>
+</tr>
+<tr>
+  <td class="property">tile_type</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">tile_x</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">tile_y</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">tile_face_collided_with</td>
+  <td class="property">LabyrinthOfLore::WorldMap::tile_face_t</td>
+</tr>
+<tr>
+  <td class="property">force</td>
+  <td class="property">float</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/DynamicModel3D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;LabyrinthOfLore::WorldMap::tile_face_t&quot;, &quot;headers&quot;=&gt;[&quot;LabyrinthOfLore/WorldMap/TileFaceEnum.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/LabyrinthOfLore/Physics/EntityTileMapCollisionStepper.q.yml">quintessence/LabyrinthOfLore/Physics/EntityTileMapCollisionStepper.q.yml</h3>
+    <h4>Overview<h4>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">tile_map</td>
+  <td class="property">LabyrinthOfLore::WorldMap::TileMap*</td>
+</tr>
+<tr>
+  <td class="property">entities</td>
+  <td class="property">std::vector&lt;AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D*&gt;</td>
+</tr>
+<tr>
+  <td class="property">floor_height</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">auto_ascend_threshold</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">offset_at_collision_edge</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">events_from_last_processed_step</td>
+  <td class="property">std::vector&lt;LabyrinthOfLore::Physics::EntityTileMapCollisionEvent&gt;</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">process_step()</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;LabyrinthOfLore::WorldMap::TileMap&quot;, &quot;headers&quot;=&gt;[&quot;LabyrinthOfLore/WorldMap/TileMap.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;LabyrinthOfLore::Entity::Base&quot;, &quot;headers&quot;=&gt;[&quot;LabyrinthOfLore/Entity/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;fabs&quot;, &quot;headers&quot;=&gt;[&quot;cmath&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::min&quot;, &quot;headers&quot;=&gt;[&quot;algorithm&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::max&quot;, &quot;headers&quot;=&gt;[&quot;algorithm&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;LabyrinthOfLore::WorldMap::tile_face_t&quot;, &quot;headers&quot;=&gt;[&quot;LabyrinthOfLore/WorldMap/TileFaceEnum.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;LabyrinthOfLore::Physics::EntityTileMapCollisionEvent&quot;, &quot;headers&quot;=&gt;[&quot;LabyrinthOfLore/Physics/EntityTileMapCollisionEvent.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/DynamicModel3D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;LabyrinthOfLore::Physics::EntityTileMapCollisionEvent&quot;, &quot;headers&quot;=&gt;[&quot;LabyrinthOfLore/Physics/EntityTileMapCollisionEvent.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/LabyrinthOfLore/WorldMap/BasicRenderer.q.yml">quintessence/LabyrinthOfLore/WorldMap/BasicRenderer.q.yml</h3>
+    <h4>Overview<h4>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">tile_map</td>
+  <td class="property">LabyrinthOfLore::WorldMap::TileMap</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">render()</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::color::color&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Color.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;LabyrinthOfLore::WorldMap::TileMap&quot;, &quot;headers&quot;=&gt;[&quot;LabyrinthOfLore/WorldMap/TileMap.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;LabyrinthOfLore::WorldMap::Tile&quot;, &quot;headers&quot;=&gt;[&quot;LabyrinthOfLore/WorldMap/Tile.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_draw_filled_rectangle&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_color_name&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_color.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_init_primitives_addon&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/LabyrinthOfLore/WorldMap/Tile.q.yml">quintessence/LabyrinthOfLore/WorldMap/Tile.q.yml</h3>
+    <h4>Overview<h4>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">type</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">height</td>
+  <td class="property">float</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+    </table>
+</div>    <h3>Dependencies</h3>
+<p>This class contains no dependencies</p>  </div>
+</ul>
+<ul>
+  <div class="component">
     <h3 id="quintessence/Pipeline/DialogNodeBankFactory.q.yml">quintessence/Pipeline/DialogNodeBankFactory.q.yml</h3>
     <h4>Overview<h4>
     <h3>Properties</h3>
@@ -987,6 +1166,10 @@ table td
 <tr>
   <td class="property">current_level</td>
   <td class="property">Pipeline::Gameplay::Level*</td>
+</tr>
+<tr>
+  <td class="property">current_level_tile_map</td>
+  <td class="property">LabyrinthOfLore::WorldMap::TileMap*</td>
 </tr>
 <tr>
   <td class="property">current_level_song_to_perform_identifier</td>
@@ -1337,6 +1520,12 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::fmod&quot;, &quot;headers&quot;=&gt;[&quot;cmath&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;LabyrinthOfLore::WorldMap::TileMap&quot;, &quot;headers&quot;=&gt;[&quot;LabyrinthOfLore/WorldMap/TileMap.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;LabyrinthOfLore::WorldMap::TileTypeEnum&quot;, &quot;headers&quot;=&gt;[&quot;LabyrinthOfLore/WorldMap/TileTypeEnum.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -1693,6 +1882,8 @@ table td
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer2",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer2",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowMapBuffer",
+    "LabyrinthOfLore/Physics/EntityTileMapCollisionEvent",
+    "LabyrinthOfLore/Physics/EntityTileMapCollisionStepper",
     "Pipeline/Gameplay/Screen"
   ],
   "AllegroFlare/AllegroUnstable": [
@@ -1779,6 +1970,46 @@ table td
   "AllegroFlare/UsefulPHP": [
     "AllegroFlare/Shaders/ShadowMapping",
     "Pipeline/Runner"
+  ],
+  "LabyrinthOfLore/WorldMap/tile_face_t": [
+    "LabyrinthOfLore/Physics/EntityTileMapCollisionEvent",
+    "LabyrinthOfLore/Physics/EntityTileMapCollisionStepper"
+  ],
+  "LabyrinthOfLore/WorldMap/TileMap": [
+    "LabyrinthOfLore/Physics/EntityTileMapCollisionStepper",
+    "LabyrinthOfLore/WorldMap/BasicRenderer",
+    "Pipeline/Gameplay/Screen"
+  ],
+  "LabyrinthOfLore/Entity/Base": [
+    "LabyrinthOfLore/Physics/EntityTileMapCollisionStepper"
+  ],
+  "fabs": [
+    "LabyrinthOfLore/Physics/EntityTileMapCollisionStepper"
+  ],
+  "std/min": [
+    "LabyrinthOfLore/Physics/EntityTileMapCollisionStepper"
+  ],
+  "std/max": [
+    "LabyrinthOfLore/Physics/EntityTileMapCollisionStepper"
+  ],
+  "LabyrinthOfLore/Physics/EntityTileMapCollisionEvent": [
+    "LabyrinthOfLore/Physics/EntityTileMapCollisionStepper",
+    "LabyrinthOfLore/Physics/EntityTileMapCollisionStepper"
+  ],
+  "AllegroFlare/color/color": [
+    "LabyrinthOfLore/WorldMap/BasicRenderer"
+  ],
+  "LabyrinthOfLore/WorldMap/Tile": [
+    "LabyrinthOfLore/WorldMap/BasicRenderer"
+  ],
+  "al_draw_filled_rectangle": [
+    "LabyrinthOfLore/WorldMap/BasicRenderer"
+  ],
+  "al_color_name": [
+    "LabyrinthOfLore/WorldMap/BasicRenderer"
+  ],
+  "al_init_primitives_addon": [
+    "LabyrinthOfLore/WorldMap/BasicRenderer"
   ],
   "AllegroFlare/DialogTree/NodeBank": [
     "Pipeline/DialogNodeBankFactory",
@@ -1931,6 +2162,9 @@ table td
     "Pipeline/Gameplay/Screen"
   ],
   "std/fmod": [
+    "Pipeline/Gameplay/Screen"
+  ],
+  "LabyrinthOfLore/WorldMap/TileTypeEnum": [
     "Pipeline/Gameplay/Screen"
   ],
   "AllegroFlare/Routers/Standard": [

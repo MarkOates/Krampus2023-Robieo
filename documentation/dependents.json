@@ -61,6 +61,8 @@
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer2",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer2",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowMapBuffer",
+    "LabyrinthOfLore/Physics/EntityTileMapCollisionEvent",
+    "LabyrinthOfLore/Physics/EntityTileMapCollisionStepper",
     "Pipeline/Gameplay/Screen"
   ],
   "AllegroFlare/AllegroUnstable": [
@@ -147,6 +149,46 @@
   "AllegroFlare/UsefulPHP": [
     "AllegroFlare/Shaders/ShadowMapping",
     "Pipeline/Runner"
+  ],
+  "LabyrinthOfLore/WorldMap/tile_face_t": [
+    "LabyrinthOfLore/Physics/EntityTileMapCollisionEvent",
+    "LabyrinthOfLore/Physics/EntityTileMapCollisionStepper"
+  ],
+  "LabyrinthOfLore/WorldMap/TileMap": [
+    "LabyrinthOfLore/Physics/EntityTileMapCollisionStepper",
+    "LabyrinthOfLore/WorldMap/BasicRenderer",
+    "Pipeline/Gameplay/Screen"
+  ],
+  "LabyrinthOfLore/Entity/Base": [
+    "LabyrinthOfLore/Physics/EntityTileMapCollisionStepper"
+  ],
+  "fabs": [
+    "LabyrinthOfLore/Physics/EntityTileMapCollisionStepper"
+  ],
+  "std/min": [
+    "LabyrinthOfLore/Physics/EntityTileMapCollisionStepper"
+  ],
+  "std/max": [
+    "LabyrinthOfLore/Physics/EntityTileMapCollisionStepper"
+  ],
+  "LabyrinthOfLore/Physics/EntityTileMapCollisionEvent": [
+    "LabyrinthOfLore/Physics/EntityTileMapCollisionStepper",
+    "LabyrinthOfLore/Physics/EntityTileMapCollisionStepper"
+  ],
+  "AllegroFlare/color/color": [
+    "LabyrinthOfLore/WorldMap/BasicRenderer"
+  ],
+  "LabyrinthOfLore/WorldMap/Tile": [
+    "LabyrinthOfLore/WorldMap/BasicRenderer"
+  ],
+  "al_draw_filled_rectangle": [
+    "LabyrinthOfLore/WorldMap/BasicRenderer"
+  ],
+  "al_color_name": [
+    "LabyrinthOfLore/WorldMap/BasicRenderer"
+  ],
+  "al_init_primitives_addon": [
+    "LabyrinthOfLore/WorldMap/BasicRenderer"
   ],
   "AllegroFlare/DialogTree/NodeBank": [
     "Pipeline/DialogNodeBankFactory",
@@ -299,6 +341,9 @@
     "Pipeline/Gameplay/Screen"
   ],
   "std/fmod": [
+    "Pipeline/Gameplay/Screen"
+  ],
+  "LabyrinthOfLore/WorldMap/TileTypeEnum": [
     "Pipeline/Gameplay/Screen"
   ],
   "AllegroFlare/Routers/Standard": [

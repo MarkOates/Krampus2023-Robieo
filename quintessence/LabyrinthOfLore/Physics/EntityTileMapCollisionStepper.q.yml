@@ -1,0 +1,255 @@
+properties:
+
+
+  - name: tile_map
+    type: LabyrinthOfLore::WorldMap::TileMap*
+    init_with: nullptr
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: entities
+    type: std::vector<AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D*>
+    init_with: '{}'
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: floor_height
+    type: float
+    init_with: 0.0f
+    static: true
+    getter: true
+
+  - name: auto_ascend_threshold
+    type: float
+    init_with: 0.25f
+    static: true
+    getter: true
+
+  - name: offset_at_collision_edge
+    type: float
+    init_with: 0.001f
+    static: true
+    getter: true
+
+  - name: events_from_last_processed_step
+    type: std::vector<LabyrinthOfLore::Physics::EntityTileMapCollisionEvent>
+    init_with: "{}"
+    getter: true
+
+
+methods:
+
+
+  - name: process_step
+    type: void
+    guards: [ tile_map ]
+    body: |
+      events_from_last_processed_step.clear();
+      float ceiling_height = tile_map->get_ceiling_height();
+
+      for (auto &entity : entities)
+      {
+         AllegroFlare::vec2d player_xy = AllegroFlare::vec2d(
+              entity->get_velocity_ref().position.x,
+              entity->get_velocity_ref().position.y
+           );
+
+         AllegroFlare::vec2d x_y_movement_normalized = player_xy.normalized();
+         float player_xy_magnitude = player_xy.get_magnitude();
+
+         if (fabs(entity->get_velocity_ref().position.x) <= 0.00001 && fabs(entity->get_velocity_ref().position.y) <= 0.00001)
+         {
+            x_y_movement_normalized = AllegroFlare::vec2d(0, 1);
+            player_xy_magnitude = 0.0;
+         }
+
+         double dirX = x_y_movement_normalized.x;
+         double dirY = x_y_movement_normalized.y; // normal
+         double dirZ = entity->get_velocity_ref().position.z;
+         double moveSpeed = player_xy_magnitude;
+         double posX = entity->get_placement_ref().position.x;
+         double posY = entity->get_placement_ref().position.y;
+         double posZ = entity->get_placement_ref().position.z;
+
+         if(tile_map->get_tile(int(posX + dirX * moveSpeed), int(posY)).get_height() <= (posZ + get_auto_ascend_threshold()))
+         {
+            float previous_posX = posX;
+            posX += dirX * moveSpeed;
+            float now_posX = posX;
+
+            // if currentx!=nextx, create a collision event into the nextx tile, with a face of NONE
+            if ((int)previous_posX != (int)now_posX)
+            {
+              AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D* colliding_entity = entity;
+              //LabyrinthOfLore::Entity::Base* colliding_entity = entity;
+              int collided_tile_x = int(posX);
+              int collided_tile_y = int(posY);
+              int collided_tile_type = tile_map->get_tile(collided_tile_x, collided_tile_y).get_type();
+              LabyrinthOfLore::WorldMap::tile_face_t collided_tile_face_collided_with = LabyrinthOfLore::WorldMap::TILE_FACE_NONE;
+              float collided_force = abs(dirX * moveSpeed);
+
+               // a new tile space has been entered
+               LabyrinthOfLore::Physics::EntityTileMapCollisionEvent collision_event(
+                    colliding_entity,
+                    collided_tile_type,
+                    collided_tile_x,
+                    collided_tile_y,
+                    collided_tile_face_collided_with,
+                    collided_force
+                  );
+               events_from_last_processed_step.push_back(collision_event);
+            }
+         }
+         else
+         {
+            AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D* colliding_entity = entity;
+            //LabyrinthOfLore::Entity::Base* colliding_entity = entity;
+            int collided_tile_type = tile_map->get_tile(int(posX + dirX * moveSpeed), int(posY)).get_type();
+            int collided_tile_x = int(posX + dirX * moveSpeed);
+            int collided_tile_y = int(posY);
+            LabyrinthOfLore::WorldMap::tile_face_t collided_tile_face_collided_with = ((dirX * moveSpeed) > 0) ? LabyrinthOfLore::WorldMap::TILE_FACE_LEFT : LabyrinthOfLore::WorldMap::TILE_FACE_RIGHT;
+            float collided_force = abs(dirX * moveSpeed);
+
+            LabyrinthOfLore::Physics::EntityTileMapCollisionEvent collision_event(
+                  colliding_entity,
+                  collided_tile_type,
+                  collided_tile_x,
+                  collided_tile_y,
+                  collided_tile_face_collided_with,
+                  collided_force
+               );
+            events_from_last_processed_step.push_back(collision_event);
+         }
+         if(tile_map->get_tile(int(posX), int(posY + dirY * moveSpeed)).get_height() <= (posZ + get_auto_ascend_threshold()))
+         {
+            float previous_posY = posY;
+            posY += dirY * moveSpeed;
+            float now_posY = posY;
+
+            // if currenty!=nexty, create a collision event into the nexty tile, with a face of NONE
+            if ((int)previous_posY != (int)now_posY)
+            {
+              AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D* colliding_entity = entity;
+              //LabyrinthOfLore::Entity::Base* colliding_entity = entity;
+              int collided_tile_x = int(posX);
+              int collided_tile_y = int(posY);
+              int collided_tile_type = tile_map->get_tile(collided_tile_x, collided_tile_y).get_type();
+              LabyrinthOfLore::WorldMap::tile_face_t collided_tile_face_collided_with = LabyrinthOfLore::WorldMap::TILE_FACE_NONE;
+              float collided_force = abs(dirY * moveSpeed);
+
+               // a new tile space has been entered
+               LabyrinthOfLore::Physics::EntityTileMapCollisionEvent collision_event(
+                    colliding_entity,
+                    collided_tile_type,
+                    collided_tile_x,
+                    collided_tile_y,
+                    collided_tile_face_collided_with,
+                    collided_force
+                  );
+               events_from_last_processed_step.push_back(collision_event);
+            }
+         }
+         else
+         {
+            AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D* colliding_entity = entity;
+            //LabyrinthOfLore::Entity::Base* colliding_entity = entity;
+            int collided_tile_x = int(posX);
+            int collided_tile_y = int(posY + dirY * moveSpeed);
+            int collided_tile_type = tile_map->get_tile(collided_tile_x, collided_tile_y).get_type();
+            LabyrinthOfLore::WorldMap::tile_face_t collided_tile_face_collided_with = ((dirY * moveSpeed) > 0) ? LabyrinthOfLore::WorldMap::TILE_FACE_BACK : LabyrinthOfLore::WorldMap::TILE_FACE_FRONT;
+            float collided_force = abs(dirY * moveSpeed);
+
+            LabyrinthOfLore::Physics::EntityTileMapCollisionEvent collision_event(
+                  colliding_entity,
+                  collided_tile_type,
+                  collided_tile_x,
+                  collided_tile_y,
+                  collided_tile_face_collided_with,
+                  collided_force
+               );
+
+            events_from_last_processed_step.push_back(collision_event);
+         }
+         if ((posZ + dirZ) < tile_map->get_tile(int(posX), int(posY)).get_height())
+         {
+            posZ = tile_map->get_tile(int(posX), int(posY)).get_height() + get_offset_at_collision_edge();
+            entity->get_velocity_ref().position.z = 0.0f;
+
+            AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D* colliding_entity = entity;
+            //LabyrinthOfLore::Entity::Base* colliding_entity = entity;
+            int collided_tile_x = int(posX);
+            int collided_tile_y = int(posY);
+            int collided_tile_type = tile_map->get_tile(collided_tile_x, collided_tile_y).get_type();
+            LabyrinthOfLore::WorldMap::tile_face_t collided_tile_face_collided_with = LabyrinthOfLore::WorldMap::TILE_FACE_TOP;
+            float collided_force = abs(dirZ);
+
+            LabyrinthOfLore::Physics::EntityTileMapCollisionEvent collision_event(
+                  colliding_entity,
+                  collided_tile_type,
+                  collided_tile_x,
+                  collided_tile_y,
+                  collided_tile_face_collided_with,
+                  collided_force
+               );
+
+            events_from_last_processed_step.push_back(collision_event);
+         }
+         else
+         {
+            posZ += dirZ;
+         }
+
+         entity->get_placement_ref().position.x = posX;
+         entity->get_placement_ref().position.y = posY;
+         //float clamped_ceiling = std::min<float>(get_ceiling_height()-get_offset_at_collision_edge(), posZ);
+         float clamped_ceiling = std::min<float>(ceiling_height-get_offset_at_collision_edge(), posZ);
+         if (fabs(clamped_ceiling - posZ) > 0.0001f)
+         {
+            // has been clamped at the ceiling
+            entity->get_velocity_ref().position.z = 0.0f;
+         }
+
+         float clamped_floor = std::max<float>(get_floor_height()+get_offset_at_collision_edge(), clamped_ceiling);
+         if (fabs(clamped_floor - posZ) > 0.0001f)
+         {
+            // has been clamped at the ceiling
+            entity->get_velocity_ref().position.z = 0.0f;
+         }
+
+         entity->get_placement_ref().position.z = clamped_floor;
+      }
+
+      return;
+    body_dependency_symbols:
+      - LabyrinthOfLore::Physics::EntityTileMapCollisionEvent
+      - LabyrinthOfLore::WorldMap::tile_face_t
+      - fabs
+      - std::min
+      - std::max
+
+
+dependencies:
+
+
+  - symbol: LabyrinthOfLore::WorldMap::TileMap
+    headers: [ LabyrinthOfLore/WorldMap/TileMap.hpp ]
+  - symbol: LabyrinthOfLore::Entity::Base
+    headers: [ LabyrinthOfLore/Entity/Base.hpp ]
+  - symbol: fabs
+    headers: [ cmath ]
+  - symbol: std::min
+    headers: [ algorithm ]
+  - symbol: std::max
+    headers: [ algorithm ]
+  - symbol: LabyrinthOfLore::WorldMap::tile_face_t
+    headers: [ LabyrinthOfLore/WorldMap/TileFaceEnum.hpp ]
+  - symbol: LabyrinthOfLore::Physics::EntityTileMapCollisionEvent
+    headers: [ LabyrinthOfLore/Physics/EntityTileMapCollisionEvent.hpp ]
+  - symbol: AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D
+    headers: [ AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/DynamicModel3D.hpp ]
+  - symbol: LabyrinthOfLore::Physics::EntityTileMapCollisionEvent
+    headers: [ LabyrinthOfLore/Physics/EntityTileMapCollisionEvent.hpp ]
+
+
