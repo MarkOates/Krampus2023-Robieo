@@ -2,7 +2,7 @@
 
 
 #include <AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/DynamicModel3D.hpp>
-#include <LabyrinthOfLore/Physics/TileFaceEnum.hpp>
+#include <LabyrinthOfLore/WorldMap/TileFaceEnum.hpp>
 
 
 namespace LabyrinthOfLore

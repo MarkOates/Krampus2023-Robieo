@@ -33,4 +33,4 @@ dependencies:
   - symbol: AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D
     headers: [ AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/DynamicModel3D.hpp ]
   - symbol: LabyrinthOfLore::WorldMap::tile_face_t
-    headers: [ LabyrinthOfLore/Physics/TileFaceEnum.hpp ]
+    headers: [ LabyrinthOfLore/WorldMap/TileFaceEnum.hpp ]
