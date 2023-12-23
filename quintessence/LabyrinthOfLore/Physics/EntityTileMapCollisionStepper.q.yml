@@ -39,7 +39,7 @@ properties:
     getter: true
 
 
-functions:
+methods:
 
 
   - name: process_step
