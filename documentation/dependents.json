@@ -343,6 +343,9 @@
   "std/fmod": [
     "Pipeline/Gameplay/Screen"
   ],
+  "LabyrinthOfLore/WorldMap/TileTypeEnum": [
+    "Pipeline/Gameplay/Screen"
+  ],
   "AllegroFlare/Routers/Standard": [
     "Pipeline/Runner"
   ],

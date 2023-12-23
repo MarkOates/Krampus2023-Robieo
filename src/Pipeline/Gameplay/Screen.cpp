@@ -11,6 +11,7 @@
 #include <AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityRenderFlags.hpp>
 #include <AllegroFlare/Interpolators.hpp>
 #include <AllegroFlare/Logger.hpp>
+#include <LabyrinthOfLore/WorldMap/TileTypeEnum.hpp>
 #include <Pipeline/DialogNodeBankFactory.hpp>
 #include <Pipeline/GameConfigurations/Main.hpp>
 #include <Pipeline/Gameplay/Level.hpp>
@@ -665,6 +666,28 @@ void Screen::load_level_by_identifier(std::string level_identifier)
        // Remove the named objects from the world_model
        world_model->remove_named_objects(portal_identifier);
    }
+
+
+
+   //
+   // Build the tile map (for physics)
+   //
+
+   LabyrinthOfLore::WorldMap::TileMap *result_tile_map = new LabyrinthOfLore::WorldMap::TileMap();
+   //LabyrinthOfLore::WorldMap::TileTypeEnum::NORMAL_GROUND_TILE;
+
+   result_tile_map->resize(
+      16,
+      16,
+      LabyrinthOfLore::WorldMap::Tile(
+         LabyrinthOfLore::WorldMap::NORMAL_GROUND_TILE,
+         0.0f
+      )
+   );
+
+
+   current_level_tile_map = result_tile_map;
+
 
 
 

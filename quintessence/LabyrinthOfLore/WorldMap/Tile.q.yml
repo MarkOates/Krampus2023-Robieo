@@ -3,7 +3,7 @@ properties:
 
   - name: type
     type: int
-    init_with: "-1"
+    init_with: -1
     getter: true
     setter: true
     constructor_arg: true

@@ -760,6 +760,28 @@ methods:
 
 
       //
+      // Build the tile map (for physics)
+      //
+
+      LabyrinthOfLore::WorldMap::TileMap *result_tile_map = new LabyrinthOfLore::WorldMap::TileMap();
+      //LabyrinthOfLore::WorldMap::TileTypeEnum::NORMAL_GROUND_TILE;
+
+      result_tile_map->resize(
+         16,
+         16,
+         LabyrinthOfLore::WorldMap::Tile(
+            LabyrinthOfLore::WorldMap::NORMAL_GROUND_TILE,
+            0.0f
+         )
+      );
+
+
+      current_level_tile_map = result_tile_map;
+      
+
+
+
+      //
       // Load the dialog bank
       //
 
@@ -835,6 +857,7 @@ methods:
      - AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL
      - Pipeline::Gameplay::Level
      - AllegroFlare::DialogTree::NodeBank
+     - LabyrinthOfLore::WorldMap::TileTypeEnum
 
 
   - name: initialize
@@ -2087,5 +2110,7 @@ dependencies:
     headers: [ cmath ]
   - symbol: LabyrinthOfLore::WorldMap::TileMap
     headers: [ LabyrinthOfLore/WorldMap/TileMap.hpp ]
+  - symbol: LabyrinthOfLore::WorldMap::TileTypeEnum
+    headers: [ LabyrinthOfLore/WorldMap/TileTypeEnum.hpp ]
 
 
