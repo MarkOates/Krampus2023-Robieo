@@ -16,6 +16,7 @@
 #include <Pipeline/DialogNodeBankFactory.hpp>
 #include <Pipeline/GameConfigurations/Main.hpp>
 #include <Pipeline/Gameplay/Level.hpp>
+#include <allegro5/allegro_color.h>
 #include <allegro5/allegro_primitives.h>
 #include <cmath>
 #include <iostream>
@@ -1355,12 +1356,24 @@ void Screen::render()
    ALLEGRO_BITMAP *render_surface = scene_renderer.get_render_surface_ref().obtain_surface();
 
    al_set_target_bitmap(initial_target_bitmap);
-   //al_draw_bitmap(render_surface, 0, 0, 0);
+   al_draw_bitmap(render_surface, 0, 0, 0);
 
    // Slopily render the tile map
+
+   int tile_size = 32;
    LabyrinthOfLore::WorldMap::BasicRenderer basic_renderer;
    basic_renderer.set_tile_map(current_level_tile_map);
+   basic_renderer.set_tile_width(tile_size);
+   basic_renderer.set_tile_height(tile_size);
    basic_renderer.render();
+   // HERE
+   AllegroFlare::Vec3D player_position = get_player_controlled_entity_as()->get_placement_ref().position;
+   al_draw_filled_circle(
+      player_position.x * basic_renderer.get_tile_width(),
+      player_position.z * basic_renderer.get_tile_height(),
+      8,
+      al_color_name("azure")
+   );
 
    //al_draw_filled_rectangle(0, 0, 300, 300, ALLEGRO_COLOR{1, 0, 0, 1});
    return;

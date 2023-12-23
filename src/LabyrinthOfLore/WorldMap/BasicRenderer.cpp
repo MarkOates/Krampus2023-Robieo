@@ -17,8 +17,10 @@ namespace WorldMap
 {
 
 
-BasicRenderer::BasicRenderer(LabyrinthOfLore::WorldMap::TileMap* tile_map)
+BasicRenderer::BasicRenderer(LabyrinthOfLore::WorldMap::TileMap* tile_map, float tile_width, float tile_height)
    : tile_map(tile_map)
+   , tile_width(tile_width)
+   , tile_height(tile_height)
 {
 }
 
@@ -34,9 +36,33 @@ void BasicRenderer::set_tile_map(LabyrinthOfLore::WorldMap::TileMap* tile_map)
 }
 
 
+void BasicRenderer::set_tile_width(float tile_width)
+{
+   this->tile_width = tile_width;
+}
+
+
+void BasicRenderer::set_tile_height(float tile_height)
+{
+   this->tile_height = tile_height;
+}
+
+
 LabyrinthOfLore::WorldMap::TileMap* BasicRenderer::get_tile_map() const
 {
    return tile_map;
+}
+
+
+float BasicRenderer::get_tile_width() const
+{
+   return tile_width;
+}
+
+
+float BasicRenderer::get_tile_height() const
+{
+   return tile_height;
 }
 
 
@@ -56,8 +82,8 @@ void BasicRenderer::render()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("BasicRenderer::render: error: guard \"tile_map\" not met");
    }
-   int tile_width = 32;
-   int tile_height = 32;
+   //int tile_width = 32;
+   //int tile_height = 32;
    int inset = 2;
 
    float bottom_height = 0.0;

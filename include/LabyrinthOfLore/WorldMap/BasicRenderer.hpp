@@ -12,16 +12,22 @@ namespace LabyrinthOfLore
       {
       private:
          LabyrinthOfLore::WorldMap::TileMap* tile_map;
+         float tile_width;
+         float tile_height;
 
       protected:
 
 
       public:
-         BasicRenderer(LabyrinthOfLore::WorldMap::TileMap* tile_map={});
+         BasicRenderer(LabyrinthOfLore::WorldMap::TileMap* tile_map={}, float tile_width=32, float tile_height=32);
          ~BasicRenderer();
 
          void set_tile_map(LabyrinthOfLore::WorldMap::TileMap* tile_map);
+         void set_tile_width(float tile_width);
+         void set_tile_height(float tile_height);
          LabyrinthOfLore::WorldMap::TileMap* get_tile_map() const;
+         float get_tile_width() const;
+         float get_tile_height() const;
          void render();
       };
    }

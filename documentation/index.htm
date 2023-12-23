@@ -834,6 +834,14 @@ table td
   <td class="property">tile_map</td>
   <td class="property">LabyrinthOfLore::WorldMap::TileMap*</td>
 </tr>
+<tr>
+  <td class="property">tile_width</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">tile_height</td>
+  <td class="property">float</td>
+</tr>
     </table>
 </div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
@@ -1530,6 +1538,9 @@ table td
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;LabyrinthOfLore::WorldMap::BasicRenderer&quot;, &quot;headers&quot;=&gt;[&quot;LabyrinthOfLore/WorldMap/BasicRenderer.hpp&quot;]}</td>
 </tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_color_name&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_color.h&quot;]}</td>
+</tr>
     </table>
 </div>  </div>
 </ul>
@@ -2009,7 +2020,8 @@ table td
     "LabyrinthOfLore/WorldMap/BasicRenderer"
   ],
   "al_color_name": [
-    "LabyrinthOfLore/WorldMap/BasicRenderer"
+    "LabyrinthOfLore/WorldMap/BasicRenderer",
+    "Pipeline/Gameplay/Screen"
   ],
   "al_init_primitives_addon": [
     "LabyrinthOfLore/WorldMap/BasicRenderer"

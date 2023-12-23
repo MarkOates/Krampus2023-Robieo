@@ -185,7 +185,8 @@
     "LabyrinthOfLore/WorldMap/BasicRenderer"
   ],
   "al_color_name": [
-    "LabyrinthOfLore/WorldMap/BasicRenderer"
+    "LabyrinthOfLore/WorldMap/BasicRenderer",
+    "Pipeline/Gameplay/Screen"
   ],
   "al_init_primitives_addon": [
     "LabyrinthOfLore/WorldMap/BasicRenderer"
