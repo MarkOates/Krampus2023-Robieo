@@ -534,19 +534,19 @@ void Screen::load_level_by_identifier(std::string level_identifier)
           object->set_model_3d(model_bin->auto_get(model_name));
           object->set_model_3d_texture(bitmap_bin->auto_get(texture_name));
           object->get_placement_ref().position = object_position;
-          //object->get_placement_ref().scale = { 0.2, 0.2, 0.2 };
+          object->get_placement_ref().scale = { 0.2, 0.2, 0.2 };
           //object->get_placement_ref().rotation.y = 0.01;
 
           object->set(ATTRIBUTE_COLLIDABLE_BY_PLAYER);
           object->set(ATTRIBUTE_ITEM_TYPE, "red_bird");
-          object->set(ATTRIBUTE_CUSTOM_COLLISION_RADIUS, 3.0f);
+          object->set(ATTRIBUTE_CUSTOM_COLLISION_RADIUS, 2.2f);
           //object->set(ATTRIBUTE_ITEM_PICKUP_SOUND, "mushroom_pickup");
           //env->set(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityRenderFlags::RENDER_WITH_SKYBOX);
 
           //env->get_placement_ref().position.y = 0.0; // NOTE: The objects will always be placed at 0
           entity_pool.add(object);
 
-          mushrooms_found++;
+          red_birds++;
       }
 
        world_model->remove_named_objects(object_name);
@@ -1058,11 +1058,11 @@ void Screen::on_player_entity_enter_collide(AllegroFlare::GraphicsPipelines::Dyn
       // TODO: Remove the attribute "ATTRIBUTE_COLLIDABLE_BY_PLAYER"
 
       // Play sound effect
-      if (colliding_entity->exists(ATTRIBUTE_ITEM_PICKUP_SOUND))
-      {
-         std::string chirp_sound_effect = "red_bird_chirp";
-         event_emitter->emit_play_sound_effect_event(chirp_sound_effect);
-      }
+      //if (colliding_entity->exists(ATTRIBUTE_ITEM_PICKUP_SOUND))
+      //{
+      std::string chirp_sound_effect = "red_bird_chirp";
+      event_emitter->emit_play_sound_effect_event(chirp_sound_effect);
+      //}
 
       // TODO: Consider preventing player from collecting more than the max allowable for this item
 

@@ -72,7 +72,7 @@ TEST_F(Pipeline_Gameplay_ScreenTestWithAllegroFrameworksFullFixture,
    screen.initialize();
 
 
-   screen.load_level_by_identifier("world-1-07");
+   screen.load_level_by_identifier("level-4-09");
 
    framework_register_and_activate_screen("screen", &screen);
 
