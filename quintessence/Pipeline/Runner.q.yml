@@ -498,6 +498,7 @@ methods:
 
       audio_controller.set_and_load_sound_effect_elements({
         { "mushroom_pickup", { "mushroom-sound-03.ogg", false, RESTART, 0.8 } },
+        { "red_bird_chirp", { "bird-chirp-01.ogg", false, __IGNORE, 0.7 } },
          // { "menu_move", { "menu_move_tink-02.ogg", false, "restart" } }, // TODO: Throw on an unknown replay type
       });
 

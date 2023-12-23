@@ -602,6 +602,47 @@ methods:
 
 
 
+      // Red birds
+      int red_birds = 0;
+      if (world_model)
+      {
+         std::string object_name = "red_bird";
+         std::string model_name = "red_bird-01.obj";
+         std::string texture_name = "red_bird-01.png";
+
+         std::vector<std::vector<AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL>> objects_vertices =
+            world_model->extract_named_objects_vertices(object_name);
+
+         for (auto &object_vertices : objects_vertices)
+         {
+             AllegroFlare::Vec3D object_position = lowest_y_vertex(object_vertices);
+
+             AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D *object = 
+                new AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D();
+             object->set_model_3d(model_bin->auto_get(model_name));
+             object->set_model_3d_texture(bitmap_bin->auto_get(texture_name));
+             object->get_placement_ref().position = object_position;
+             //object->get_placement_ref().scale = { 0.2, 0.2, 0.2 };
+             //object->get_placement_ref().rotation.y = 0.01;
+
+             object->set(ATTRIBUTE_COLLIDABLE_BY_PLAYER);
+             object->set(ATTRIBUTE_ITEM_TYPE, "red_bird");
+             object->set(ATTRIBUTE_CUSTOM_COLLISION_RADIUS, 3.0f);
+             //object->set(ATTRIBUTE_ITEM_PICKUP_SOUND, "mushroom_pickup");
+             //env->set(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityRenderFlags::RENDER_WITH_SKYBOX);
+
+             //env->get_placement_ref().position.y = 0.0; // NOTE: The objects will always be placed at 0
+             entity_pool.add(object);
+
+             mushrooms_found++;
+         }
+
+          world_model->remove_named_objects(object_name);
+      }
+      std::cout << "Found " << red_birds << " red_birds" << std::endl;
+
+
+
       // NPCs
       int npcs_found = 0;
       if (world_model)
@@ -1055,6 +1096,32 @@ methods:
          entity_pool.remove(colliding_entity);
          // Remove the entity from the list of entities_player_entity_is_colliding_with
          entities_player_entity_is_colliding_with.erase(colliding_entity);
+      }
+      else if (colliding_entity->exists(ATTRIBUTE_ITEM_TYPE, "red_bird"))
+      {
+         // Bird chirps
+         // TODO: Add the attribute "COLLECTED"
+         // TODO: Add the attribute "COLLECTED_AT"
+         // TODO: Remove the attribute "ATTRIBUTE_COLLIDABLE_BY_PLAYER"
+
+         // Play sound effect
+         if (colliding_entity->exists(ATTRIBUTE_ITEM_PICKUP_SOUND))
+         {
+            std::string chirp_sound_effect = "red_bird_chirp";
+            event_emitter->emit_play_sound_effect_event(chirp_sound_effect);
+         }
+
+         // TODO: Consider preventing player from collecting more than the max allowable for this item
+
+         // Add item to inventory
+         //if (!game_progress_and_state_info) throw std::runtime_error("Gameplay::Screen::on_player_entity_raw_collide AGH!");
+         //game_progress_and_state_info->add_item_to_inventory("mushroom");
+
+         // Delete the entity and remove it from the scene (for now. Later, do a collect animation)
+         //delete colliding_entity; // TODO: Don't delete here, delete in a follow-up pass after collision and everything
+         //entity_pool.remove(colliding_entity);
+         // Remove the entity from the list of entities_player_entity_is_colliding_with
+         //entities_player_entity_is_colliding_with.erase(colliding_entity);
       }
       return;
     body_dependency_symbols:
