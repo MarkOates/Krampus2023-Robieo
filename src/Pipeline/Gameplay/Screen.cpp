@@ -19,6 +19,7 @@
 #include <allegro5/allegro_color.h>
 #include <allegro5/allegro_primitives.h>
 #include <cmath>
+#include <iomanip>
 #include <iostream>
 #include <set>
 #include <sstream>
@@ -1387,6 +1388,12 @@ void Screen::render()
    );
    map_placement.restore_transform();
 
+   ALLEGRO_FONT *ui_font = obtain_ui_font();
+   ALLEGRO_COLOR hud_text_color = al_color_name("cyan");
+   std::stringstream coordinates;
+   coordinates << std::setprecision(3) << player_position.x << ", " << player_position.z;
+   al_draw_text(ui_font, hud_text_color, 1920 - 300, 1080 - 200, ALLEGRO_ALIGN_RIGHT, coordinates.str().c_str());
+
    return;
 }
 
@@ -2005,6 +2012,18 @@ bool Screen::is_state(uint32_t possible_state)
 float Screen::infer_current_state_age(float time_now)
 {
    return (time_now - state_changed_at);
+}
+
+ALLEGRO_FONT* Screen::obtain_ui_font()
+{
+   if (!(font_bin))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::obtain_ui_font]: error: guard \"font_bin\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::obtain_ui_font: error: guard \"font_bin\" not met");
+   }
+   return font_bin->auto_get("Oswald-Medium.ttf -32");
 }
 
 

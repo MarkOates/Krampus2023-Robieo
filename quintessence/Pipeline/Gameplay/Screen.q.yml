@@ -1440,10 +1440,18 @@ methods:
       );
       map_placement.restore_transform();
 
+      ALLEGRO_FONT *ui_font = obtain_ui_font();
+      ALLEGRO_COLOR hud_text_color = al_color_name("cyan");
+      std::stringstream coordinates;
+      coordinates << std::setprecision(3) << player_position.x << ", " << player_position.z;
+      al_draw_text(ui_font, hud_text_color, 1920 - 300, 1080 - 200, ALLEGRO_ALIGN_RIGHT, coordinates.str().c_str());
+
       return;
     body_dependency_symbols:
       - LabyrinthOfLore::WorldMap::BasicRenderer
       - al_color_name
+      - std::setprecision
+      
 
 
   - name: save_bitmap_buffers_to_files
@@ -2061,6 +2069,12 @@ methods:
       return (time_now - state_changed_at);
 
 
+  - name: obtain_ui_font
+    private: true
+    type: ALLEGRO_FONT*
+    guards: [ font_bin ]
+    body: |
+      return font_bin->auto_get("Oswald-Medium.ttf -32");
 
 
 dependencies:
@@ -2148,5 +2162,9 @@ dependencies:
     headers: [ LabyrinthOfLore/WorldMap/BasicRenderer.hpp ]
   - symbol: al_color_name
     headers: [ allegro5/allegro_color.h ]
+  - symbol: std::setprecision
+    headers: [ iomanip ]
+  - symbol: ALLEGRO_FONT
+    headers: [ allegro5/allegro_font.h ]
 
 

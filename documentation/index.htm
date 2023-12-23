@@ -1415,6 +1415,9 @@ table td
 <tr>
   <td class="method">infer_current_state_age(float time_now=al_get_time())</td>
 </tr>
+<tr>
+  <td class="private_method">obtain_ui_font()</td>
+</tr>
     </table>
 </div>    <h3>Dependencies</h3>
 <div class="property-box dependencies">     <table>
@@ -1540,6 +1543,12 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_color_name&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_color.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::setprecision&quot;, &quot;headers&quot;=&gt;[&quot;iomanip&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FONT&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -2183,6 +2192,12 @@ table td
     "Pipeline/Gameplay/Screen"
   ],
   "LabyrinthOfLore/WorldMap/BasicRenderer": [
+    "Pipeline/Gameplay/Screen"
+  ],
+  "std/setprecision": [
+    "Pipeline/Gameplay/Screen"
+  ],
+  "ALLEGRO_FONT": [
     "Pipeline/Gameplay/Screen"
   ],
   "AllegroFlare/Routers/Standard": [

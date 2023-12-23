@@ -25,6 +25,7 @@
 #include <Pipeline/Gameplay/Level.hpp>
 #include <Pipeline/Gameplay/Screen.hpp>
 #include <allegro5/allegro.h>
+#include <allegro5/allegro_font.h>
 #include <cstdint>
 #include <functional>
 #include <map>
@@ -90,6 +91,7 @@ namespace Pipeline
          bool player_is_colliding_on_exit;
          std::set<AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base*> entities_player_entity_is_colliding_with;
          std::map<AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D*, AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D*> portal_entity_associations;
+         ALLEGRO_FONT* obtain_ui_font();
 
       protected:
 

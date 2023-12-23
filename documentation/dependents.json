@@ -350,6 +350,12 @@
   "LabyrinthOfLore/WorldMap/BasicRenderer": [
     "Pipeline/Gameplay/Screen"
   ],
+  "std/setprecision": [
+    "Pipeline/Gameplay/Screen"
+  ],
+  "ALLEGRO_FONT": [
+    "Pipeline/Gameplay/Screen"
+  ],
   "AllegroFlare/Routers/Standard": [
     "Pipeline/Runner"
   ],
