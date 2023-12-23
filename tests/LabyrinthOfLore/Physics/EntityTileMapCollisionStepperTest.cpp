@@ -5,6 +5,7 @@
 
 #define FLOATING_POINT_ERROR_MARGIN (0.00001f)
 
+
 static void EXPECT_EQ_COLLISION_EVENT(LabyrinthOfLore::Physics::EntityTileMapCollisionEvent &expected, LabyrinthOfLore::Physics::EntityTileMapCollisionEvent &actual)
 {
    EXPECT_EQ(expected.get_entity(), actual.get_entity());
@@ -15,10 +16,12 @@ static void EXPECT_EQ_COLLISION_EVENT(LabyrinthOfLore::Physics::EntityTileMapCol
    EXPECT_EQ(expected.get_force(), actual.get_force());
 }
 
+
 TEST(LabyrinthOfLore_Physics_EntityTileMapCollisionStepperTest, can_be_created_without_blowing_up)
 {
    LabyrinthOfLore::Physics::EntityTileMapCollisionStepper entity_tile_map_collision_stepper;
 }
+
 
 TEST(LabyrinthOfLore_Physics_EntityTileMapCollisionStepperTest, accepts_reasonable_arguments_without_crashing)
 {
@@ -28,6 +31,7 @@ TEST(LabyrinthOfLore_Physics_EntityTileMapCollisionStepperTest, accepts_reasonab
    LabyrinthOfLore::Physics::EntityTileMapCollisionStepper entity_tile_map_collision_stepper(tile_map, entities);
    SUCCEED();
 }
+
 
 TEST(LabyrinthOfLore_Physics_EntityTileMapCollisionStepperTest, process_step__works_with_reasonable_arguments)
 {
@@ -39,6 +43,7 @@ TEST(LabyrinthOfLore_Physics_EntityTileMapCollisionStepperTest, process_step__wo
    entity_tile_map_collision_stepper.process_step();
    SUCCEED();
 }
+
 
 TEST(LabyrinthOfLore_Physics_EntityTileMapCollisionStepperTest,
       with_an_entity__process_step__steps_the_entity_forward_by_its_velocity)
@@ -65,13 +70,16 @@ TEST(LabyrinthOfLore_Physics_EntityTileMapCollisionStepperTest,
    EXPECT_EQ(0.2f, actual_velocity.position.z);
 }
 
+
 TEST(LabyrinthOfLore_Physics_EntityTileMapCollisionStepperTest,
       with_an_entity__process_step__steps_the_entity_forward_when_moving_at_a_negative_velocity)
 {
    LabyrinthOfLore::WorldMap::TileMap tile_map;
    tile_map.resize(10, 10, LabyrinthOfLore::WorldMap::Tile(0, 10.0));
-   AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D entity = AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D();
-   std::vector<AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D*> entities = { &entity };
+   AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D entity =
+      AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D();
+   std::vector<AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D*> entities =
+      { &entity };
 
    entity.get_placement_ref().position = AllegroFlare::vec3d(1.0, 1.0, 11.001);
    entity.get_velocity_ref().position = AllegroFlare::vec3d(-0.3, -0.4, -0.2);
@@ -89,6 +97,7 @@ TEST(LabyrinthOfLore_Physics_EntityTileMapCollisionStepperTest,
    EXPECT_EQ(-0.4f, actual_velocity.position.y);
    EXPECT_EQ(-0.2f, actual_velocity.position.z);
 }
+
 
 TEST(LabyrinthOfLore_Physics_EntityTileMapCollisionStepperTest,
       with_an_entity__process_step__does_not_horizontally_advance_the_player_if_the_colliding_block_is_higher_than_the_auto_ascend_threshold)

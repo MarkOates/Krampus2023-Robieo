@@ -1,36 +1,49 @@
 properties:
+
+
   - name: entity
     type: AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D*
     init_with: nullptr
     constructor_arg: true
     getter: true
+
   - name: tile_type
     type: int
     init_with: 0
     constructor_arg: true
     getter: true
+
   - name: tile_x
     type: int
     init_with: 0
     constructor_arg: true
     getter: true
+
   - name: tile_y
     type: int
     init_with: 0
     constructor_arg: true
     getter: true
+
   - name: tile_face_collided_with
     type: LabyrinthOfLore::WorldMap::tile_face_t
     init_with: LabyrinthOfLore::WorldMap::TILE_FACE_NONE
     constructor_arg: true
     getter: true
+
   - name: force
     type: float
     init_with: 0
     constructor_arg: true
     getter: true
+
+
 dependencies:
+
+
   - symbol: AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D
     headers: [ AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/DynamicModel3D.hpp ]
   - symbol: LabyrinthOfLore::WorldMap::tile_face_t
     headers: [ LabyrinthOfLore/WorldMap/TileFaceEnum.hpp ]
+
+

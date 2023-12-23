@@ -53,6 +53,7 @@ functions:
     static: true
     body: return dummy_tile_map;
 
+
   - name: process_step
     type: void
     body: |
