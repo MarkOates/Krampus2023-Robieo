@@ -8,7 +8,7 @@ properties:
     init_with: "get_dummy_tile_map()"
     constructor_arg: true
   - name: entities
-    type: std::vector<LabyrinthOfLore::Entity::Base*>
+    type: std::vector<AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D*>
     init_with: "{}"
     constructor_arg: true
   - name: ceiling_height
@@ -77,7 +77,8 @@ functions:
             // if currentx!=nextx, create a collision event into the nextx tile, with a face of NONE
             if ((int)previous_posX != (int)now_posX)
             {
-              LabyrinthOfLore::Entity::Base* colliding_entity = entity;
+              AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D* colliding_entity = entity;
+              //LabyrinthOfLore::Entity::Base* colliding_entity = entity;
               int collided_tile_x = int(posX);
               int collided_tile_y = int(posY);
               int collided_tile_type = tile_map.get_tile(collided_tile_x, collided_tile_y).get_type();
@@ -98,7 +99,8 @@ functions:
          }
          else
          {
-            LabyrinthOfLore::Entity::Base* colliding_entity = entity;
+            AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D* colliding_entity = entity;
+            //LabyrinthOfLore::Entity::Base* colliding_entity = entity;
             int collided_tile_type = tile_map.get_tile(int(posX + dirX * moveSpeed), int(posY)).get_type();
             int collided_tile_x = int(posX + dirX * moveSpeed);
             int collided_tile_y = int(posY);
@@ -124,7 +126,8 @@ functions:
             // if currenty!=nexty, create a collision event into the nexty tile, with a face of NONE
             if ((int)previous_posY != (int)now_posY)
             {
-              LabyrinthOfLore::Entity::Base* colliding_entity = entity;
+              AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D* colliding_entity = entity;
+              //LabyrinthOfLore::Entity::Base* colliding_entity = entity;
               int collided_tile_x = int(posX);
               int collided_tile_y = int(posY);
               int collided_tile_type = tile_map.get_tile(collided_tile_x, collided_tile_y).get_type();
@@ -145,7 +148,8 @@ functions:
          }
          else
          {
-            LabyrinthOfLore::Entity::Base* colliding_entity = entity;
+            AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D* colliding_entity = entity;
+            //LabyrinthOfLore::Entity::Base* colliding_entity = entity;
             int collided_tile_x = int(posX);
             int collided_tile_y = int(posY + dirY * moveSpeed);
             int collided_tile_type = tile_map.get_tile(collided_tile_x, collided_tile_y).get_type();
@@ -168,7 +172,8 @@ functions:
             posZ = tile_map.get_tile(int(posX), int(posY)).get_height() + get_offset_at_collision_edge();
             entity->get_velocity_ref().position.z = 0.0f;
 
-            LabyrinthOfLore::Entity::Base* colliding_entity = entity;
+            AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D* colliding_entity = entity;
+            //LabyrinthOfLore::Entity::Base* colliding_entity = entity;
             int collided_tile_x = int(posX);
             int collided_tile_y = int(posY);
             int collided_tile_type = tile_map.get_tile(collided_tile_x, collided_tile_y).get_type();
@@ -232,5 +237,7 @@ dependencies:
     headers: [ LabyrinthOfLore/WorldMap/TileFaceEnum.hpp ]
   - symbol: LabyrinthOfLore::Physics::EntityTileMapCollisionEvent
     headers: [ LabyrinthOfLore/Physics/EntityTileMapCollisionEvent.hpp ]
+  - symbol: AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D
+    headers: [ AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/DynamicModel3D.hpp ]
   - symbol: LabyrinthOfLore::Physics::EntityTileMapCollisionEvent
     headers: [ LabyrinthOfLore/Physics/EntityTileMapCollisionEvent.hpp ]
