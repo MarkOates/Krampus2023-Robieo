@@ -11,6 +11,7 @@
 #include <AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityRenderFlags.hpp>
 #include <AllegroFlare/Interpolators.hpp>
 #include <AllegroFlare/Logger.hpp>
+#include <LabyrinthOfLore/WorldMap/BasicRenderer.hpp>
 #include <LabyrinthOfLore/WorldMap/TileTypeEnum.hpp>
 #include <Pipeline/DialogNodeBankFactory.hpp>
 #include <Pipeline/GameConfigurations/Main.hpp>
@@ -1354,7 +1355,13 @@ void Screen::render()
    ALLEGRO_BITMAP *render_surface = scene_renderer.get_render_surface_ref().obtain_surface();
 
    al_set_target_bitmap(initial_target_bitmap);
-   al_draw_bitmap(render_surface, 0, 0, 0);
+   //al_draw_bitmap(render_surface, 0, 0, 0);
+
+   // Slopily render the tile map
+   LabyrinthOfLore::WorldMap::BasicRenderer basic_renderer;
+   basic_renderer.set_tile_map(current_level_tile_map);
+   basic_renderer.render();
+
    //al_draw_filled_rectangle(0, 0, 300, 300, ALLEGRO_COLOR{1, 0, 0, 1});
    return;
 }

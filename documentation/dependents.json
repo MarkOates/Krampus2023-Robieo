@@ -346,6 +346,9 @@
   "LabyrinthOfLore/WorldMap/TileTypeEnum": [
     "Pipeline/Gameplay/Screen"
   ],
+  "LabyrinthOfLore/WorldMap/BasicRenderer": [
+    "Pipeline/Gameplay/Screen"
+  ],
   "AllegroFlare/Routers/Standard": [
     "Pipeline/Runner"
   ],

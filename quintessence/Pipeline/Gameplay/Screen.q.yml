@@ -1409,9 +1409,17 @@ methods:
       ALLEGRO_BITMAP *render_surface = scene_renderer.get_render_surface_ref().obtain_surface();
 
       al_set_target_bitmap(initial_target_bitmap);
-      al_draw_bitmap(render_surface, 0, 0, 0);
+      //al_draw_bitmap(render_surface, 0, 0, 0);
+
+      // Slopily render the tile map
+      LabyrinthOfLore::WorldMap::BasicRenderer basic_renderer;
+      basic_renderer.set_tile_map(current_level_tile_map);
+      basic_renderer.render();
+
       //al_draw_filled_rectangle(0, 0, 300, 300, ALLEGRO_COLOR{1, 0, 0, 1});
       return;
+    body_dependency_symbols:
+      - LabyrinthOfLore::WorldMap::BasicRenderer
 
 
   - name: save_bitmap_buffers_to_files
@@ -2112,5 +2120,7 @@ dependencies:
     headers: [ LabyrinthOfLore/WorldMap/TileMap.hpp ]
   - symbol: LabyrinthOfLore::WorldMap::TileTypeEnum
     headers: [ LabyrinthOfLore/WorldMap/TileTypeEnum.hpp ]
+  - symbol: LabyrinthOfLore::WorldMap::BasicRenderer
+    headers: [ LabyrinthOfLore/WorldMap/BasicRenderer.hpp ]
 
 
