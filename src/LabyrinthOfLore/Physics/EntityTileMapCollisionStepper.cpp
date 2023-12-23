@@ -6,15 +6,15 @@
 #include <LabyrinthOfLore/WorldMap/TileFaceEnum.hpp>
 #include <algorithm>
 #include <cmath>
+#include <iostream>
+#include <sstream>
+#include <stdexcept>
 
 
 namespace LabyrinthOfLore
 {
 namespace Physics
 {
-
-
-LabyrinthOfLore::WorldMap::TileMap EntityTileMapCollisionStepper::dummy_tile_map = {};
 
 
 float EntityTileMapCollisionStepper::floor_height = 0.0f;
@@ -26,10 +26,9 @@ float EntityTileMapCollisionStepper::auto_ascend_threshold = 0.25f;
 float EntityTileMapCollisionStepper::offset_at_collision_edge = 0.001f;
 
 
-EntityTileMapCollisionStepper::EntityTileMapCollisionStepper(LabyrinthOfLore::WorldMap::TileMap& tile_map, std::vector<AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D*> entities)
+EntityTileMapCollisionStepper::EntityTileMapCollisionStepper(LabyrinthOfLore::WorldMap::TileMap* tile_map, std::vector<AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D*> entities)
    : tile_map(tile_map)
    , entities(entities)
-   , ceiling_height(tile_map.get_ceiling_height())
    , events_from_last_processed_step({})
 {
 }
@@ -40,9 +39,27 @@ EntityTileMapCollisionStepper::~EntityTileMapCollisionStepper()
 }
 
 
-float EntityTileMapCollisionStepper::get_ceiling_height() const
+void EntityTileMapCollisionStepper::set_tile_map(LabyrinthOfLore::WorldMap::TileMap* tile_map)
 {
-   return ceiling_height;
+   this->tile_map = tile_map;
+}
+
+
+void EntityTileMapCollisionStepper::set_entities(std::vector<AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D*> entities)
+{
+   this->entities = entities;
+}
+
+
+LabyrinthOfLore::WorldMap::TileMap* EntityTileMapCollisionStepper::get_tile_map() const
+{
+   return tile_map;
+}
+
+
+std::vector<AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D*> EntityTileMapCollisionStepper::get_entities() const
+{
+   return entities;
 }
 
 
@@ -70,14 +87,17 @@ std::vector<LabyrinthOfLore::Physics::EntityTileMapCollisionEvent> EntityTileMap
 }
 
 
-LabyrinthOfLore::WorldMap::TileMap& EntityTileMapCollisionStepper::get_dummy_tile_map()
-{
-   return dummy_tile_map;
-}
-
 void EntityTileMapCollisionStepper::process_step()
 {
+   if (!(tile_map))
+   {
+      std::stringstream error_message;
+      error_message << "[EntityTileMapCollisionStepper::process_step]: error: guard \"tile_map\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("EntityTileMapCollisionStepper::process_step: error: guard \"tile_map\" not met");
+   }
    events_from_last_processed_step.clear();
+   float ceiling_height = tile_map->get_ceiling_height();
 
    for (auto &entity : entities)
    {
@@ -103,7 +123,7 @@ void EntityTileMapCollisionStepper::process_step()
       double posY = entity->get_placement_ref().position.y;
       double posZ = entity->get_placement_ref().position.z;
 
-      if(tile_map.get_tile(int(posX + dirX * moveSpeed), int(posY)).get_height() <= (posZ + get_auto_ascend_threshold()))
+      if(tile_map->get_tile(int(posX + dirX * moveSpeed), int(posY)).get_height() <= (posZ + get_auto_ascend_threshold()))
       {
          float previous_posX = posX;
          posX += dirX * moveSpeed;
@@ -116,7 +136,7 @@ void EntityTileMapCollisionStepper::process_step()
            //LabyrinthOfLore::Entity::Base* colliding_entity = entity;
            int collided_tile_x = int(posX);
            int collided_tile_y = int(posY);
-           int collided_tile_type = tile_map.get_tile(collided_tile_x, collided_tile_y).get_type();
+           int collided_tile_type = tile_map->get_tile(collided_tile_x, collided_tile_y).get_type();
            LabyrinthOfLore::WorldMap::tile_face_t collided_tile_face_collided_with = LabyrinthOfLore::WorldMap::TILE_FACE_NONE;
            float collided_force = abs(dirX * moveSpeed);
 
@@ -136,7 +156,7 @@ void EntityTileMapCollisionStepper::process_step()
       {
          AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D* colliding_entity = entity;
          //LabyrinthOfLore::Entity::Base* colliding_entity = entity;
-         int collided_tile_type = tile_map.get_tile(int(posX + dirX * moveSpeed), int(posY)).get_type();
+         int collided_tile_type = tile_map->get_tile(int(posX + dirX * moveSpeed), int(posY)).get_type();
          int collided_tile_x = int(posX + dirX * moveSpeed);
          int collided_tile_y = int(posY);
          LabyrinthOfLore::WorldMap::tile_face_t collided_tile_face_collided_with = ((dirX * moveSpeed) > 0) ? LabyrinthOfLore::WorldMap::TILE_FACE_LEFT : LabyrinthOfLore::WorldMap::TILE_FACE_RIGHT;
@@ -152,7 +172,7 @@ void EntityTileMapCollisionStepper::process_step()
             );
          events_from_last_processed_step.push_back(collision_event);
       }
-      if(tile_map.get_tile(int(posX), int(posY + dirY * moveSpeed)).get_height() <= (posZ + get_auto_ascend_threshold()))
+      if(tile_map->get_tile(int(posX), int(posY + dirY * moveSpeed)).get_height() <= (posZ + get_auto_ascend_threshold()))
       {
          float previous_posY = posY;
          posY += dirY * moveSpeed;
@@ -165,7 +185,7 @@ void EntityTileMapCollisionStepper::process_step()
            //LabyrinthOfLore::Entity::Base* colliding_entity = entity;
            int collided_tile_x = int(posX);
            int collided_tile_y = int(posY);
-           int collided_tile_type = tile_map.get_tile(collided_tile_x, collided_tile_y).get_type();
+           int collided_tile_type = tile_map->get_tile(collided_tile_x, collided_tile_y).get_type();
            LabyrinthOfLore::WorldMap::tile_face_t collided_tile_face_collided_with = LabyrinthOfLore::WorldMap::TILE_FACE_NONE;
            float collided_force = abs(dirY * moveSpeed);
 
@@ -187,7 +207,7 @@ void EntityTileMapCollisionStepper::process_step()
          //LabyrinthOfLore::Entity::Base* colliding_entity = entity;
          int collided_tile_x = int(posX);
          int collided_tile_y = int(posY + dirY * moveSpeed);
-         int collided_tile_type = tile_map.get_tile(collided_tile_x, collided_tile_y).get_type();
+         int collided_tile_type = tile_map->get_tile(collided_tile_x, collided_tile_y).get_type();
          LabyrinthOfLore::WorldMap::tile_face_t collided_tile_face_collided_with = ((dirY * moveSpeed) > 0) ? LabyrinthOfLore::WorldMap::TILE_FACE_BACK : LabyrinthOfLore::WorldMap::TILE_FACE_FRONT;
          float collided_force = abs(dirY * moveSpeed);
 
@@ -202,16 +222,16 @@ void EntityTileMapCollisionStepper::process_step()
 
          events_from_last_processed_step.push_back(collision_event);
       }
-      if ((posZ + dirZ) < tile_map.get_tile(int(posX), int(posY)).get_height())
+      if ((posZ + dirZ) < tile_map->get_tile(int(posX), int(posY)).get_height())
       {
-         posZ = tile_map.get_tile(int(posX), int(posY)).get_height() + get_offset_at_collision_edge();
+         posZ = tile_map->get_tile(int(posX), int(posY)).get_height() + get_offset_at_collision_edge();
          entity->get_velocity_ref().position.z = 0.0f;
 
          AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D* colliding_entity = entity;
          //LabyrinthOfLore::Entity::Base* colliding_entity = entity;
          int collided_tile_x = int(posX);
          int collided_tile_y = int(posY);
-         int collided_tile_type = tile_map.get_tile(collided_tile_x, collided_tile_y).get_type();
+         int collided_tile_type = tile_map->get_tile(collided_tile_x, collided_tile_y).get_type();
          LabyrinthOfLore::WorldMap::tile_face_t collided_tile_face_collided_with = LabyrinthOfLore::WorldMap::TILE_FACE_TOP;
          float collided_force = abs(dirZ);
 
@@ -233,7 +253,8 @@ void EntityTileMapCollisionStepper::process_step()
 
       entity->get_placement_ref().position.x = posX;
       entity->get_placement_ref().position.y = posY;
-      float clamped_ceiling = std::min<float>(get_ceiling_height()-get_offset_at_collision_edge(), posZ);
+      //float clamped_ceiling = std::min<float>(get_ceiling_height()-get_offset_at_collision_edge(), posZ);
+      float clamped_ceiling = std::min<float>(ceiling_height-get_offset_at_collision_edge(), posZ);
       if (fabs(clamped_ceiling - posZ) > 0.0001f)
       {
          // has been clamped at the ceiling

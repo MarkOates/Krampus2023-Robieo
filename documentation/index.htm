@@ -761,20 +761,12 @@ table td
     <h3>Properties</h3>
 <div class="property-box properties">     <table>
 <tr>
-  <td class="property">dummy_tile_map</td>
-  <td class="property">LabyrinthOfLore::WorldMap::TileMap</td>
-</tr>
-<tr>
   <td class="property">tile_map</td>
-  <td class="property">LabyrinthOfLore::WorldMap::TileMap&amp;</td>
+  <td class="property">LabyrinthOfLore::WorldMap::TileMap*</td>
 </tr>
 <tr>
   <td class="property">entities</td>
   <td class="property">std::vector&lt;AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D*&gt;</td>
-</tr>
-<tr>
-  <td class="property">ceiling_height</td>
-  <td class="property">float</td>
 </tr>
 <tr>
   <td class="property">floor_height</td>
@@ -795,9 +787,6 @@ table td
     </table>
 </div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
-<tr>
-  <td class="method">get_dummy_tile_map()</td>
-</tr>
 <tr>
   <td class="method">process_step()</td>
 </tr>

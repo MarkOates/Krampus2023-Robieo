@@ -28,7 +28,7 @@ TEST(LabyrinthOfLore_Physics_EntityTileMapCollisionStepperTest, accepts_reasonab
    LabyrinthOfLore::WorldMap::TileMap tile_map;
     std::vector<AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D*> entities = {};
 
-   LabyrinthOfLore::Physics::EntityTileMapCollisionStepper entity_tile_map_collision_stepper(tile_map, entities);
+   LabyrinthOfLore::Physics::EntityTileMapCollisionStepper entity_tile_map_collision_stepper(&tile_map, entities);
    SUCCEED();
 }
 
@@ -38,7 +38,7 @@ TEST(LabyrinthOfLore_Physics_EntityTileMapCollisionStepperTest, process_step__wo
    LabyrinthOfLore::WorldMap::TileMap tile_map;
    std::vector<AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D*> entities = {};
 
-   LabyrinthOfLore::Physics::EntityTileMapCollisionStepper entity_tile_map_collision_stepper(tile_map, entities);
+   LabyrinthOfLore::Physics::EntityTileMapCollisionStepper entity_tile_map_collision_stepper(&tile_map, entities);
 
    entity_tile_map_collision_stepper.process_step();
    SUCCEED();
@@ -56,7 +56,7 @@ TEST(LabyrinthOfLore_Physics_EntityTileMapCollisionStepperTest,
    entity.get_placement_ref().position = AllegroFlare::vec3d(0.0, 0.0, 10.001);
    entity.get_velocity_ref().position = AllegroFlare::vec3d(0.3, 0.4, 0.2);
 
-   LabyrinthOfLore::Physics::EntityTileMapCollisionStepper entity_tile_map_collision_stepper(tile_map, entities);
+   LabyrinthOfLore::Physics::EntityTileMapCollisionStepper entity_tile_map_collision_stepper(&tile_map, entities);
    entity_tile_map_collision_stepper.process_step();
 
    AllegroFlare::Placement3D actual_placement = entity.get_placement_ref();
@@ -84,7 +84,7 @@ TEST(LabyrinthOfLore_Physics_EntityTileMapCollisionStepperTest,
    entity.get_placement_ref().position = AllegroFlare::vec3d(1.0, 1.0, 11.001);
    entity.get_velocity_ref().position = AllegroFlare::vec3d(-0.3, -0.4, -0.2);
 
-   LabyrinthOfLore::Physics::EntityTileMapCollisionStepper entity_tile_map_collision_stepper(tile_map, entities);
+   LabyrinthOfLore::Physics::EntityTileMapCollisionStepper entity_tile_map_collision_stepper(&tile_map, entities);
    entity_tile_map_collision_stepper.process_step();
 
    AllegroFlare::Placement3D actual_placement = entity.get_placement_ref();
@@ -113,7 +113,7 @@ TEST(LabyrinthOfLore_Physics_EntityTileMapCollisionStepperTest,
    entity.get_velocity_ref().position = AllegroFlare::vec3d(1.0, 0.0, 0.0);
    tile_map.set_tile(1, 0, LabyrinthOfLore::WorldMap::Tile(0, 10.001 + auto_ascend_threshold + 0.001));
 
-   LabyrinthOfLore::Physics::EntityTileMapCollisionStepper entity_tile_map_collision_stepper(tile_map, entities);
+   LabyrinthOfLore::Physics::EntityTileMapCollisionStepper entity_tile_map_collision_stepper(&tile_map, entities);
    entity_tile_map_collision_stepper.process_step();
 
    AllegroFlare::Placement3D actual_placement = entity.get_placement_ref();
@@ -141,7 +141,7 @@ TEST(LabyrinthOfLore_Physics_EntityTileMapCollisionStepperTest,
    entity.get_velocity_ref().position = AllegroFlare::vec3d(0.0, 1.0, 0.0);
    tile_map.set_tile(0, 1, LabyrinthOfLore::WorldMap::Tile(0, 10.001 + auto_ascend_threshold + 0.001));
 
-   LabyrinthOfLore::Physics::EntityTileMapCollisionStepper entity_tile_map_collision_stepper(tile_map, entities);
+   LabyrinthOfLore::Physics::EntityTileMapCollisionStepper entity_tile_map_collision_stepper(&tile_map, entities);
    entity_tile_map_collision_stepper.process_step();
 
    AllegroFlare::Placement3D actual_placement = entity.get_placement_ref();
@@ -176,7 +176,7 @@ TEST(LabyrinthOfLore_Physics_EntityTileMapCollisionStepperTest,
    entity.get_velocity_ref().position = AllegroFlare::vec3d(0.0, 0.0, -1.0);
    tile_map.set_tile(0, 0, LabyrinthOfLore::WorldMap::Tile(0, 10.0));
 
-   LabyrinthOfLore::Physics::EntityTileMapCollisionStepper entity_tile_map_collision_stepper(tile_map, entities);
+   LabyrinthOfLore::Physics::EntityTileMapCollisionStepper entity_tile_map_collision_stepper(&tile_map, entities);
    entity_tile_map_collision_stepper.process_step();
 
    AllegroFlare::Placement3D actual_placement = entity.get_placement_ref();
@@ -204,7 +204,7 @@ TEST(LabyrinthOfLore_Physics_EntityTileMapCollisionStepperTest,
    entity.get_velocity_ref().position = AllegroFlare::vec3d(1.0, 0.0, -4.0);
    tile_map.set_tile(1, 0, LabyrinthOfLore::WorldMap::Tile(0, 10.0 + auto_ascend_threshold));
 
-   LabyrinthOfLore::Physics::EntityTileMapCollisionStepper entity_tile_map_collision_stepper(tile_map, entities);
+   LabyrinthOfLore::Physics::EntityTileMapCollisionStepper entity_tile_map_collision_stepper(&tile_map, entities);
    entity_tile_map_collision_stepper.process_step();
 
    AllegroFlare::Placement3D actual_placement = entity.get_placement_ref();
@@ -238,7 +238,7 @@ TEST(LabyrinthOfLore_Physics_EntityTileMapCollisionStepperTest, process_step__pr
    entity3.get_placement_ref().position = AllegroFlare::vec3d(1.5, 0.5, 10.001);
    entity3.get_velocity_ref().position = AllegroFlare::vec3d(-1.0, 0.0, 0.0);
 
-   LabyrinthOfLore::Physics::EntityTileMapCollisionStepper entity_tile_map_collision_stepper(tile_map, entities);
+   LabyrinthOfLore::Physics::EntityTileMapCollisionStepper entity_tile_map_collision_stepper(&tile_map, entities);
    entity_tile_map_collision_stepper.process_step();
 
    AllegroFlare::Placement3D entity1_actual_placement = entity1.get_placement_ref();
@@ -269,7 +269,7 @@ TEST(LabyrinthOfLore_Physics_EntityTileMapCollisionStepperTest,
    entity.get_placement_ref().position = AllegroFlare::vec3d(0.0, 0.0, 99.501);
    entity.get_velocity_ref().position = AllegroFlare::vec3d(0.0, 0.0, 1.0);
 
-   LabyrinthOfLore::Physics::EntityTileMapCollisionStepper entity_tile_map_collision_stepper(tile_map, entities);
+   LabyrinthOfLore::Physics::EntityTileMapCollisionStepper entity_tile_map_collision_stepper(&tile_map, entities);
    entity_tile_map_collision_stepper.process_step();
 
    AllegroFlare::Placement3D actual_placement = entity.get_placement_ref();
@@ -290,13 +290,14 @@ TEST(LabyrinthOfLore_Physics_EntityTileMapCollisionStepperTest,
    LabyrinthOfLore::WorldMap::TileMap tile_map;
    tile_map.resize(10, 10, LabyrinthOfLore::WorldMap::Tile(0, -10.0));
    tile_map.set_ceiling_height(ceiling_height);
-   AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D entity = AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D();
+   AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D entity =
+      AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D();
    std::vector<AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D*> entities = { &entity };
 
    entity.get_placement_ref().position = AllegroFlare::vec3d(0.0, 0.0, ceiling_height - 0.5);
    entity.get_velocity_ref().position = AllegroFlare::vec3d(0.0, 0.0, 1.0);
 
-   LabyrinthOfLore::Physics::EntityTileMapCollisionStepper entity_tile_map_collision_stepper(tile_map, entities);
+   LabyrinthOfLore::Physics::EntityTileMapCollisionStepper entity_tile_map_collision_stepper(&tile_map, entities);
    entity_tile_map_collision_stepper.process_step();
 
    AllegroFlare::Placement3D actual_placement = entity.get_placement_ref();
@@ -321,7 +322,7 @@ TEST(LabyrinthOfLore_Physics_EntityTileMapCollisionStepperTest,
    entity.get_placement_ref().position = AllegroFlare::vec3d(0.0, 0.0, 0.501);
    entity.get_velocity_ref().position = AllegroFlare::vec3d(0.0, 0.0, -1.0);
 
-   LabyrinthOfLore::Physics::EntityTileMapCollisionStepper entity_tile_map_collision_stepper(tile_map, entities);
+   LabyrinthOfLore::Physics::EntityTileMapCollisionStepper entity_tile_map_collision_stepper(&tile_map, entities);
    entity_tile_map_collision_stepper.process_step();
 
    AllegroFlare::Placement3D actual_placement = entity.get_placement_ref();
@@ -346,7 +347,7 @@ TEST(LabyrinthOfLore_Physics_EntityTileMapCollisionStepperTest,
    entity.get_placement_ref().position = AllegroFlare::vec3d(0.5, 0.5, 10.001);
    entity.get_velocity_ref().position = AllegroFlare::vec3d(-1.0, -1.0, 0.0);
 
-   LabyrinthOfLore::Physics::EntityTileMapCollisionStepper entity_tile_map_collision_stepper(tile_map, entities);
+   LabyrinthOfLore::Physics::EntityTileMapCollisionStepper entity_tile_map_collision_stepper(&tile_map, entities);
    entity_tile_map_collision_stepper.process_step();
 
    AllegroFlare::Placement3D actual_placement = entity.get_placement_ref();
@@ -366,7 +367,7 @@ TEST(LabyrinthOfLore_Physics_EntityTileMapCollisionStepperTest,
    entity.get_placement_ref().position = AllegroFlare::vec3d(0.5, 0.5, 10.001);
    entity.get_velocity_ref().position = AllegroFlare::vec3d(1.0, 1.0, 0.0);
 
-   LabyrinthOfLore::Physics::EntityTileMapCollisionStepper entity_tile_map_collision_stepper(tile_map, entities);
+   LabyrinthOfLore::Physics::EntityTileMapCollisionStepper entity_tile_map_collision_stepper(&tile_map, entities);
    entity_tile_map_collision_stepper.process_step();
 
    AllegroFlare::Placement3D actual_placement = entity.get_placement_ref();
@@ -399,7 +400,7 @@ TEST(LabyrinthOfLore_Physics_EntityTileMapCollisionStepperTest,
 
    for (unsigned pass=0; pass<8; pass++)
    {
-      LabyrinthOfLore::Physics::EntityTileMapCollisionStepper entity_tile_map_collision_stepper(tile_map, entities);
+      LabyrinthOfLore::Physics::EntityTileMapCollisionStepper entity_tile_map_collision_stepper(&tile_map, entities);
       entity_tile_map_collision_stepper.process_step();
    }
 
@@ -440,7 +441,7 @@ TEST(LabyrinthOfLore_Physics_EntityTileMapCollisionStepperTest,
    tile_map.set_tile(0, 2, LabyrinthOfLore::WorldMap::Tile(0, 10.0 + auto_ascend_threshold*10));
    tile_map.set_tile(0, 1, LabyrinthOfLore::WorldMap::Tile(0, 10.0 + auto_ascend_threshold*11));
 
-   LabyrinthOfLore::Physics::EntityTileMapCollisionStepper entity_tile_map_collision_stepper(tile_map, entities);
+   LabyrinthOfLore::Physics::EntityTileMapCollisionStepper entity_tile_map_collision_stepper(&tile_map, entities);
    entity.get_placement_ref().position = AllegroFlare::vec3d(0.5, 0.5, 10.001);
 
    // moving right
@@ -500,7 +501,7 @@ TEST(LabyrinthOfLore_Physics_EntityTileMapCollisionStepperTest,
    entity.get_placement_ref().position = AllegroFlare::vec3d(0.75, 0.25, 10.001);
    entity.get_velocity_ref().position = AllegroFlare::vec3d(0.5, 0.5, 0.0);
 
-   LabyrinthOfLore::Physics::EntityTileMapCollisionStepper entity_tile_map_collision_stepper(tile_map, entities);
+   LabyrinthOfLore::Physics::EntityTileMapCollisionStepper entity_tile_map_collision_stepper(&tile_map, entities);
 
    entity_tile_map_collision_stepper.process_step();
    entity_tile_map_collision_stepper.process_step();
@@ -524,7 +525,7 @@ TEST(LabyrinthOfLore_Physics_EntityTileMapCollisionStepperTest,
    entity.get_placement_ref().position = AllegroFlare::vec3d(1.25, 0.25, 10.001);
    entity.get_velocity_ref().position = AllegroFlare::vec3d(-0.5, 0.5, 0.0);
 
-   LabyrinthOfLore::Physics::EntityTileMapCollisionStepper entity_tile_map_collision_stepper(tile_map, entities);
+   LabyrinthOfLore::Physics::EntityTileMapCollisionStepper entity_tile_map_collision_stepper(&tile_map, entities);
 
    entity_tile_map_collision_stepper.process_step();
    entity_tile_map_collision_stepper.process_step();
@@ -548,7 +549,7 @@ TEST(LabyrinthOfLore_Physics_EntityTileMapCollisionStepperTest,
    entity.get_placement_ref().position = AllegroFlare::vec3d(0.75, 1.75, 10.001);
    entity.get_velocity_ref().position = AllegroFlare::vec3d(0.5, -0.5, 0.0);
 
-   LabyrinthOfLore::Physics::EntityTileMapCollisionStepper entity_tile_map_collision_stepper(tile_map, entities);
+   LabyrinthOfLore::Physics::EntityTileMapCollisionStepper entity_tile_map_collision_stepper(&tile_map, entities);
 
    entity_tile_map_collision_stepper.process_step();
    entity_tile_map_collision_stepper.process_step();
@@ -572,7 +573,7 @@ TEST(LabyrinthOfLore_Physics_EntityTileMapCollisionStepperTest,
    entity.get_placement_ref().position = AllegroFlare::vec3d(1.25, 1.75, 10.001);
    entity.get_velocity_ref().position = AllegroFlare::vec3d(-0.5, -0.5, 0.0);
 
-   LabyrinthOfLore::Physics::EntityTileMapCollisionStepper entity_tile_map_collision_stepper(tile_map, entities);
+   LabyrinthOfLore::Physics::EntityTileMapCollisionStepper entity_tile_map_collision_stepper(&tile_map, entities);
 
    entity_tile_map_collision_stepper.process_step();
    entity_tile_map_collision_stepper.process_step();
@@ -606,14 +607,15 @@ TEST(LabyrinthOfLore_Physics_EntityTileMapCollisionStepperTest, get_events_from_
    entity.get_velocity_ref().position = AllegroFlare::vec3d(1.0, 0.0, 0.0);
    tile_map.set_tile(1, 0, LabyrinthOfLore::WorldMap::Tile(13, 10.001 + auto_ascend_threshold + 0.001));
 
-   LabyrinthOfLore::Physics::EntityTileMapCollisionStepper entity_tile_map_collision_stepper(tile_map, entities);
+   LabyrinthOfLore::Physics::EntityTileMapCollisionStepper entity_tile_map_collision_stepper(&tile_map, entities);
    entity_tile_map_collision_stepper.process_step();
 
    std::vector<LabyrinthOfLore::Physics::EntityTileMapCollisionEvent> expected_collision_events = {
       LabyrinthOfLore::Physics::EntityTileMapCollisionEvent(&entity, 13, 1, 0, LabyrinthOfLore::WorldMap::TILE_FACE_LEFT, 1.0)
    };
 
-   std::vector<LabyrinthOfLore::Physics::EntityTileMapCollisionEvent> actual_collision_events = entity_tile_map_collision_stepper.get_events_from_last_processed_step();
+   std::vector<LabyrinthOfLore::Physics::EntityTileMapCollisionEvent> actual_collision_events =
+      entity_tile_map_collision_stepper.get_events_from_last_processed_step();
 
    ASSERT_EQ(expected_collision_events.size(), actual_collision_events.size());
 
@@ -636,14 +638,15 @@ TEST(LabyrinthOfLore_Physics_EntityTileMapCollisionStepperTest, get_events_from_
    entity.get_velocity_ref().position = AllegroFlare::vec3d(-0.971, 0.0, 0.0);
    tile_map.set_tile(0, 0, LabyrinthOfLore::WorldMap::Tile(7, 10.001 + auto_ascend_threshold + 0.001));
 
-   LabyrinthOfLore::Physics::EntityTileMapCollisionStepper entity_tile_map_collision_stepper(tile_map, entities);
+   LabyrinthOfLore::Physics::EntityTileMapCollisionStepper entity_tile_map_collision_stepper(&tile_map, entities);
    entity_tile_map_collision_stepper.process_step();
 
    std::vector<LabyrinthOfLore::Physics::EntityTileMapCollisionEvent> expected_collision_events = {
       LabyrinthOfLore::Physics::EntityTileMapCollisionEvent(&entity, 7, 0, 0, LabyrinthOfLore::WorldMap::TILE_FACE_RIGHT, 0.971)
    };
 
-   std::vector<LabyrinthOfLore::Physics::EntityTileMapCollisionEvent> actual_collision_events = entity_tile_map_collision_stepper.get_events_from_last_processed_step();
+   std::vector<LabyrinthOfLore::Physics::EntityTileMapCollisionEvent> actual_collision_events =
+      entity_tile_map_collision_stepper.get_events_from_last_processed_step();
 
    ASSERT_EQ(expected_collision_events.size(), actual_collision_events.size());
 
@@ -666,14 +669,15 @@ TEST(LabyrinthOfLore_Physics_EntityTileMapCollisionStepperTest, get_events_from_
    entity.get_velocity_ref().position = AllegroFlare::vec3d(0.0, 0.897, 0.0);
    tile_map.set_tile(0, 1, LabyrinthOfLore::WorldMap::Tile(97, 10.001 + auto_ascend_threshold + 0.001));
 
-   LabyrinthOfLore::Physics::EntityTileMapCollisionStepper entity_tile_map_collision_stepper(tile_map, entities);
+   LabyrinthOfLore::Physics::EntityTileMapCollisionStepper entity_tile_map_collision_stepper(&tile_map, entities);
    entity_tile_map_collision_stepper.process_step();
 
    std::vector<LabyrinthOfLore::Physics::EntityTileMapCollisionEvent> expected_collision_events = {
       LabyrinthOfLore::Physics::EntityTileMapCollisionEvent(&entity, 97, 0, 1, LabyrinthOfLore::WorldMap::TILE_FACE_BACK, 0.897)
    };
 
-   std::vector<LabyrinthOfLore::Physics::EntityTileMapCollisionEvent> actual_collision_events = entity_tile_map_collision_stepper.get_events_from_last_processed_step();
+   std::vector<LabyrinthOfLore::Physics::EntityTileMapCollisionEvent> actual_collision_events =
+      entity_tile_map_collision_stepper.get_events_from_last_processed_step();
 
    ASSERT_EQ(expected_collision_events.size(), actual_collision_events.size());
 
@@ -696,14 +700,15 @@ TEST(LabyrinthOfLore_Physics_EntityTileMapCollisionStepperTest, get_events_from_
    entity.get_velocity_ref().position = AllegroFlare::vec3d(0.0, -0.918, 0.0);
    tile_map.set_tile(0, 0, LabyrinthOfLore::WorldMap::Tile(32, 10.001 + auto_ascend_threshold + 0.001));
 
-   LabyrinthOfLore::Physics::EntityTileMapCollisionStepper entity_tile_map_collision_stepper(tile_map, entities);
+   LabyrinthOfLore::Physics::EntityTileMapCollisionStepper entity_tile_map_collision_stepper(&tile_map, entities);
    entity_tile_map_collision_stepper.process_step();
 
    std::vector<LabyrinthOfLore::Physics::EntityTileMapCollisionEvent> expected_collision_events = {
       LabyrinthOfLore::Physics::EntityTileMapCollisionEvent(&entity, 32, 0, 0, LabyrinthOfLore::WorldMap::TILE_FACE_FRONT, 0.918)
    };
 
-   std::vector<LabyrinthOfLore::Physics::EntityTileMapCollisionEvent> actual_collision_events = entity_tile_map_collision_stepper.get_events_from_last_processed_step();
+   std::vector<LabyrinthOfLore::Physics::EntityTileMapCollisionEvent> actual_collision_events =
+      entity_tile_map_collision_stepper.get_events_from_last_processed_step();
 
    ASSERT_EQ(expected_collision_events.size(), actual_collision_events.size());
 
@@ -724,14 +729,15 @@ TEST(LabyrinthOfLore_Physics_EntityTileMapCollisionStepperTest, get_events_from_
    entity.get_velocity_ref().position = AllegroFlare::vec3d(0.0, 0.0, -0.729);
    tile_map.set_tile(2, 1, LabyrinthOfLore::WorldMap::Tile(129, 10.0));
 
-   LabyrinthOfLore::Physics::EntityTileMapCollisionStepper entity_tile_map_collision_stepper(tile_map, entities);
+   LabyrinthOfLore::Physics::EntityTileMapCollisionStepper entity_tile_map_collision_stepper(&tile_map, entities);
    entity_tile_map_collision_stepper.process_step();
 
    std::vector<LabyrinthOfLore::Physics::EntityTileMapCollisionEvent> expected_collision_events = {
       LabyrinthOfLore::Physics::EntityTileMapCollisionEvent(&entity, 129, 2, 1, LabyrinthOfLore::WorldMap::TILE_FACE_TOP, 0.729)
    };
 
-   std::vector<LabyrinthOfLore::Physics::EntityTileMapCollisionEvent> actual_collision_events = entity_tile_map_collision_stepper.get_events_from_last_processed_step();
+   std::vector<LabyrinthOfLore::Physics::EntityTileMapCollisionEvent> actual_collision_events =
+      entity_tile_map_collision_stepper.get_events_from_last_processed_step();
 
    ASSERT_EQ(expected_collision_events.size(), actual_collision_events.size());
 
@@ -754,7 +760,7 @@ TEST(LabyrinthOfLore_Physics_EntityTileMapCollisionStepperTest, get_events_from_
    tile_map.set_tile(1, 2, LabyrinthOfLore::WorldMap::Tile(96, 20.0));
    tile_map.set_tile(1, 1, LabyrinthOfLore::WorldMap::Tile(7, 10.0));
 
-   LabyrinthOfLore::Physics::EntityTileMapCollisionStepper entity_tile_map_collision_stepper(tile_map, entities);
+   LabyrinthOfLore::Physics::EntityTileMapCollisionStepper entity_tile_map_collision_stepper(&tile_map, entities);
    entity_tile_map_collision_stepper.process_step();
 
    std::vector<LabyrinthOfLore::Physics::EntityTileMapCollisionEvent> expected_collision_events = {
@@ -763,7 +769,8 @@ TEST(LabyrinthOfLore_Physics_EntityTileMapCollisionStepperTest, get_events_from_
       LabyrinthOfLore::Physics::EntityTileMapCollisionEvent(&entity, 7, 1, 1, LabyrinthOfLore::WorldMap::TILE_FACE_TOP, 0.729)
    };
 
-   std::vector<LabyrinthOfLore::Physics::EntityTileMapCollisionEvent> actual_collision_events = entity_tile_map_collision_stepper.get_events_from_last_processed_step();
+   std::vector<LabyrinthOfLore::Physics::EntityTileMapCollisionEvent> actual_collision_events =
+      entity_tile_map_collision_stepper.get_events_from_last_processed_step();
 
    ASSERT_EQ(expected_collision_events.size(), actual_collision_events.size());
 
@@ -791,7 +798,7 @@ TEST(LabyrinthOfLore_Physics_EntityTileMapCollisionStepperTest, get_events_from_
    entity2.get_placement_ref().position = AllegroFlare::vec3d(1.5, 0.5, 10.5);
    entity2.get_velocity_ref().position = AllegroFlare::vec3d(0.0, 0.987, 0.0);
 
-   LabyrinthOfLore::Physics::EntityTileMapCollisionStepper entity_tile_map_collision_stepper(tile_map, entities);
+   LabyrinthOfLore::Physics::EntityTileMapCollisionStepper entity_tile_map_collision_stepper(&tile_map, entities);
    entity_tile_map_collision_stepper.process_step();
 
    std::vector<LabyrinthOfLore::Physics::EntityTileMapCollisionEvent> expected_collision_events = {
@@ -799,7 +806,8 @@ TEST(LabyrinthOfLore_Physics_EntityTileMapCollisionStepperTest, get_events_from_
       LabyrinthOfLore::Physics::EntityTileMapCollisionEvent(&entity2, 928, 1, 1, LabyrinthOfLore::WorldMap::TILE_FACE_BACK, 0.987),
    };
 
-   std::vector<LabyrinthOfLore::Physics::EntityTileMapCollisionEvent> actual_collision_events = entity_tile_map_collision_stepper.get_events_from_last_processed_step();
+   std::vector<LabyrinthOfLore::Physics::EntityTileMapCollisionEvent> actual_collision_events =
+      entity_tile_map_collision_stepper.get_events_from_last_processed_step();
 
    ASSERT_EQ(expected_collision_events.size(), actual_collision_events.size());
 
@@ -822,7 +830,7 @@ TEST(LabyrinthOfLore_Physics_EntityTileMapCollisionStepperTest,
    entity.get_placement_ref().position = AllegroFlare::vec3d(0.8, 0.9, 10.001);
    entity.get_velocity_ref().position = AllegroFlare::vec3d(0.3, 0.4, -2.0);
 
-   LabyrinthOfLore::Physics::EntityTileMapCollisionStepper entity_tile_map_collision_stepper(tile_map, entities);
+   LabyrinthOfLore::Physics::EntityTileMapCollisionStepper entity_tile_map_collision_stepper(&tile_map, entities);
    entity_tile_map_collision_stepper.process_step();
 
    std::vector<LabyrinthOfLore::Physics::EntityTileMapCollisionEvent> expected_collision_events = {
@@ -831,7 +839,8 @@ TEST(LabyrinthOfLore_Physics_EntityTileMapCollisionStepperTest,
       LabyrinthOfLore::Physics::EntityTileMapCollisionEvent(&entity, 0, 1, 1, LabyrinthOfLore::WorldMap::TILE_FACE_TOP, 2.0),
    };
 
-   std::vector<LabyrinthOfLore::Physics::EntityTileMapCollisionEvent> actual_collision_events = entity_tile_map_collision_stepper.get_events_from_last_processed_step();
+   std::vector<LabyrinthOfLore::Physics::EntityTileMapCollisionEvent> actual_collision_events =
+      entity_tile_map_collision_stepper.get_events_from_last_processed_step();
 
    ASSERT_EQ(expected_collision_events.size(), actual_collision_events.size());
 
