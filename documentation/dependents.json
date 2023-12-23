@@ -61,6 +61,8 @@
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer2",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer2",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowMapBuffer",
+    "LabyrinthOfLore/Physics/EntityTileMapCollisionEvent",
+    "LabyrinthOfLore/Physics/EntityTileMapCollisionStepper",
     "Pipeline/Gameplay/Screen"
   ],
   "AllegroFlare/AllegroUnstable": [
@@ -147,6 +149,29 @@
   "AllegroFlare/UsefulPHP": [
     "AllegroFlare/Shaders/ShadowMapping",
     "Pipeline/Runner"
+  ],
+  "LabyrinthOfLore/WorldMap/tile_face_t": [
+    "LabyrinthOfLore/Physics/EntityTileMapCollisionEvent",
+    "LabyrinthOfLore/Physics/EntityTileMapCollisionStepper"
+  ],
+  "LabyrinthOfLore/WorldMap/TileMap": [
+    "LabyrinthOfLore/Physics/EntityTileMapCollisionStepper"
+  ],
+  "LabyrinthOfLore/Entity/Base": [
+    "LabyrinthOfLore/Physics/EntityTileMapCollisionStepper"
+  ],
+  "fabs": [
+    "LabyrinthOfLore/Physics/EntityTileMapCollisionStepper"
+  ],
+  "std/min": [
+    "LabyrinthOfLore/Physics/EntityTileMapCollisionStepper"
+  ],
+  "std/max": [
+    "LabyrinthOfLore/Physics/EntityTileMapCollisionStepper"
+  ],
+  "LabyrinthOfLore/Physics/EntityTileMapCollisionEvent": [
+    "LabyrinthOfLore/Physics/EntityTileMapCollisionStepper",
+    "LabyrinthOfLore/Physics/EntityTileMapCollisionStepper"
   ],
   "AllegroFlare/DialogTree/NodeBank": [
     "Pipeline/DialogNodeBankFactory",
