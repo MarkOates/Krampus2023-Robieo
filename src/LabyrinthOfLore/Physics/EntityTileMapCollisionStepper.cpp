@@ -123,6 +123,12 @@ void EntityTileMapCollisionStepper::process_step()
       double posY = entity->get_placement_ref().position.y;
       double posZ = entity->get_placement_ref().position.z;
 
+
+
+      //
+      // Evaluate tile collisions along the x axis
+      //
+
       if(tile_map->get_tile(int(posX + dirX * moveSpeed), int(posY)).get_height() <= (posZ + get_auto_ascend_threshold()))
       {
          float previous_posX = posX;
@@ -172,6 +178,13 @@ void EntityTileMapCollisionStepper::process_step()
             );
          events_from_last_processed_step.push_back(collision_event);
       }
+
+
+
+      //
+      // Evaluate tile collisions along the y axis
+      //
+
       if(tile_map->get_tile(int(posX), int(posY + dirY * moveSpeed)).get_height() <= (posZ + get_auto_ascend_threshold()))
       {
          float previous_posY = posY;
@@ -222,6 +235,12 @@ void EntityTileMapCollisionStepper::process_step()
 
          events_from_last_processed_step.push_back(collision_event);
       }
+
+
+      //
+      // Evaluate tile collisions along the z axis
+      //
+
       if ((posZ + dirZ) < tile_map->get_tile(int(posX), int(posY)).get_height())
       {
          posZ = tile_map->get_tile(int(posX), int(posY)).get_height() + get_offset_at_collision_edge();
@@ -251,9 +270,20 @@ void EntityTileMapCollisionStepper::process_step()
          posZ += dirZ;
       }
 
+
+      //
+      // Position the entity to its new location
+      //
+
       entity->get_placement_ref().position.x = posX;
       entity->get_placement_ref().position.y = posY;
       //float clamped_ceiling = std::min<float>(get_ceiling_height()-get_offset_at_collision_edge(), posZ);
+
+
+      //
+      // Clamp the entity's z position to the z floor and ceiling
+      //
+
       float clamped_ceiling = std::min<float>(ceiling_height-get_offset_at_collision_edge(), posZ);
       if (fabs(clamped_ceiling - posZ) > 0.0001f)
       {
