@@ -356,6 +356,9 @@
   "ALLEGRO_FONT": [
     "Pipeline/Gameplay/Screen"
   ],
+  "LabyrinthOfLore/Physics/EntityTileMapCollisionStepper": [
+    "Pipeline/Gameplay/Screen"
+  ],
   "AllegroFlare/Routers/Standard": [
     "Pipeline/Runner"
   ],

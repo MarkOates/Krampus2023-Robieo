@@ -11,6 +11,7 @@
 #include <AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityRenderFlags.hpp>
 #include <AllegroFlare/Interpolators.hpp>
 #include <AllegroFlare/Logger.hpp>
+#include <LabyrinthOfLore/Physics/EntityTileMapCollisionStepper.hpp>
 #include <LabyrinthOfLore/WorldMap/BasicRenderer.hpp>
 #include <LabyrinthOfLore/WorldMap/TileTypeEnum.hpp>
 #include <Pipeline/DialogNodeBankFactory.hpp>
@@ -688,6 +689,9 @@ void Screen::load_level_by_identifier(std::string level_identifier)
       )
    );
 
+   result_tile_map->set_tile(
+      1, 1, LabyrinthOfLore::WorldMap::Tile(LabyrinthOfLore::WorldMap::NORMAL_GROUND_TILE, 5.0f));
+
 
    current_level_tile_map = result_tile_map;
 
@@ -1156,8 +1160,40 @@ void Screen::update()
 
       // Move the player
       auto player_entity_as = get_player_controlled_entity_as();
-      player_entity_as->get_placement_ref().position.x += x_prime;
-      player_entity_as->get_placement_ref().position.z += y_prime;
+      //player_entity_as->get_placement_ref().position.x += x_prime;
+      //player_entity_as->get_placement_ref().position.z += y_prime;
+
+
+
+      // Reposition player_character on map; Use a very fancy swapping of y-with-z variables, the stepper
+      // operate on these coordinates swapped
+
+      AllegroFlare::Vec3D vswapper;
+      AllegroFlare::Vec3D pswapper;
+      player_entity_as->get_velocity_ref().position.x = x_prime;
+      player_entity_as->get_velocity_ref().position.z = y_prime;
+
+      vswapper = player_entity_as->get_velocity_ref().position;
+      player_entity_as->get_velocity_ref().position.z = vswapper.y;
+      player_entity_as->get_velocity_ref().position.y = vswapper.z;
+      pswapper = player_entity_as->get_placement_ref().position;
+      player_entity_as->get_placement_ref().position.z = pswapper.y;
+      player_entity_as->get_placement_ref().position.y = pswapper.z;
+
+      LabyrinthOfLore::Physics::EntityTileMapCollisionStepper collision_stepper;
+      collision_stepper.set_tile_map(current_level_tile_map);
+      collision_stepper.set_entities({ player_entity_as });
+      collision_stepper.process_step();
+
+      vswapper = player_entity_as->get_velocity_ref().position;
+      player_entity_as->get_velocity_ref().position.z = vswapper.y;
+      player_entity_as->get_velocity_ref().position.y = vswapper.z;
+      pswapper = player_entity_as->get_placement_ref().position;
+      player_entity_as->get_placement_ref().position.z = pswapper.y;
+      player_entity_as->get_placement_ref().position.y = pswapper.z;
+
+
+
 
       // Update the player model rotation to face the moving direction
       if (std::fabs(x_prime) + std::fabs(y_prime) > 0.001) // Only update the rotation if the player is moving
