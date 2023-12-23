@@ -1,7 +1,6 @@
 #pragma once
 
 
-#include <string>
 
 
 namespace LabyrinthOfLore
@@ -25,7 +24,6 @@ namespace LabyrinthOfLore
          void set_height(float height);
          int get_type() const;
          float get_height() const;
-         std::string run();
       };
    }
 }

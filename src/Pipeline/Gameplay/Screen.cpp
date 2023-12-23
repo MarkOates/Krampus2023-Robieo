@@ -46,6 +46,7 @@ Screen::Screen(AllegroFlare::Frameworks::Full* framework, AllegroFlare::EventEmi
    , scene_renderer()
    , current_level_identifier("[unset-current_level]")
    , current_level(nullptr)
+   , current_level_tile_map(nullptr)
    , current_level_song_to_perform_identifier("")
    , current_level_song_to_perform_duration_sec(0.0f)
    , currently_performing_song_identifier("")
@@ -316,6 +317,8 @@ void Screen::load_level_by_identifier(std::string level_identifier)
    exit_entity = nullptr;
    entities_player_entity_is_colliding_with.clear();
    portal_entity_associations.clear();
+   if (current_level_tile_map) delete current_level_tile_map;
+   current_level_tile_map = nullptr;
 
 
    //

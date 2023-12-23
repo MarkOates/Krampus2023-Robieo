@@ -83,6 +83,10 @@ properties:
     type: Pipeline::Gameplay::Level*
     init_with: nullptr
 
+  - name: current_level_tile_map
+    type: LabyrinthOfLore::WorldMap::TileMap*
+    init_with: nullptr
+
   - name: current_level_song_to_perform_identifier
     type: std::string
     init_with: '""'
@@ -404,6 +408,8 @@ methods:
       exit_entity = nullptr;
       entities_player_entity_is_colliding_with.clear();
       portal_entity_associations.clear();
+      if (current_level_tile_map) delete current_level_tile_map;
+      current_level_tile_map = nullptr;
 
 
       //
@@ -2079,5 +2085,7 @@ dependencies:
     headers: [ cmath ]
   - symbol: std::fmod
     headers: [ cmath ]
+  - symbol: LabyrinthOfLore::WorldMap::TileMap
+    headers: [ LabyrinthOfLore/WorldMap/TileMap.hpp ]
 
 

@@ -155,7 +155,9 @@
     "LabyrinthOfLore/Physics/EntityTileMapCollisionStepper"
   ],
   "LabyrinthOfLore/WorldMap/TileMap": [
-    "LabyrinthOfLore/Physics/EntityTileMapCollisionStepper"
+    "LabyrinthOfLore/Physics/EntityTileMapCollisionStepper",
+    "LabyrinthOfLore/WorldMap/BasicRenderer",
+    "Pipeline/Gameplay/Screen"
   ],
   "LabyrinthOfLore/Entity/Base": [
     "LabyrinthOfLore/Physics/EntityTileMapCollisionStepper"
@@ -172,6 +174,21 @@
   "LabyrinthOfLore/Physics/EntityTileMapCollisionEvent": [
     "LabyrinthOfLore/Physics/EntityTileMapCollisionStepper",
     "LabyrinthOfLore/Physics/EntityTileMapCollisionStepper"
+  ],
+  "AllegroFlare/color/color": [
+    "LabyrinthOfLore/WorldMap/BasicRenderer"
+  ],
+  "LabyrinthOfLore/WorldMap/Tile": [
+    "LabyrinthOfLore/WorldMap/BasicRenderer"
+  ],
+  "al_draw_filled_rectangle": [
+    "LabyrinthOfLore/WorldMap/BasicRenderer"
+  ],
+  "al_color_name": [
+    "LabyrinthOfLore/WorldMap/BasicRenderer"
+  ],
+  "al_init_primitives_addon": [
+    "LabyrinthOfLore/WorldMap/BasicRenderer"
   ],
   "AllegroFlare/DialogTree/NodeBank": [
     "Pipeline/DialogNodeBankFactory",

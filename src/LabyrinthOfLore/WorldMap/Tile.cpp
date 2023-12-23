@@ -47,10 +47,6 @@ float Tile::get_height() const
 }
 
 
-std::string Tile::run()
-{
-   return "Hello World!";
-}
 
 
 } // namespace WorldMap

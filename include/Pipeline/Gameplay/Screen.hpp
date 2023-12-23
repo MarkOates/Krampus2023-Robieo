@@ -20,6 +20,7 @@
 #include <AllegroFlare/Vec2D.hpp>
 #include <AllegroFlare/Vec3D.hpp>
 #include <AllegroFlare/VirtualControllers/Base.hpp>
+#include <LabyrinthOfLore/WorldMap/TileMap.hpp>
 #include <Pipeline/GameProgressAndStateInfo.hpp>
 #include <Pipeline/Gameplay/Level.hpp>
 #include <Pipeline/Gameplay/Screen.hpp>
@@ -74,6 +75,7 @@ namespace Pipeline
          AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::SceneRenderer2 scene_renderer;
          std::string current_level_identifier;
          Pipeline::Gameplay::Level* current_level;
+         LabyrinthOfLore::WorldMap::TileMap* current_level_tile_map;
          std::string current_level_song_to_perform_identifier;
          float current_level_song_to_perform_duration_sec;
          std::string currently_performing_song_identifier;
