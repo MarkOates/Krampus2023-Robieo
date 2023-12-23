@@ -1,6 +1,6 @@
 properties:
   - name: entity
-    type: LabyrinthOfLore::Entity::Base*
+    type: AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D*
     init_with: nullptr
     constructor_arg: true
     getter: true
@@ -30,7 +30,7 @@ properties:
     constructor_arg: true
     getter: true
 dependencies:
-  - symbol: LabyrinthOfLore::Entity::Base
-    headers: [ LabyrinthOfLore/Entity/Base.hpp ]
+  - symbol: AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D
+    headers: [ AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/DynamicModel3D.hpp ]
   - symbol: LabyrinthOfLore::WorldMap::tile_face_t
-    headers: [ LabyrinthOfLore/WorldMap/TileFaceEnum.hpp ]
+    headers: [ LabyrinthOfLore/Physics/TileFaceEnum.hpp ]
