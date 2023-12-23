@@ -138,9 +138,6 @@ void EntityTileMapCollisionStepper::process_step()
          // if currentx!=nextx, create a collision event into the nextx tile, with a face of NONE
          if ((int)previous_posX != (int)now_posX)
          {
-           //AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D* colliding_entity =
-               //entity;
-           //LabyrinthOfLore::Entity::Base* colliding_entity = entity;
            int collided_tile_x = int(posX);
            int collided_tile_y = int(posY);
            int collided_tile_type = tile_map->get_tile(collided_tile_x, collided_tile_y).get_type();
@@ -150,7 +147,7 @@ void EntityTileMapCollisionStepper::process_step()
 
             // a new tile space has been entered
             LabyrinthOfLore::Physics::EntityTileMapCollisionEvent collision_event(
-                 entity, //colliding_entity,
+                 entity,
                  collided_tile_type,
                  collided_tile_x,
                  collided_tile_y,
@@ -162,8 +159,6 @@ void EntityTileMapCollisionStepper::process_step()
       }
       else
       {
-         AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D* colliding_entity = entity;
-         //LabyrinthOfLore::Entity::Base* colliding_entity = entity;
          int collided_tile_type = tile_map->get_tile(int(posX + dirX * moveSpeed), int(posY)).get_type();
          int collided_tile_x = int(posX + dirX * moveSpeed);
          int collided_tile_y = int(posY);
@@ -171,7 +166,7 @@ void EntityTileMapCollisionStepper::process_step()
          float collided_force = abs(dirX * moveSpeed);
 
          LabyrinthOfLore::Physics::EntityTileMapCollisionEvent collision_event(
-               entity, //colliding_entity,
+               entity,
                collided_tile_type,
                collided_tile_x,
                collided_tile_y,
@@ -196,8 +191,6 @@ void EntityTileMapCollisionStepper::process_step()
          // if currenty!=nexty, create a collision event into the nexty tile, with a face of NONE
          if ((int)previous_posY != (int)now_posY)
          {
-           //AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D* colliding_entity = entity;
-           //LabyrinthOfLore::Entity::Base* colliding_entity = entity;
            int collided_tile_x = int(posX);
            int collided_tile_y = int(posY);
            int collided_tile_type = tile_map->get_tile(collided_tile_x, collided_tile_y).get_type();
@@ -206,7 +199,7 @@ void EntityTileMapCollisionStepper::process_step()
 
             // a new tile space has been entered
             LabyrinthOfLore::Physics::EntityTileMapCollisionEvent collision_event(
-                 entity, //colliding_entity,
+                 entity,
                  collided_tile_type,
                  collided_tile_x,
                  collided_tile_y,
@@ -218,8 +211,6 @@ void EntityTileMapCollisionStepper::process_step()
       }
       else
       {
-         //AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D* colliding_entity = entity;
-         //LabyrinthOfLore::Entity::Base* colliding_entity = entity;
          int collided_tile_x = int(posX);
          int collided_tile_y = int(posY + dirY * moveSpeed);
          int collided_tile_type = tile_map->get_tile(collided_tile_x, collided_tile_y).get_type();
@@ -227,7 +218,7 @@ void EntityTileMapCollisionStepper::process_step()
          float collided_force = abs(dirY * moveSpeed);
 
          LabyrinthOfLore::Physics::EntityTileMapCollisionEvent collision_event(
-               entity, //colliding_entity,
+               entity,
                collided_tile_type,
                collided_tile_x,
                collided_tile_y,
@@ -248,8 +239,6 @@ void EntityTileMapCollisionStepper::process_step()
          posZ = tile_map->get_tile(int(posX), int(posY)).get_height() + get_offset_at_collision_edge();
          entity->get_velocity_ref().position.z = 0.0f;
 
-         //AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D* colliding_entity = entity;
-         //LabyrinthOfLore::Entity::Base* colliding_entity = entity;
          int collided_tile_x = int(posX);
          int collided_tile_y = int(posY);
          int collided_tile_type = tile_map->get_tile(collided_tile_x, collided_tile_y).get_type();
@@ -257,7 +246,7 @@ void EntityTileMapCollisionStepper::process_step()
          float collided_force = abs(dirZ);
 
          LabyrinthOfLore::Physics::EntityTileMapCollisionEvent collision_event(
-               entity, //colliding_entity,
+               entity,
                collided_tile_type,
                collided_tile_x,
                collided_tile_y,
