@@ -1176,10 +1176,16 @@ void Screen::update()
          AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D* this_collidable_as =
             get_entity_as_dynamic_model_3d(collidable);
 
+         float collision_radius = 0.7;
+         if (this_collidable_as->exists(ATTRIBUTE_CUSTOM_COLLISION_RADIUS))
+         {
+            collision_radius = this_collidable_as->get_as_float(ATTRIBUTE_CUSTOM_COLLISION_RADIUS);
+         }
+
          bool player_is_currently_colliding_with_this_object = trivial_collide(
             player_entity_as->get_placement_ref().position,
             this_collidable_as->get_placement_ref().position,
-            0.7
+            collision_radius
          );
 
          bool player_is_previously_colliding_with_this_object =

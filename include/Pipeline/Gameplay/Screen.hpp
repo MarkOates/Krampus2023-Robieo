@@ -41,6 +41,7 @@ namespace Pipeline
       public:
          static constexpr char* TYPE = (char*)"Pipeline/Gameplay/Screen";
          static constexpr char* ATTRIBUTE_COLLIDABLE_BY_PLAYER = (char*)"collidable_by_player";
+         static constexpr char* ATTRIBUTE_CUSTOM_COLLISION_RADIUS = (char*)"custom_collision_radius";
          static constexpr char* ATTRIBUTE_ITEM_TYPE = (char*)"item_type";
          static constexpr char* ATTRIBUTE_ITEM_PICKUP_SOUND = (char*)"item_pickup_sound";
          static constexpr char* ATTRIBUTE_IS_PORTAL = (char*)"is_portal";
