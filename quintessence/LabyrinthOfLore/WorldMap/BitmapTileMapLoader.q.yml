@@ -155,7 +155,7 @@ methods:
   - name: load
     type: LabyrinthOfLore::WorldMap::TileMap
     parameters:
-      - name: top_height
+      - name: ceiling_height
         type: float
         default_argument: 4.0f
       - name: ground_height
@@ -183,7 +183,7 @@ methods:
             if (colors_are_equal(this_pixel_color, pick_index_null_color()))
                result.set_tile(x, y, LabyrinthOfLore::WorldMap::Tile(0, floor_height));
             else if (colors_are_equal(this_pixel_color, pick_index_top_color()))
-               result.set_tile(x, y, LabyrinthOfLore::WorldMap::Tile(1, top_height));
+               result.set_tile(x, y, LabyrinthOfLore::WorldMap::Tile(1, ceiling_height));
             else if (colors_are_equal(this_pixel_color, pick_index_ground_color()))
                result.set_tile(x, y, LabyrinthOfLore::WorldMap::Tile(1, ground_height));
 

@@ -310,7 +310,7 @@ LabyrinthOfLore::WorldMap::TileMap* Screen::load_tile_map_from_bitmap()
 {
    std::string elevation_bitmap_filename = bitmap_bin->get_path() + "the_cave.png"; // TODO: This file name
    std::string tile_type_bitmap_filename = bitmap_bin->get_path() + "the_cave-type.png"; // TODO: This file name
-   float top_height = 2.0f;
+   float ceiling_height = 2.0f;
    float ground_height = 1.0f;
 
    if (!std::filesystem::exists(elevation_bitmap_filename))
@@ -331,7 +331,7 @@ LabyrinthOfLore::WorldMap::TileMap* Screen::load_tile_map_from_bitmap()
    LabyrinthOfLore::WorldMap::MultiBitmapFilenameToWorldBuilder world_builder(
       elevation_bitmap_filename,
       tile_type_bitmap_filename,
-      top_height,
+      ceiling_height,
       ground_height
    );
 

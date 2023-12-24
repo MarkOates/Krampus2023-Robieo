@@ -16,10 +16,10 @@ namespace WorldMap
 {
 
 
-MultiBitmapFilenameToWorldBuilder::MultiBitmapFilenameToWorldBuilder(std::string elevation_bitmap_source_filename, std::string tile_type_bitmap_source_filename, float top_height, float ground_height)
+MultiBitmapFilenameToWorldBuilder::MultiBitmapFilenameToWorldBuilder(std::string elevation_bitmap_source_filename, std::string tile_type_bitmap_source_filename, float ceiling_height, float ground_height)
    : elevation_bitmap_source_filename(elevation_bitmap_source_filename)
    , tile_type_bitmap_source_filename(tile_type_bitmap_source_filename)
-   , top_height(top_height)
+   , ceiling_height(ceiling_height)
    , ground_height(ground_height)
 {
 }
@@ -42,9 +42,9 @@ std::string MultiBitmapFilenameToWorldBuilder::get_tile_type_bitmap_source_filen
 }
 
 
-float MultiBitmapFilenameToWorldBuilder::get_top_height() const
+float MultiBitmapFilenameToWorldBuilder::get_ceiling_height() const
 {
-   return top_height;
+   return ceiling_height;
 }
 
 
@@ -80,7 +80,7 @@ LabyrinthOfLore::WorldMap::TileMap MultiBitmapFilenameToWorldBuilder::build()
    }
 
    LabyrinthOfLore::WorldMap::TileMap result =
-      LabyrinthOfLore::WorldMap::BitmapTileMapLoader(elevation_bitmap_source).load(top_height, ground_height);
+      LabyrinthOfLore::WorldMap::BitmapTileMapLoader(elevation_bitmap_source).load(ceiling_height, ground_height);
    LabyrinthOfLore::WorldMap::MultiBitmapTileMapLoader(&result, tile_type_bitmap_source).load_and_process();
 
    // Special note!!
