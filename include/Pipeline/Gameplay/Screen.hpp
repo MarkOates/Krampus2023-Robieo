@@ -74,6 +74,7 @@ namespace Pipeline
          AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base* goal_entity;
          AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base* exit_entity;
          AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::SceneRenderer2 scene_renderer;
+         bool show_map_overlay;
          std::string current_level_identifier;
          Pipeline::Gameplay::Level* current_level;
          LabyrinthOfLore::WorldMap::TileMap* current_level_tile_map;
@@ -137,6 +138,7 @@ namespace Pipeline
          void on_player_entity_enter_collide(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D* colliding_entity=nullptr);
          void on_player_entity_exit_collide(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D* colliding_entity=nullptr);
          void update();
+         void toggle_showing_map_overlay();
          void render();
          void save_bitmap_buffers_to_files();
          void call_on_finished_callback_func();
