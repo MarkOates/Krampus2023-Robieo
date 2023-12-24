@@ -122,6 +122,7 @@ namespace Pipeline
          AllegroFlare::Vec3D lowest_y_vertex(std::vector<AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL> vertices={});
          std::set<std::string> find_named_object_identifiers_for_portals(AllegroFlare::Model3D* world_model=nullptr);
          LabyrinthOfLore::WorldMap::TileMap* load_tile_map();
+         LabyrinthOfLore::WorldMap::TileMap* load_tile_map_from_bitmap();
          LabyrinthOfLore::WorldMap::TileMap* load_tester_tile_map();
          void load_level_by_identifier(std::string level_identifier="[unset-level_identifier]");
          void initialize();

@@ -385,6 +385,9 @@
   "LabyrinthOfLore/Physics/EntityTileMapCollisionStepper": [
     "Pipeline/Gameplay/Screen"
   ],
+  "LabyrinthOfLore/WorldMap/MultiBitmapFilenameToWorldBuilder": [
+    "Pipeline/Gameplay/Screen"
+  ],
   "AllegroFlare/Routers/Standard": [
     "Pipeline/Runner"
   ],

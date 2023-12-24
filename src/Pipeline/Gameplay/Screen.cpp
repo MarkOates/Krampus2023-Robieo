@@ -13,6 +13,7 @@
 #include <AllegroFlare/Logger.hpp>
 #include <LabyrinthOfLore/Physics/EntityTileMapCollisionStepper.hpp>
 #include <LabyrinthOfLore/WorldMap/BasicRenderer.hpp>
+#include <LabyrinthOfLore/WorldMap/MultiBitmapFilenameToWorldBuilder.hpp>
 #include <LabyrinthOfLore/WorldMap/TileTypeEnum.hpp>
 #include <Pipeline/DialogNodeBankFactory.hpp>
 #include <Pipeline/GameConfigurations/Main.hpp>
@@ -296,6 +297,27 @@ std::set<std::string> Screen::find_named_object_identifiers_for_portals(AllegroF
 LabyrinthOfLore::WorldMap::TileMap* Screen::load_tile_map()
 {
    return load_tester_tile_map();
+}
+
+LabyrinthOfLore::WorldMap::TileMap* Screen::load_tile_map_from_bitmap()
+{
+   LabyrinthOfLore::WorldMap::TileMap *result = nullptr;
+
+   std::string elevation_bitmap_filename = "foobar.png"; // TODO: This file name
+   std::string tile_type_bitmap_filename = "boobaz.png"; // TODO: This file name
+   float top_height = 2.0f;
+   float ground_height = 1.0f;
+
+   LabyrinthOfLore::WorldMap::MultiBitmapFilenameToWorldBuilder world_builder(
+      elevation_bitmap_filename,
+      tile_type_bitmap_filename,
+      top_height,
+      ground_height
+   );
+
+   *result = world_builder.build();
+
+   return result;
 }
 
 LabyrinthOfLore::WorldMap::TileMap* Screen::load_tester_tile_map()

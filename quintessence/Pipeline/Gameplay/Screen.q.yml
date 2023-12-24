@@ -394,6 +394,30 @@ methods:
       return load_tester_tile_map();
 
 
+  - name: load_tile_map_from_bitmap
+    type: LabyrinthOfLore::WorldMap::TileMap*
+    body: |
+      LabyrinthOfLore::WorldMap::TileMap *result = nullptr;
+
+      std::string elevation_bitmap_filename = "foobar.png"; // TODO: This file name
+      std::string tile_type_bitmap_filename = "boobaz.png"; // TODO: This file name
+      float top_height = 2.0f;
+      float ground_height = 1.0f;
+
+      LabyrinthOfLore::WorldMap::MultiBitmapFilenameToWorldBuilder world_builder(
+         elevation_bitmap_filename,
+         tile_type_bitmap_filename,
+         top_height,
+         ground_height
+      );
+
+      *result = world_builder.build();
+
+      return result;
+    body_dependency_symbols:
+      - LabyrinthOfLore::WorldMap::MultiBitmapFilenameToWorldBuilder
+
+
   - name: load_tester_tile_map
     type: LabyrinthOfLore::WorldMap::TileMap*
     body: |
@@ -2272,5 +2296,7 @@ dependencies:
     headers: [ allegro5/allegro_font.h ]
   - symbol: LabyrinthOfLore::Physics::EntityTileMapCollisionStepper
     headers: [ LabyrinthOfLore/Physics/EntityTileMapCollisionStepper.hpp ]
+  - symbol: LabyrinthOfLore::WorldMap::MultiBitmapFilenameToWorldBuilder
+    headers: [ LabyrinthOfLore/WorldMap/MultiBitmapFilenameToWorldBuilder.hpp ]
 
 
