@@ -455,7 +455,7 @@ void Screen::load_level_by_identifier(std::string level_identifier)
    // Find the Level record matching this identifier
    //
 
-   //level = new Pipeline::Gameplay::Level();
+   //level = new Pipeline::Gameplay::Level();
    Pipeline::Gameplay::Level level = build_level(level_identifier);
 
 
