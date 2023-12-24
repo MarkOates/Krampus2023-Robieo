@@ -443,6 +443,8 @@ void Screen::load_level_by_identifier(std::string level_identifier)
    exit_entity = nullptr;
    entities_player_entity_is_colliding_with.clear();
    portal_entity_associations.clear();
+   if (current_level) delete current_level;
+   current_level = nullptr;
    if (current_level_tile_map) delete current_level_tile_map;
    current_level_tile_map = nullptr;
    show_map_overlay = false;
@@ -453,7 +455,14 @@ void Screen::load_level_by_identifier(std::string level_identifier)
    // Find the Level record matching this identifier
    //
 
+   //level = new Pipeline::Gameplay::Level();
    Pipeline::Gameplay::Level level = build_level(level_identifier);
+
+
+
+   //*current_level = level;
+
+
    //level.set_tile_map_tile_elevation_bitmap_filename("the_cave.png");
    //level.set_tile_map_tile_type_bitmap_filename("the_cave-type.png");
    //level.set_tile_map_ceiling_height(10.0f);
@@ -819,6 +828,15 @@ void Screen::load_level_by_identifier(std::string level_identifier)
    //
 
    load_tile_map(level_identifier);
+
+   //
+   // Set the current level
+   //
+   current_level = new Pipeline::Gameplay::Level();
+   *current_level = level;
+
+   current_level_identifier = level_identifier;
+
 
    /*
    LabyrinthOfLore::WorldMap::TileMap *result_tile_map = new LabyrinthOfLore::WorldMap::TileMap();
