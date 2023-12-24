@@ -162,6 +162,7 @@
     "LabyrinthOfLore/Physics/EntityTileMapCollisionStepper",
     "LabyrinthOfLore/WorldMap/BasicRenderer",
     "LabyrinthOfLore/WorldMap/BitmapTileMapLoader",
+    "LabyrinthOfLore/WorldMap/MultiBitmapFilenameToWorldBuilder",
     "LabyrinthOfLore/WorldMap/MultiBitmapTileMapLoader",
     "Pipeline/Gameplay/Screen"
   ],
@@ -185,7 +186,8 @@
     "LabyrinthOfLore/WorldMap/BasicRenderer"
   ],
   "LabyrinthOfLore/WorldMap/Tile": [
-    "LabyrinthOfLore/WorldMap/BasicRenderer"
+    "LabyrinthOfLore/WorldMap/BasicRenderer",
+    "LabyrinthOfLore/WorldMap/MultiBitmapFilenameToWorldBuilder"
   ],
   "al_draw_filled_rectangle": [
     "LabyrinthOfLore/WorldMap/BasicRenderer"
@@ -197,9 +199,23 @@
   "al_init_primitives_addon": [
     "LabyrinthOfLore/WorldMap/BasicRenderer"
   ],
+  "LabyrinthOfLore/WorldMap/TileTypeEnum": [
+    "LabyrinthOfLore/WorldMap/BasicRenderer",
+    "Pipeline/Gameplay/Screen"
+  ],
   "std/stringstream": [
     "LabyrinthOfLore/WorldMap/BitmapTileMapLoader",
+    "LabyrinthOfLore/WorldMap/MultiBitmapFilenameToWorldBuilder",
     "LabyrinthOfLore/WorldMap/MultiBitmapTileMapLoader"
+  ],
+  "LabyrinthOfLore/WorldMap/BitmapTileMapLoader": [
+    "LabyrinthOfLore/WorldMap/MultiBitmapFilenameToWorldBuilder"
+  ],
+  "LabyrinthOfLore/WorldMap/MultiBitmapTileMapLoader": [
+    "LabyrinthOfLore/WorldMap/MultiBitmapFilenameToWorldBuilder"
+  ],
+  "al_load_bitmap": [
+    "LabyrinthOfLore/WorldMap/MultiBitmapFilenameToWorldBuilder"
   ],
   "LabyrinthOfLore/WorldMap/tile_type_t": [
     "LabyrinthOfLore/WorldMap/MultiBitmapTileMapLoader"
@@ -355,9 +371,6 @@
     "Pipeline/Gameplay/Screen"
   ],
   "std/fmod": [
-    "Pipeline/Gameplay/Screen"
-  ],
-  "LabyrinthOfLore/WorldMap/TileTypeEnum": [
     "Pipeline/Gameplay/Screen"
   ],
   "LabyrinthOfLore/WorldMap/BasicRenderer": [
