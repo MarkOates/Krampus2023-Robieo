@@ -54,7 +54,6 @@ Screen::Screen(AllegroFlare::Frameworks::Full* framework, AllegroFlare::EventEmi
    , current_level_identifier("[unset-current_level]")
    , current_level(nullptr)
    , current_level_tile_map(nullptr)
-   , current_level_tile_map_origin_offset({})
    , current_level_tile_map_tile_alignment_offset({ 0.5, -0.5 })
    , current_level_song_to_perform_identifier("")
    , current_level_song_to_perform_duration_sec(0.0f)
@@ -324,7 +323,6 @@ void Screen::load_tile_map(std::string level_identifier)
    if (current_level_tile_map) delete current_level_tile_map;
    //current_level_tile_map = return load_tester_tile_map();
    current_level_tile_map = load_tile_map_from_bitmap(level_identifier);
-   current_level_tile_map_origin_offset = {22, 25};
 
    return;
 }
@@ -1243,6 +1241,13 @@ void Screen::on_player_entity_exit_collide(AllegroFlare::GraphicsPipelines::Dyna
 
 void Screen::update()
 {
+   if (!(current_level))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::update]: error: guard \"current_level\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::update: error: guard \"current_level\" not met");
+   }
    update_state(); // Consider if this would need to be moved to a different place, or if it conflicts
                    // with the logic below
 
@@ -1287,6 +1292,7 @@ void Screen::update()
 
 
       // Reposition player_character on map; Use a very fancy swapping of y-with-z variables, the stepper
+      AllegroFlare::Vec2D current_level_tile_map_origin_offset = current_level->get_tile_map_origin_offset();
       // operate on these coordinates swapped
 
       current_level_tile_map_tile_alignment_offset.x;
@@ -1524,11 +1530,20 @@ void Screen::render()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Screen::render: error: guard \"initialized\" not met");
    }
+   if (!(current_level))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::render]: error: guard \"current_level\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::render: error: guard \"current_level\" not met");
+   }
    ALLEGRO_BITMAP *initial_target_bitmap = al_get_target_bitmap();
 
    // Render the scene
    scene_renderer.render();
    ALLEGRO_BITMAP *render_surface = scene_renderer.get_render_surface_ref().obtain_surface();
+
+   AllegroFlare::Vec2D current_level_tile_map_origin_offset = current_level->get_tile_map_origin_offset();
 
    al_set_target_bitmap(initial_target_bitmap);
    al_draw_bitmap(render_surface, 0, 0, 0);

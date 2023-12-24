@@ -78,7 +78,6 @@ namespace Pipeline
          std::string current_level_identifier;
          Pipeline::Gameplay::Level* current_level;
          LabyrinthOfLore::WorldMap::TileMap* current_level_tile_map;
-         AllegroFlare::Vec2D current_level_tile_map_origin_offset;
          AllegroFlare::Vec2D current_level_tile_map_tile_alignment_offset;
          std::string current_level_song_to_perform_identifier;
          float current_level_song_to_perform_duration_sec;

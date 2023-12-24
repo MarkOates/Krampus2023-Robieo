@@ -91,10 +91,6 @@ properties:
     type: LabyrinthOfLore::WorldMap::TileMap*
     init_with: nullptr
 
-  - name: current_level_tile_map_origin_offset
-    type: AllegroFlare::Vec2D
-    init_with: '{}'
-
   - name: current_level_tile_map_tile_alignment_offset
     type: AllegroFlare::Vec2D
     init_with: '{ 0.5, -0.5 }'
@@ -436,7 +432,6 @@ methods:
       if (current_level_tile_map) delete current_level_tile_map;
       //current_level_tile_map = return load_tester_tile_map();
       current_level_tile_map = load_tile_map_from_bitmap(level_identifier);
-      current_level_tile_map_origin_offset = {22, 25};
 
       return;
 
@@ -1320,6 +1315,7 @@ methods:
 
 
   - name: update
+    guards: [ current_level ]
     body: |
       update_state(); // Consider if this would need to be moved to a different place, or if it conflicts
                       // with the logic below
@@ -1365,6 +1361,7 @@ methods:
 
 
          // Reposition player_character on map; Use a very fancy swapping of y-with-z variables, the stepper
+         AllegroFlare::Vec2D current_level_tile_map_origin_offset = current_level->get_tile_map_origin_offset();
          // operate on these coordinates swapped
 
          current_level_tile_map_tile_alignment_offset.x;
@@ -1600,13 +1597,15 @@ methods:
 
 
   - name: render
-    guards: [ initialized ]
+    guards: [ initialized, current_level ]
     body: |
       ALLEGRO_BITMAP *initial_target_bitmap = al_get_target_bitmap();
 
       // Render the scene
       scene_renderer.render();
       ALLEGRO_BITMAP *render_surface = scene_renderer.get_render_surface_ref().obtain_surface();
+
+      AllegroFlare::Vec2D current_level_tile_map_origin_offset = current_level->get_tile_map_origin_offset();
 
       al_set_target_bitmap(initial_target_bitmap);
       al_draw_bitmap(render_surface, 0, 0, 0);
