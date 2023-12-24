@@ -25,7 +25,8 @@
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/DepthBuffer",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer2",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer2",
-    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowMapBuffer"
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowMapBuffer",
+    "LabyrinthOfLore/WorldMap/MultiBitmapTileMapLoader"
   ],
   "ALLEGRO_DISPLAY": [
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/DepthBuffer",
@@ -144,7 +145,8 @@
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowMapBuffer"
   ],
   "ALLEGRO_COLOR": [
-    "AllegroFlare/Shaders/ShadowMapping"
+    "AllegroFlare/Shaders/ShadowMapping",
+    "LabyrinthOfLore/WorldMap/MultiBitmapTileMapLoader"
   ],
   "AllegroFlare/UsefulPHP": [
     "AllegroFlare/Shaders/ShadowMapping",
@@ -157,6 +159,7 @@
   "LabyrinthOfLore/WorldMap/TileMap": [
     "LabyrinthOfLore/Physics/EntityTileMapCollisionStepper",
     "LabyrinthOfLore/WorldMap/BasicRenderer",
+    "LabyrinthOfLore/WorldMap/MultiBitmapTileMapLoader",
     "Pipeline/Gameplay/Screen"
   ],
   "LabyrinthOfLore/Entity/Base": [
@@ -190,6 +193,12 @@
   ],
   "al_init_primitives_addon": [
     "LabyrinthOfLore/WorldMap/BasicRenderer"
+  ],
+  "std/stringstream": [
+    "LabyrinthOfLore/WorldMap/MultiBitmapTileMapLoader"
+  ],
+  "LabyrinthOfLore/WorldMap/tile_type_t": [
+    "LabyrinthOfLore/WorldMap/MultiBitmapTileMapLoader"
   ],
   "AllegroFlare/DialogTree/NodeBank": [
     "Pipeline/DialogNodeBankFactory",
