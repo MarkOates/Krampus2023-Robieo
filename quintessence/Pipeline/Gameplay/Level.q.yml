@@ -15,12 +15,6 @@ properties:
     getter: true
     setter: true
 
-  - name: tile_map_origin_offset
-    type: AllegroFlare::Vec2D
-    init_with: '{}'
-    getter: true
-    setter: true
-
   - name: tile_map_tile_elevation_bitmap_filename
     type: std::string
     init_with: '"[unset-tile_map_tile_elevation_bitmap_filename]"'
@@ -30,6 +24,30 @@ properties:
   - name: tile_map_tile_type_bitmap_filename
     type: std::string
     init_with: '"[unset-tile_map_tile_type_bitmap_filename]"'
+    getter: true
+    setter: true
+
+  - name: tile_map_origin_offset
+    type: AllegroFlare::Vec2D
+    init_with: '{}'
+    getter: true
+    setter: true
+
+  - name: tile_map_ceiling_height
+    type: float
+    init_with: 10.0f
+    getter: true
+    setter: true
+
+  - name: tile_map_groundlevel_height
+    type: float
+    init_with: 0.0f
+    getter: true
+    setter: true
+
+  - name: tile_map_floor_height
+    type: float
+    init_with: -2.0f
     getter: true
     setter: true
 
