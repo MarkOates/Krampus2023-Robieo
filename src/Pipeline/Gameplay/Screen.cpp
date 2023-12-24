@@ -1543,7 +1543,7 @@ void Screen::render()
    scene_renderer.render();
    ALLEGRO_BITMAP *render_surface = scene_renderer.get_render_surface_ref().obtain_surface();
 
-   AllegroFlare::Vec2D current_level_tile_map_origin_offset = current_level->get_tile_map_origin_offset();
+   //AllegroFlare::Vec2D current_level_tile_map_origin_offset = current_level->get_tile_map_origin_offset();
 
    al_set_target_bitmap(initial_target_bitmap);
    al_draw_bitmap(render_surface, 0, 0, 0);
@@ -1556,6 +1556,7 @@ void Screen::render()
    if (show_map_overlay)
    {
       int tile_size = 32;
+      AllegroFlare::Vec2D current_level_tile_map_origin_offset = current_level->get_tile_map_origin_offset();
       AllegroFlare::Vec3D player_position = get_player_controlled_entity_as()->get_placement_ref().position;
       AllegroFlare::Vec2D tile_alignment_offset = current_level_tile_map_tile_alignment_offset;
       float player_map_position_x =
