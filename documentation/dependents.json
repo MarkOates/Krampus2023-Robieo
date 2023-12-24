@@ -26,6 +26,7 @@
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer2",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer2",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowMapBuffer",
+    "LabyrinthOfLore/WorldMap/BitmapTileMapLoader",
     "LabyrinthOfLore/WorldMap/MultiBitmapTileMapLoader"
   ],
   "ALLEGRO_DISPLAY": [
@@ -146,6 +147,7 @@
   ],
   "ALLEGRO_COLOR": [
     "AllegroFlare/Shaders/ShadowMapping",
+    "LabyrinthOfLore/WorldMap/BitmapTileMapLoader",
     "LabyrinthOfLore/WorldMap/MultiBitmapTileMapLoader"
   ],
   "AllegroFlare/UsefulPHP": [
@@ -159,6 +161,7 @@
   "LabyrinthOfLore/WorldMap/TileMap": [
     "LabyrinthOfLore/Physics/EntityTileMapCollisionStepper",
     "LabyrinthOfLore/WorldMap/BasicRenderer",
+    "LabyrinthOfLore/WorldMap/BitmapTileMapLoader",
     "LabyrinthOfLore/WorldMap/MultiBitmapTileMapLoader",
     "Pipeline/Gameplay/Screen"
   ],
@@ -195,6 +198,7 @@
     "LabyrinthOfLore/WorldMap/BasicRenderer"
   ],
   "std/stringstream": [
+    "LabyrinthOfLore/WorldMap/BitmapTileMapLoader",
     "LabyrinthOfLore/WorldMap/MultiBitmapTileMapLoader"
   ],
   "LabyrinthOfLore/WorldMap/tile_type_t": [
