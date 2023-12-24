@@ -1,0 +1,38 @@
+properties:
+
+
+  - name: entities
+    type: std::vector<AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D*>
+    init_with: "{}"
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: gravity
+    type: AllegroFlare::vec3d
+    init_with: 0.0f, 0.0f, -0.003f
+    getter: true
+    setter: true
+
+
+methods:
+
+
+  - name: process_step
+    body: |
+      for (auto &entity : entities)
+      {
+         entity->get_velocity_ref().position += gravity;
+      }
+      return;
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::vec3d
+    headers: [ AllegroFlare/Vec3D.hpp ]
+  - symbol: AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D
+    headers: [ AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/DynamicModel3D.hpp ]
+
+
