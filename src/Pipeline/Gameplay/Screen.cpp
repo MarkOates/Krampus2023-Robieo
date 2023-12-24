@@ -295,6 +295,11 @@ std::set<std::string> Screen::find_named_object_identifiers_for_portals(AllegroF
 
 LabyrinthOfLore::WorldMap::TileMap* Screen::load_tile_map()
 {
+   return load_tester_tile_map();
+}
+
+LabyrinthOfLore::WorldMap::TileMap* Screen::load_tester_tile_map()
+{
    if (current_level_tile_map) delete current_level_tile_map;
 
    LabyrinthOfLore::WorldMap::TileMap *result_tile_map = new LabyrinthOfLore::WorldMap::TileMap();

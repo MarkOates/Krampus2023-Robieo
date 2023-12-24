@@ -391,6 +391,12 @@ methods:
   - name: load_tile_map
     type: LabyrinthOfLore::WorldMap::TileMap*
     body: |
+      return load_tester_tile_map();
+
+
+  - name: load_tester_tile_map
+    type: LabyrinthOfLore::WorldMap::TileMap*
+    body: |
       if (current_level_tile_map) delete current_level_tile_map;
 
       LabyrinthOfLore::WorldMap::TileMap *result_tile_map = new LabyrinthOfLore::WorldMap::TileMap();
