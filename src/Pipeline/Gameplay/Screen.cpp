@@ -297,16 +297,32 @@ std::set<std::string> Screen::find_named_object_identifiers_for_portals(AllegroF
 LabyrinthOfLore::WorldMap::TileMap* Screen::load_tile_map()
 {
    return load_tester_tile_map();
+   //return load_tile_map_from_bitmap();
 }
 
 LabyrinthOfLore::WorldMap::TileMap* Screen::load_tile_map_from_bitmap()
 {
    LabyrinthOfLore::WorldMap::TileMap *result = nullptr;
 
-   std::string elevation_bitmap_filename = "foobar.png"; // TODO: This file name
-   std::string tile_type_bitmap_filename = "boobaz.png"; // TODO: This file name
+   std::string elevation_bitmap_filename = bitmap_bin->get_path() + "the_cave.png"; // TODO: This file name
+   std::string tile_type_bitmap_filename = bitmap_bin->get_path() + "the_cave-type.png"; // TODO: This file name
    float top_height = 2.0f;
    float ground_height = 1.0f;
+
+   if (!std::filesystem::exists(elevation_bitmap_filename))
+   {
+      AllegroFlare::Logger::throw_error(
+         "Pipeline::Gameplay::Screen::load_tile_map_from_bitmap",
+         "The tile_elevation bitmap \"" + elevation_bitmap_filename + "\" does not exist."
+      );
+   }
+   if (!std::filesystem::exists(tile_type_bitmap_filename))
+   {
+      AllegroFlare::Logger::throw_error(
+         "Pipeline::Gameplay::Screen::load_tile_map_from_bitmap",
+         "The tile_type bitmap \"" + tile_type_bitmap_filename + "\" does not exist."
+      );
+   }
 
    LabyrinthOfLore::WorldMap::MultiBitmapFilenameToWorldBuilder world_builder(
       elevation_bitmap_filename,
