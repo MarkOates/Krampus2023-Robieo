@@ -55,7 +55,8 @@ methods:
         throw std::runtime_error(error_message.str());
       }
 
-      LabyrinthOfLore::WorldMap::TileMap result = LabyrinthOfLore::WorldMap::BitmapTileMapLoader(elevation_bitmap_source).load(top_height, ground_height);
+      LabyrinthOfLore::WorldMap::TileMap result =
+         LabyrinthOfLore::WorldMap::BitmapTileMapLoader(elevation_bitmap_source).load(top_height, ground_height);
       LabyrinthOfLore::WorldMap::MultiBitmapTileMapLoader(&result, tile_type_bitmap_source).load_and_process();
 
       // Special note!!

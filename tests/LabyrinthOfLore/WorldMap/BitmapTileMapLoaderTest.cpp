@@ -25,10 +25,12 @@ static void EXPECT_EQ_COLOR(ALLEGRO_COLOR expected, ALLEGRO_COLOR actual)
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h>
 
+
 TEST(LabyrinthOfLore_WorldMap_BitmapTileMapLoaderTest, can_be_created_without_blowing_up)
 {
    LabyrinthOfLore::WorldMap::BitmapTileMapLoader bitmap_tile_map_loader;
 }
+
 
 TEST(LabyrinthOfLore_WorldMap_BitmapTileMapLoaderTest, load__throws_an_exception_if_there_is_a_nullptr_source_bitmap)
 {
@@ -39,6 +41,7 @@ TEST(LabyrinthOfLore_WorldMap_BitmapTileMapLoaderTest, load__throws_an_exception
    std::string expected_message = "could WorldBitmap::BitmapTileMapLoader.load with a nullptr source_bitmap";
    ASSERT_THROW_WITH_MESSAGE(bitmap_tile_map_loader.load(), std::runtime_error, expected_message);
 }
+
 
 TEST(LabyrinthOfLore_WorldMap_BitmapTileMapLoaderTest, load__with_a_valid_bitmap__succeeds)
 {
@@ -54,6 +57,7 @@ TEST(LabyrinthOfLore_WorldMap_BitmapTileMapLoaderTest, load__with_a_valid_bitmap
    al_uninstall_system();
    SUCCEED();
 }
+
 
 TEST(LabyrinthOfLore_WorldMap_BitmapTileMapLoaderTest, pick_color__with_a_valid_bitmap__picks_the_color)
 {
@@ -73,6 +77,7 @@ TEST(LabyrinthOfLore_WorldMap_BitmapTileMapLoaderTest, pick_color__with_a_valid_
    al_uninstall_system();
    SUCCEED();
 }
+
 
 TEST(LabyrinthOfLore_WorldMap_BitmapTileMapLoaderTest, pick_index_I_color__returns_the_expected_value)
 {
@@ -102,6 +107,7 @@ TEST(LabyrinthOfLore_WorldMap_BitmapTileMapLoaderTest, pick_index_I_color__retur
    al_uninstall_system();
    SUCCEED();
 }
+
 
 TEST(LabyrinthOfLore_WorldMap_BitmapTileMapLoaderTest, pick_index_G_color__returns_the_expected_higher_elevation_colors)
 {
@@ -170,7 +176,9 @@ TEST(LabyrinthOfLore_WorldMap_BitmapTileMapLoaderTest, pick_index_G_color__retur
    SUCCEED();
 }
 
-TEST(LabyrinthOfLore_WorldMap_BitmapTileMapLoaderTest, infer_tile_map_width__returns_the_final_width_of_the__tile_map__which_should_be_2_less_than_the_source_bitmap_width)
+
+TEST(LabyrinthOfLore_WorldMap_BitmapTileMapLoaderTest,
+   infer_tile_map_width__returns_the_final_width_of_the__tile_map__which_should_be_2_less_than_the_source_bitmap_width)
 {
    al_init();
    al_init_image_addon();
@@ -190,7 +198,9 @@ TEST(LabyrinthOfLore_WorldMap_BitmapTileMapLoaderTest, infer_tile_map_width__ret
    SUCCEED();
 }
 
-TEST(LabyrinthOfLore_WorldMap_BitmapTileMapLoaderTest, infer_tile_map_height__returns_the_final_height_of_the__tile_map__which_should_be_equal_to_the_source_bitmap_height)
+
+TEST(LabyrinthOfLore_WorldMap_BitmapTileMapLoaderTest,
+   infer_tile_map_height__returns_the_final_height_of_the__tile_map__which_should_be_equal_to_the_source_bitmap_height)
 {
    al_init();
    al_init_image_addon();
@@ -210,6 +220,7 @@ TEST(LabyrinthOfLore_WorldMap_BitmapTileMapLoaderTest, infer_tile_map_height__re
    SUCCEED();
 }
 
+
 TEST(LabyrinthOfLore_WorldMap_BitmapTileMapLoaderTest, load__returns_a_tile_map_with_the_expected_width_and_height)
 {
    al_init();
@@ -228,7 +239,9 @@ TEST(LabyrinthOfLore_WorldMap_BitmapTileMapLoaderTest, load__returns_a_tile_map_
    SUCCEED();
 }
 
-TEST(LabyrinthOfLore_WorldMap_BitmapTileMapLoaderTest, colors_are_equal__returns_true_if_colors_are_the_same__and_false_if_they_are_different)
+
+TEST(LabyrinthOfLore_WorldMap_BitmapTileMapLoaderTest,
+   colors_are_equal__returns_true_if_colors_are_the_same__and_false_if_they_are_different)
 {
    al_init();
    al_init_image_addon();
@@ -247,6 +260,7 @@ TEST(LabyrinthOfLore_WorldMap_BitmapTileMapLoaderTest, colors_are_equal__returns
    al_uninstall_system();
    SUCCEED();
 }
+
 
 TEST(LabyrinthOfLore_WorldMap_BitmapTileMapLoaderTest, load__correctly_picks_out_top_tiles)
 {
@@ -270,6 +284,7 @@ TEST(LabyrinthOfLore_WorldMap_BitmapTileMapLoaderTest, load__correctly_picks_out
    SUCCEED();
 }
 
+
 TEST(LabyrinthOfLore_WorldMap_BitmapTileMapLoaderTest, load__correctly_picks_out_ground_tiles)
 {
    al_init();
@@ -288,6 +303,7 @@ LabyrinthOfLore::WorldMap::BitmapTileMapLoader loader(source_bitmap);
    al_uninstall_system();
    SUCCEED();
 }
+
 
 TEST(LabyrinthOfLore_WorldMap_BitmapTileMapLoaderTest, load__correctly_picks_out_ascending_elevation_tiles)
 {
@@ -339,4 +355,5 @@ TEST(LabyrinthOfLore_WorldMap_BitmapTileMapLoaderTest, load__correctly_picks_out
    al_uninstall_system();
    SUCCEED();
 }
+
 

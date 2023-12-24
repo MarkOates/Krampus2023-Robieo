@@ -1,9 +1,15 @@
 properties:
+
+
   - name: source_bitmap
     type: ALLEGRO_BITMAP*
     init_with: nullptr
     constructor_arg: true
+
+
 functions:
+
+
   - name: colors_are_equal
     type: bool
     parameters:
@@ -19,18 +25,26 @@ functions:
        if (c1.b != c2.b) return false;
        if (c1.a != c2.a) return false;
        return true;
+
+
   - name: get_index_column_x
     type: int
     body: |
       return al_get_bitmap_width(source_bitmap) - 1;
+
+
   - name: infer_tile_map_width
     type: int
     body: |
       return al_get_bitmap_width(source_bitmap) - 2;
+
+
   - name: infer_tile_map_height
     type: int
     body: |
       return al_get_bitmap_height(source_bitmap);
+
+
   - name: pick_color
     type: ALLEGRO_COLOR
     parameters:
@@ -47,55 +61,89 @@ functions:
       int h = al_get_bitmap_height(source_bitmap);
       if (y >= h) throw std::runtime_error("cannot pick_color at a coordinate beyond the height of the source_bitmap.");
       return al_get_pixel(source_bitmap, x, y);
+
+
   - name: pick_index_null_color
     type: ALLEGRO_COLOR
     body: return pick_color(get_index_column_x(), 0);
+
+
   - name: pick_index_top_color
     type: ALLEGRO_COLOR
     body: return pick_color(get_index_column_x(), 1);
+
+
   - name: pick_index_ground_color
     type: ALLEGRO_COLOR
     body: return pick_color(get_index_column_x(), 2);
+
+
   - name: pick_index_gp_color
     type: ALLEGRO_COLOR
     body: return pick_color(get_index_column_x(), 5);
+
+
   - name: pick_index_gpp_color
     type: ALLEGRO_COLOR
     body: return pick_color(get_index_column_x(), 6);
+
+
   - name: pick_index_gppp_color
     type: ALLEGRO_COLOR
     body: return pick_color(get_index_column_x(), 7);
+
+
   - name: pick_index_g1_color
     type: ALLEGRO_COLOR
     body: return pick_color(get_index_column_x(), 8);
+
+
   - name: pick_index_gm_color
     type: ALLEGRO_COLOR
     body: return pick_color(get_index_column_x(), 9);
+
+
   - name: pick_index_gmm_color
     type: ALLEGRO_COLOR
     body: return pick_color(get_index_column_x(), 10);
+
+
   - name: pick_index_gmmm_color
     type: ALLEGRO_COLOR
     body: return pick_color(get_index_column_x(), 11);
+
+
   - name: pick_index_gm1_color
     type: ALLEGRO_COLOR
     body: return pick_color(get_index_column_x(), 12);
+
+
   - name: pick_index_g1p_color
     type: ALLEGRO_COLOR
     body: return pick_color(get_index_column_x(), 13);
+
+
   - name: pick_index_g1pp_color
     type: ALLEGRO_COLOR
     body: return pick_color(get_index_column_x(), 14);
+
+
   - name: pick_index_g1ppp_color
     type: ALLEGRO_COLOR
     body: return pick_color(get_index_column_x(), 15);
+
+
   - name: pick_index_g2_color
     type: ALLEGRO_COLOR
     body: return pick_color(get_index_column_x(), 16);
+
+
   - name: validate
     type: bool
     body: |
       return true;
+
+
   - name: load
     type: LabyrinthOfLore::WorldMap::TileMap
     parameters:
@@ -156,7 +204,11 @@ functions:
       return result;
     body_dependency_symbols:
       - std::stringstream
+
+
 dependencies:
+
+
   - symbol: std::stringstream
     headers: [ sstream ]
   - symbol: ALLEGRO_BITMAP
@@ -165,3 +217,5 @@ dependencies:
     headers: [ allegro5/allegro_color.h ]
   - symbol: LabyrinthOfLore::WorldMap::TileMap
     headers: [ LabyrinthOfLore/WorldMap/TileMap.hpp ]
+
+
