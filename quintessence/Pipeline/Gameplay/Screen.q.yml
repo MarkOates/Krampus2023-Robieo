@@ -1725,7 +1725,7 @@ methods:
     body: |
       if (game_event->is_type("perform_music"))
       {
-         activate_music_performance(current_level_song_to_perform_identifier);
+         activate_music_performance(current_level_song_to_perform_identifier, 15.0f);
       }
       //else if (game_event->is_type("collect_special_item"))
       //{
@@ -2038,13 +2038,16 @@ methods:
       - name: music_identifier
         type: std::string
         default_argument: '"[unset-music_identifier]"'
+      - name: duration_sec
+        type: float
+        default_argument: 10.0f
     xguards: [ (!is_state(STATE_PERFORMING_MUSIC)) ]
     body: |
       if (is_state(STATE_PERFORMING_MUSIC)) return; // TODO: Test this
       // Set our current song state variables
       // TODO: Validate music track exists
       currently_performing_song_identifier = music_identifier;
-      currently_performing_song_duration_sec = 15.0; // TODO: Replace this hard-coded value with the actual duration
+      currently_performing_song_duration_sec = duration_sec; // TODO: Replace this hard-coded value with the actual duration
       //currently_performing_song_duration_sec = 5.0; // TODO: Replace this hard-coded value with the actual duration
                                                     // of the currently_performing_song_identifier
 

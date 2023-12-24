@@ -154,7 +154,7 @@ namespace Pipeline
          virtual void virtual_control_button_up_func(AllegroFlare::Player* player=nullptr, AllegroFlare::VirtualControllers::Base* virtual_controller=nullptr, int virtual_controller_button_num=0, bool is_repeat=false) override;
          virtual void virtual_control_button_down_func(AllegroFlare::Player* player=nullptr, AllegroFlare::VirtualControllers::Base* virtual_controller=nullptr, int virtual_controller_button_num=0, bool is_repeat=false) override;
          virtual void virtual_control_axis_change_func(ALLEGRO_EVENT* ev=nullptr) override;
-         void activate_music_performance(std::string music_identifier="[unset-music_identifier]");
+         void activate_music_performance(std::string music_identifier="[unset-music_identifier]", float duration_sec=10.0f);
          void deactivate_music_performance();
          void emit_event_to_save_progress();
          void set_state(uint32_t state=STATE_UNDEF, bool override_if_busy=false);

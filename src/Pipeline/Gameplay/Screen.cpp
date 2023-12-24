@@ -1656,7 +1656,7 @@ void Screen::game_event_func(AllegroFlare::GameEvent* game_event)
    }
    if (game_event->is_type("perform_music"))
    {
-      activate_music_performance(current_level_song_to_perform_identifier);
+      activate_music_performance(current_level_song_to_perform_identifier, 15.0f);
    }
    //else if (game_event->is_type("collect_special_item"))
    //{
@@ -2000,13 +2000,13 @@ void Screen::virtual_control_axis_change_func(ALLEGRO_EVENT* ev)
    return;
 }
 
-void Screen::activate_music_performance(std::string music_identifier)
+void Screen::activate_music_performance(std::string music_identifier, float duration_sec)
 {
    if (is_state(STATE_PERFORMING_MUSIC)) return; // TODO: Test this
    // Set our current song state variables
    // TODO: Validate music track exists
    currently_performing_song_identifier = music_identifier;
-   currently_performing_song_duration_sec = 15.0; // TODO: Replace this hard-coded value with the actual duration
+   currently_performing_song_duration_sec = duration_sec; // TODO: Replace this hard-coded value with the actual duration
    //currently_performing_song_duration_sec = 5.0; // TODO: Replace this hard-coded value with the actual duration
                                                  // of the currently_performing_song_identifier
 
