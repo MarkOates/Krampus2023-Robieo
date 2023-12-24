@@ -1293,10 +1293,6 @@ void Screen::update()
 
       // Reposition player_character on map; Use a very fancy swapping of y-with-z variables, the stepper
       AllegroFlare::Vec2D current_level_tile_map_origin_offset = current_level->get_tile_map_origin_offset();
-      // operate on these coordinates swapped
-
-      current_level_tile_map_tile_alignment_offset.x;
-
 
       AllegroFlare::Vec3D vswapper;
       AllegroFlare::Vec3D pswapper;
@@ -1542,8 +1538,6 @@ void Screen::render()
    // Render the scene
    scene_renderer.render();
    ALLEGRO_BITMAP *render_surface = scene_renderer.get_render_surface_ref().obtain_surface();
-
-   //AllegroFlare::Vec2D current_level_tile_map_origin_offset = current_level->get_tile_map_origin_offset();
 
    al_set_target_bitmap(initial_target_bitmap);
    al_draw_bitmap(render_surface, 0, 0, 0);
