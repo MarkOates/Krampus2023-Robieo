@@ -293,6 +293,42 @@ std::set<std::string> Screen::find_named_object_identifiers_for_portals(AllegroF
    return portal_names;
 }
 
+LabyrinthOfLore::WorldMap::TileMap* Screen::load_tile_map()
+{
+   if (current_level_tile_map) delete current_level_tile_map;
+
+   LabyrinthOfLore::WorldMap::TileMap *result_tile_map = new LabyrinthOfLore::WorldMap::TileMap();
+
+   result_tile_map->resize(
+      16,
+      16,
+      LabyrinthOfLore::WorldMap::Tile(
+         LabyrinthOfLore::WorldMap::NORMAL_GROUND_TILE,
+         0.0f
+      )
+   );
+
+   // A pillar too high
+   result_tile_map->set_tile(
+      1, 1, LabyrinthOfLore::WorldMap::Tile(LabyrinthOfLore::WorldMap::NORMAL_GROUND_TILE, 2.0f));
+
+   // A sequence of steps
+   result_tile_map->set_tile(
+      3, 1, LabyrinthOfLore::WorldMap::Tile(LabyrinthOfLore::WorldMap::NORMAL_GROUND_TILE, 0.2f));
+   result_tile_map->set_tile(
+      4, 1, LabyrinthOfLore::WorldMap::Tile(LabyrinthOfLore::WorldMap::NORMAL_GROUND_TILE, 0.4f));
+   result_tile_map->set_tile(
+      5, 1, LabyrinthOfLore::WorldMap::Tile(LabyrinthOfLore::WorldMap::NORMAL_GROUND_TILE, 0.6f));
+   result_tile_map->set_tile(
+      6, 1, LabyrinthOfLore::WorldMap::Tile(LabyrinthOfLore::WorldMap::NORMAL_GROUND_TILE, 0.8f));
+   result_tile_map->set_tile(
+      7, 1, LabyrinthOfLore::WorldMap::Tile(LabyrinthOfLore::WorldMap::NORMAL_GROUND_TILE, 1.0f));
+
+   current_level_tile_map = result_tile_map;
+
+   return result_tile_map;
+}
+
 void Screen::load_level_by_identifier(std::string level_identifier)
 {
    if (!(game_configuration))
@@ -677,6 +713,9 @@ void Screen::load_level_by_identifier(std::string level_identifier)
    // Build the tile map (for physics)
    //
 
+   load_tile_map();
+
+   /*
    LabyrinthOfLore::WorldMap::TileMap *result_tile_map = new LabyrinthOfLore::WorldMap::TileMap();
    //LabyrinthOfLore::WorldMap::TileTypeEnum::NORMAL_GROUND_TILE;
 
@@ -707,6 +746,7 @@ void Screen::load_level_by_identifier(std::string level_identifier)
 
 
    current_level_tile_map = result_tile_map;
+   */
 
 
 
@@ -1599,6 +1639,10 @@ void Screen::key_down_func(ALLEGRO_EVENT* ev)
    {
       case ALLEGRO_KEY_0: {
          save_bitmap_buffers_to_files();
+      } break;
+
+      case ALLEGRO_KEY_L: {
+         load_tile_map();
       } break;
 
       default: {
