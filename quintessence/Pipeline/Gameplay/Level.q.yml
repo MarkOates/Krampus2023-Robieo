@@ -21,6 +21,18 @@ properties:
     getter: true
     setter: true
 
+  - name: tile_map_tile_elevation_bitmap_filename
+    type: std::string
+    init_with: '"[unset-tile_map_tile_elevation_bitmap_filename]"'
+    getter: true
+    setter: true
+
+  - name: tile_map_tile_type_bitmap_filename
+    type: std::string
+    init_with: '"[unset-tile_map_tile_type_bitmap_filename]"'
+    getter: true
+    setter: true
+
   - name: TYPE
     type: char*
     init_with: '(char*)"Pipeline/Gameplay/Level"'

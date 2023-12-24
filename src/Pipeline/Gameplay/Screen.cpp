@@ -309,8 +309,10 @@ void Screen::load_tile_map()
 
 LabyrinthOfLore::WorldMap::TileMap* Screen::load_tile_map_from_bitmap()
 {
-   std::string elevation_bitmap_filename = bitmap_bin->get_path() + "the_cave.png"; // TODO: This file name
-   std::string tile_type_bitmap_filename = bitmap_bin->get_path() + "the_cave-type.png"; // TODO: This file name
+   std::string tile_map_bitmap_folder_location = bitmap_bin->get_path();
+
+   std::string elevation_bitmap_filename = tile_map_bitmap_folder_location + "the_cave.png";
+   std::string tile_type_bitmap_filename = tile_map_bitmap_folder_location + "the_cave-type.png";
    float ceiling_height = 10.0f;
    float ground_height = 0.0f;
    float floor_height = -2.0f;
