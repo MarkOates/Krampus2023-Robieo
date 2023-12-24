@@ -14,7 +14,8 @@ namespace Gameplay
 Level::Level()
    : AllegroFlare::Levels::Base(Pipeline::Gameplay::Level::TYPE)
    , title("[unset-title]")
-   , obj_model_filename("[unset-obj_model_filename]")
+   , world_model_obj_filename("[unset-world_model_obj_filename]")
+   , world_model_texture_filename("[unset-world_model_texture_filename]")
    , tile_map_tile_elevation_bitmap_filename("[unset-tile_map_tile_elevation_bitmap_filename]")
    , tile_map_tile_type_bitmap_filename("[unset-tile_map_tile_type_bitmap_filename]")
    , tile_map_origin_offset({})
@@ -36,9 +37,15 @@ void Level::set_title(std::string title)
 }
 
 
-void Level::set_obj_model_filename(std::string obj_model_filename)
+void Level::set_world_model_obj_filename(std::string world_model_obj_filename)
 {
-   this->obj_model_filename = obj_model_filename;
+   this->world_model_obj_filename = world_model_obj_filename;
+}
+
+
+void Level::set_world_model_texture_filename(std::string world_model_texture_filename)
+{
+   this->world_model_texture_filename = world_model_texture_filename;
 }
 
 
@@ -84,9 +91,15 @@ std::string Level::get_title() const
 }
 
 
-std::string Level::get_obj_model_filename() const
+std::string Level::get_world_model_obj_filename() const
 {
-   return obj_model_filename;
+   return world_model_obj_filename;
+}
+
+
+std::string Level::get_world_model_texture_filename() const
+{
+   return world_model_texture_filename;
 }
 
 

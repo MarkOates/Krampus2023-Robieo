@@ -297,9 +297,19 @@ std::set<std::string> Screen::find_named_object_identifiers_for_portals(AllegroF
    return portal_names;
 }
 
-Pipeline::Gameplay::Level Screen::build_level()
+Pipeline::Gameplay::Level Screen::build_level(std::string level_identifier)
 {
+   std::string world_model_name = level_identifier; //"world-1-01";
+   std::string world_model_obj_name = world_model_name + ".obj";
+   std::string world_model_texture_name = world_model_name + ".png";
+
    Pipeline::Gameplay::Level level;
+
+   // The 3D models
+   level.set_world_model_obj_filename(world_model_obj_name);
+   level.set_world_model_texture_filename(world_model_texture_name);
+
+   // The collision map
    level.set_tile_map_tile_elevation_bitmap_filename("the_cave.png");
    level.set_tile_map_tile_type_bitmap_filename("the_cave-type.png");
    level.set_tile_map_ceiling_height(10.0f);
@@ -443,7 +453,7 @@ void Screen::load_level_by_identifier(std::string level_identifier)
    // Find the Level record matching this identifier
    //
 
-   //Pipeline::Gameplay::Level level;
+   //Pipeline::Gameplay::Level level = build_level(level_identifier);
    //level.set_tile_map_tile_elevation_bitmap_filename("the_cave.png");
    //level.set_tile_map_tile_type_bitmap_filename("the_cave-type.png");
    //level.set_tile_map_ceiling_height(10.0f);
