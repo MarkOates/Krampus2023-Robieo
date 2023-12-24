@@ -319,6 +319,7 @@ LabyrinthOfLore::WorldMap::TileMap* Screen::load_tile_map_from_bitmap()
    level.set_tile_map_ceiling_height(10.0f);
    level.set_tile_map_groundlevel_height(0.0f);
    level.set_tile_map_floor_height(-2.0f);
+   level.set_tile_map_origin_offset({22, 25});
 
 
    // Load the level
@@ -431,6 +432,25 @@ void Screen::load_level_by_identifier(std::string level_identifier)
    show_map_overlay = false;
 
 
+
+   //
+   // Find the Level record matching this identifier
+   //
+
+   //Pipeline::Gameplay::Level level;
+   //level.set_tile_map_tile_elevation_bitmap_filename("the_cave.png");
+   //level.set_tile_map_tile_type_bitmap_filename("the_cave-type.png");
+   //level.set_tile_map_ceiling_height(10.0f);
+   //level.set_tile_map_groundlevel_height(0.0f);
+   //level.set_tile_map_floor_height(-2.0f);
+   //level.set_tile_map_origin_offset({22, 25});
+   std::string world_model_name = level_identifier; //"world-1-01";
+   std::string world_model_obj_name = world_model_name + ".obj";
+   std::string world_model_texture_name = world_model_name + ".png";
+
+
+
+
    //
    // Clear our resources so they can be processed from freshly loaded models
    //
@@ -488,10 +508,6 @@ void Screen::load_level_by_identifier(std::string level_identifier)
    // Load the world obj model file, and process it.
    // extract the entities (like goals, environment model, etc)
    //
-
-   std::string world_model_name = level_identifier; //"world-1-01";
-   std::string world_model_obj_name = world_model_name + ".obj";
-   std::string world_model_texture_name = world_model_name + ".png";
 
    // Extract named object from the environment model
 
