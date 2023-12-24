@@ -1323,6 +1323,10 @@ table td
   <td class="property">std::string</td>
 </tr>
 <tr>
+  <td class="property">tile_map_origin_offset</td>
+  <td class="property">AllegroFlare::Vec2D</td>
+</tr>
+<tr>
   <td class="property">TYPE</td>
   <td class="property">char*</td>
 </tr>
@@ -1334,6 +1338,9 @@ table td
 <div class="property-box dependencies">     <table>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Levels::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Levels/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Vec2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Vec2D.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -2388,6 +2395,11 @@ table td
   "Pipeline/JSONLoaders/Pipeline/GameProgressAndStateInfo": [
     "Pipeline/GameProgressAndStateInfo"
   ],
+  "AllegroFlare/Vec2D": [
+    "Pipeline/Gameplay/Level",
+    "Pipeline/Gameplay/Screen",
+    "Pipeline/Gameplay/Screen"
+  ],
   "ALLEGRO_EVENT": [
     "Pipeline/Gameplay/Screen"
   ],
@@ -2436,10 +2448,6 @@ table td
     "Pipeline/Gameplay/Screen"
   ],
   "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityFactory": [
-    "Pipeline/Gameplay/Screen"
-  ],
-  "AllegroFlare/Vec2D": [
-    "Pipeline/Gameplay/Screen",
     "Pipeline/Gameplay/Screen"
   ],
   "AllegroFlare/Vec3D": [

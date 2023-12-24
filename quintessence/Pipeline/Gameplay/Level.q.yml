@@ -15,6 +15,12 @@ properties:
     getter: true
     setter: true
 
+  - name: tile_map_origin_offset
+    type: AllegroFlare::Vec2D
+    init_with: '{}'
+    getter: true
+    setter: true
+
   - name: TYPE
     type: char*
     init_with: '(char*)"Pipeline/Gameplay/Level"'
@@ -27,5 +33,7 @@ dependencies:
 
   - symbol: AllegroFlare::Levels::Base
     headers: [ AllegroFlare/Levels/Base.hpp ]
+  - symbol: AllegroFlare::Vec2D
+    headers: [ AllegroFlare/Vec2D.hpp ]
 
 

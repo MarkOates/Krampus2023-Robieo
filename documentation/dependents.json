@@ -278,6 +278,11 @@
   "Pipeline/JSONLoaders/Pipeline/GameProgressAndStateInfo": [
     "Pipeline/GameProgressAndStateInfo"
   ],
+  "AllegroFlare/Vec2D": [
+    "Pipeline/Gameplay/Level",
+    "Pipeline/Gameplay/Screen",
+    "Pipeline/Gameplay/Screen"
+  ],
   "ALLEGRO_EVENT": [
     "Pipeline/Gameplay/Screen"
   ],
@@ -326,10 +331,6 @@
     "Pipeline/Gameplay/Screen"
   ],
   "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityFactory": [
-    "Pipeline/Gameplay/Screen"
-  ],
-  "AllegroFlare/Vec2D": [
-    "Pipeline/Gameplay/Screen",
     "Pipeline/Gameplay/Screen"
   ],
   "AllegroFlare/Vec3D": [
