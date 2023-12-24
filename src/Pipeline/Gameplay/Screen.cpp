@@ -294,16 +294,16 @@ std::set<std::string> Screen::find_named_object_identifiers_for_portals(AllegroF
    return portal_names;
 }
 
-LabyrinthOfLore::WorldMap::TileMap* Screen::load_tile_map()
+void Screen::load_tile_map()
 {
-   return load_tester_tile_map();
-   //return load_tile_map_from_bitmap();
+   if (current_level_tile_map) delete current_level_tile_map;
+   //current_level_tile_map = return load_tester_tile_map();
+   current_level_tile_map = load_tile_map_from_bitmap();
+   return;
 }
 
 LabyrinthOfLore::WorldMap::TileMap* Screen::load_tile_map_from_bitmap()
 {
-   LabyrinthOfLore::WorldMap::TileMap *result = nullptr;
-
    std::string elevation_bitmap_filename = bitmap_bin->get_path() + "the_cave.png"; // TODO: This file name
    std::string tile_type_bitmap_filename = bitmap_bin->get_path() + "the_cave-type.png"; // TODO: This file name
    float top_height = 2.0f;
@@ -331,6 +331,8 @@ LabyrinthOfLore::WorldMap::TileMap* Screen::load_tile_map_from_bitmap()
       ground_height
    );
 
+   LabyrinthOfLore::WorldMap::TileMap *result = new LabyrinthOfLore::WorldMap::TileMap();
+   //*result = nullptr;
    *result = world_builder.build();
 
    return result;
@@ -338,7 +340,7 @@ LabyrinthOfLore::WorldMap::TileMap* Screen::load_tile_map_from_bitmap()
 
 LabyrinthOfLore::WorldMap::TileMap* Screen::load_tester_tile_map()
 {
-   if (current_level_tile_map) delete current_level_tile_map;
+   //if (current_level_tile_map) delete current_level_tile_map;
 
    LabyrinthOfLore::WorldMap::TileMap *result_tile_map = new LabyrinthOfLore::WorldMap::TileMap();
 
@@ -367,7 +369,7 @@ LabyrinthOfLore::WorldMap::TileMap* Screen::load_tester_tile_map()
    result_tile_map->set_tile(
       7, 1, LabyrinthOfLore::WorldMap::Tile(LabyrinthOfLore::WorldMap::NORMAL_GROUND_TILE, 1.0f));
 
-   current_level_tile_map = result_tile_map;
+   //current_level_tile_map = result_tile_map;
 
    return result_tile_map;
 }

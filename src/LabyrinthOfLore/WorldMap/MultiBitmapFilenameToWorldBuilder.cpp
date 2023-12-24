@@ -6,6 +6,7 @@
 #include <LabyrinthOfLore/WorldMap/MultiBitmapTileMapLoader.hpp>
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h>
+#include <iostream>
 #include <sstream>
 
 
@@ -58,6 +59,7 @@ LabyrinthOfLore::WorldMap::TileMap MultiBitmapFilenameToWorldBuilder::build()
    // could use a al_is_image_addon_installed() here
    ALLEGRO_BITMAP *elevation_bitmap_source = al_load_bitmap(elevation_bitmap_source_filename.c_str());
    ALLEGRO_BITMAP *tile_type_bitmap_source = al_load_bitmap(tile_type_bitmap_source_filename.c_str());
+
    if (!elevation_bitmap_source)
    {
      std::stringstream error_message;

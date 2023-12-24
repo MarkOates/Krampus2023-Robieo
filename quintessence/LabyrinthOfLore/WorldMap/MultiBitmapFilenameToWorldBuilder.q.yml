@@ -1,31 +1,41 @@
 properties:
+
+
   - name: elevation_bitmap_source_filename
     type: std::string
     init_with: "\"data/bitmaps/the_underworld-elevation.png\""
     constructor_arg: true
     getter: true
+
   - name: tile_type_bitmap_source_filename
     type: std::string
     init_with: "\"data/bitmaps/the_underworld-type.png\""
     constructor_arg: true
     getter: true
+
   - name: top_height
     type: float
     init_with: 2.0f
     constructor_arg: true
     getter: true
+
   - name: ground_height
     type: float
     init_with: 1.0f
     constructor_arg: true
     getter: true
-functions:
+
+
+methods:
+
+
   - name: build
     type: LabyrinthOfLore::WorldMap::TileMap
     body: |
       // could use a al_is_image_addon_installed() here
       ALLEGRO_BITMAP *elevation_bitmap_source = al_load_bitmap(elevation_bitmap_source_filename.c_str());
       ALLEGRO_BITMAP *tile_type_bitmap_source = al_load_bitmap(tile_type_bitmap_source_filename.c_str());
+
       if (!elevation_bitmap_source)
       {
         std::stringstream error_message;
@@ -68,7 +78,12 @@ functions:
       - LabyrinthOfLore::WorldMap::BitmapTileMapLoader
       - LabyrinthOfLore::WorldMap::MultiBitmapTileMapLoader
       - al_load_bitmap
+      - std::cout
+
+
 dependencies:
+
+
   - symbol: LabyrinthOfLore::WorldMap::BitmapTileMapLoader
     headers: [ LabyrinthOfLore/WorldMap/BitmapTileMapLoader.hpp ]
   - symbol: LabyrinthOfLore::WorldMap::MultiBitmapTileMapLoader
@@ -81,4 +96,5 @@ dependencies:
     headers: [ sstream ]
   - symbol: al_load_bitmap
     headers: [ allegro5/allegro.h, allegro5/allegro_image.h ]
+
 
