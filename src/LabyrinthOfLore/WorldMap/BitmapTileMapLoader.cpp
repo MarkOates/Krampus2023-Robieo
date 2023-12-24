@@ -152,24 +152,39 @@ LabyrinthOfLore::WorldMap::TileMap BitmapTileMapLoader::load(float top_height, f
       for (unsigned x=0; x<final_tile_map_width; x++)
       {
          ALLEGRO_COLOR this_pixel_color = al_get_pixel(source_bitmap, x, y);
-         if (colors_are_equal(this_pixel_color, pick_index_null_color())) result.set_tile(x, y, LabyrinthOfLore::WorldMap::Tile(0, floor_height));
-         else if (colors_are_equal(this_pixel_color, pick_index_top_color())) result.set_tile(x, y, LabyrinthOfLore::WorldMap::Tile(1, top_height));
-         else if (colors_are_equal(this_pixel_color, pick_index_ground_color())) result.set_tile(x, y, LabyrinthOfLore::WorldMap::Tile(1, ground_height));
+         if (colors_are_equal(this_pixel_color, pick_index_null_color()))
+            result.set_tile(x, y, LabyrinthOfLore::WorldMap::Tile(0, floor_height));
+         else if (colors_are_equal(this_pixel_color, pick_index_top_color()))
+            result.set_tile(x, y, LabyrinthOfLore::WorldMap::Tile(1, top_height));
+         else if (colors_are_equal(this_pixel_color, pick_index_ground_color()))
+            result.set_tile(x, y, LabyrinthOfLore::WorldMap::Tile(1, ground_height));
 
-         else if (colors_are_equal(this_pixel_color, pick_index_gp_color())) result.set_tile(x, y, LabyrinthOfLore::WorldMap::Tile(1, ground_height+0.25));
-         else if (colors_are_equal(this_pixel_color, pick_index_gpp_color())) result.set_tile(x, y, LabyrinthOfLore::WorldMap::Tile(1, ground_height+0.5));
-         else if (colors_are_equal(this_pixel_color, pick_index_gppp_color())) result.set_tile(x, y, LabyrinthOfLore::WorldMap::Tile(1, ground_height+0.75));
-         else if (colors_are_equal(this_pixel_color, pick_index_g1_color())) result.set_tile(x, y, LabyrinthOfLore::WorldMap::Tile(1, ground_height+1.0));
+         else if (colors_are_equal(this_pixel_color, pick_index_gp_color()))
+            result.set_tile(x, y, LabyrinthOfLore::WorldMap::Tile(1, ground_height+0.25));
+         else if (colors_are_equal(this_pixel_color, pick_index_gpp_color()))
+            result.set_tile(x, y, LabyrinthOfLore::WorldMap::Tile(1, ground_height+0.5));
+         else if (colors_are_equal(this_pixel_color, pick_index_gppp_color()))
+            result.set_tile(x, y, LabyrinthOfLore::WorldMap::Tile(1, ground_height+0.75));
+         else if (colors_are_equal(this_pixel_color, pick_index_g1_color()))
+            result.set_tile(x, y, LabyrinthOfLore::WorldMap::Tile(1, ground_height+1.0));
 
-         else if (colors_are_equal(this_pixel_color, pick_index_gm_color())) result.set_tile(x, y, LabyrinthOfLore::WorldMap::Tile(1, ground_height-0.25));
-         else if (colors_are_equal(this_pixel_color, pick_index_gmm_color())) result.set_tile(x, y, LabyrinthOfLore::WorldMap::Tile(1, ground_height-0.5));
-         else if (colors_are_equal(this_pixel_color, pick_index_gmmm_color())) result.set_tile(x, y, LabyrinthOfLore::WorldMap::Tile(1, ground_height-0.75));
-         else if (colors_are_equal(this_pixel_color, pick_index_gm1_color())) result.set_tile(x, y, LabyrinthOfLore::WorldMap::Tile(1, ground_height-1.0));
+         else if (colors_are_equal(this_pixel_color, pick_index_gm_color()))
+            result.set_tile(x, y, LabyrinthOfLore::WorldMap::Tile(1, ground_height-0.25));
+         else if (colors_are_equal(this_pixel_color, pick_index_gmm_color()))
+            result.set_tile(x, y, LabyrinthOfLore::WorldMap::Tile(1, ground_height-0.5));
+         else if (colors_are_equal(this_pixel_color, pick_index_gmmm_color()))
+            result.set_tile(x, y, LabyrinthOfLore::WorldMap::Tile(1, ground_height-0.75));
+         else if (colors_are_equal(this_pixel_color, pick_index_gm1_color()))
+            result.set_tile(x, y, LabyrinthOfLore::WorldMap::Tile(1, ground_height-1.0));
 
-         else if (colors_are_equal(this_pixel_color, pick_index_g1p_color())) result.set_tile(x, y, LabyrinthOfLore::WorldMap::Tile(1, ground_height+1.25));
-         else if (colors_are_equal(this_pixel_color, pick_index_g1pp_color())) result.set_tile(x, y, LabyrinthOfLore::WorldMap::Tile(1, ground_height+1.5));
-         else if (colors_are_equal(this_pixel_color, pick_index_g1ppp_color())) result.set_tile(x, y, LabyrinthOfLore::WorldMap::Tile(1, ground_height+1.75));
-         else if (colors_are_equal(this_pixel_color, pick_index_g2_color())) result.set_tile(x, y, LabyrinthOfLore::WorldMap::Tile(1, ground_height+2.0));
+         else if (colors_are_equal(this_pixel_color, pick_index_g1p_color()))
+            result.set_tile(x, y, LabyrinthOfLore::WorldMap::Tile(1, ground_height+1.25));
+         else if (colors_are_equal(this_pixel_color, pick_index_g1pp_color()))
+            result.set_tile(x, y, LabyrinthOfLore::WorldMap::Tile(1, ground_height+1.5));
+         else if (colors_are_equal(this_pixel_color, pick_index_g1ppp_color()))
+            result.set_tile(x, y, LabyrinthOfLore::WorldMap::Tile(1, ground_height+1.75));
+         else if (colors_are_equal(this_pixel_color, pick_index_g2_color()))
+            result.set_tile(x, y, LabyrinthOfLore::WorldMap::Tile(1, ground_height+2.0));
 
          else
          {
