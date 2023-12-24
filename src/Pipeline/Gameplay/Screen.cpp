@@ -887,27 +887,6 @@ void Screen::load_level_by_identifier(std::string level_identifier)
 
 
    return;
-   // Destroy the current level
-   if (current_level)
-   {
-      // TODO: Shutdown current level
-      delete current_level;
-   }
-
-   // Load the new level
-   AllegroFlare::Levels::Base *loaded_level = game_configuration->load_level_by_identifier(level_identifier);
-   if (loaded_level)
-   {
-      // TODO: Consider how to have this level loading mechanism removed, specifically the dependency on the configuration
-      // For now, confirm the type, and cast
-      if (!loaded_level->is_type(Pipeline::Gameplay::Level::TYPE))
-      {
-         throw std::runtime_error("Loaded level not of expected type");
-      }
-      current_level_identifier = level_identifier;
-      current_level = static_cast<Pipeline::Gameplay::Level*>(loaded_level);
-   }
-   return;
 }
 
 void Screen::initialize()
