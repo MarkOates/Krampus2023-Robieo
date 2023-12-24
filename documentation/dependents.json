@@ -329,6 +329,7 @@
     "Pipeline/Gameplay/Screen"
   ],
   "AllegroFlare/Vec2D": [
+    "Pipeline/Gameplay/Screen",
     "Pipeline/Gameplay/Screen"
   ],
   "AllegroFlare/Vec3D": [

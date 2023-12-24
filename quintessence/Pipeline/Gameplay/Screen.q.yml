@@ -87,6 +87,10 @@ properties:
     type: LabyrinthOfLore::WorldMap::TileMap*
     init_with: nullptr
 
+  - name: current_level_tile_map_origin_offset
+    type: AllegroFlare::Vec2D
+    init_with: '{}'
+
   - name: current_level_song_to_perform_identifier
     type: std::string
     init_with: '""'
@@ -393,6 +397,9 @@ methods:
       if (current_level_tile_map) delete current_level_tile_map;
       //current_level_tile_map = return load_tester_tile_map();
       current_level_tile_map = load_tile_map_from_bitmap();
+
+      current_level_tile_map_origin_offset = {22, 25};
+
       return;
 
 
@@ -2315,5 +2322,7 @@ dependencies:
     headers: [ LabyrinthOfLore/Physics/EntityTileMapCollisionStepper.hpp ]
   - symbol: LabyrinthOfLore::WorldMap::MultiBitmapFilenameToWorldBuilder
     headers: [ LabyrinthOfLore/WorldMap/MultiBitmapFilenameToWorldBuilder.hpp ]
+  - symbol: AllegroFlare::Vec2D
+    headers: [ AllegroFlare/Vec2D.hpp ]
 
 

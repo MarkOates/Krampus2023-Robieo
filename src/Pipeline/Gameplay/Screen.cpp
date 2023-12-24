@@ -53,6 +53,7 @@ Screen::Screen(AllegroFlare::Frameworks::Full* framework, AllegroFlare::EventEmi
    , current_level_identifier("[unset-current_level]")
    , current_level(nullptr)
    , current_level_tile_map(nullptr)
+   , current_level_tile_map_origin_offset({})
    , current_level_song_to_perform_identifier("")
    , current_level_song_to_perform_duration_sec(0.0f)
    , currently_performing_song_identifier("")
@@ -299,6 +300,9 @@ void Screen::load_tile_map()
    if (current_level_tile_map) delete current_level_tile_map;
    //current_level_tile_map = return load_tester_tile_map();
    current_level_tile_map = load_tile_map_from_bitmap();
+
+   current_level_tile_map_origin_offset = {22, 25};
+
    return;
 }
 
