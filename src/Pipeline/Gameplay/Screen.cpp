@@ -300,7 +300,6 @@ void Screen::load_tile_map()
    if (current_level_tile_map) delete current_level_tile_map;
    //current_level_tile_map = return load_tester_tile_map();
    current_level_tile_map = load_tile_map_from_bitmap();
-
    current_level_tile_map_origin_offset = {22, 25};
 
    return;
@@ -1275,6 +1274,10 @@ void Screen::update()
       player_entity_as->get_velocity_ref().position.x = x_prime;
       player_entity_as->get_velocity_ref().position.z = y_prime;
 
+      player_entity_as->get_placement_ref().position.x += current_level_tile_map_origin_offset.x;
+      player_entity_as->get_placement_ref().position.z += current_level_tile_map_origin_offset.y;
+      //player_entity_as->get_placement_ref().position.x += 0.5f; // tile alignment offset
+      //player_entity_as->get_placement_ref().position.z += 0.5f; // tile alignment offset
       vswapper = player_entity_as->get_velocity_ref().position;
       player_entity_as->get_velocity_ref().position.z = vswapper.y;
       player_entity_as->get_velocity_ref().position.y = vswapper.z;
@@ -1293,6 +1296,10 @@ void Screen::update()
       pswapper = player_entity_as->get_placement_ref().position;
       player_entity_as->get_placement_ref().position.z = pswapper.y;
       player_entity_as->get_placement_ref().position.y = pswapper.z;
+      player_entity_as->get_placement_ref().position.x -= current_level_tile_map_origin_offset.x;
+      player_entity_as->get_placement_ref().position.z -= current_level_tile_map_origin_offset.y;
+      //player_entity_as->get_placement_ref().position.x -= 0.5f; // tile alignment offset
+      //player_entity_as->get_placement_ref().position.z -= 0.5f; // tile alignment offset
 
 
 
@@ -1503,12 +1510,13 @@ void Screen::render()
 
    int tile_size = 32;
    AllegroFlare::Vec3D player_position = get_player_controlled_entity_as()->get_placement_ref().position;
-   float player_map_position_x = player_position.x * tile_size;
-   float player_map_position_y = player_position.z * tile_size;
+   float player_map_position_x = (player_position.x + current_level_tile_map_origin_offset.x) * tile_size;
+   float player_map_position_y = (player_position.z + current_level_tile_map_origin_offset.y) * tile_size;
 
    AllegroFlare::Placement3D map_placement;
    map_placement.position.x = 1920/2 - player_map_position_x;
    map_placement.position.y = 1080/2 - player_map_position_y;
+
    //map_placement.rotation.x = 0.35;
    map_placement.start_transform();
    LabyrinthOfLore::WorldMap::BasicRenderer basic_renderer;
