@@ -18,6 +18,7 @@
 #include <Pipeline/DialogNodeBankFactory.hpp>
 #include <Pipeline/GameConfigurations/Main.hpp>
 #include <Pipeline/Gameplay/Level.hpp>
+#include <Pipeline/Physics/GravityStepper.hpp>
 #include <allegro5/allegro_color.h>
 #include <allegro5/allegro_primitives.h>
 #include <cmath>
@@ -1272,6 +1273,9 @@ void Screen::update()
 
    if (player_controlled_entity)
    {
+
+
+      // Update the player's current velocity for this frame
       float speed_modifier = 0.046f;
 
       bool using_dash_controls = false;
@@ -1292,8 +1296,13 @@ void Screen::update()
       //player_entity_as->get_placement_ref().position.x += x_prime;
       //player_entity_as->get_placement_ref().position.z += y_prime;
 
+      //Pipeline::Physics::GravityStepper gravity_stepper;
+      //gravity_stepper.set_entities({ player_entity_as });
+      //gravity_stepper.process_step();
 
 
+
+      // Update the player's position by applying its velocity in the stepper
       // Reposition player_character on map; Use a very fancy swapping of y-with-z variables, the stepper
       AllegroFlare::Vec2D current_level_tile_map_origin_offset = current_level->get_tile_map_origin_offset();
 
@@ -1301,6 +1310,13 @@ void Screen::update()
       AllegroFlare::Vec3D pswapper;
       player_entity_as->get_velocity_ref().position.x = x_prime;
       player_entity_as->get_velocity_ref().position.z = y_prime;
+
+
+      // Apply gravity
+      AllegroFlare::vec3d gravity(0.0f, -0.005f, 0.0f);
+      player_entity_as->get_velocity_ref().position += gravity;
+
+
 
       player_entity_as->get_placement_ref().position.x += current_level_tile_map_origin_offset.x;
       player_entity_as->get_placement_ref().position.z += current_level_tile_map_origin_offset.y;

@@ -65,7 +65,8 @@
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowMapBuffer",
     "LabyrinthOfLore/Physics/EntityTileMapCollisionEvent",
     "LabyrinthOfLore/Physics/EntityTileMapCollisionStepper",
-    "Pipeline/Gameplay/Screen"
+    "Pipeline/Gameplay/Screen",
+    "Pipeline/Physics/GravityStepper"
   ],
   "AllegroFlare/AllegroUnstable": [
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/DepthBuffer",
@@ -389,6 +390,12 @@
   ],
   "LabyrinthOfLore/WorldMap/MultiBitmapFilenameToWorldBuilder": [
     "Pipeline/Gameplay/Screen"
+  ],
+  "Pipeline/Physics/GravityStepper": [
+    "Pipeline/Gameplay/Screen"
+  ],
+  "AllegroFlare/vec3d": [
+    "Pipeline/Physics/GravityStepper"
   ],
   "AllegroFlare/Routers/Standard": [
     "Pipeline/Runner"
