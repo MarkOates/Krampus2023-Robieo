@@ -297,6 +297,18 @@ std::set<std::string> Screen::find_named_object_identifiers_for_portals(AllegroF
    return portal_names;
 }
 
+Pipeline::Gameplay::Level Screen::build_level()
+{
+   Pipeline::Gameplay::Level level;
+   level.set_tile_map_tile_elevation_bitmap_filename("the_cave.png");
+   level.set_tile_map_tile_type_bitmap_filename("the_cave-type.png");
+   level.set_tile_map_ceiling_height(10.0f);
+   level.set_tile_map_groundlevel_height(0.0f);
+   level.set_tile_map_floor_height(-2.0f);
+   level.set_tile_map_origin_offset({22, 25});
+   return level;
+}
+
 void Screen::load_tile_map()
 {
    if (current_level_tile_map) delete current_level_tile_map;
@@ -313,13 +325,7 @@ LabyrinthOfLore::WorldMap::TileMap* Screen::load_tile_map_from_bitmap()
 
    // Create some level data
 
-   Pipeline::Gameplay::Level level;
-   level.set_tile_map_tile_elevation_bitmap_filename("the_cave.png");
-   level.set_tile_map_tile_type_bitmap_filename("the_cave-type.png");
-   level.set_tile_map_ceiling_height(10.0f);
-   level.set_tile_map_groundlevel_height(0.0f);
-   level.set_tile_map_floor_height(-2.0f);
-   level.set_tile_map_origin_offset({22, 25});
+   Pipeline::Gameplay::Level level = build_level();
 
 
    // Load the level

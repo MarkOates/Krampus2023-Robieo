@@ -15,6 +15,12 @@ properties:
     getter: true
     setter: true
 
+  - name: obj_model_filename
+    type: std::string
+    init_with: '"[unset-obj_model_filename]"'
+    getter: true
+    setter: true
+
   - name: tile_map_tile_elevation_bitmap_filename
     type: std::string
     init_with: '"[unset-tile_map_tile_elevation_bitmap_filename]"'

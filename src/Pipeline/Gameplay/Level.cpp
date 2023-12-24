@@ -14,6 +14,7 @@ namespace Gameplay
 Level::Level()
    : AllegroFlare::Levels::Base(Pipeline::Gameplay::Level::TYPE)
    , title("[unset-title]")
+   , obj_model_filename("[unset-obj_model_filename]")
    , tile_map_tile_elevation_bitmap_filename("[unset-tile_map_tile_elevation_bitmap_filename]")
    , tile_map_tile_type_bitmap_filename("[unset-tile_map_tile_type_bitmap_filename]")
    , tile_map_origin_offset({})
@@ -32,6 +33,12 @@ Level::~Level()
 void Level::set_title(std::string title)
 {
    this->title = title;
+}
+
+
+void Level::set_obj_model_filename(std::string obj_model_filename)
+{
+   this->obj_model_filename = obj_model_filename;
 }
 
 
@@ -74,6 +81,12 @@ void Level::set_tile_map_floor_height(float tile_map_floor_height)
 std::string Level::get_title() const
 {
    return title;
+}
+
+
+std::string Level::get_obj_model_filename() const
+{
+   return obj_model_filename;
 }
 
 
