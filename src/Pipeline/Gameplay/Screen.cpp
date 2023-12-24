@@ -13,6 +13,7 @@
 #include <AllegroFlare/Logger.hpp>
 #include <LabyrinthOfLore/Physics/EntityTileMapCollisionStepper.hpp>
 #include <LabyrinthOfLore/WorldMap/BasicRenderer.hpp>
+#include <LabyrinthOfLore/WorldMap/MultiBitmapFilenameToWorldBuilder.hpp>
 #include <LabyrinthOfLore/WorldMap/TileTypeEnum.hpp>
 #include <Pipeline/DialogNodeBankFactory.hpp>
 #include <Pipeline/GameConfigurations/Main.hpp>
@@ -49,9 +50,11 @@ Screen::Screen(AllegroFlare::Frameworks::Full* framework, AllegroFlare::EventEmi
    , goal_entity(nullptr)
    , exit_entity(nullptr)
    , scene_renderer()
+   , show_map_overlay(false)
    , current_level_identifier("[unset-current_level]")
    , current_level(nullptr)
    , current_level_tile_map(nullptr)
+   , current_level_tile_map_origin_offset({})
    , current_level_song_to_perform_identifier("")
    , current_level_song_to_perform_duration_sec(0.0f)
    , currently_performing_song_identifier("")
@@ -293,9 +296,55 @@ std::set<std::string> Screen::find_named_object_identifiers_for_portals(AllegroF
    return portal_names;
 }
 
-LabyrinthOfLore::WorldMap::TileMap* Screen::load_tile_map()
+void Screen::load_tile_map()
 {
    if (current_level_tile_map) delete current_level_tile_map;
+   //current_level_tile_map = return load_tester_tile_map();
+   current_level_tile_map = load_tile_map_from_bitmap();
+   current_level_tile_map_origin_offset = {22, 25};
+
+   return;
+}
+
+LabyrinthOfLore::WorldMap::TileMap* Screen::load_tile_map_from_bitmap()
+{
+   std::string elevation_bitmap_filename = bitmap_bin->get_path() + "the_cave.png"; // TODO: This file name
+   std::string tile_type_bitmap_filename = bitmap_bin->get_path() + "the_cave-type.png"; // TODO: This file name
+   float top_height = 2.0f;
+   float ground_height = 1.0f;
+
+   if (!std::filesystem::exists(elevation_bitmap_filename))
+   {
+      AllegroFlare::Logger::throw_error(
+         "Pipeline::Gameplay::Screen::load_tile_map_from_bitmap",
+         "The tile_elevation bitmap \"" + elevation_bitmap_filename + "\" does not exist."
+      );
+   }
+   if (!std::filesystem::exists(tile_type_bitmap_filename))
+   {
+      AllegroFlare::Logger::throw_error(
+         "Pipeline::Gameplay::Screen::load_tile_map_from_bitmap",
+         "The tile_type bitmap \"" + tile_type_bitmap_filename + "\" does not exist."
+      );
+   }
+
+   LabyrinthOfLore::WorldMap::MultiBitmapFilenameToWorldBuilder world_builder(
+      elevation_bitmap_filename,
+      tile_type_bitmap_filename,
+      top_height,
+      ground_height
+   );
+
+   LabyrinthOfLore::WorldMap::TileMap *result = new LabyrinthOfLore::WorldMap::TileMap();
+   //*result = nullptr;
+   *result = world_builder.build();
+
+   return result;
+}
+
+LabyrinthOfLore::WorldMap::TileMap* Screen::load_tester_tile_map()
+{
+   //if (current_level_tile_map) delete current_level_tile_map;
 
    LabyrinthOfLore::WorldMap::TileMap *result_tile_map = new LabyrinthOfLore::WorldMap::TileMap();
 
@@ -324,7 +373,7 @@ LabyrinthOfLore::WorldMap::TileMap* Screen::load_tile_map()
    result_tile_map->set_tile(
       7, 1, LabyrinthOfLore::WorldMap::Tile(LabyrinthOfLore::WorldMap::NORMAL_GROUND_TILE, 1.0f));
 
-   current_level_tile_map = result_tile_map;
+   //current_level_tile_map = result_tile_map;
 
    return result_tile_map;
 }
@@ -360,6 +409,7 @@ void Screen::load_level_by_identifier(std::string level_identifier)
    portal_entity_associations.clear();
    if (current_level_tile_map) delete current_level_tile_map;
    current_level_tile_map = nullptr;
+   show_map_overlay = false;
 
 
    //
@@ -1226,6 +1276,10 @@ void Screen::update()
       player_entity_as->get_velocity_ref().position.x = x_prime;
       player_entity_as->get_velocity_ref().position.z = y_prime;
 
+      player_entity_as->get_placement_ref().position.x += current_level_tile_map_origin_offset.x;
+      player_entity_as->get_placement_ref().position.z += current_level_tile_map_origin_offset.y;
+      //player_entity_as->get_placement_ref().position.x += 0.5f; // tile alignment offset
+      //player_entity_as->get_placement_ref().position.z += 0.5f; // tile alignment offset
       vswapper = player_entity_as->get_velocity_ref().position;
       player_entity_as->get_velocity_ref().position.z = vswapper.y;
       player_entity_as->get_velocity_ref().position.y = vswapper.z;
@@ -1244,6 +1298,10 @@ void Screen::update()
       pswapper = player_entity_as->get_placement_ref().position;
       player_entity_as->get_placement_ref().position.z = pswapper.y;
       player_entity_as->get_placement_ref().position.y = pswapper.z;
+      player_entity_as->get_placement_ref().position.x -= current_level_tile_map_origin_offset.x;
+      player_entity_as->get_placement_ref().position.z -= current_level_tile_map_origin_offset.y;
+      //player_entity_as->get_placement_ref().position.x -= 0.5f; // tile alignment offset
+      //player_entity_as->get_placement_ref().position.z -= 0.5f; // tile alignment offset
 
 
 
@@ -1430,6 +1488,12 @@ void Screen::update()
    return;
 }
 
+void Screen::toggle_showing_map_overlay()
+{
+   show_map_overlay = !show_map_overlay;
+   return;
+}
+
 void Screen::render()
 {
    if (!(initialized))
@@ -1452,39 +1516,44 @@ void Screen::render()
 
    //al_clear_depth_buffer(1.0);
 
-   int tile_size = 32;
-   AllegroFlare::Vec3D player_position = get_player_controlled_entity_as()->get_placement_ref().position;
-   float player_map_position_x = player_position.x * tile_size;
-   float player_map_position_y = player_position.z * tile_size;
+   //bool show_map_overlay = false;
+   if (show_map_overlay)
+   {
+      int tile_size = 32;
+      AllegroFlare::Vec3D player_position = get_player_controlled_entity_as()->get_placement_ref().position;
+      float player_map_position_x = (player_position.x + current_level_tile_map_origin_offset.x) * tile_size;
+      float player_map_position_y = (player_position.z + current_level_tile_map_origin_offset.y) * tile_size;
 
-   AllegroFlare::Placement3D map_placement;
-   map_placement.position.x = 1920/2 - player_map_position_x;
-   map_placement.position.y = 1080/2 - player_map_position_y;
-   //map_placement.rotation.x = 0.35;
-   map_placement.start_transform();
-   LabyrinthOfLore::WorldMap::BasicRenderer basic_renderer;
-   basic_renderer.set_tile_map(current_level_tile_map);
-   basic_renderer.set_tile_width(tile_size);
-   basic_renderer.set_tile_height(tile_size);
-   basic_renderer.render();
+      AllegroFlare::Placement3D map_placement;
+      map_placement.position.x = 1920/2 - player_map_position_x;
+      map_placement.position.y = 1080/2 - player_map_position_y;
 
-   // Draw the player marker
-   al_draw_filled_circle(
-      player_map_position_x, //player_position.x * basic_renderer.get_tile_width(),
-      player_map_position_y, //player_position.z * basic_renderer.get_tile_height(),
-      8,
-      al_color_name("azure")
-   );
-   map_placement.restore_transform();
+      //map_placement.rotation.x = 0.35;
+      map_placement.start_transform();
+      LabyrinthOfLore::WorldMap::BasicRenderer basic_renderer;
+      basic_renderer.set_tile_map(current_level_tile_map);
+      basic_renderer.set_tile_width(tile_size);
+      basic_renderer.set_tile_height(tile_size);
+      basic_renderer.render();
 
-   ALLEGRO_FONT *ui_font = obtain_ui_font();
-   ALLEGRO_COLOR hud_text_color = al_color_name("cyan");
-   std::stringstream coordinates;
-   coordinates << std::setprecision(3) << player_position.x << ", " << player_position.z;
-   al_draw_text(ui_font, hud_text_color, 1920 - 300, 1080 - 200, ALLEGRO_ALIGN_RIGHT, coordinates.str().c_str());
-   std::stringstream coordinates2;
-   coordinates2 << std::setprecision(3) << player_position.y;
-   al_draw_text(ui_font, hud_text_color, 1920 - 300, 1080 - 200 + 20, ALLEGRO_ALIGN_RIGHT, coordinates2.str().c_str());
+      // Draw the player marker
+      al_draw_filled_circle(
+         player_map_position_x, //player_position.x * basic_renderer.get_tile_width(),
+         player_map_position_y, //player_position.z * basic_renderer.get_tile_height(),
+         8,
+         al_color_name("azure")
+      );
+      map_placement.restore_transform();
+
+      ALLEGRO_FONT *ui_font = obtain_ui_font();
+      ALLEGRO_COLOR hud_text_color = al_color_name("cyan");
+      std::stringstream coordinates;
+      coordinates << std::setprecision(3) << player_position.x << ", " << player_position.z;
+      al_draw_text(ui_font, hud_text_color, 1920 - 300, 1080 - 200, ALLEGRO_ALIGN_RIGHT, coordinates.str().c_str());
+      std::stringstream coordinates2;
+      coordinates2 << std::setprecision(3) << player_position.y;
+      al_draw_text(ui_font, hud_text_color, 1920 - 300, 1080 - 200 + 20, ALLEGRO_ALIGN_RIGHT, coordinates2.str().c_str());
+   }
 
    return;
 }
@@ -1643,6 +1712,10 @@ void Screen::key_down_func(ALLEGRO_EVENT* ev)
 
       case ALLEGRO_KEY_L: {
          load_tile_map();
+      } break;
+
+      case ALLEGRO_KEY_M: {
+         toggle_showing_map_overlay();
       } break;
 
       default: {

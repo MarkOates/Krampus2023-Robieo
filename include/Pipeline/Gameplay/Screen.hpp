@@ -74,9 +74,11 @@ namespace Pipeline
          AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base* goal_entity;
          AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base* exit_entity;
          AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::SceneRenderer2 scene_renderer;
+         bool show_map_overlay;
          std::string current_level_identifier;
          Pipeline::Gameplay::Level* current_level;
          LabyrinthOfLore::WorldMap::TileMap* current_level_tile_map;
+         AllegroFlare::Vec2D current_level_tile_map_origin_offset;
          std::string current_level_song_to_perform_identifier;
          float current_level_song_to_perform_duration_sec;
          std::string currently_performing_song_identifier;
@@ -121,7 +123,9 @@ namespace Pipeline
          AllegroFlare::DialogTree::NodeBank build_dialog_node_bank();
          AllegroFlare::Vec3D lowest_y_vertex(std::vector<AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL> vertices={});
          std::set<std::string> find_named_object_identifiers_for_portals(AllegroFlare::Model3D* world_model=nullptr);
-         LabyrinthOfLore::WorldMap::TileMap* load_tile_map();
+         void load_tile_map();
+         LabyrinthOfLore::WorldMap::TileMap* load_tile_map_from_bitmap();
+         LabyrinthOfLore::WorldMap::TileMap* load_tester_tile_map();
          void load_level_by_identifier(std::string level_identifier="[unset-level_identifier]");
          void initialize();
          virtual void on_activate() override;
@@ -134,6 +138,7 @@ namespace Pipeline
          void on_player_entity_enter_collide(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D* colliding_entity=nullptr);
          void on_player_entity_exit_collide(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D* colliding_entity=nullptr);
          void update();
+         void toggle_showing_map_overlay();
          void render();
          void save_bitmap_buffers_to_files();
          void call_on_finished_callback_func();

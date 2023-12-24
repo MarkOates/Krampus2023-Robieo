@@ -57,6 +57,9 @@ table td
   <li><a href="#quintessence/LabyrinthOfLore/Physics/EntityTileMapCollisionEvent.q.yml">quintessence/LabyrinthOfLore/Physics/EntityTileMapCollisionEvent.q.yml</a></li>
   <li><a href="#quintessence/LabyrinthOfLore/Physics/EntityTileMapCollisionStepper.q.yml">quintessence/LabyrinthOfLore/Physics/EntityTileMapCollisionStepper.q.yml</a></li>
   <li><a href="#quintessence/LabyrinthOfLore/WorldMap/BasicRenderer.q.yml">quintessence/LabyrinthOfLore/WorldMap/BasicRenderer.q.yml</a></li>
+  <li><a href="#quintessence/LabyrinthOfLore/WorldMap/BitmapTileMapLoader.q.yml">quintessence/LabyrinthOfLore/WorldMap/BitmapTileMapLoader.q.yml</a></li>
+  <li><a href="#quintessence/LabyrinthOfLore/WorldMap/MultiBitmapFilenameToWorldBuilder.q.yml">quintessence/LabyrinthOfLore/WorldMap/MultiBitmapFilenameToWorldBuilder.q.yml</a></li>
+  <li><a href="#quintessence/LabyrinthOfLore/WorldMap/MultiBitmapTileMapLoader.q.yml">quintessence/LabyrinthOfLore/WorldMap/MultiBitmapTileMapLoader.q.yml</a></li>
   <li><a href="#quintessence/LabyrinthOfLore/WorldMap/Tile.q.yml">quintessence/LabyrinthOfLore/WorldMap/Tile.q.yml</a></li>
   <li><a href="#quintessence/Pipeline/DialogNodeBankFactory.q.yml">quintessence/Pipeline/DialogNodeBankFactory.q.yml</a></li>
   <li><a href="#quintessence/Pipeline/GameConfigurations/Main.q.yml">quintessence/Pipeline/GameConfigurations/Main.q.yml</a></li>
@@ -869,6 +872,232 @@ table td
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_init_primitives_addon&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
 </tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;LabyrinthOfLore::WorldMap::TileTypeEnum&quot;, &quot;headers&quot;=&gt;[&quot;LabyrinthOfLore/WorldMap/TileTypeEnum.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/LabyrinthOfLore/WorldMap/BitmapTileMapLoader.q.yml">quintessence/LabyrinthOfLore/WorldMap/BitmapTileMapLoader.q.yml</h3>
+    <h4>Overview<h4>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">source_bitmap</td>
+  <td class="property">ALLEGRO_BITMAP*</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">colors_are_equal(ALLEGRO_COLOR c1={}, ALLEGRO_COLOR c2={})</td>
+</tr>
+<tr>
+  <td class="method">get_index_column_x()</td>
+</tr>
+<tr>
+  <td class="method">infer_tile_map_width()</td>
+</tr>
+<tr>
+  <td class="method">infer_tile_map_height()</td>
+</tr>
+<tr>
+  <td class="method">pick_color(int x=0, int y=0)</td>
+</tr>
+<tr>
+  <td class="method">pick_index_null_color()</td>
+</tr>
+<tr>
+  <td class="method">pick_index_top_color()</td>
+</tr>
+<tr>
+  <td class="method">pick_index_ground_color()</td>
+</tr>
+<tr>
+  <td class="method">pick_index_gp_color()</td>
+</tr>
+<tr>
+  <td class="method">pick_index_gpp_color()</td>
+</tr>
+<tr>
+  <td class="method">pick_index_gppp_color()</td>
+</tr>
+<tr>
+  <td class="method">pick_index_g1_color()</td>
+</tr>
+<tr>
+  <td class="method">pick_index_gm_color()</td>
+</tr>
+<tr>
+  <td class="method">pick_index_gmm_color()</td>
+</tr>
+<tr>
+  <td class="method">pick_index_gmmm_color()</td>
+</tr>
+<tr>
+  <td class="method">pick_index_gm1_color()</td>
+</tr>
+<tr>
+  <td class="method">pick_index_g1p_color()</td>
+</tr>
+<tr>
+  <td class="method">pick_index_g1pp_color()</td>
+</tr>
+<tr>
+  <td class="method">pick_index_g1ppp_color()</td>
+</tr>
+<tr>
+  <td class="method">pick_index_g2_color()</td>
+</tr>
+<tr>
+  <td class="method">validate()</td>
+</tr>
+<tr>
+  <td class="method">load(float top_height=4.0f, float ground_height=2.0f)</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::stringstream&quot;, &quot;headers&quot;=&gt;[&quot;sstream&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_BITMAP&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_COLOR&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_color.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;LabyrinthOfLore::WorldMap::TileMap&quot;, &quot;headers&quot;=&gt;[&quot;LabyrinthOfLore/WorldMap/TileMap.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/LabyrinthOfLore/WorldMap/MultiBitmapFilenameToWorldBuilder.q.yml">quintessence/LabyrinthOfLore/WorldMap/MultiBitmapFilenameToWorldBuilder.q.yml</h3>
+    <h4>Overview<h4>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">elevation_bitmap_source_filename</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">tile_type_bitmap_source_filename</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">top_height</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">ground_height</td>
+  <td class="property">float</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">build()</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;LabyrinthOfLore::WorldMap::BitmapTileMapLoader&quot;, &quot;headers&quot;=&gt;[&quot;LabyrinthOfLore/WorldMap/BitmapTileMapLoader.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;LabyrinthOfLore::WorldMap::MultiBitmapTileMapLoader&quot;, &quot;headers&quot;=&gt;[&quot;LabyrinthOfLore/WorldMap/MultiBitmapTileMapLoader.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;LabyrinthOfLore::WorldMap::Tile&quot;, &quot;headers&quot;=&gt;[&quot;LabyrinthOfLore/WorldMap/Tile.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;LabyrinthOfLore::WorldMap::TileMap&quot;, &quot;headers&quot;=&gt;[&quot;LabyrinthOfLore/WorldMap/TileMap.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::stringstream&quot;, &quot;headers&quot;=&gt;[&quot;sstream&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_load_bitmap&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;, &quot;allegro5/allegro_image.h&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/LabyrinthOfLore/WorldMap/MultiBitmapTileMapLoader.q.yml">quintessence/LabyrinthOfLore/WorldMap/MultiBitmapTileMapLoader.q.yml</h3>
+    <h4>Overview<h4>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">tile_map</td>
+  <td class="property">LabyrinthOfLore::WorldMap::TileMap*</td>
+</tr>
+<tr>
+  <td class="property">source_bitmap</td>
+  <td class="property">ALLEGRO_BITMAP*</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">colors_are_equal(ALLEGRO_COLOR c1={}, ALLEGRO_COLOR c2={})</td>
+</tr>
+<tr>
+  <td class="method">get_index_column_x()</td>
+</tr>
+<tr>
+  <td class="method">infer_tile_map_width()</td>
+</tr>
+<tr>
+  <td class="method">infer_tile_map_height()</td>
+</tr>
+<tr>
+  <td class="method">pick_color(int x=0, int y=0)</td>
+</tr>
+<tr>
+  <td class="method">pick_index_null_color()</td>
+</tr>
+<tr>
+  <td class="method">pick_door_color()</td>
+</tr>
+<tr>
+  <td class="method">pick_water_color()</td>
+</tr>
+<tr>
+  <td class="method">pick_lava_color()</td>
+</tr>
+<tr>
+  <td class="method">pick_glow_water_color()</td>
+</tr>
+<tr>
+  <td class="method">validate()</td>
+</tr>
+<tr>
+  <td class="method">load_and_process(float top_height=4.0f, float ground_height=2.0f)</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::stringstream&quot;, &quot;headers&quot;=&gt;[&quot;sstream&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_BITMAP&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_COLOR&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_color.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;LabyrinthOfLore::WorldMap::TileMap&quot;, &quot;headers&quot;=&gt;[&quot;LabyrinthOfLore/WorldMap/TileMap.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;LabyrinthOfLore::WorldMap::tile_type_t&quot;, &quot;headers&quot;=&gt;[&quot;LabyrinthOfLore/WorldMap/TileTypeEnum.hpp&quot;]}</td>
+</tr>
     </table>
 </div>  </div>
 </ul>
@@ -1168,6 +1397,10 @@ table td
   <td class="property">AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::SceneRenderer2</td>
 </tr>
 <tr>
+  <td class="property">show_map_overlay</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
   <td class="property">current_level_identifier</td>
   <td class="property">std::string</td>
 </tr>
@@ -1178,6 +1411,10 @@ table td
 <tr>
   <td class="property">current_level_tile_map</td>
   <td class="property">LabyrinthOfLore::WorldMap::TileMap*</td>
+</tr>
+<tr>
+  <td class="property">current_level_tile_map_origin_offset</td>
+  <td class="property">AllegroFlare::Vec2D</td>
 </tr>
 <tr>
   <td class="property">current_level_song_to_perform_identifier</td>
@@ -1314,6 +1551,12 @@ table td
   <td class="method">load_tile_map()</td>
 </tr>
 <tr>
+  <td class="method">load_tile_map_from_bitmap()</td>
+</tr>
+<tr>
+  <td class="method">load_tester_tile_map()</td>
+</tr>
+<tr>
   <td class="method">load_level_by_identifier(std::string level_identifier=&quot;[unset-level_identifier]&quot;)</td>
 </tr>
 <tr>
@@ -1348,6 +1591,9 @@ table td
 </tr>
 <tr>
   <td class="method">update()</td>
+</tr>
+<tr>
+  <td class="method">toggle_showing_map_overlay()</td>
 </tr>
 <tr>
   <td class="method">render()</td>
@@ -1555,6 +1801,12 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;LabyrinthOfLore::Physics::EntityTileMapCollisionStepper&quot;, &quot;headers&quot;=&gt;[&quot;LabyrinthOfLore/Physics/EntityTileMapCollisionStepper.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;LabyrinthOfLore::WorldMap::MultiBitmapFilenameToWorldBuilder&quot;, &quot;headers&quot;=&gt;[&quot;LabyrinthOfLore/WorldMap/MultiBitmapFilenameToWorldBuilder.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Vec2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Vec2D.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -1875,7 +2127,9 @@ table td
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/DepthBuffer",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer2",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer2",
-    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowMapBuffer"
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowMapBuffer",
+    "LabyrinthOfLore/WorldMap/BitmapTileMapLoader",
+    "LabyrinthOfLore/WorldMap/MultiBitmapTileMapLoader"
   ],
   "ALLEGRO_DISPLAY": [
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/DepthBuffer",
@@ -1994,7 +2248,9 @@ table td
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowMapBuffer"
   ],
   "ALLEGRO_COLOR": [
-    "AllegroFlare/Shaders/ShadowMapping"
+    "AllegroFlare/Shaders/ShadowMapping",
+    "LabyrinthOfLore/WorldMap/BitmapTileMapLoader",
+    "LabyrinthOfLore/WorldMap/MultiBitmapTileMapLoader"
   ],
   "AllegroFlare/UsefulPHP": [
     "AllegroFlare/Shaders/ShadowMapping",
@@ -2007,6 +2263,9 @@ table td
   "LabyrinthOfLore/WorldMap/TileMap": [
     "LabyrinthOfLore/Physics/EntityTileMapCollisionStepper",
     "LabyrinthOfLore/WorldMap/BasicRenderer",
+    "LabyrinthOfLore/WorldMap/BitmapTileMapLoader",
+    "LabyrinthOfLore/WorldMap/MultiBitmapFilenameToWorldBuilder",
+    "LabyrinthOfLore/WorldMap/MultiBitmapTileMapLoader",
     "Pipeline/Gameplay/Screen"
   ],
   "LabyrinthOfLore/Entity/Base": [
@@ -2029,7 +2288,8 @@ table td
     "LabyrinthOfLore/WorldMap/BasicRenderer"
   ],
   "LabyrinthOfLore/WorldMap/Tile": [
-    "LabyrinthOfLore/WorldMap/BasicRenderer"
+    "LabyrinthOfLore/WorldMap/BasicRenderer",
+    "LabyrinthOfLore/WorldMap/MultiBitmapFilenameToWorldBuilder"
   ],
   "al_draw_filled_rectangle": [
     "LabyrinthOfLore/WorldMap/BasicRenderer"
@@ -2040,6 +2300,27 @@ table td
   ],
   "al_init_primitives_addon": [
     "LabyrinthOfLore/WorldMap/BasicRenderer"
+  ],
+  "LabyrinthOfLore/WorldMap/TileTypeEnum": [
+    "LabyrinthOfLore/WorldMap/BasicRenderer",
+    "Pipeline/Gameplay/Screen"
+  ],
+  "std/stringstream": [
+    "LabyrinthOfLore/WorldMap/BitmapTileMapLoader",
+    "LabyrinthOfLore/WorldMap/MultiBitmapFilenameToWorldBuilder",
+    "LabyrinthOfLore/WorldMap/MultiBitmapTileMapLoader"
+  ],
+  "LabyrinthOfLore/WorldMap/BitmapTileMapLoader": [
+    "LabyrinthOfLore/WorldMap/MultiBitmapFilenameToWorldBuilder"
+  ],
+  "LabyrinthOfLore/WorldMap/MultiBitmapTileMapLoader": [
+    "LabyrinthOfLore/WorldMap/MultiBitmapFilenameToWorldBuilder"
+  ],
+  "al_load_bitmap": [
+    "LabyrinthOfLore/WorldMap/MultiBitmapFilenameToWorldBuilder"
+  ],
+  "LabyrinthOfLore/WorldMap/tile_type_t": [
+    "LabyrinthOfLore/WorldMap/MultiBitmapTileMapLoader"
   ],
   "AllegroFlare/DialogTree/NodeBank": [
     "Pipeline/DialogNodeBankFactory",
@@ -2150,6 +2431,7 @@ table td
     "Pipeline/Gameplay/Screen"
   ],
   "AllegroFlare/Vec2D": [
+    "Pipeline/Gameplay/Screen",
     "Pipeline/Gameplay/Screen"
   ],
   "AllegroFlare/Vec3D": [
@@ -2194,9 +2476,6 @@ table td
   "std/fmod": [
     "Pipeline/Gameplay/Screen"
   ],
-  "LabyrinthOfLore/WorldMap/TileTypeEnum": [
-    "Pipeline/Gameplay/Screen"
-  ],
   "LabyrinthOfLore/WorldMap/BasicRenderer": [
     "Pipeline/Gameplay/Screen"
   ],
@@ -2207,6 +2486,9 @@ table td
     "Pipeline/Gameplay/Screen"
   ],
   "LabyrinthOfLore/Physics/EntityTileMapCollisionStepper": [
+    "Pipeline/Gameplay/Screen"
+  ],
+  "LabyrinthOfLore/WorldMap/MultiBitmapFilenameToWorldBuilder": [
     "Pipeline/Gameplay/Screen"
   ],
   "AllegroFlare/Routers/Standard": [

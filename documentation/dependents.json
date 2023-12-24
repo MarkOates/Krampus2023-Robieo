@@ -25,7 +25,9 @@
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/DepthBuffer",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer2",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer2",
-    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowMapBuffer"
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowMapBuffer",
+    "LabyrinthOfLore/WorldMap/BitmapTileMapLoader",
+    "LabyrinthOfLore/WorldMap/MultiBitmapTileMapLoader"
   ],
   "ALLEGRO_DISPLAY": [
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/DepthBuffer",
@@ -144,7 +146,9 @@
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowMapBuffer"
   ],
   "ALLEGRO_COLOR": [
-    "AllegroFlare/Shaders/ShadowMapping"
+    "AllegroFlare/Shaders/ShadowMapping",
+    "LabyrinthOfLore/WorldMap/BitmapTileMapLoader",
+    "LabyrinthOfLore/WorldMap/MultiBitmapTileMapLoader"
   ],
   "AllegroFlare/UsefulPHP": [
     "AllegroFlare/Shaders/ShadowMapping",
@@ -157,6 +161,9 @@
   "LabyrinthOfLore/WorldMap/TileMap": [
     "LabyrinthOfLore/Physics/EntityTileMapCollisionStepper",
     "LabyrinthOfLore/WorldMap/BasicRenderer",
+    "LabyrinthOfLore/WorldMap/BitmapTileMapLoader",
+    "LabyrinthOfLore/WorldMap/MultiBitmapFilenameToWorldBuilder",
+    "LabyrinthOfLore/WorldMap/MultiBitmapTileMapLoader",
     "Pipeline/Gameplay/Screen"
   ],
   "LabyrinthOfLore/Entity/Base": [
@@ -179,7 +186,8 @@
     "LabyrinthOfLore/WorldMap/BasicRenderer"
   ],
   "LabyrinthOfLore/WorldMap/Tile": [
-    "LabyrinthOfLore/WorldMap/BasicRenderer"
+    "LabyrinthOfLore/WorldMap/BasicRenderer",
+    "LabyrinthOfLore/WorldMap/MultiBitmapFilenameToWorldBuilder"
   ],
   "al_draw_filled_rectangle": [
     "LabyrinthOfLore/WorldMap/BasicRenderer"
@@ -190,6 +198,27 @@
   ],
   "al_init_primitives_addon": [
     "LabyrinthOfLore/WorldMap/BasicRenderer"
+  ],
+  "LabyrinthOfLore/WorldMap/TileTypeEnum": [
+    "LabyrinthOfLore/WorldMap/BasicRenderer",
+    "Pipeline/Gameplay/Screen"
+  ],
+  "std/stringstream": [
+    "LabyrinthOfLore/WorldMap/BitmapTileMapLoader",
+    "LabyrinthOfLore/WorldMap/MultiBitmapFilenameToWorldBuilder",
+    "LabyrinthOfLore/WorldMap/MultiBitmapTileMapLoader"
+  ],
+  "LabyrinthOfLore/WorldMap/BitmapTileMapLoader": [
+    "LabyrinthOfLore/WorldMap/MultiBitmapFilenameToWorldBuilder"
+  ],
+  "LabyrinthOfLore/WorldMap/MultiBitmapTileMapLoader": [
+    "LabyrinthOfLore/WorldMap/MultiBitmapFilenameToWorldBuilder"
+  ],
+  "al_load_bitmap": [
+    "LabyrinthOfLore/WorldMap/MultiBitmapFilenameToWorldBuilder"
+  ],
+  "LabyrinthOfLore/WorldMap/tile_type_t": [
+    "LabyrinthOfLore/WorldMap/MultiBitmapTileMapLoader"
   ],
   "AllegroFlare/DialogTree/NodeBank": [
     "Pipeline/DialogNodeBankFactory",
@@ -300,6 +329,7 @@
     "Pipeline/Gameplay/Screen"
   ],
   "AllegroFlare/Vec2D": [
+    "Pipeline/Gameplay/Screen",
     "Pipeline/Gameplay/Screen"
   ],
   "AllegroFlare/Vec3D": [
@@ -344,9 +374,6 @@
   "std/fmod": [
     "Pipeline/Gameplay/Screen"
   ],
-  "LabyrinthOfLore/WorldMap/TileTypeEnum": [
-    "Pipeline/Gameplay/Screen"
-  ],
   "LabyrinthOfLore/WorldMap/BasicRenderer": [
     "Pipeline/Gameplay/Screen"
   ],
@@ -357,6 +384,9 @@
     "Pipeline/Gameplay/Screen"
   ],
   "LabyrinthOfLore/Physics/EntityTileMapCollisionStepper": [
+    "Pipeline/Gameplay/Screen"
+  ],
+  "LabyrinthOfLore/WorldMap/MultiBitmapFilenameToWorldBuilder": [
     "Pipeline/Gameplay/Screen"
   ],
   "AllegroFlare/Routers/Standard": [

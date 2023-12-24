@@ -4,6 +4,7 @@
 
 #include <AllegroFlare/Color.hpp>
 #include <LabyrinthOfLore/WorldMap/Tile.hpp>
+#include <LabyrinthOfLore/WorldMap/TileTypeEnum.hpp>
 #include <allegro5/allegro_color.h>
 #include <allegro5/allegro_primitives.h>
 #include <iostream>
@@ -93,10 +94,15 @@ void BasicRenderer::render()
    for (unsigned y=0; y<tile_map->get_height(); y++)
      for (unsigned x=0; x<tile_map->get_width(); x++)
       {
+         ALLEGRO_COLOR result_tile_color = tile_color;
          LabyrinthOfLore::WorldMap::Tile tile = tile_map->get_tile(x, y);
          float height_float = (tile.get_height() / top_height * 0.5) + 0.5;
+         int tile_type = tile.get_type();
 
-         ALLEGRO_COLOR this_tile_color = AllegroFlare::color::color(tile_color, height_float);
+         if (tile_type == LabyrinthOfLore::WorldMap::NULL_TILE) result_tile_color = al_color_name("blueviolet");
+         //if (tile_type == LabyrinthOfLore::WorldMap::NULL_TILE) result_tile_color = al_color_name("blueviolet");
+
+         ALLEGRO_COLOR this_tile_color = AllegroFlare::color::color(result_tile_color, height_float);
 
          al_draw_filled_rectangle(
             x * tile_width + inset,
