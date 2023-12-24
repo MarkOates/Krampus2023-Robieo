@@ -69,7 +69,7 @@ properties:
     getter: true
     setter: true
 
-  - name: song_to_perform_duration
+  - name: song_to_perform_duration_sec
     type: float
     init_with: 6.0f
     getter: true
