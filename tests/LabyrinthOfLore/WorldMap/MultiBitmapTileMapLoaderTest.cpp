@@ -28,7 +28,6 @@ static void EXPECT_EQ_COLOR(ALLEGRO_COLOR expected, ALLEGRO_COLOR actual)
 #include <allegro5/allegro_image.h>
 
 
-
 #define TEST_FIXTURE_FILENAME "/Users/markoates/Repos/Pipeline/tests/fixtures/bitmaps/test_bitmap_tile_map_loader-multi.png"
 
 
@@ -92,7 +91,6 @@ TEST(LabyrinthOfLore_WorldMap_MultiBitmapTileMapLoaderTest, load_and_process__su
 
    LabyrinthOfLore::WorldMap::TileMap tile_map;
    tile_map.resize(50, 67);
-   //ALLEGRO_BITMAP *source_bitmap = al_load_bitmap("/Users/markoates/Repos/LabyrinthOfLore/bin/data/bitmaps/test_bitmap_tile_map_loader-multi.png");
    ALLEGRO_BITMAP *source_bitmap = al_load_bitmap(TEST_FIXTURE_FILENAME);
    ASSERT_NE(nullptr, source_bitmap);
 
@@ -110,7 +108,6 @@ TEST(LabyrinthOfLore_WorldMap_MultiBitmapTileMapLoaderTest, pick_color__with_a_v
    al_init_image_addon();
 
    LabyrinthOfLore::WorldMap::TileMap tile_map;
-   //ALLEGRO_BITMAP *source_bitmap = al_load_bitmap("/Users/markoates/Repos/LabyrinthOfLore/bin/data/bitmaps/test_bitmap_tile_map_loader-multi.png");
    ALLEGRO_BITMAP *source_bitmap = al_load_bitmap(TEST_FIXTURE_FILENAME);
    ASSERT_NE(nullptr, source_bitmap);
 
@@ -138,7 +135,6 @@ TEST(LabyrinthOfLore_WorldMap_MultiBitmapTileMapLoaderTest,
 
    LabyrinthOfLore::WorldMap::TileMap tile_map;
    tile_map.resize(50, 67, LabyrinthOfLore::WorldMap::Tile(1, door_height));
-   //ALLEGRO_BITMAP *source_bitmap = al_load_bitmap("/Users/markoates/Repos/LabyrinthOfLore/bin/data/bitmaps/test_bitmap_tile_map_loader-multi.png");
    ALLEGRO_BITMAP *source_bitmap = al_load_bitmap(TEST_FIXTURE_FILENAME);
    ASSERT_NE(nullptr, source_bitmap);
 
@@ -166,7 +162,6 @@ TEST(LabyrinthOfLore_WorldMap_MultiBitmapTileMapLoaderTest,
 
    LabyrinthOfLore::WorldMap::TileMap tile_map;
    tile_map.resize(50, 67, LabyrinthOfLore::WorldMap::Tile(1, water_height));
-   //ALLEGRO_BITMAP *source_bitmap = al_load_bitmap("/Users/markoates/Repos/LabyrinthOfLore/bin/data/bitmaps/test_bitmap_tile_map_loader-multi.png");
    ALLEGRO_BITMAP *source_bitmap = al_load_bitmap(TEST_FIXTURE_FILENAME);
    ASSERT_NE(nullptr, source_bitmap);
 
@@ -194,7 +189,6 @@ TEST(LabyrinthOfLore_WorldMap_MultiBitmapTileMapLoaderTest,
 
    LabyrinthOfLore::WorldMap::TileMap tile_map;
    tile_map.resize(50, 67, LabyrinthOfLore::WorldMap::Tile(1, water_height));
-   //ALLEGRO_BITMAP *source_bitmap = al_load_bitmap("/Users/markoates/Repos/LabyrinthOfLore/bin/data/bitmaps/test_bitmap_tile_map_loader-multi.png");
    ALLEGRO_BITMAP *source_bitmap = al_load_bitmap(TEST_FIXTURE_FILENAME);
    ASSERT_NE(nullptr, source_bitmap);
 
