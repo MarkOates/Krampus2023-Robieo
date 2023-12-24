@@ -84,7 +84,7 @@ bool MultiBitmapTileMapLoader::validate()
    return true;
 }
 
-void MultiBitmapTileMapLoader::load_and_process(float top_height, float ground_height)
+void MultiBitmapTileMapLoader::load_and_process()
 {
    if (!tile_map) throw std::runtime_error("could not WorldBitmap::MultiBitmapTileMapLoader.load with a nullptr tile_map.");
    if (!source_bitmap) throw std::runtime_error("could not WorldBitmap::MultiBitmapTileMapLoader.load with a nullptr source_bitmap.");

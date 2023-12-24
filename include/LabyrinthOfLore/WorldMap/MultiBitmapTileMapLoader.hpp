@@ -34,7 +34,7 @@ namespace LabyrinthOfLore
          ALLEGRO_COLOR pick_lava_color();
          ALLEGRO_COLOR pick_glow_water_color();
          bool validate();
-         void load_and_process(float top_height=4.0f, float ground_height=2.0f);
+         void load_and_process();
       };
    }
 }

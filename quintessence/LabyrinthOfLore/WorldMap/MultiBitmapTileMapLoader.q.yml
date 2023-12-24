@@ -101,13 +101,6 @@ methods:
 
   - name: load_and_process
     type: void
-    parameters:
-      - name: top_height
-        type: float
-        default_argument: 4.0f
-      - name: ground_height
-        type: float
-        default_argument: 2.0f
     body: |
       if (!tile_map) throw std::runtime_error("could not WorldBitmap::MultiBitmapTileMapLoader.load with a nullptr tile_map.");
       if (!source_bitmap) throw std::runtime_error("could not WorldBitmap::MultiBitmapTileMapLoader.load with a nullptr source_bitmap.");
