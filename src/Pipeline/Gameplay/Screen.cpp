@@ -55,8 +55,6 @@ Screen::Screen(AllegroFlare::Frameworks::Full* framework, AllegroFlare::EventEmi
    , current_level(nullptr)
    , current_level_tile_map(nullptr)
    , current_level_tile_map_tile_alignment_offset({ 0.5, -0.5 })
-   , current_level_song_to_perform_identifier("")
-   , current_level_song_to_perform_duration_sec(0.0f)
    , currently_performing_song_identifier("")
    , currently_performing_song_duration_sec(0.0f)
    , on_finished_callback_func()
@@ -315,6 +313,11 @@ Pipeline::Gameplay::Level Screen::build_level(std::string level_identifier)
    level.set_tile_map_groundlevel_height(0.0f);
    level.set_tile_map_floor_height(-2.0f);
    level.set_tile_map_origin_offset({22, 25});
+
+   // The level's "delivery song" info
+   level.set_song_to_perform_identifier("robot-holly_jolly");
+   level.set_song_to_perform_duration_sec(15.0f);
+
    return level;
 }
 
@@ -856,7 +859,7 @@ void Screen::load_level_by_identifier(std::string level_identifier)
    //
    // Load the song to play for this level
    //
-   current_level_song_to_perform_identifier = "robot-holly_jolly";
+   //current_level_song_to_perform_identifier = "robot-holly_jolly";
 
 
    //
@@ -1656,7 +1659,17 @@ void Screen::game_event_func(AllegroFlare::GameEvent* game_event)
    }
    if (game_event->is_type("perform_music"))
    {
-      activate_music_performance(current_level_song_to_perform_identifier, 15.0f);
+      if (!current_level)
+      {
+         AllegroFlare::Logger::throw_error(
+            "Pipeline::Gameplay::Screen::game_event_func",
+            "On game event \"perform_music\", current_level cannot be nullptr."
+         );
+      }
+
+      std::string song_to_perform_identifier = current_level->get_song_to_perform_identifier();
+      float song_to_perform_duration_sec = current_level->get_song_to_perform_duration_sec();
+      activate_music_performance(song_to_perform_identifier, song_to_perform_duration_sec);
    }
    //else if (game_event->is_type("collect_special_item"))
    //{
