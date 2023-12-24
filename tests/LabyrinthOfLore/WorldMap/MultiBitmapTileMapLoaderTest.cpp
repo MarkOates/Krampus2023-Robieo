@@ -27,12 +27,19 @@ static void EXPECT_EQ_COLOR(ALLEGRO_COLOR expected, ALLEGRO_COLOR actual)
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h>
 
+
+
+#define TEST_FIXTURE_FILENAME "/Users/markoates/Repos/Pipeline/tests/fixtures/bitmaps/test_bitmap_tile_map_loader-multi.png"
+
+
 TEST(LabyrinthOfLore_WorldMap_MultiBitmapTileMapLoaderTest, can_be_created_without_blowing_up)
 {
    LabyrinthOfLore::WorldMap::MultiBitmapTileMapLoader bitmap_tile_map_loader;
 }
 
-TEST(LabyrinthOfLore_WorldMap_MultiBitmapTileMapLoaderTest, load_and_process__throws_an_exception_if_there_is_a_nullptr_tile_map)
+
+TEST(LabyrinthOfLore_WorldMap_MultiBitmapTileMapLoaderTest,
+   load_and_process__throws_an_exception_if_there_is_a_nullptr_tile_map)
 {
    LabyrinthOfLore::WorldMap::TileMap *tile_map = nullptr;
    ALLEGRO_BITMAP *source_bitmap = nullptr;
@@ -43,7 +50,9 @@ TEST(LabyrinthOfLore_WorldMap_MultiBitmapTileMapLoaderTest, load_and_process__th
    ASSERT_THROW_WITH_MESSAGE(bitmap_tile_map_loader.load_and_process(), std::runtime_error, expected_message);
 }
 
-TEST(LabyrinthOfLore_WorldMap_MultiBitmapTileMapLoaderTest, load_and_process__throws_an_exception_if_there_is_a_nullptr_source_bitmap)
+
+TEST(LabyrinthOfLore_WorldMap_MultiBitmapTileMapLoaderTest,
+   load_and_process__throws_an_exception_if_there_is_a_nullptr_source_bitmap)
 {
    LabyrinthOfLore::WorldMap::TileMap *tile_map = new LabyrinthOfLore::WorldMap::TileMap();
    ALLEGRO_BITMAP *source_bitmap = nullptr;
@@ -56,7 +65,9 @@ TEST(LabyrinthOfLore_WorldMap_MultiBitmapTileMapLoaderTest, load_and_process__th
    delete tile_map;
 }
 
-TEST(LabyrinthOfLore_WorldMap_MultiBitmapTileMapLoaderTest, load_and_process__throws_an_exception_if_the_tile_map_dimensions_do_not_match_the_bitmap_dimensions)
+
+TEST(LabyrinthOfLore_WorldMap_MultiBitmapTileMapLoaderTest,
+   load_and_process__throws_an_exception_if_the_tile_map_dimensions_do_not_match_the_bitmap_dimensions)
 {
    al_init();
 
@@ -73,6 +84,7 @@ TEST(LabyrinthOfLore_WorldMap_MultiBitmapTileMapLoaderTest, load_and_process__th
    al_uninstall_system();
 }
 
+
 TEST(LabyrinthOfLore_WorldMap_MultiBitmapTileMapLoaderTest, load_and_process__succeeds_with_valid_arguments)
 {
    al_init();
@@ -80,7 +92,8 @@ TEST(LabyrinthOfLore_WorldMap_MultiBitmapTileMapLoaderTest, load_and_process__su
 
    LabyrinthOfLore::WorldMap::TileMap tile_map;
    tile_map.resize(50, 67);
-   ALLEGRO_BITMAP *source_bitmap = al_load_bitmap("/Users/markoates/Repos/LabyrinthOfLore/bin/data/bitmaps/test_bitmap_tile_map_loader-multi.png");
+   //ALLEGRO_BITMAP *source_bitmap = al_load_bitmap("/Users/markoates/Repos/LabyrinthOfLore/bin/data/bitmaps/test_bitmap_tile_map_loader-multi.png");
+   ALLEGRO_BITMAP *source_bitmap = al_load_bitmap(TEST_FIXTURE_FILENAME);
    ASSERT_NE(nullptr, source_bitmap);
 
    LabyrinthOfLore::WorldMap::MultiBitmapTileMapLoader bitmap_tile_map_loader(&tile_map, source_bitmap);
@@ -90,13 +103,15 @@ TEST(LabyrinthOfLore_WorldMap_MultiBitmapTileMapLoaderTest, load_and_process__su
    SUCCEED();
 }
 
+
 TEST(LabyrinthOfLore_WorldMap_MultiBitmapTileMapLoaderTest, pick_color__with_a_valid_bitmap__picks_the_color)
 {
    al_init();
    al_init_image_addon();
 
    LabyrinthOfLore::WorldMap::TileMap tile_map;
-   ALLEGRO_BITMAP *source_bitmap = al_load_bitmap("/Users/markoates/Repos/LabyrinthOfLore/bin/data/bitmaps/test_bitmap_tile_map_loader-multi.png");
+   //ALLEGRO_BITMAP *source_bitmap = al_load_bitmap("/Users/markoates/Repos/LabyrinthOfLore/bin/data/bitmaps/test_bitmap_tile_map_loader-multi.png");
+   ALLEGRO_BITMAP *source_bitmap = al_load_bitmap(TEST_FIXTURE_FILENAME);
    ASSERT_NE(nullptr, source_bitmap);
 
    LabyrinthOfLore::WorldMap::MultiBitmapTileMapLoader bitmap_tile_map_loader(&tile_map, source_bitmap);
@@ -110,7 +125,9 @@ TEST(LabyrinthOfLore_WorldMap_MultiBitmapTileMapLoaderTest, pick_color__with_a_v
    SUCCEED();
 }
 
-TEST(LabyrinthOfLore_WorldMap_MultiBitmapTileMapLoaderTest, load_and_process__on_door_tiles__will_change_the_tile_type_to_2)
+
+TEST(LabyrinthOfLore_WorldMap_MultiBitmapTileMapLoaderTest,
+   load_and_process__on_door_tiles__will_change_the_tile_type_to_2)
 {
    al_init();
    al_init_image_addon();
@@ -121,7 +138,8 @@ TEST(LabyrinthOfLore_WorldMap_MultiBitmapTileMapLoaderTest, load_and_process__on
 
    LabyrinthOfLore::WorldMap::TileMap tile_map;
    tile_map.resize(50, 67, LabyrinthOfLore::WorldMap::Tile(1, door_height));
-   ALLEGRO_BITMAP *source_bitmap = al_load_bitmap("/Users/markoates/Repos/LabyrinthOfLore/bin/data/bitmaps/test_bitmap_tile_map_loader-multi.png");
+   //ALLEGRO_BITMAP *source_bitmap = al_load_bitmap("/Users/markoates/Repos/LabyrinthOfLore/bin/data/bitmaps/test_bitmap_tile_map_loader-multi.png");
+   ALLEGRO_BITMAP *source_bitmap = al_load_bitmap(TEST_FIXTURE_FILENAME);
    ASSERT_NE(nullptr, source_bitmap);
 
    LabyrinthOfLore::WorldMap::MultiBitmapTileMapLoader bitmap_tile_map_loader(&tile_map, source_bitmap);
@@ -135,7 +153,9 @@ TEST(LabyrinthOfLore_WorldMap_MultiBitmapTileMapLoaderTest, load_and_process__on
    SUCCEED();
 }
 
-TEST(LabyrinthOfLore_WorldMap_MultiBitmapTileMapLoaderTest, load_and_process__on_water_tiles__will_change_the_tile_type_to_3)
+
+TEST(LabyrinthOfLore_WorldMap_MultiBitmapTileMapLoaderTest,
+   load_and_process__on_water_tiles__will_change_the_tile_type_to_3)
 {
    al_init();
    al_init_image_addon();
@@ -146,7 +166,8 @@ TEST(LabyrinthOfLore_WorldMap_MultiBitmapTileMapLoaderTest, load_and_process__on
 
    LabyrinthOfLore::WorldMap::TileMap tile_map;
    tile_map.resize(50, 67, LabyrinthOfLore::WorldMap::Tile(1, water_height));
-   ALLEGRO_BITMAP *source_bitmap = al_load_bitmap("/Users/markoates/Repos/LabyrinthOfLore/bin/data/bitmaps/test_bitmap_tile_map_loader-multi.png");
+   //ALLEGRO_BITMAP *source_bitmap = al_load_bitmap("/Users/markoates/Repos/LabyrinthOfLore/bin/data/bitmaps/test_bitmap_tile_map_loader-multi.png");
+   ALLEGRO_BITMAP *source_bitmap = al_load_bitmap(TEST_FIXTURE_FILENAME);
    ASSERT_NE(nullptr, source_bitmap);
 
    LabyrinthOfLore::WorldMap::MultiBitmapTileMapLoader bitmap_tile_map_loader(&tile_map, source_bitmap);
@@ -160,7 +181,9 @@ TEST(LabyrinthOfLore_WorldMap_MultiBitmapTileMapLoaderTest, load_and_process__on
    SUCCEED();
 }
 
-TEST(LabyrinthOfLore_WorldMap_MultiBitmapTileMapLoaderTest, load_and_process__on_water_tiles__will_change_the_tile_type_to_4)
+
+TEST(LabyrinthOfLore_WorldMap_MultiBitmapTileMapLoaderTest,
+   load_and_process__on_water_tiles__will_change_the_tile_type_to_4)
 {
    al_init();
    al_init_image_addon();
@@ -171,7 +194,8 @@ TEST(LabyrinthOfLore_WorldMap_MultiBitmapTileMapLoaderTest, load_and_process__on
 
    LabyrinthOfLore::WorldMap::TileMap tile_map;
    tile_map.resize(50, 67, LabyrinthOfLore::WorldMap::Tile(1, water_height));
-   ALLEGRO_BITMAP *source_bitmap = al_load_bitmap("/Users/markoates/Repos/LabyrinthOfLore/bin/data/bitmaps/test_bitmap_tile_map_loader-multi.png");
+   //ALLEGRO_BITMAP *source_bitmap = al_load_bitmap("/Users/markoates/Repos/LabyrinthOfLore/bin/data/bitmaps/test_bitmap_tile_map_loader-multi.png");
+   ALLEGRO_BITMAP *source_bitmap = al_load_bitmap(TEST_FIXTURE_FILENAME);
    ASSERT_NE(nullptr, source_bitmap);
 
    LabyrinthOfLore::WorldMap::MultiBitmapTileMapLoader bitmap_tile_map_loader(&tile_map, source_bitmap);
@@ -184,4 +208,5 @@ TEST(LabyrinthOfLore_WorldMap_MultiBitmapTileMapLoaderTest, load_and_process__on
    al_uninstall_system();
    SUCCEED();
 }
+
 
