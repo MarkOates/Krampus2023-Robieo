@@ -319,23 +319,23 @@ Pipeline::Gameplay::Level Screen::build_level(std::string level_identifier)
    return level;
 }
 
-void Screen::load_tile_map()
+void Screen::load_tile_map(std::string level_identifier)
 {
    if (current_level_tile_map) delete current_level_tile_map;
    //current_level_tile_map = return load_tester_tile_map();
-   current_level_tile_map = load_tile_map_from_bitmap();
+   current_level_tile_map = load_tile_map_from_bitmap(level_identifier);
    current_level_tile_map_origin_offset = {22, 25};
 
    return;
 }
 
-LabyrinthOfLore::WorldMap::TileMap* Screen::load_tile_map_from_bitmap()
+LabyrinthOfLore::WorldMap::TileMap* Screen::load_tile_map_from_bitmap(std::string level_identifier)
 {
    std::string tile_map_bitmap_folder_location = bitmap_bin->get_path();
 
    // Create some level data
 
-   Pipeline::Gameplay::Level level = build_level();
+   Pipeline::Gameplay::Level level = build_level(level_identifier);
 
 
    // Load the level
@@ -453,16 +453,20 @@ void Screen::load_level_by_identifier(std::string level_identifier)
    // Find the Level record matching this identifier
    //
 
-   //Pipeline::Gameplay::Level level = build_level(level_identifier);
+   Pipeline::Gameplay::Level level = build_level(level_identifier);
    //level.set_tile_map_tile_elevation_bitmap_filename("the_cave.png");
    //level.set_tile_map_tile_type_bitmap_filename("the_cave-type.png");
    //level.set_tile_map_ceiling_height(10.0f);
    //level.set_tile_map_groundlevel_height(0.0f);
    //level.set_tile_map_floor_height(-2.0f);
    //level.set_tile_map_origin_offset({22, 25});
-   std::string world_model_name = level_identifier; //"world-1-01";
-   std::string world_model_obj_name = world_model_name + ".obj";
-   std::string world_model_texture_name = world_model_name + ".png";
+
+
+
+
+   //std::string world_model_name = level_identifier; //"world-1-01";
+   std::string world_model_obj_name = level.get_world_model_obj_filename(); //world_model_name + ".obj";
+   std::string world_model_texture_name = level.get_world_model_texture_filename(); //world_model_name + ".png";
 
 
 
@@ -814,7 +818,7 @@ void Screen::load_level_by_identifier(std::string level_identifier)
    // Build the tile map (for physics)
    //
 
-   load_tile_map();
+   load_tile_map(level_identifier);
 
    /*
    LabyrinthOfLore::WorldMap::TileMap *result_tile_map = new LabyrinthOfLore::WorldMap::TileMap();

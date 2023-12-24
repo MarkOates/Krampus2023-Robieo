@@ -1323,7 +1323,11 @@ table td
   <td class="property">std::string</td>
 </tr>
 <tr>
-  <td class="property">obj_model_filename</td>
+  <td class="property">world_model_obj_filename</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">world_model_texture_filename</td>
   <td class="property">std::string</td>
 </tr>
 <tr>
@@ -1590,10 +1594,10 @@ table td
   <td class="method">build_level(std::string level_identifier=&quot;[unset-level_identifier]&quot;)</td>
 </tr>
 <tr>
-  <td class="method">load_tile_map()</td>
+  <td class="method">load_tile_map(std::string level_identifier=&quot;[unset-level_identifier]&quot;)</td>
 </tr>
 <tr>
-  <td class="method">load_tile_map_from_bitmap()</td>
+  <td class="method">load_tile_map_from_bitmap(std::string level_identifier=&quot;[unset-level_identifier]&quot;)</td>
 </tr>
 <tr>
   <td class="method">load_tester_tile_map()</td>
