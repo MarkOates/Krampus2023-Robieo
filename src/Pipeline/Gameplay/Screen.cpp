@@ -55,6 +55,7 @@ Screen::Screen(AllegroFlare::Frameworks::Full* framework, AllegroFlare::EventEmi
    , current_level(nullptr)
    , current_level_tile_map(nullptr)
    , current_level_tile_map_origin_offset({})
+   , current_level_tile_map_tile_alignment_offset({ 0.5, -0.5 })
    , current_level_song_to_perform_identifier("")
    , current_level_song_to_perform_duration_sec(0.0f)
    , currently_performing_song_identifier("")
@@ -1273,6 +1274,9 @@ void Screen::update()
       // Reposition player_character on map; Use a very fancy swapping of y-with-z variables, the stepper
       // operate on these coordinates swapped
 
+      current_level_tile_map_tile_alignment_offset.x;
+
+
       AllegroFlare::Vec3D vswapper;
       AllegroFlare::Vec3D pswapper;
       player_entity_as->get_velocity_ref().position.x = x_prime;
@@ -1280,8 +1284,8 @@ void Screen::update()
 
       player_entity_as->get_placement_ref().position.x += current_level_tile_map_origin_offset.x;
       player_entity_as->get_placement_ref().position.z += current_level_tile_map_origin_offset.y;
-      player_entity_as->get_placement_ref().position.x += 0.5f; // tile alignment offset
-      player_entity_as->get_placement_ref().position.z -= 0.5f; // tile alignment offset
+      player_entity_as->get_placement_ref().position.x += current_level_tile_map_tile_alignment_offset.x;
+      player_entity_as->get_placement_ref().position.z += current_level_tile_map_tile_alignment_offset.y;
       vswapper = player_entity_as->get_velocity_ref().position;
       player_entity_as->get_velocity_ref().position.z = vswapper.y;
       player_entity_as->get_velocity_ref().position.y = vswapper.z;
@@ -1302,8 +1306,8 @@ void Screen::update()
       player_entity_as->get_placement_ref().position.y = pswapper.z;
       player_entity_as->get_placement_ref().position.x -= current_level_tile_map_origin_offset.x;
       player_entity_as->get_placement_ref().position.z -= current_level_tile_map_origin_offset.y;
-      player_entity_as->get_placement_ref().position.x -= 0.5f; // tile alignment offset
-      player_entity_as->get_placement_ref().position.z += 0.5f; // tile alignment offset
+      player_entity_as->get_placement_ref().position.x -= current_level_tile_map_tile_alignment_offset.x;
+      player_entity_as->get_placement_ref().position.z -= current_level_tile_map_tile_alignment_offset.y;
 
 
 
@@ -1523,7 +1527,7 @@ void Screen::render()
    {
       int tile_size = 32;
       AllegroFlare::Vec3D player_position = get_player_controlled_entity_as()->get_placement_ref().position;
-      AllegroFlare::Vec2D tile_alignment_offset = { 0.5, -0.5 };
+      AllegroFlare::Vec2D tile_alignment_offset = current_level_tile_map_tile_alignment_offset;
       float player_map_position_x =
          (player_position.x + current_level_tile_map_origin_offset.x + tile_alignment_offset.x) * tile_size;
       float player_map_position_y =
