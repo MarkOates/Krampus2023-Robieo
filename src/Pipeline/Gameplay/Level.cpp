@@ -22,6 +22,8 @@ Level::Level()
    , tile_map_ceiling_height(10.0f)
    , tile_map_groundlevel_height(0.0f)
    , tile_map_floor_height(-2.0f)
+   , song_to_perform_identifier("[unset-song_to_perform_identifier]")
+   , song_to_perform_duration(6.0f)
 {
 }
 
@@ -85,6 +87,18 @@ void Level::set_tile_map_floor_height(float tile_map_floor_height)
 }
 
 
+void Level::set_song_to_perform_identifier(std::string song_to_perform_identifier)
+{
+   this->song_to_perform_identifier = song_to_perform_identifier;
+}
+
+
+void Level::set_song_to_perform_duration(float song_to_perform_duration)
+{
+   this->song_to_perform_duration = song_to_perform_duration;
+}
+
+
 std::string Level::get_title() const
 {
    return title;
@@ -136,6 +150,18 @@ float Level::get_tile_map_groundlevel_height() const
 float Level::get_tile_map_floor_height() const
 {
    return tile_map_floor_height;
+}
+
+
+std::string Level::get_song_to_perform_identifier() const
+{
+   return song_to_perform_identifier;
+}
+
+
+float Level::get_song_to_perform_duration() const
+{
+   return song_to_perform_duration;
 }
 
 
