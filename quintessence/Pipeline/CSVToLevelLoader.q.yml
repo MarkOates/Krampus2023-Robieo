@@ -11,7 +11,7 @@ properties:
 
   - name: csv_full_path
     type: std::string
-    init_with: '"/Users/markoates/Repos/SurviveTheCity/bin/data/levels/universe.csv"'
+    init_with: '"[unset-csv_full_path]"'
     getter: true
     setter: true
 

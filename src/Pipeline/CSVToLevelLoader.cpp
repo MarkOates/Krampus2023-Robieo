@@ -15,7 +15,7 @@ namespace Pipeline
 
 CSVToLevelLoader::CSVToLevelLoader()
    : AllegroFlare::CSVParser()
-   , csv_full_path("/Users/markoates/Repos/SurviveTheCity/bin/data/levels/universe.csv")
+   , csv_full_path("[unset-csv_full_path]")
    , levels({})
    , loaded(false)
 {
