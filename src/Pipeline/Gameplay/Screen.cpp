@@ -308,8 +308,10 @@ Pipeline::Gameplay::Level Screen::build_level(std::string level_identifier)
    level.set_world_model_texture_filename(world_model_texture_name);
 
    // The collision map
-   level.set_tile_map_tile_elevation_bitmap_filename("the_cave.png");
-   level.set_tile_map_tile_type_bitmap_filename("the_cave-type.png");
+   level.set_tile_map_tile_elevation_bitmap_filename("");
+   level.set_tile_map_tile_type_bitmap_filename("");
+   //level.set_tile_map_tile_elevation_bitmap_filename("the_cave.png");
+   //level.set_tile_map_tile_type_bitmap_filename("the_cave-type.png");
    level.set_tile_map_ceiling_height(10.0f);
    level.set_tile_map_groundlevel_height(0.0f);
    level.set_tile_map_floor_height(-2.0f);
