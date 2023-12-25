@@ -1156,6 +1156,12 @@ table td
   <td class="method">level_exists(std::string level_identifier=&quot;[unset-level_identifier]&quot;)</td>
 </tr>
 <tr>
+  <td class="method">toi(std::string value=&quot;[unset-value]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">tof(std::string value=&quot;[unset-value]&quot;)</td>
+</tr>
+<tr>
   <td class="method">find_level(std::string level_identifier=&quot;[unset-level_identifier]&quot;)</td>
 </tr>
 <tr>
@@ -1181,6 +1187,12 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Logger&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Logger.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::atoi&quot;, &quot;headers&quot;=&gt;[&quot;cstdlib&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::stof&quot;, &quot;headers&quot;=&gt;[&quot;string&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -2471,6 +2483,12 @@ table td
     "Pipeline/CSVToLevelLoader",
     "Pipeline/GameConfigurations/Main",
     "Pipeline/Gameplay/Screen"
+  ],
+  "std/atoi": [
+    "Pipeline/CSVToLevelLoader"
+  ],
+  "std/stof": [
+    "Pipeline/CSVToLevelLoader"
   ],
   "AllegroFlare/DialogTree/NodeBank": [
     "Pipeline/DialogNodeBankFactory",

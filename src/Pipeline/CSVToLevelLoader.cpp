@@ -5,9 +5,11 @@
 #include <AllegroFlare/CSVParser.hpp>
 #include <AllegroFlare/Logger.hpp>
 #include <AllegroFlare/UsefulPHP.hpp>
+#include <cstdlib>
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
+#include <string>
 
 
 namespace Pipeline
@@ -64,6 +66,20 @@ bool CSVToLevelLoader::level_exists(std::string level_identifier)
    return (levels.find(level_identifier) != levels.end());
 }
 
+int CSVToLevelLoader::toi(std::string value)
+{
+   if (value.empty()) return 0;
+   if (value[0] == '+') value.erase(0, 1); // Pop front on the '+' sign
+   return std::atoi(value.c_str());
+}
+
+float CSVToLevelLoader::tof(std::string value)
+{
+   if (value.empty()) return 0;
+   if (value[0] == '+') value.erase(0, 1); // Pop front on the '+' sign
+   return std::stof(value.c_str());
+}
+
 Pipeline::Gameplay::Level CSVToLevelLoader::find_level(std::string level_identifier)
 {
    if (!(loaded))
@@ -87,10 +103,21 @@ std::string CSVToLevelLoader::validate_key_and_return(std::map<std::string, std:
 {
    if (extracted_row->count(key) == 0)
    {
+      std::vector<std::string> valid_keys;
+      for (const auto& pair : *extracted_row) valid_keys.push_back(pair.first);
+
+      std::stringstream ss;
+      ss << "[";
+      for (auto &valid_key : valid_keys)
+      {
+         ss << "\"" << valid_key << "\", ";
+      }
+      ss << "]";
+
       AllegroFlare::Logger::throw_error(
-        "Pipeline::CSVToLevelLoader::validate_key_and_return",
-        "key \"" + key+ "\" does not exist."
-     );
+         "Pipeline::CSVToLevelLoader::validate_key_and_return",
+         "key \"" + key + "\" does not exist. The following keys are present: " + ss.str() + "."
+      );
    }
    return extracted_row->operator[](key);
 }
@@ -110,7 +137,7 @@ void CSVToLevelLoader::load()
    AllegroFlare::CSVParser csv_parser;
    csv_parser.set_raw_csv_content(content);
    csv_parser.parse();
-   csv_parser.assemble_column_headers(2);
+   csv_parser.assemble_column_headers(3);
 
    // Load the parsed data to Level objects
    int first_physical_row = csv_parser.get_num_header_rows();
@@ -119,22 +146,25 @@ void CSVToLevelLoader::load()
       // Pull out the variables
       std::string identifier = validate_key_and_return(&extracted_row, "identifier");
       std::string title = validate_key_and_return(&extracted_row, "title");
-      //std::string world_model_obj =
-         //validate_key_and_return(&extracted_row, "world__model_obj_filename");
-      //std::string world_texture_filename =
-         //validate_key_and_return(&extracted_row, "world__model_texture_filename");
+      std::string world_model_obj_filename = validate_key_and_return(&extracted_row, "world__model_obj_filename");
+      std::string world_model_texture_filename = validate_key_and_return(&extracted_row, "world__model_texture_filename");
+      //int tile_map_origin_offset_x = toi(validate_key_and_return(&extracted_row, "tile_map__origin_offset__x"));
+      //int tile_map_origin_offset_y = toi(validate_key_and_return(&extracted_row, "tile_map__origin_offset__y"));
+      //float tile_map_ceiling_height = tof(validate_key_and_return(&extracted_row, "tile_map__origin_offset__ceiling_height"));
 
       // Pass along the variables to the result object
       Pipeline::Gameplay::Level level;
       level.set_title(title);
-      //level.set_world_model_obj_filename();
-      //level.set_world_model_texture_filename();
-      //level.set_tile_map_tile_elevation_bitmap_filename();
-      //level.set_tile_map_tile_type_bitmap_filename();
-      //level.set_tile_map_origin_offset();
+      level.set_world_model_obj_filename(world_model_obj_filename);
+      level.set_world_model_texture_filename(world_model_texture_filename);
+      //level.set_tile_map_tile_elevation_bitmap_filename(tile_map_tile_elevation_bitmap_filename);
+      //level.set_tile_map_tile_type_bitmap_filename("tile_map__tile_type_bitmap_filename");
+      //level.set_tile_map_origin_offset({ (float)tile_map_origin_offset_x, (float)tile_map_origin_offset_y });
+      //level.set_tile_map_ceiling_height(tile_map_ceiling_height);
       //level.set_tile_map_ceiling_height();
       //level.set_tile_map_groundlevel_height();
       //level.set_tile_map_floor_height();
+
       //level.set_song_to_perform_identifier();
       //level.set_song_to_perform_duration_sec();
 

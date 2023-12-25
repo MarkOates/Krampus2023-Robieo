@@ -234,6 +234,12 @@
     "Pipeline/GameConfigurations/Main",
     "Pipeline/Gameplay/Screen"
   ],
+  "std/atoi": [
+    "Pipeline/CSVToLevelLoader"
+  ],
+  "std/stof": [
+    "Pipeline/CSVToLevelLoader"
+  ],
   "AllegroFlare/DialogTree/NodeBank": [
     "Pipeline/DialogNodeBankFactory",
     "Pipeline/GameConfigurations/Main",
