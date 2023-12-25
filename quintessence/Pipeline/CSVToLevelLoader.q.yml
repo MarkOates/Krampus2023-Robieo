@@ -14,12 +14,51 @@ properties:
     init_with: '"/Users/markoates/Repos/SurviveTheCity/bin/data/levels/universe.csv"'
     getter: true
     setter: true
+
+  - name: levels
+    type: std::map<std::string, Pipeline::Gameplay::Level>
+    init_with: '{}'
+    getter: explicit
+
+  - name: loaded
+    type: bool
+    init_with: false
     
 
 methods:
 
 
+  - name: get_levels
+    type: std::map<std::string, Pipeline::Gameplay::Level>
+    guards: [ loaded ]
+    body: |
+      return levels;
+
+
+  - name: level_exists
+    type: bool
+    parameters:
+      - name: level_identifier
+        type: std::string
+        default_argument: '"[unset-level_identifier]"'
+    guards: [ loaded ]
+    body: |
+      return (levels.find(level_identifier) != levels.end());
+
+
+  - name: get_copy_of_level
+    type: Pipeline::Gameplay::Level
+    parameters:
+      - name: level_identifier
+        type: std::string
+        default_argument: '"[unset-level_identifier]"'
+    guards: [ loaded, level_exists(level_identifier) ]
+    body: |
+      return levels[level_identifier];
+
+
   - name: load
+    guards: [ (!loaded) ]
     body: |
       //std::string HARD_CODED_DB_FILE = "/Users/markoates/Repos/SurviveTheCity/bin/data/levels/universe.csv";
       //std::filesystem::exists(HARD_CODED_DB_FILE);
@@ -29,6 +68,7 @@ methods:
       csv_parser.set_raw_csv_content(content);
       csv_parser.parse();
       csv_parser.assemble_column_headers(2);
+      loaded = true;
       return;
     body_dependency_symbols:
       - AllegroFlare::CSVParser
@@ -44,5 +84,7 @@ dependencies:
     headers: [ AllegroFlare/UsefulPHP.hpp ]
   - symbol: SurviveTheCity::CSVParser
     headers: [ SurviveTheCity/CSVParser.hpp ]
+  - symbol: Pipeline::Gameplay::Level
+    headers: [ Pipeline/Gameplay/Level.hpp ]
 
 

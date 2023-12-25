@@ -61,6 +61,7 @@ table td
   <li><a href="#quintessence/LabyrinthOfLore/WorldMap/MultiBitmapFilenameToWorldBuilder.q.yml">quintessence/LabyrinthOfLore/WorldMap/MultiBitmapFilenameToWorldBuilder.q.yml</a></li>
   <li><a href="#quintessence/LabyrinthOfLore/WorldMap/MultiBitmapTileMapLoader.q.yml">quintessence/LabyrinthOfLore/WorldMap/MultiBitmapTileMapLoader.q.yml</a></li>
   <li><a href="#quintessence/LabyrinthOfLore/WorldMap/Tile.q.yml">quintessence/LabyrinthOfLore/WorldMap/Tile.q.yml</a></li>
+  <li><a href="#quintessence/Pipeline/CSVToLevelLoader.q.yml">quintessence/Pipeline/CSVToLevelLoader.q.yml</a></li>
   <li><a href="#quintessence/Pipeline/DialogNodeBankFactory.q.yml">quintessence/Pipeline/DialogNodeBankFactory.q.yml</a></li>
   <li><a href="#quintessence/Pipeline/GameConfigurations/Main.q.yml">quintessence/Pipeline/GameConfigurations/Main.q.yml</a></li>
   <li><a href="#quintessence/Pipeline/GameProgressAndStateInfo.q.yml">quintessence/Pipeline/GameProgressAndStateInfo.q.yml</a></li>
@@ -1126,6 +1127,57 @@ table td
     </table>
 </div>    <h3>Dependencies</h3>
 <p>This class contains no dependencies</p>  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/Pipeline/CSVToLevelLoader.q.yml">quintessence/Pipeline/CSVToLevelLoader.q.yml</h3>
+    <h4>Overview<h4>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">csv_full_path</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">levels</td>
+  <td class="property">std::map&lt;std::string, Pipeline::Gameplay::Level&gt;</td>
+</tr>
+<tr>
+  <td class="property">loaded</td>
+  <td class="property">bool</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">get_levels()</td>
+</tr>
+<tr>
+  <td class="method">level_exists(std::string level_identifier=&quot;[unset-level_identifier]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">get_copy_of_level(std::string level_identifier=&quot;[unset-level_identifier]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">load()</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::CSVParser&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/CSVParser.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::UsefulPHP&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/UsefulPHP.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;SurviveTheCity::CSVParser&quot;, &quot;headers&quot;=&gt;[&quot;SurviveTheCity/CSVParser.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Pipeline::Gameplay::Level&quot;, &quot;headers&quot;=&gt;[&quot;Pipeline/Gameplay/Level.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
 </ul>
 <ul>
   <div class="component">
@@ -2333,6 +2385,7 @@ table td
   ],
   "AllegroFlare/UsefulPHP": [
     "AllegroFlare/Shaders/ShadowMapping",
+    "Pipeline/CSVToLevelLoader",
     "Pipeline/Runner"
   ],
   "LabyrinthOfLore/WorldMap/tile_face_t": [
@@ -2401,6 +2454,17 @@ table td
   "LabyrinthOfLore/WorldMap/tile_type_t": [
     "LabyrinthOfLore/WorldMap/MultiBitmapTileMapLoader"
   ],
+  "AllegroFlare/CSVParser": [
+    "Pipeline/CSVToLevelLoader"
+  ],
+  "SurviveTheCity/CSVParser": [
+    "Pipeline/CSVToLevelLoader"
+  ],
+  "Pipeline/Gameplay/Level": [
+    "Pipeline/CSVToLevelLoader",
+    "Pipeline/GameConfigurations/Main",
+    "Pipeline/Gameplay/Screen"
+  ],
   "AllegroFlare/DialogTree/NodeBank": [
     "Pipeline/DialogNodeBankFactory",
     "Pipeline/GameConfigurations/Main",
@@ -2442,10 +2506,6 @@ table td
   ],
   "AllegroFlare/DialogTree/Nodes/Wait": [
     "Pipeline/GameConfigurations/Main"
-  ],
-  "Pipeline/Gameplay/Level": [
-    "Pipeline/GameConfigurations/Main",
-    "Pipeline/Gameplay/Screen"
   ],
   "std/multiset": [
     "Pipeline/GameProgressAndStateInfo"

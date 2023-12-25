@@ -153,6 +153,7 @@
   ],
   "AllegroFlare/UsefulPHP": [
     "AllegroFlare/Shaders/ShadowMapping",
+    "Pipeline/CSVToLevelLoader",
     "Pipeline/Runner"
   ],
   "LabyrinthOfLore/WorldMap/tile_face_t": [
@@ -221,6 +222,17 @@
   "LabyrinthOfLore/WorldMap/tile_type_t": [
     "LabyrinthOfLore/WorldMap/MultiBitmapTileMapLoader"
   ],
+  "AllegroFlare/CSVParser": [
+    "Pipeline/CSVToLevelLoader"
+  ],
+  "SurviveTheCity/CSVParser": [
+    "Pipeline/CSVToLevelLoader"
+  ],
+  "Pipeline/Gameplay/Level": [
+    "Pipeline/CSVToLevelLoader",
+    "Pipeline/GameConfigurations/Main",
+    "Pipeline/Gameplay/Screen"
+  ],
   "AllegroFlare/DialogTree/NodeBank": [
     "Pipeline/DialogNodeBankFactory",
     "Pipeline/GameConfigurations/Main",
@@ -262,10 +274,6 @@
   ],
   "AllegroFlare/DialogTree/Nodes/Wait": [
     "Pipeline/GameConfigurations/Main"
-  ],
-  "Pipeline/Gameplay/Level": [
-    "Pipeline/GameConfigurations/Main",
-    "Pipeline/Gameplay/Screen"
   ],
   "std/multiset": [
     "Pipeline/GameProgressAndStateInfo"
