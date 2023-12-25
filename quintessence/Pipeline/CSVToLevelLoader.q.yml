@@ -1,0 +1,48 @@
+parent_classes:
+
+
+  - class: AllegroFlare::CSVParser
+    scope: public
+    init_with: ''
+
+
+properties:
+
+
+  - name: csv_full_path
+    type: std::string
+    init_with: '"/Users/markoates/Repos/SurviveTheCity/bin/data/levels/universe.csv"'
+    getter: true
+    setter: true
+    
+
+methods:
+
+
+  - name: load
+    body: |
+      //std::string HARD_CODED_DB_FILE = "/Users/markoates/Repos/SurviveTheCity/bin/data/levels/universe.csv";
+      //std::filesystem::exists(HARD_CODED_DB_FILE);
+      std::string content = AllegroFlare::php::file_get_contents(csv_full_path);
+      if (content.empty()) throw std::runtime_error("empty file content");
+      AllegroFlare::CSVParser csv_parser;
+      csv_parser.set_raw_csv_content(content);
+      csv_parser.parse();
+      csv_parser.assemble_column_headers(2);
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::CSVParser
+      - AllegroFlare::UsefulPHP
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::CSVParser
+    headers: [ AllegroFlare/CSVParser.hpp ]
+  - symbol: AllegroFlare::UsefulPHP
+    headers: [ AllegroFlare/UsefulPHP.hpp ]
+  - symbol: SurviveTheCity::CSVParser
+    headers: [ SurviveTheCity/CSVParser.hpp ]
+
+
