@@ -71,7 +71,7 @@ methods:
       if (extracted_row->count(key) == 0)
       {
          AllegroFlare::Logger::throw_error(
-           "SurviveTheCity::DeckFactory::validate_key_and_return",
+           "Pipeline::CSVToLevelLoader::validate_key_and_return",
            "key \"" + key+ "\" does not exist."
         );
       }
@@ -97,18 +97,28 @@ methods:
       {
          // Pull out the variables
          std::string identifier =
-            validate_key_and_return(&extracted_row, "level_identifier");
-         std::string world_model_obj =
-            validate_key_and_return(&extracted_row, "world__model_obj_filename");
-         std::string world_texture_filename =
-            validate_key_and_return(&extracted_row, "world__model_texture_filename");
+            validate_key_and_return(&extracted_row, "identifier");
+         //std::string world_model_obj =
+            //validate_key_and_return(&extracted_row, "world__model_obj_filename");
+         //std::string world_texture_filename =
+            //validate_key_and_return(&extracted_row, "world__model_texture_filename");
 
          // Pass along the variables to the result object
          Pipeline::Gameplay::Level level;
-         //level.set
+         //level.set_title();
+         //level.set_world_model_obj_filename();
+         //level.set_world_model_texture_filename();
+         //level.set_tile_map_tile_elevation_bitmap_filename();
+         //level.set_tile_map_tile_type_bitmap_filename();
+         //level.set_tile_map_origin_offset();
+         //level.set_tile_map_ceiling_height();
+         //level.set_tile_map_groundlevel_height();
+         //level.set_tile_map_floor_height();
+         //level.set_song_to_perform_identifier();
+         //level.set_song_to_perform_duration_sec();
+
          levels.insert({ identifier, level });
       }
-
 
       loaded = true;
       return;
