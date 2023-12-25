@@ -63,6 +63,12 @@ properties:
     getter: true
     setter: true
 
+  - name: background_music_identifier
+    type: std::string
+    init_with: '"[unset-background_music_identifier]"'
+    getter: true
+    setter: true
+
   - name: song_to_perform_identifier
     type: std::string
     init_with: '"[unset-song_to_perform_identifier]"'

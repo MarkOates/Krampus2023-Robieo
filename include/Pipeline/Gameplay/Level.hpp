@@ -25,6 +25,7 @@ namespace Pipeline
          float tile_map_ceiling_height;
          float tile_map_groundlevel_height;
          float tile_map_floor_height;
+         std::string background_music_identifier;
          std::string song_to_perform_identifier;
          float song_to_perform_duration_sec;
 
@@ -44,6 +45,7 @@ namespace Pipeline
          void set_tile_map_ceiling_height(float tile_map_ceiling_height);
          void set_tile_map_groundlevel_height(float tile_map_groundlevel_height);
          void set_tile_map_floor_height(float tile_map_floor_height);
+         void set_background_music_identifier(std::string background_music_identifier);
          void set_song_to_perform_identifier(std::string song_to_perform_identifier);
          void set_song_to_perform_duration_sec(float song_to_perform_duration_sec);
          std::string get_title() const;
@@ -55,6 +57,7 @@ namespace Pipeline
          float get_tile_map_ceiling_height() const;
          float get_tile_map_groundlevel_height() const;
          float get_tile_map_floor_height() const;
+         std::string get_background_music_identifier() const;
          std::string get_song_to_perform_identifier() const;
          float get_song_to_perform_duration_sec() const;
       };

@@ -544,6 +544,7 @@ void Screen::load_level_by_identifier(std::string level_identifier)
    std::string world_model_texture_name = level.get_world_model_texture_filename(); //world_model_name + ".png";
 
 
+   std::string background_music_identifier = level.get_background_music_identifier();
 
 
    //
@@ -956,7 +957,7 @@ void Screen::load_level_by_identifier(std::string level_identifier)
     //
     // Play the music!
 
-    event_emitter->emit_play_music_track_event("farm_level_music");
+    event_emitter->emit_play_music_track_event(background_music_identifier);
 
 
 

@@ -22,6 +22,7 @@ Level::Level()
    , tile_map_ceiling_height(10.0f)
    , tile_map_groundlevel_height(0.0f)
    , tile_map_floor_height(-2.0f)
+   , background_music_identifier("[unset-background_music_identifier]")
    , song_to_perform_identifier("[unset-song_to_perform_identifier]")
    , song_to_perform_duration_sec(6.0f)
 {
@@ -84,6 +85,12 @@ void Level::set_tile_map_groundlevel_height(float tile_map_groundlevel_height)
 void Level::set_tile_map_floor_height(float tile_map_floor_height)
 {
    this->tile_map_floor_height = tile_map_floor_height;
+}
+
+
+void Level::set_background_music_identifier(std::string background_music_identifier)
+{
+   this->background_music_identifier = background_music_identifier;
 }
 
 
@@ -150,6 +157,12 @@ float Level::get_tile_map_groundlevel_height() const
 float Level::get_tile_map_floor_height() const
 {
    return tile_map_floor_height;
+}
+
+
+std::string Level::get_background_music_identifier() const
+{
+   return background_music_identifier;
 }
 
 
