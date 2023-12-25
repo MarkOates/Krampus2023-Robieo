@@ -39,7 +39,7 @@ TEST(Pipeline_CSVToLevelLoaderTest, load__when_loading_from_the_source_data__wil
    Pipeline::Gameplay::Level actual_level = loader.find_level("level-4");
 
    EXPECT_EQ("World 4", actual_level.get_title());
-   //EXPECT_EQ("World 4", actual_level.get_title());
+   EXPECT_EQ("level-4-09.obj", actual_level.get_world_model_obj_filename());
 }
 
 

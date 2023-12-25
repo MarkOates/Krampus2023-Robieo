@@ -140,7 +140,8 @@ methods:
          std::string identifier = validate_key_and_return(&extracted_row, "identifier");
          std::string title = validate_key_and_return(&extracted_row, "title");
          std::string world_model_obj_filename = validate_key_and_return(&extracted_row, "world__model_obj_filename");
-         std::string world_model_texture_filename = validate_key_and_return(&extracted_row, "world__model_texture_filename");
+         std::string world_model_texture_filename =
+            validate_key_and_return(&extracted_row, "world__model_texture_filename");
          //int tile_map_origin_offset_x = toi(validate_key_and_return(&extracted_row, "tile_map__origin_offset__x"));
          //int tile_map_origin_offset_y = toi(validate_key_and_return(&extracted_row, "tile_map__origin_offset__y"));
          //float tile_map_ceiling_height = tof(validate_key_and_return(&extracted_row, "tile_map__origin_offset__ceiling_height"));
