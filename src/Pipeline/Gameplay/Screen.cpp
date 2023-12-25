@@ -888,6 +888,14 @@ void Screen::load_level_by_identifier(std::string level_identifier)
    set_state(STATE_PLAYING_GAME);
 
 
+
+    //
+    // Play the music!
+
+    event_emitter->emit_play_music_track_event("farm_level_music");
+
+
+
    return;
 }
 

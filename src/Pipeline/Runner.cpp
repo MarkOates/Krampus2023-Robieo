@@ -452,6 +452,7 @@ void Runner::setup_sound_effects_and_music(AllegroFlare::AudioController* audio_
    audio_controller.set_and_load_music_track_elements({
       //std::map<std::string, AllegroFlare::AudioRepositoryElement>{
      { "robot-holly_jolly", { "robio-sound-chip--have-a-holly-jolly--01.ogg", false, __IGNORE } },
+     { "farm_level_music", { "farm_level-01.ogg", true, __IGNORE } },
       //}
    });
 
