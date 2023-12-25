@@ -441,48 +441,60 @@ methods:
     type: LabyrinthOfLore::WorldMap::TileMap*
     body: |
       std::string tile_map_bitmap_folder_location = bitmap_bin->get_path();
+      LabyrinthOfLore::WorldMap::TileMap *result = new LabyrinthOfLore::WorldMap::TileMap();
 
       // Create some level data
 
       Pipeline::Gameplay::Level level = build_level(level_identifier);
+      bool has_bitmap_files_for_loading = !(level.get_tile_map_tile_elevation_bitmap_filename().empty()
+                                        && level.get_tile_map_tile_type_bitmap_filename().empty());
 
-
-      // Load the level
-
-      std::string elevation_bitmap_filename = tile_map_bitmap_folder_location
-                                            + level.get_tile_map_tile_elevation_bitmap_filename();
-      std::string tile_type_bitmap_filename = tile_map_bitmap_folder_location
-                                            + level.get_tile_map_tile_type_bitmap_filename();
-      float ceiling_height = level.get_tile_map_ceiling_height();
-      float ground_height = level.get_tile_map_groundlevel_height();
-      float floor_height = level.get_tile_map_floor_height();
-
-      if (!std::filesystem::exists(elevation_bitmap_filename))
+      if (has_bitmap_files_for_loading)
       {
-         AllegroFlare::Logger::throw_error(
-            "Pipeline::Gameplay::Screen::load_tile_map_from_bitmap",
-            "The tile_elevation bitmap \"" + elevation_bitmap_filename + "\" does not exist."
+         // Load the level (with bitmap files)
+
+         std::string elevation_bitmap_filename = tile_map_bitmap_folder_location
+                                               + level.get_tile_map_tile_elevation_bitmap_filename();
+         std::string tile_type_bitmap_filename = tile_map_bitmap_folder_location
+                                               + level.get_tile_map_tile_type_bitmap_filename();
+         float ceiling_height = level.get_tile_map_ceiling_height();
+         float ground_height = level.get_tile_map_groundlevel_height();
+         float floor_height = level.get_tile_map_floor_height();
+
+         if (!std::filesystem::exists(elevation_bitmap_filename))
+         {
+            AllegroFlare::Logger::throw_error(
+               "Pipeline::Gameplay::Screen::load_tile_map_from_bitmap",
+               "The tile_elevation bitmap \"" + elevation_bitmap_filename + "\" does not exist."
+            );
+         }
+         if (!std::filesystem::exists(tile_type_bitmap_filename))
+         {
+            AllegroFlare::Logger::throw_error(
+               "Pipeline::Gameplay::Screen::load_tile_map_from_bitmap",
+               "The tile_type bitmap \"" + tile_type_bitmap_filename + "\" does not exist."
+            );
+         }
+
+         LabyrinthOfLore::WorldMap::MultiBitmapFilenameToWorldBuilder world_builder(
+            elevation_bitmap_filename,
+            tile_type_bitmap_filename,
+            ceiling_height,
+            ground_height,
+            floor_height
+         );
+
+         *result = world_builder.build();
+      }
+      else
+      {
+         // No bitmap data is available for this level
+         AllegroFlare::Logger::warn_from(
+            "Pipeline::Gameplay::Screen::load_tile_map_from_bitamp",
+            "Level bitmaps are not used for the level with identifier \"" + level_identifier + "\""
+               ". Proceeding with an empty tile_map for collisions."
          );
       }
-      if (!std::filesystem::exists(tile_type_bitmap_filename))
-      {
-         AllegroFlare::Logger::throw_error(
-            "Pipeline::Gameplay::Screen::load_tile_map_from_bitmap",
-            "The tile_type bitmap \"" + tile_type_bitmap_filename + "\" does not exist."
-         );
-      }
-
-      LabyrinthOfLore::WorldMap::MultiBitmapFilenameToWorldBuilder world_builder(
-         elevation_bitmap_filename,
-         tile_type_bitmap_filename,
-         ceiling_height,
-         ground_height,
-         floor_height
-      );
-
-      LabyrinthOfLore::WorldMap::TileMap *result = new LabyrinthOfLore::WorldMap::TileMap();
-      //*result = nullptr;
-      *result = world_builder.build();
 
       return result;
     body_dependency_symbols:
