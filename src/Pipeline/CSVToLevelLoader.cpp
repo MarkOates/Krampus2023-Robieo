@@ -152,6 +152,10 @@ void CSVToLevelLoader::load()
          validate_key_and_return(&extracted_row, "world__model_obj_filename");
       std::string world_model_texture_filename =
          validate_key_and_return(&extracted_row, "world__model_texture_filename");
+      std::string tile_map_tile_elevation_bitmap_filename =
+         validate_key_and_return(&extracted_row, "tile_map__tile_elevation_bitmap_filename");
+      std::string tile_map_tile_type_bitmap_filename =
+         validate_key_and_return(&extracted_row, "tile_map__tile_type_bitmap_filename");
 
 
       int tile_map_origin_offset_x = toi(validate_key_and_return(&extracted_row, "tile_map__origin_offset__x"));
@@ -166,10 +170,11 @@ void CSVToLevelLoader::load()
       // Pass along the variables to the result object
       Pipeline::Gameplay::Level level;
       level.set_title(title);
+
       level.set_world_model_obj_filename(world_model_obj_filename);
       level.set_world_model_texture_filename(world_model_texture_filename);
-      //level.set_tile_map_tile_elevation_bitmap_filename(tile_map_tile_elevation_bitmap_filename);
-      //level.set_tile_map_tile_type_bitmap_filename("tile_map__tile_type_bitmap_filename");
+      level.set_tile_map_tile_elevation_bitmap_filename(tile_map_tile_elevation_bitmap_filename);
+      level.set_tile_map_tile_type_bitmap_filename(tile_map_tile_type_bitmap_filename);
       level.set_tile_map_origin_offset({ (float)tile_map_origin_offset_x, (float)tile_map_origin_offset_y });
       level.set_tile_map_ceiling_height(tile_map_ceiling_height);
       level.set_tile_map_groundlevel_height(tile_map_groundlevel_height);
