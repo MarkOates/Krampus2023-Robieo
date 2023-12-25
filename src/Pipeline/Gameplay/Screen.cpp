@@ -344,6 +344,8 @@ Pipeline::Gameplay::Level Screen::build_level(std::string level_identifier)
    }
    //*/
 
+   return csv_level_loader.find_level(level_identifier);
+
 
    std::string world_model_name = level_identifier; //"world-1-01";
    std::string world_model_obj_name = world_model_name + ".obj";
