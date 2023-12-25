@@ -87,21 +87,21 @@ bool Main::are_all_packages_delivered(std::set<std::string> delivered_package_id
 std::vector<std::pair<std::string, std::string>> Main::build_level_list_for_level_select_screen_by_identifier(std::string identifier)
 {
    // TODO: Make this list dynamic
+
    std::vector<std::pair<std::string, std::string>> result = {
-      { "World 2", "world-2-06" },
-      { "World 3", "world-3-09" },
-      { "World 4", "level-4-11" },
-      { "World 5", "terminal-level-03" },
-      //{ "World 2", "world-2-01" },
-      //{ "Forest Village 1", "forest_village_1" },
-      //{ "Forest Village 2", "forest_village_2" },
-      //{ "Forest", "forest_1" },
-      //{ "Crystal Cave", "crystal_cave_1" },
-      //{ "Desert Town", "desert_town_3" },
-      //{ "Town 2", "town_2" },
-      //{ "Cave 1", "cave_1" },
-      //{ "Town 1", "town_1" },
+      //{ "World 2", "world-2-06" },
+      //{ "World 3", "world-3-09" },
+      //{ "World 4", "level-4-11" },
+      //{ "World 5", "terminal-level-03" },
    };
+
+   Pipeline::CSVToLevelLoader level_db = build_level_db();
+   //build_level_db
+   for (auto &level_record : level_db.get_levels())
+   {
+      result.push_back({ level_record.second.get_title(), level_record.first });
+   }
+
    return result;
 }
 
