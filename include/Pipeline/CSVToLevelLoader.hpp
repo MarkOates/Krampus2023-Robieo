@@ -28,6 +28,7 @@ namespace Pipeline
       std::map<std::string, Pipeline::Gameplay::Level> get_levels();
       bool level_exists(std::string level_identifier="[unset-level_identifier]");
       Pipeline::Gameplay::Level get_copy_of_level(std::string level_identifier="[unset-level_identifier]");
+      static std::string validate_key_and_return(std::map<std::string, std::string>* extracted_row=nullptr, std::string key="[unset-key]");
       void load();
    };
 }

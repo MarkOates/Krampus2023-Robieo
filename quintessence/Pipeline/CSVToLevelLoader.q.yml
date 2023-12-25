@@ -57,17 +57,59 @@ methods:
       return levels[level_identifier];
 
 
+  - name: validate_key_and_return
+    type: std::string
+    static: true
+    parameters:
+      - name: extracted_row
+        type: std::map<std::string, std::string>*
+        default_argument: nullptr
+      - name: key
+        type: std::string
+        default_argument: '"[unset-key]"'
+    body: |
+      if (extracted_row->count(key) == 0)
+      {
+         AllegroFlare::Logger::throw_error(
+           "SurviveTheCity::DeckFactory::validate_key_and_return",
+           "key \"" + key+ "\" does not exist."
+        );
+      }
+      return extracted_row->operator[](key);
+    body_dependency_symbols:
+      - AllegroFlare::Logger
+
+
   - name: load
     guards: [ (!loaded) ]
     body: |
-      //std::string HARD_CODED_DB_FILE = "/Users/markoates/Repos/SurviveTheCity/bin/data/levels/universe.csv";
-      //std::filesystem::exists(HARD_CODED_DB_FILE);
+      // Obtain the content from the file and parse it to extractable data
       std::string content = AllegroFlare::php::file_get_contents(csv_full_path);
       if (content.empty()) throw std::runtime_error("empty file content");
       AllegroFlare::CSVParser csv_parser;
       csv_parser.set_raw_csv_content(content);
       csv_parser.parse();
       csv_parser.assemble_column_headers(2);
+
+      // Load the parsed data to Level objects
+      int first_physical_row = csv_parser.get_num_header_rows();
+      for (std::map<std::string, std::string> &extracted_row : csv_parser.extract_all_rows())
+      {
+         // Pull out the variables
+         std::string identifier =
+            validate_key_and_return(&extracted_row, "level_identifier");
+         std::string world_model_obj =
+            validate_key_and_return(&extracted_row, "world__model_obj_filename");
+         std::string world_texture_filename =
+            validate_key_and_return(&extracted_row, "world__model_texture_filename");
+
+         // Pass along the variables to the result object
+         Pipeline::Gameplay::Level level;
+         //level.set
+         levels.insert({ identifier, level });
+      }
+
+
       loaded = true;
       return;
     body_dependency_symbols:
@@ -86,5 +128,7 @@ dependencies:
     headers: [ SurviveTheCity/CSVParser.hpp ]
   - symbol: Pipeline::Gameplay::Level
     headers: [ Pipeline/Gameplay/Level.hpp ]
+  - symbol: AllegroFlare::Logger
+    headers: [ AllegroFlare/Logger.hpp ]
 
 
