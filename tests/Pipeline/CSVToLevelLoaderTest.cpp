@@ -40,6 +40,11 @@ TEST(Pipeline_CSVToLevelLoaderTest, load__when_loading_from_the_source_data__wil
 
    EXPECT_EQ("World 4", actual_level.get_title());
    EXPECT_EQ("level-4-09.obj", actual_level.get_world_model_obj_filename());
+   EXPECT_EQ("level-4-09.png", actual_level.get_world_model_texture_filename());
+
+   EXPECT_EQ(10.0, actual_level.get_tile_map_ceiling_height());
+   EXPECT_EQ(0.0, actual_level.get_tile_map_groundlevel_height());
+   EXPECT_EQ(-2.0, actual_level.get_tile_map_floor_height());
 }
 
 
