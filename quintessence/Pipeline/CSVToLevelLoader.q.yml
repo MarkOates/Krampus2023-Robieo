@@ -46,7 +46,7 @@ methods:
       return (levels.find(level_identifier) != levels.end());
 
 
-  - name: get_copy_of_level
+  - name: find_level
     type: Pipeline::Gameplay::Level
     parameters:
       - name: level_identifier

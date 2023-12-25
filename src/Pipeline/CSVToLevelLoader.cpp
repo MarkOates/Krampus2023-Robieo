@@ -64,21 +64,21 @@ bool CSVToLevelLoader::level_exists(std::string level_identifier)
    return (levels.find(level_identifier) != levels.end());
 }
 
-Pipeline::Gameplay::Level CSVToLevelLoader::get_copy_of_level(std::string level_identifier)
+Pipeline::Gameplay::Level CSVToLevelLoader::find_level(std::string level_identifier)
 {
    if (!(loaded))
    {
       std::stringstream error_message;
-      error_message << "[CSVToLevelLoader::get_copy_of_level]: error: guard \"loaded\" not met.";
+      error_message << "[CSVToLevelLoader::find_level]: error: guard \"loaded\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("CSVToLevelLoader::get_copy_of_level: error: guard \"loaded\" not met");
+      throw std::runtime_error("CSVToLevelLoader::find_level: error: guard \"loaded\" not met");
    }
    if (!(level_exists(level_identifier)))
    {
       std::stringstream error_message;
-      error_message << "[CSVToLevelLoader::get_copy_of_level]: error: guard \"level_exists(level_identifier)\" not met.";
+      error_message << "[CSVToLevelLoader::find_level]: error: guard \"level_exists(level_identifier)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("CSVToLevelLoader::get_copy_of_level: error: guard \"level_exists(level_identifier)\" not met");
+      throw std::runtime_error("CSVToLevelLoader::find_level: error: guard \"level_exists(level_identifier)\" not met");
    }
    return levels[level_identifier];
 }
