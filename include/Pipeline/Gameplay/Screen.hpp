@@ -145,6 +145,7 @@ namespace Pipeline
          virtual void on_event(ALLEGRO_EVENT* ev=nullptr) override;
          virtual void game_event_func(AllegroFlare::GameEvent* game_event=nullptr) override;
          virtual void primary_timer_func() override;
+         virtual void display_switch_in_func() override;
          virtual void key_up_func(ALLEGRO_EVENT* ev=nullptr) override;
          virtual void key_down_func(ALLEGRO_EVENT* ev=nullptr) override;
          virtual void joy_button_down_func(ALLEGRO_EVENT* ev=nullptr) override;

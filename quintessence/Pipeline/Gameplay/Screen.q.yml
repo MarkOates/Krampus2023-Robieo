@@ -1829,6 +1829,15 @@ methods:
       return;
 
 
+  - name: display_switch_in_func
+    virtual: true
+    override: true
+    guards: [ initialized, event_emitter ]
+    body: |
+      load_tile_map(current_level_identifier); // DEVELOPMENT
+      return;
+   
+
   - name: key_up_func
     virtual: true
     override: true

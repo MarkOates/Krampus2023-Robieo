@@ -1781,6 +1781,26 @@ void Screen::primary_timer_func()
    return;
 }
 
+void Screen::display_switch_in_func()
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::display_switch_in_func]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::display_switch_in_func: error: guard \"initialized\" not met");
+   }
+   if (!(event_emitter))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::display_switch_in_func]: error: guard \"event_emitter\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::display_switch_in_func: error: guard \"event_emitter\" not met");
+   }
+   load_tile_map(current_level_identifier); // DEVELOPMENT
+   return;
+}
+
 void Screen::key_up_func(ALLEGRO_EVENT* ev)
 {
    if (!(initialized))
