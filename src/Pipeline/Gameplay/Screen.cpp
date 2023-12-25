@@ -1847,7 +1847,7 @@ void Screen::key_down_func(ALLEGRO_EVENT* ev)
       } break;
 
       case ALLEGRO_KEY_L: {
-         load_tile_map();
+         load_tile_map(current_level_identifier);
       } break;
 
       case ALLEGRO_KEY_M: {
