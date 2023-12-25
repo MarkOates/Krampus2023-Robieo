@@ -164,6 +164,10 @@ void CSVToLevelLoader::load()
       float tile_map_groundlevel_height = tof(validate_key_and_return(&extracted_row, "tile_map__groundlevel_height"));
       float tile_map_floor_height = tof(validate_key_and_return(&extracted_row, "tile_map__floor_height"));
 
+      std::string song_to_perform_identifier =
+         validate_key_and_return(&extracted_row, "song_to_perform__identifier");
+      float song_to_perform_duration_sec =
+         tof(validate_key_and_return(&extracted_row, "song_to_perform__duration_sec"));
 
 
 
@@ -179,9 +183,8 @@ void CSVToLevelLoader::load()
       level.set_tile_map_ceiling_height(tile_map_ceiling_height);
       level.set_tile_map_groundlevel_height(tile_map_groundlevel_height);
       level.set_tile_map_floor_height(tile_map_floor_height);
-
-      //level.set_song_to_perform_identifier();
-      //level.set_song_to_perform_duration_sec();
+      level.set_song_to_perform_identifier(song_to_perform_identifier);
+      level.set_song_to_perform_duration_sec(song_to_perform_duration_sec);
 
       levels.insert({ identifier, level });
    }

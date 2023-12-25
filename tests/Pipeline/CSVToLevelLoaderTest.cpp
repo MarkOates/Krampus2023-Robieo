@@ -50,6 +50,9 @@ TEST(Pipeline_CSVToLevelLoaderTest, load__when_loading_from_the_source_data__wil
    EXPECT_EQ(10.0, actual_level.get_tile_map_ceiling_height());
    EXPECT_EQ(0.0, actual_level.get_tile_map_groundlevel_height());
    EXPECT_EQ(-2.0, actual_level.get_tile_map_floor_height());
+
+   EXPECT_EQ("robot-holly_jolly", actual_level.get_song_to_perform_identifier());
+   EXPECT_EQ(15.0, actual_level.get_song_to_perform_duration_sec());
 }
 
 
