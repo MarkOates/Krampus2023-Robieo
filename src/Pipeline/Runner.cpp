@@ -185,6 +185,7 @@ void Runner::initialize()
    // TODO: Create the game configuration for our game
    // Setup the configuration
    game_configuration = new Pipeline::GameConfigurations::Main();
+   game_configuration->set_data_folder(framework->get_data_folder_path());
 
    // Fill our dialog bank
    framework->set_dialog_system_dialog_node_bank(game_configuration->build_dialog_bank_by_identifier());

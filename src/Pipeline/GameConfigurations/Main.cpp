@@ -4,6 +4,7 @@
 
 #include <AllegroFlare/DialogTree/NodeBankFactory.hpp>
 #include <AllegroFlare/Logger.hpp>
+#include <Pipeline/CSVToLevelLoader.hpp>
 #include <Pipeline/Gameplay/Level.hpp>
 #include <functional>
 #include <map>
@@ -17,14 +18,27 @@ namespace GameConfigurations
 {
 
 
-Main::Main()
+Main::Main(std::string data_folder)
    : AllegroFlare::GameConfigurations::Base(Pipeline::GameConfigurations::Main::TYPE)
+   , data_folder(data_folder)
 {
 }
 
 
 Main::~Main()
 {
+}
+
+
+void Main::set_data_folder(std::string data_folder)
+{
+   this->data_folder = data_folder;
+}
+
+
+std::string Main::get_data_folder() const
+{
+   return data_folder;
 }
 
 
@@ -72,6 +86,7 @@ bool Main::are_all_packages_delivered(std::set<std::string> delivered_package_id
 
 std::vector<std::pair<std::string, std::string>> Main::build_level_list_for_level_select_screen_by_identifier(std::string identifier)
 {
+   // TODO: Make this list dynamic
    std::vector<std::pair<std::string, std::string>> result = {
       { "World 2", "world-2-06" },
       { "World 3", "world-3-09" },
@@ -88,6 +103,36 @@ std::vector<std::pair<std::string, std::string>> Main::build_level_list_for_leve
       //{ "Town 1", "town_1" },
    };
    return result;
+}
+
+Pipeline::CSVToLevelLoader Main::build_level_db()
+{
+   //std::string data_folder = obtain_data_folder();
+   std::string levels_csv_file = data_folder + "/levels/universe.csv";
+
+   bool csv_file_exists = std::filesystem::exists(levels_csv_file);
+   if (!csv_file_exists)
+   {
+      AllegroFlare::Logger::throw_error(
+         "Pipeline::Gameplay::Screen::build_level",
+         "The CSV file \"" + levels_csv_file + "\" does not exist."
+      );
+   }
+
+   Pipeline::CSVToLevelLoader csv_level_loader;
+   csv_level_loader.set_csv_full_path(levels_csv_file);
+   csv_level_loader.load();
+
+   return csv_level_loader;
+
+   //bool level_exists = csv_level_loader.level_exists(level_identifier);
+   //if (!level_exists)
+   //{
+      //AllegroFlare::Logger::throw_error(
+         //"Pipeline::Gameplay::Screen::build_level",
+         //"Level with the identifier \"" + level_identifier + "\" does not exist."
+      //);
+   //}
 }
 
 AllegroFlare::DialogTree::NodeBank Main::build_dialog_bank_by_identifier(std::string identifier)

@@ -1255,6 +1255,10 @@ table td
     <h3>Properties</h3>
 <div class="property-box properties">     <table>
 <tr>
+  <td class="property">data_folder</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
   <td class="property">TYPE</td>
   <td class="property">char*</td>
 </tr>
@@ -1266,6 +1270,9 @@ table td
 </tr>
 <tr>
   <td class="method">build_level_list_for_level_select_screen_by_identifier(std::string identifier=&quot;[unset-identifier]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">build_level_db()</td>
 </tr>
 <tr>
   <td class="method">build_dialog_bank_by_identifier(std::string identifier=&quot;[identifier-discarded]&quot;)</td>
@@ -1308,6 +1315,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Logger&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Logger.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Pipeline::CSVToLevelLoader&quot;, &quot;headers&quot;=&gt;[&quot;Pipeline/CSVToLevelLoader.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -2538,6 +2548,10 @@ table td
   "AllegroFlare/DialogTree/Nodes/Wait": [
     "Pipeline/GameConfigurations/Main"
   ],
+  "Pipeline/CSVToLevelLoader": [
+    "Pipeline/GameConfigurations/Main",
+    "Pipeline/Gameplay/Screen"
+  ],
   "std/multiset": [
     "Pipeline/GameProgressAndStateInfo"
   ],
@@ -2663,9 +2677,6 @@ table td
     "Pipeline/Gameplay/Screen"
   ],
   "Pipeline/Physics/GravityStepper": [
-    "Pipeline/Gameplay/Screen"
-  ],
-  "Pipeline/CSVToLevelLoader": [
     "Pipeline/Gameplay/Screen"
   ],
   "AllegroFlare/vec3d": [

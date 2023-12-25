@@ -9,6 +9,13 @@ parent_classes:
 properties:
 
 
+  - name: data_folder
+    type: std::string
+    init_with: '"[unset-data_folder]"'
+    constructor_arg: true
+    getter: true
+    setter: true
+
   - name: TYPE
     type: char*
     init_with: '(char*)"Pipeline/GameConfigurations/Main"'
@@ -78,6 +85,7 @@ methods:
         type: std::string
         default_argument: '"[unset-identifier]"'
     body: |
+      // TODO: Make this list dynamic
       std::vector<std::pair<std::string, std::string>> result = {
          { "World 2", "world-2-06" },
          { "World 3", "world-3-09" },
@@ -94,6 +102,39 @@ methods:
          //{ "Town 1", "town_1" },
       };
       return result;
+
+
+  - name: build_level_db
+    type: Pipeline::CSVToLevelLoader
+    body: |
+      //std::string data_folder = obtain_data_folder();
+      std::string levels_csv_file = data_folder + "/levels/universe.csv";
+
+      bool csv_file_exists = std::filesystem::exists(levels_csv_file);
+      if (!csv_file_exists)
+      {
+         AllegroFlare::Logger::throw_error(
+            "Pipeline::Gameplay::Screen::build_level",
+            "The CSV file \"" + levels_csv_file + "\" does not exist."
+         );
+      }
+      
+      Pipeline::CSVToLevelLoader csv_level_loader;
+      csv_level_loader.set_csv_full_path(levels_csv_file);
+      csv_level_loader.load();
+
+      return csv_level_loader;
+
+      //bool level_exists = csv_level_loader.level_exists(level_identifier);
+      //if (!level_exists)
+      //{
+         //AllegroFlare::Logger::throw_error(
+            //"Pipeline::Gameplay::Screen::build_level",
+            //"Level with the identifier \"" + level_identifier + "\" does not exist."
+         //);
+      //}
+    body_dependency_symbols:
+      - Pipeline::CSVToLevelLoader
 
 
   - name: build_dialog_bank_by_identifier
@@ -215,5 +256,7 @@ dependencies:
     headers: [ Pipeline/Gameplay/Level.hpp ]
   - symbol: AllegroFlare::Logger
     headers: [ AllegroFlare/Logger.hpp ]
+  - symbol: Pipeline::CSVToLevelLoader
+    headers: [ Pipeline/CSVToLevelLoader.hpp ]
 
 

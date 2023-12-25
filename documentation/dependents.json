@@ -282,6 +282,10 @@
   "AllegroFlare/DialogTree/Nodes/Wait": [
     "Pipeline/GameConfigurations/Main"
   ],
+  "Pipeline/CSVToLevelLoader": [
+    "Pipeline/GameConfigurations/Main",
+    "Pipeline/Gameplay/Screen"
+  ],
   "std/multiset": [
     "Pipeline/GameProgressAndStateInfo"
   ],
@@ -407,9 +411,6 @@
     "Pipeline/Gameplay/Screen"
   ],
   "Pipeline/Physics/GravityStepper": [
-    "Pipeline/Gameplay/Screen"
-  ],
-  "Pipeline/CSVToLevelLoader": [
     "Pipeline/Gameplay/Screen"
   ],
   "AllegroFlare/vec3d": [
