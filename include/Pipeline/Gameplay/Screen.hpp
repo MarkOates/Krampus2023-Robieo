@@ -109,6 +109,7 @@ namespace Pipeline
          std::function<void(Pipeline::Gameplay::Screen*, void*)> get_on_finished_callback_func() const;
          void* get_on_finished_callback_func_user_data() const;
          uint32_t get_state() const;
+         std::string obtain_data_folder();
          void set_framework(AllegroFlare::Frameworks::Full* framework=nullptr);
          void set_event_emitter(AllegroFlare::EventEmitter* event_emitter=nullptr);
          void set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin=nullptr);

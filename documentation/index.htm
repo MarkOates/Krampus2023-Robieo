@@ -1622,6 +1622,9 @@ table td
 </div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
 <tr>
+  <td class="method">obtain_data_folder()</td>
+</tr>
+<tr>
   <td class="method">set_framework(AllegroFlare::Frameworks::Full* framework=nullptr)</td>
 </tr>
 <tr>
@@ -1923,6 +1926,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Pipeline::Physics::GravityStepper&quot;, &quot;headers&quot;=&gt;[&quot;Pipeline/Physics/GravityStepper.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Pipeline::CSVToLevelLoader&quot;, &quot;headers&quot;=&gt;[&quot;Pipeline/CSVToLevelLoader.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -2657,6 +2663,9 @@ table td
     "Pipeline/Gameplay/Screen"
   ],
   "Pipeline/Physics/GravityStepper": [
+    "Pipeline/Gameplay/Screen"
+  ],
+  "Pipeline/CSVToLevelLoader": [
     "Pipeline/Gameplay/Screen"
   ],
   "AllegroFlare/vec3d": [

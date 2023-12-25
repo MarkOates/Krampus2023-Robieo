@@ -409,6 +409,9 @@
   "Pipeline/Physics/GravityStepper": [
     "Pipeline/Gameplay/Screen"
   ],
+  "Pipeline/CSVToLevelLoader": [
+    "Pipeline/Gameplay/Screen"
+  ],
   "AllegroFlare/vec3d": [
     "Pipeline/Physics/GravityStepper"
   ],

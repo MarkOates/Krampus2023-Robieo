@@ -15,6 +15,7 @@
 #include <LabyrinthOfLore/WorldMap/BasicRenderer.hpp>
 #include <LabyrinthOfLore/WorldMap/MultiBitmapFilenameToWorldBuilder.hpp>
 #include <LabyrinthOfLore/WorldMap/TileTypeEnum.hpp>
+#include <Pipeline/CSVToLevelLoader.hpp>
 #include <Pipeline/DialogNodeBankFactory.hpp>
 #include <Pipeline/GameConfigurations/Main.hpp>
 #include <Pipeline/Gameplay/Level.hpp>
@@ -130,6 +131,25 @@ uint32_t Screen::get_state() const
    return state;
 }
 
+
+std::string Screen::obtain_data_folder()
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::obtain_data_folder]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::obtain_data_folder: error: guard \"initialized\" not met");
+   }
+   if (!(framework))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::obtain_data_folder]: error: guard \"framework\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::obtain_data_folder: error: guard \"framework\" not met");
+   }
+   return framework->get_data_folder_path();
+}
 
 void Screen::set_framework(AllegroFlare::Frameworks::Full* framework)
 {
@@ -297,6 +317,34 @@ std::set<std::string> Screen::find_named_object_identifiers_for_portals(AllegroF
 
 Pipeline::Gameplay::Level Screen::build_level(std::string level_identifier)
 {
+   ///*
+   std::string data_folder = obtain_data_folder();
+   std::string levels_csv_file = data_folder + "/levels/universe.csv";
+
+   bool csv_file_exists = std::filesystem::exists(levels_csv_file);
+   if (!csv_file_exists)
+   {
+      AllegroFlare::Logger::throw_error(
+         "Pipeline::Gameplay::Screen::build_level",
+         "The CSV file \"" + levels_csv_file + "\" does not exist."
+      );
+   }
+
+   Pipeline::CSVToLevelLoader csv_level_loader;
+   csv_level_loader.set_csv_full_path(levels_csv_file);
+   csv_level_loader.load();
+
+   bool level_exists = csv_level_loader.level_exists(level_identifier);
+   if (!level_exists)
+   {
+      AllegroFlare::Logger::throw_error(
+         "Pipeline::Gameplay::Screen::build_level",
+         "Level with the identifier \"" + level_identifier + "\" does not exist."
+      );
+   }
+   //*/
+
+
    std::string world_model_name = level_identifier; //"world-1-01";
    std::string world_model_obj_name = world_model_name + ".obj";
    std::string world_model_texture_name = world_model_name + ".png";

@@ -220,6 +220,13 @@ enums:
 methods:
 
 
+  - name: obtain_data_folder
+    type: std::string
+    guards: [ initialized, framework ]
+    body: |
+      return framework->get_data_folder_path();
+
+
   - name: set_framework
     guards: [ (!initialized) ]
     parameters:
@@ -395,6 +402,34 @@ methods:
         type: std::string
         default_argument: '"[unset-level_identifier]"'
     body: |
+      ///*
+      std::string data_folder = obtain_data_folder();
+      std::string levels_csv_file = data_folder + "/levels/universe.csv";
+
+      bool csv_file_exists = std::filesystem::exists(levels_csv_file);
+      if (!csv_file_exists)
+      {
+         AllegroFlare::Logger::throw_error(
+            "Pipeline::Gameplay::Screen::build_level",
+            "The CSV file \"" + levels_csv_file + "\" does not exist."
+         );
+      }
+      
+      Pipeline::CSVToLevelLoader csv_level_loader;
+      csv_level_loader.set_csv_full_path(levels_csv_file);
+      csv_level_loader.load();
+
+      bool level_exists = csv_level_loader.level_exists(level_identifier);
+      if (!level_exists)
+      {
+         AllegroFlare::Logger::throw_error(
+            "Pipeline::Gameplay::Screen::build_level",
+            "Level with the identifier \"" + level_identifier + "\" does not exist."
+         );
+      }
+      //*/
+
+
       std::string world_model_name = level_identifier; //"world-1-01";
       std::string world_model_obj_name = world_model_name + ".obj";
       std::string world_model_texture_name = world_model_name + ".png";
@@ -420,6 +455,8 @@ methods:
       level.set_song_to_perform_duration_sec(15.0f);
 
       return level;
+    body_dependency_symbols:
+      - Pipeline::CSVToLevelLoader
 
 
   - name: load_tile_map
@@ -2435,5 +2472,7 @@ dependencies:
     headers: [ AllegroFlare/Vec2D.hpp ]
   - symbol: Pipeline::Physics::GravityStepper
     headers: [ Pipeline/Physics/GravityStepper.hpp ]
+  - symbol: Pipeline::CSVToLevelLoader
+    headers: [ Pipeline/CSVToLevelLoader.hpp ]
 
 
