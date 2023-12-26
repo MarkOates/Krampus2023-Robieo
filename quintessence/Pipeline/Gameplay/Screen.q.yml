@@ -2174,6 +2174,7 @@ methods:
 
 
   - name: deactivate_music_performance
+    guards: [ current_level ]
     body: |
       if (!is_state(STATE_PERFORMING_MUSIC)) return; // TODO: Test this
 
@@ -2193,6 +2194,8 @@ methods:
          )
       );
 
+      std::string level_music_identifier = current_level->get_background_music_identifier();
+      event_emitter->emit_play_music_track_event(level_music_identifier);
       set_state(STATE_PLAYING_GAME);
       // TODO: Consider how to re-activate current level music
       return;

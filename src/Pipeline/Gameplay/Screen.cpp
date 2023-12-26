@@ -2162,6 +2162,13 @@ void Screen::activate_music_performance(std::string music_identifier, float dura
 
 void Screen::deactivate_music_performance()
 {
+   if (!(current_level))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::deactivate_music_performance]: error: guard \"current_level\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::deactivate_music_performance: error: guard \"current_level\" not met");
+   }
    if (!is_state(STATE_PERFORMING_MUSIC)) return; // TODO: Test this
 
    event_emitter->emit_stop_all_music_tracks_event(); // TODO: Consider if alternative would be better than stopping
@@ -2180,6 +2187,8 @@ void Screen::deactivate_music_performance()
       )
    );
 
+   std::string level_music_identifier = current_level->get_background_music_identifier();
+   event_emitter->emit_play_music_track_event(level_music_identifier);
    set_state(STATE_PLAYING_GAME);
    // TODO: Consider how to re-activate current level music
    return;
