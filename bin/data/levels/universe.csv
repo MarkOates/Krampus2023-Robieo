@@ -1,7 +1,7 @@
 identifier,title,world,,tile_map,,,,,,,background_music_identifier,song_to_perform,
 ,,model_obj_filename,model_texture_filename,tile_elevation_bitmap_filename,tile_type_bitmap_filename,origin_offset,origin_offset,ceiling_height,groundlevel_height,floor_height,,identifier,duration_sec
 ,,,,,,x,y,,,,,,
-level-2-06,2. Cave Factory,world-2-06.obj,world-2-06.png,level2-tile_elevation.png,level2-tile_type.png,51,57,10,0,-2,farm_level_music,robot-holly_jolly,15
-level-3-9,3. Village,world-3-09.obj,world-3-09.png,,,22,25,10,0,-2,farm_level_music,robot-holly_jolly,15
+level-2-06,2. Cave Factory,world-2-06.obj,world-2-06.png,level2-tile_elevation.png,level2-tile_elevation.png,2,50,10,0,-2,farm_level_music,robot-holly_jolly,15
+level-3-9,3. Village,world-3-09.obj,world-3-09.png,level3-tile_elevation.png,level3-tile_elevation.png,51,57,10,0,-2,farm_level_music,robot-holly_jolly,15
 level-4-11,4. Forest,level-4-09.obj,level-4-09.png,level-4-tile_map_elevation.png,level-4-tile_map_elevation.png,51,57,10,0,-2,farm_level_music,robot-holly_jolly,15
-terminal-level-03,5. Nexus Terminal,terminal-level-03.obj,terminal-level-03.png,,,22,25,10,0,-2,farm_level_music,robot-holly_jolly,15
+terminal-level-03,5. Nexus Terminal,terminal-level-03.obj,terminal-level-03.png,,,51,57,10,0,-2,farm_level_music,robot-holly_jolly,15
