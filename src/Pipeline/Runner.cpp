@@ -297,18 +297,16 @@ void Runner::initialize()
    level_select_screen.set_event_emitter(event_emitter);
    level_select_screen.set_bitmap_bin(bitmap_bin);
    level_select_screen.set_font_bin(font_bin);
-   //level_select_screen.set_levels_list({
-      //{ "Candy Kingdom", "candy_kingdom" },
-      //{ "Cherry Blossom Grove", "cherry_blossom_grove" },
-      //{ "Bubble Pop Bay", "bubble_pop_bay" },
-      //{ "Neon City Nights", "neon_city_nights" },
-      //{ "Wonderland Woods", "wonderland_woods" },
-   //});
    level_select_screen.set_levels_list(
       game_configuration->build_level_list_for_level_select_screen_by_identifier("discarded-for-now")
    );
+   AllegroFlare::Elements::LevelSelect &level_select_element = level_select_screen.get_level_select_element_ref();
+   level_select_element.set_selection_box_width(300);
+   level_select_element.set_selection_box_height(100);
+   level_select_element.set_num_columns(3);
    level_select_screen.set_background(&solid_black_background);
    level_select_screen.initialize();
+
 
    // TODO: Setup game over screen
    game_over_screen.set_event_emitter(event_emitter);
