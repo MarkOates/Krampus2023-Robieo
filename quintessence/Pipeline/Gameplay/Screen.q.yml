@@ -436,9 +436,13 @@ methods:
 
   - name: get_current_level_tile_map
     type: LabyrinthOfLore::WorldMap::TileMap*
-    guards: [ (!current_level_tile_maps.empty()) ]
+    parameters:
+      - name: floor_index
+        type: int
+        default_argument: 0
+    guards: [ (!current_level_tile_maps.empty()), (floor_index >= 0), (floor_index < current_level_tile_maps.size()) ]
     body: |
-      return current_level_tile_maps[0]; // TODO: Grab the level nearest the player (or y-position)
+      return current_level_tile_maps[floor_index]; // TODO: Grab the level nearest the player (or y-position)
      
 
 

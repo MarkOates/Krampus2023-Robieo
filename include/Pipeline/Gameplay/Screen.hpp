@@ -123,7 +123,7 @@ namespace Pipeline
          AllegroFlare::Vec3D lowest_y_vertex(std::vector<AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL> vertices={});
          std::set<std::string> find_named_object_identifiers_for_portals(AllegroFlare::Model3D* world_model=nullptr);
          Pipeline::Gameplay::Level build_level(std::string level_identifier="[unset-level_identifier]");
-         LabyrinthOfLore::WorldMap::TileMap* get_current_level_tile_map();
+         LabyrinthOfLore::WorldMap::TileMap* get_current_level_tile_map(int floor_index=0);
          void load_tile_map(std::string level_identifier="[unset-level_identifier]");
          LabyrinthOfLore::WorldMap::TileMap* load_tile_map_from_bitmap(std::string level_identifier="[unset-level_identifier]");
          LabyrinthOfLore::WorldMap::TileMap* load_tester_tile_map();

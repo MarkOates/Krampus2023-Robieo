@@ -347,7 +347,7 @@ Pipeline::Gameplay::Level Screen::build_level(std::string level_identifier)
    return csv_level_loader.find_level(level_identifier);
 }
 
-LabyrinthOfLore::WorldMap::TileMap* Screen::get_current_level_tile_map()
+LabyrinthOfLore::WorldMap::TileMap* Screen::get_current_level_tile_map(int floor_index)
 {
    if (!((!current_level_tile_maps.empty())))
    {
@@ -356,7 +356,21 @@ LabyrinthOfLore::WorldMap::TileMap* Screen::get_current_level_tile_map()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Screen::get_current_level_tile_map: error: guard \"(!current_level_tile_maps.empty())\" not met");
    }
-   return current_level_tile_maps[0]; // TODO: Grab the level nearest the player (or y-position)
+   if (!((floor_index >= 0)))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::get_current_level_tile_map]: error: guard \"(floor_index >= 0)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::get_current_level_tile_map: error: guard \"(floor_index >= 0)\" not met");
+   }
+   if (!((floor_index < current_level_tile_maps.size())))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::get_current_level_tile_map]: error: guard \"(floor_index < current_level_tile_maps.size())\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::get_current_level_tile_map: error: guard \"(floor_index < current_level_tile_maps.size())\" not met");
+   }
+   return current_level_tile_maps[floor_index]; // TODO: Grab the level nearest the player (or y-position)
 }
 
 void Screen::load_tile_map(std::string level_identifier)
