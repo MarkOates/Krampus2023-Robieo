@@ -4,6 +4,9 @@ properties:
   - name: elevationMap
     type: std::map<int, float>
     init_with: '{}'
+    constructor_arg: true
+    getter: true
+    setter: true
 
 
 methods:

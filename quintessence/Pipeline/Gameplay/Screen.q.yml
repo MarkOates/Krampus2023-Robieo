@@ -1461,6 +1461,11 @@ methods:
 
          // HERE
          float player_elevation = player_entity_as->get_placement_ref().position.y;
+         std::map<int, float> floor_elevations = build_elevations_and_indices_for_floors();
+         Pipeline::CurrentFloorInferencer floor_inferencer(floor_elevations);
+         //floor_inferencer.set_elevationMap(floor_elevations);
+         int closest_floor = floor_inferencer.find_closest_floor(player_elevation);
+
          //int inferred_floor_number =            { floor_height+4.0, floor_height, floor_height-4.0 };
          //float local_y
 
@@ -1703,6 +1708,7 @@ methods:
       - std::fmod
       - LabyrinthOfLore::Physics::EntityTileMapCollisionStepper
       - Pipeline::Physics::GravityStepper
+      - Pipeline::CurrentFloorInferencer
 
 
   - name: toggle_showing_map_overlay
@@ -2537,5 +2543,7 @@ dependencies:
     headers: [ Pipeline/Physics/GravityStepper.hpp ]
   - symbol: Pipeline::CSVToLevelLoader
     headers: [ Pipeline/CSVToLevelLoader.hpp ]
+  - symbol: Pipeline::CurrentFloorInferencer
+    headers: [ Pipeline/CurrentFloorInferencer.hpp ]
 
 

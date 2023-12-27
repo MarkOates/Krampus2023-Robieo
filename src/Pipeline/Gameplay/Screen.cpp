@@ -16,6 +16,7 @@
 #include <LabyrinthOfLore/WorldMap/MultiBitmapFilenameToWorldBuilder.hpp>
 #include <LabyrinthOfLore/WorldMap/TileTypeEnum.hpp>
 #include <Pipeline/CSVToLevelLoader.hpp>
+#include <Pipeline/CurrentFloorInferencer.hpp>
 #include <Pipeline/DialogNodeBankFactory.hpp>
 #include <Pipeline/GameConfigurations/Main.hpp>
 #include <Pipeline/Gameplay/Level.hpp>
@@ -1429,6 +1430,11 @@ void Screen::update()
 
       // HERE
       float player_elevation = player_entity_as->get_placement_ref().position.y;
+      std::map<int, float> floor_elevations = build_elevations_and_indices_for_floors();
+      Pipeline::CurrentFloorInferencer floor_inferencer(floor_elevations);
+      //floor_inferencer.set_elevationMap(floor_elevations);
+      int closest_floor = floor_inferencer.find_closest_floor(player_elevation);
+
       //int inferred_floor_number =            { floor_height+4.0, floor_height, floor_height-4.0 };
       //float local_y
 

@@ -9,14 +9,26 @@ namespace Pipeline
 {
 
 
-CurrentFloorInferencer::CurrentFloorInferencer()
-   : elevationMap({})
+CurrentFloorInferencer::CurrentFloorInferencer(std::map<int, float> elevationMap)
+   : elevationMap(elevationMap)
 {
 }
 
 
 CurrentFloorInferencer::~CurrentFloorInferencer()
 {
+}
+
+
+void CurrentFloorInferencer::set_elevationMap(std::map<int, float> elevationMap)
+{
+   this->elevationMap = elevationMap;
+}
+
+
+std::map<int, float> CurrentFloorInferencer::get_elevationMap() const
+{
+   return elevationMap;
 }
 
 
