@@ -1375,6 +1375,13 @@ void Screen::update()
 
 
 
+      // HERE
+      float player_elevation = player_entity_as->get_placement_ref().position.y;
+      //int inferred_floor_number =            { floor_height+4.0, floor_height, floor_height-4.0 };
+      //float local_y
+
+
+
       // Update the player's position by applying its velocity in the stepper
       // Reposition player_character on map; Use a very fancy swapping of y-with-z variables, the stepper
       AllegroFlare::Vec2D current_level_tile_map_origin_offset = current_level->get_tile_map_origin_offset();
