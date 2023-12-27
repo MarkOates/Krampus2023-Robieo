@@ -283,6 +283,26 @@ methods:
       return;
 
 
+  - name: build_elevations_and_indices_for_floors
+    type: std::map<int, float>
+    guards: [ current_level ]
+    body: |
+      std::map<int, float> result;
+      int i=0;
+      // TODO: Confirm not duplicating levels
+      for (auto &tile_map : current_level->get_tile_maps_ref())
+      {
+         result[i] = tile_map.get_groundlevel_height();
+      }
+      // Sanity check
+      if (result.size() != current_level->get_tile_maps_ref().size())
+      {
+         throw std::runtime_error("Pipeline::Gameplay::Screen::build_elevations_and_for_floors: error: result size "
+                 "doesn't match source size");
+      }
+      return result;
+
+
   - name: trivial_collide
     type: bool
     parameters:

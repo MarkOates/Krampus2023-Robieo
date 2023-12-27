@@ -115,6 +115,7 @@ namespace Pipeline
          void set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin=nullptr);
          void set_font_bin(AllegroFlare::FontBin* font_bin=nullptr);
          void set_model_bin(AllegroFlare::ModelBin* model_bin=nullptr);
+         std::map<int, float> build_elevations_and_indices_for_floors();
          bool trivial_collide(AllegroFlare::Vec3D p1={0.0f, 0.0f, 0.0f}, AllegroFlare::Vec3D p2={0.0f, 0.0f, 0.0f}, float min_distance=10.0f);
          void set_primary_camera_to_gameplay_view();
          void set_primary_camera_to_dialog_view();

@@ -217,6 +217,31 @@ void Screen::set_model_bin(AllegroFlare::ModelBin* model_bin)
    return;
 }
 
+std::map<int, float> Screen::build_elevations_and_indices_for_floors()
+{
+   if (!(current_level))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::build_elevations_and_indices_for_floors]: error: guard \"current_level\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::build_elevations_and_indices_for_floors: error: guard \"current_level\" not met");
+   }
+   std::map<int, float> result;
+   int i=0;
+   // TODO: Confirm not duplicating levels
+   for (auto &tile_map : current_level->get_tile_maps_ref())
+   {
+      result[i] = tile_map.get_groundlevel_height();
+   }
+   // Sanity check
+   if (result.size() != current_level->get_tile_maps_ref().size())
+   {
+      throw std::runtime_error("Pipeline::Gameplay::Screen::build_elevations_and_for_floors: error: result size "
+              "doesn't match source size");
+   }
+   return result;
+}
+
 bool Screen::trivial_collide(AllegroFlare::Vec3D p1, AllegroFlare::Vec3D p2, float min_distance)
 {
    float squared_distance = (p1.x - p2.x) * (p1.x - p2.x)
