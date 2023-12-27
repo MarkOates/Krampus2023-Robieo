@@ -55,7 +55,7 @@ Screen::Screen(AllegroFlare::Frameworks::Full* framework, AllegroFlare::EventEmi
    , show_map_overlay(false)
    , current_level_identifier("[unset-current_level]")
    , current_level(nullptr)
-   , current_level_tile_map(nullptr)
+   , current_level_tile_maps({})
    , current_level_tile_map_tile_alignment_offset({ 0.5, -0.5 })
    , currently_performing_song_identifier("")
    , currently_performing_song_duration_sec(0.0f)
@@ -345,100 +345,108 @@ Pipeline::Gameplay::Level Screen::build_level(std::string level_identifier)
    //*/
 
    return csv_level_loader.find_level(level_identifier);
+}
 
-
-   std::string world_model_name = level_identifier; //"world-1-01";
-   std::string world_model_obj_name = world_model_name + ".obj";
-   std::string world_model_texture_name = world_model_name + ".png";
-
-   Pipeline::Gameplay::Level level;
-
-   // The 3D models
-   level.set_world_model_obj_filename(world_model_obj_name);
-   level.set_world_model_texture_filename(world_model_texture_name);
-
-   // The collision map
-   level.set_tile_map_tile_elevation_bitmap_filename("");
-   level.set_tile_map_tile_type_bitmap_filename("");
-   //level.set_tile_map_tile_elevation_bitmap_filename("the_cave.png");
-   //level.set_tile_map_tile_type_bitmap_filename("the_cave-type.png");
-   level.set_tile_map_ceiling_height(10.0f);
-   level.set_tile_map_groundlevel_height(0.0f);
-   level.set_tile_map_floor_height(-2.0f);
-   level.set_tile_map_origin_offset({22, 25});
-
-   // The level's "delivery song" info
-   level.set_song_to_perform_identifier("robot-holly_jolly");
-   level.set_song_to_perform_duration_sec(15.0f);
-
-   return level;
+LabyrinthOfLore::WorldMap::TileMap* Screen::get_current_level_tile_map()
+{
+   if (!((!current_level_tile_maps.empty())))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::get_current_level_tile_map]: error: guard \"(!current_level_tile_maps.empty())\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::get_current_level_tile_map: error: guard \"(!current_level_tile_maps.empty())\" not met");
+   }
+   return current_level_tile_maps[0]; // TODO: Grab the level nearest the player (or y-position)
 }
 
 void Screen::load_tile_map(std::string level_identifier)
 {
-   if (current_level_tile_map) delete current_level_tile_map;
-   //current_level_tile_map = return load_tester_tile_map();
-   current_level_tile_map = load_tile_map_from_bitmap(level_identifier);
+   for (auto &current_level_tile_map : current_level_tile_maps)
+   {
+      if (current_level_tile_map) delete current_level_tile_map;
+   }
+
+   current_level_tile_maps.clear();
+
+   int num_levels = 1;
+   for (int i=0; i<num_levels; i++)
+   {
+      current_level_tile_maps.push_back(load_tile_map_from_bitmap(level_identifier)); // TODO: Load each level
+   }
 
    return;
 }
 
 LabyrinthOfLore::WorldMap::TileMap* Screen::load_tile_map_from_bitmap(std::string level_identifier)
 {
+   // TODO: Don't pass along floor, instead do better thing
+
    std::string tile_map_bitmap_folder_location = bitmap_bin->get_path();
    LabyrinthOfLore::WorldMap::TileMap *result = new LabyrinthOfLore::WorldMap::TileMap();
 
    // Create some level data
 
    Pipeline::Gameplay::Level level = build_level(level_identifier);
-   bool has_bitmap_files_for_loading = !(level.get_tile_map_tile_elevation_bitmap_filename().empty()
-                                     && level.get_tile_map_tile_type_bitmap_filename().empty());
 
-   if (has_bitmap_files_for_loading)
+
+   for (auto &tile_map : level.get_tile_maps())
    {
-      // Load the level (with bitmap files)
+      std::string tile_elevation_bitmap = tile_map.get_tile_elevation_bitmap_filename();
+      std::string tile_type_bitmap = tile_map.get_tile_type_bitmap_filename();
 
-      std::string elevation_bitmap_filename = tile_map_bitmap_folder_location
-                                            + level.get_tile_map_tile_elevation_bitmap_filename();
-      std::string tile_type_bitmap_filename = tile_map_bitmap_folder_location
-                                            + level.get_tile_map_tile_type_bitmap_filename();
-      float ceiling_height = level.get_tile_map_ceiling_height();
-      float ground_height = level.get_tile_map_groundlevel_height();
-      float floor_height = level.get_tile_map_floor_height();
+      //bool has_bitmap_files_for_loading = !(level.get_tile_map_tile_elevation_bitmap_filename().empty()
+                                        //&& level.get_tile_map_tile_type_bitmap_filename().empty());
+      bool has_bitmap_files_for_loading = !(tile_elevation_bitmap.empty() && tile_type_bitmap.empty());
 
-      if (!std::filesystem::exists(elevation_bitmap_filename))
+      if (has_bitmap_files_for_loading)
       {
-         AllegroFlare::Logger::throw_error(
-            "Pipeline::Gameplay::Screen::load_tile_map_from_bitmap",
-            "The tile_elevation bitmap \"" + elevation_bitmap_filename + "\" does not exist."
+         // Load the level (with bitmap files)
+
+         std::string elevation_bitmap_filename = tile_map_bitmap_folder_location
+                                               + tile_elevation_bitmap; //level.get_tile_map_tile_elevation_bitmap_filename();
+         std::string tile_type_bitmap_filename = tile_map_bitmap_folder_location
+                                               + tile_type_bitmap; //level.get_tile_map_tile_type_bitmap_filename();
+         //float ceiling_height = level.get_tile_map_ceiling_height();
+         //float ground_height = level.get_tile_map_groundlevel_height();
+         //float floor_height = level.get_tile_map_floor_height();
+         float ceiling_height = tile_map.get_ceiling_height();
+         float ground_height = tile_map.get_groundlevel_height();
+         float floor_height = tile_map.get_floor_height();
+
+         if (!std::filesystem::exists(elevation_bitmap_filename))
+         {
+            AllegroFlare::Logger::throw_error(
+               "Pipeline::Gameplay::Screen::load_tile_map_from_bitmap",
+               "The tile_elevation bitmap \"" + elevation_bitmap_filename + "\" does not exist."
+            );
+         }
+         if (!std::filesystem::exists(tile_type_bitmap_filename))
+         {
+            AllegroFlare::Logger::throw_error(
+               "Pipeline::Gameplay::Screen::load_tile_map_from_bitmap",
+               "The tile_type bitmap \"" + tile_type_bitmap_filename + "\" does not exist."
+            );
+         }
+
+         LabyrinthOfLore::WorldMap::MultiBitmapFilenameToWorldBuilder world_builder(
+            elevation_bitmap_filename,
+            tile_type_bitmap_filename,
+            ceiling_height,
+            ground_height,
+            floor_height
+         );
+
+         *result = world_builder.build();
+      }
+      else
+      {
+         // No bitmap data is available for this level
+         AllegroFlare::Logger::warn_from(
+            "Pipeline::Gameplay::Screen::load_tile_map_from_bitamp",
+            "Level bitmaps are not used for the level with identifier \"" + level_identifier + "\""
+               ". Proceeding with an empty tile_map for collisions."
          );
       }
-      if (!std::filesystem::exists(tile_type_bitmap_filename))
-      {
-         AllegroFlare::Logger::throw_error(
-            "Pipeline::Gameplay::Screen::load_tile_map_from_bitmap",
-            "The tile_type bitmap \"" + tile_type_bitmap_filename + "\" does not exist."
-         );
-      }
-
-      LabyrinthOfLore::WorldMap::MultiBitmapFilenameToWorldBuilder world_builder(
-         elevation_bitmap_filename,
-         tile_type_bitmap_filename,
-         ceiling_height,
-         ground_height,
-         floor_height
-      );
-
-      *result = world_builder.build();
-   }
-   else
-   {
-      // No bitmap data is available for this level
-      AllegroFlare::Logger::warn_from(
-         "Pipeline::Gameplay::Screen::load_tile_map_from_bitamp",
-         "Level bitmaps are not used for the level with identifier \"" + level_identifier + "\""
-            ". Proceeding with an empty tile_map for collisions."
-      );
    }
 
    return result;
@@ -511,8 +519,13 @@ void Screen::load_level_by_identifier(std::string level_identifier)
    portal_entity_associations.clear();
    if (current_level) delete current_level;
    current_level = nullptr;
-   if (current_level_tile_map) delete current_level_tile_map;
-   current_level_tile_map = nullptr;
+   for (auto &current_level_tile_map : current_level_tile_maps)
+   {
+      if (current_level_tile_map) delete current_level_tile_map;
+   }
+   current_level_tile_maps.clear();
+   //if (current_level_tile_map) delete current_level_tile_map;
+   //current_level_tile_map = nullptr;
    show_map_overlay = false;
 
 
@@ -1384,7 +1397,11 @@ void Screen::update()
 
       // Update the player's position by applying its velocity in the stepper
       // Reposition player_character on map; Use a very fancy swapping of y-with-z variables, the stepper
-      AllegroFlare::Vec2D current_level_tile_map_origin_offset = current_level->get_tile_map_origin_offset();
+      ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      LabyrinthOfLore::WorldMap::TileMap *current_level_tile_map = get_current_level_tile_map(); // TODO: Pass argument
+      ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      AllegroFlare::Vec2D current_level_tile_map_origin_offset = current_level->get_tile_maps()[0].get_origin_offset();
+      //AllegroFlare::Vec2D current_level_tile_map_origin_offset = current_level->get_tile_map_origin_offset();
 
       AllegroFlare::Vec3D vswapper;
       AllegroFlare::Vec3D pswapper;
@@ -1648,8 +1665,12 @@ void Screen::render()
    //bool show_map_overlay = false;
    if (show_map_overlay)
    {
+      ////////////////////////////////////////////////////// TODO: Pass along floor that you want to see on map ////////////////////
+      LabyrinthOfLore::WorldMap::TileMap *current_level_tile_map = get_current_level_tile_map(); // TODO: Pass argument
+
       int tile_size = 32;
-      AllegroFlare::Vec2D current_level_tile_map_origin_offset = current_level->get_tile_map_origin_offset();
+      AllegroFlare::Vec2D current_level_tile_map_origin_offset = current_level->get_tile_maps()[0].get_origin_offset();
+      //AllegroFlare::Vec2D current_level_tile_map_origin_offset = current_level_tile_map->get_origin_offset();
       AllegroFlare::Vec3D player_position = get_player_controlled_entity_as()->get_placement_ref().position;
       AllegroFlare::Vec2D tile_alignment_offset = current_level_tile_map_tile_alignment_offset;
       float player_map_position_x =

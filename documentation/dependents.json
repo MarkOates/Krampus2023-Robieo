@@ -303,8 +303,12 @@
   ],
   "AllegroFlare/Vec2D": [
     "Pipeline/Gameplay/Level",
+    "Pipeline/Gameplay/LevelTileMap",
     "Pipeline/Gameplay/Screen",
     "Pipeline/Gameplay/Screen"
+  ],
+  "Pipeline/Gameplay/LevelTileMap": [
+    "Pipeline/Gameplay/Level"
   ],
   "ALLEGRO_EVENT": [
     "Pipeline/Gameplay/Screen"

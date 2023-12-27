@@ -67,6 +67,7 @@ table td
   <li><a href="#quintessence/Pipeline/GameConfigurations/Main.q.yml">quintessence/Pipeline/GameConfigurations/Main.q.yml</a></li>
   <li><a href="#quintessence/Pipeline/GameProgressAndStateInfo.q.yml">quintessence/Pipeline/GameProgressAndStateInfo.q.yml</a></li>
   <li><a href="#quintessence/Pipeline/Gameplay/Level.q.yml">quintessence/Pipeline/Gameplay/Level.q.yml</a></li>
+  <li><a href="#quintessence/Pipeline/Gameplay/LevelTileMap.q.yml">quintessence/Pipeline/Gameplay/LevelTileMap.q.yml</a></li>
   <li><a href="#quintessence/Pipeline/Gameplay/Screen.q.yml">quintessence/Pipeline/Gameplay/Screen.q.yml</a></li>
   <li><a href="#quintessence/Pipeline/Physics/GravityStepper.q.yml">quintessence/Pipeline/Physics/GravityStepper.q.yml</a></li>
   <li><a href="#quintessence/Pipeline/Runner.q.yml">quintessence/Pipeline/Runner.q.yml</a></li>
@@ -1438,28 +1439,8 @@ table td
   <td class="property">std::string</td>
 </tr>
 <tr>
-  <td class="property">tile_map_tile_elevation_bitmap_filename</td>
-  <td class="property">std::string</td>
-</tr>
-<tr>
-  <td class="property">tile_map_tile_type_bitmap_filename</td>
-  <td class="property">std::string</td>
-</tr>
-<tr>
-  <td class="property">tile_map_origin_offset</td>
-  <td class="property">AllegroFlare::Vec2D</td>
-</tr>
-<tr>
-  <td class="property">tile_map_ceiling_height</td>
-  <td class="property">float</td>
-</tr>
-<tr>
-  <td class="property">tile_map_groundlevel_height</td>
-  <td class="property">float</td>
-</tr>
-<tr>
-  <td class="property">tile_map_floor_height</td>
-  <td class="property">float</td>
+  <td class="property">tile_maps</td>
+  <td class="property">std::vector&lt;Pipeline::Gameplay::LevelTileMap&gt;</td>
 </tr>
 <tr>
   <td class="property">background_music_identifier</td>
@@ -1486,6 +1467,51 @@ table td
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Levels::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Levels/Base.hpp&quot;]}</td>
 </tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Vec2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Vec2D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Pipeline::Gameplay::LevelTileMap&quot;, &quot;headers&quot;=&gt;[&quot;Pipeline/Gameplay/LevelTileMap.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/Pipeline/Gameplay/LevelTileMap.q.yml">quintessence/Pipeline/Gameplay/LevelTileMap.q.yml</h3>
+    <h4>Overview<h4>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">tile_elevation_bitmap_filename</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">tile_type_bitmap_filename</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">origin_offset</td>
+  <td class="property">AllegroFlare::Vec2D</td>
+</tr>
+<tr>
+  <td class="property">ceiling_height</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">groundlevel_height</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">floor_height</td>
+  <td class="property">float</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Vec2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Vec2D.hpp&quot;]}</td>
 </tr>
@@ -1567,8 +1593,8 @@ table td
   <td class="property">Pipeline::Gameplay::Level*</td>
 </tr>
 <tr>
-  <td class="property">current_level_tile_map</td>
-  <td class="property">LabyrinthOfLore::WorldMap::TileMap*</td>
+  <td class="property">current_level_tile_maps</td>
+  <td class="property">std::vector&lt;LabyrinthOfLore::WorldMap::TileMap*&gt;</td>
 </tr>
 <tr>
   <td class="property">current_level_tile_map_tile_alignment_offset</td>
@@ -1702,6 +1728,9 @@ table td
 </tr>
 <tr>
   <td class="method">build_level(std::string level_identifier=&quot;[unset-level_identifier]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">get_current_level_tile_map()</td>
 </tr>
 <tr>
   <td class="method">load_tile_map(std::string level_identifier=&quot;[unset-level_identifier]&quot;)</td>
@@ -2602,8 +2631,12 @@ table td
   ],
   "AllegroFlare/Vec2D": [
     "Pipeline/Gameplay/Level",
+    "Pipeline/Gameplay/LevelTileMap",
     "Pipeline/Gameplay/Screen",
     "Pipeline/Gameplay/Screen"
+  ],
+  "Pipeline/Gameplay/LevelTileMap": [
+    "Pipeline/Gameplay/Level"
   ],
   "ALLEGRO_EVENT": [
     "Pipeline/Gameplay/Screen"
