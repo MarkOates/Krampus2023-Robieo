@@ -240,6 +240,9 @@
   "std/stof": [
     "Pipeline/CSVToLevelLoader"
   ],
+  "std/abs": [
+    "Pipeline/CurrentFloorInferencer"
+  ],
   "AllegroFlare/DialogTree/NodeBank": [
     "Pipeline/DialogNodeBankFactory",
     "Pipeline/GameConfigurations/Main",

@@ -62,6 +62,7 @@ table td
   <li><a href="#quintessence/LabyrinthOfLore/WorldMap/MultiBitmapTileMapLoader.q.yml">quintessence/LabyrinthOfLore/WorldMap/MultiBitmapTileMapLoader.q.yml</a></li>
   <li><a href="#quintessence/LabyrinthOfLore/WorldMap/Tile.q.yml">quintessence/LabyrinthOfLore/WorldMap/Tile.q.yml</a></li>
   <li><a href="#quintessence/Pipeline/CSVToLevelLoader.q.yml">quintessence/Pipeline/CSVToLevelLoader.q.yml</a></li>
+  <li><a href="#quintessence/Pipeline/CurrentFloorInferencer.q.yml">quintessence/Pipeline/CurrentFloorInferencer.q.yml</a></li>
   <li><a href="#quintessence/Pipeline/DialogNodeBankFactory.q.yml">quintessence/Pipeline/DialogNodeBankFactory.q.yml</a></li>
   <li><a href="#quintessence/Pipeline/GameConfigurations/Main.q.yml">quintessence/Pipeline/GameConfigurations/Main.q.yml</a></li>
   <li><a href="#quintessence/Pipeline/GameProgressAndStateInfo.q.yml">quintessence/Pipeline/GameProgressAndStateInfo.q.yml</a></li>
@@ -1193,6 +1194,31 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::stof&quot;, &quot;headers&quot;=&gt;[&quot;string&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/Pipeline/CurrentFloorInferencer.q.yml">quintessence/Pipeline/CurrentFloorInferencer.q.yml</h3>
+    <h4>Overview<h4>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">elevationMap</td>
+  <td class="property">std::map&lt;int, float&gt;</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">find_closest_floor(float playerPosition=0.0f)</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::abs&quot;, &quot;headers&quot;=&gt;[&quot;cmath&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -2512,6 +2538,9 @@ table td
   ],
   "std/stof": [
     "Pipeline/CSVToLevelLoader"
+  ],
+  "std/abs": [
+    "Pipeline/CurrentFloorInferencer"
   ],
   "AllegroFlare/DialogTree/NodeBank": [
     "Pipeline/DialogNodeBankFactory",

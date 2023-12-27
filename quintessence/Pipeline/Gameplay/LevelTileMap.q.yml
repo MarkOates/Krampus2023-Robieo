@@ -1,0 +1,47 @@
+properties:
+
+
+  - name: tile_elevation_bitmap_filename
+    type: std::string
+    init_with: '"[unset-tile_elevation_bitmap_filename]"'
+    getter: true
+    setter: true
+
+  - name: tile_type_bitmap_filename
+    type: std::string
+    init_with: '"[unset-tile_type_bitmap_filename]"'
+    getter: true
+    setter: true
+
+  - name: origin_offset
+    type: AllegroFlare::Vec2D
+    init_with: '{}'
+    getter: true
+    setter: true
+
+  - name: ceiling_height
+    type: float
+    init_with: 10.0f
+    getter: true
+    setter: true
+
+  - name: groundlevel_height
+    type: float
+    init_with: 0.0f
+    getter: true
+    setter: true
+
+  - name: floor_height
+    type: float
+    init_with: -2.0f
+    getter: true
+    setter: true
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::Vec2D
+    headers: [ AllegroFlare/Vec2D.hpp ]
+
+
