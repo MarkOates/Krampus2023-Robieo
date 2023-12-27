@@ -3,6 +3,7 @@
 #include <Pipeline/CurrentFloorInferencer.hpp>
 
 #include <cmath>
+#include <stdexcept>
 
 
 namespace Pipeline

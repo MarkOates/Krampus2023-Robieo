@@ -50,6 +50,7 @@ methods:
       return closestIndex;
     body_dependency_symbols:
       - std::abs
+      - std::runtime_error
 
 
 dependencies:
