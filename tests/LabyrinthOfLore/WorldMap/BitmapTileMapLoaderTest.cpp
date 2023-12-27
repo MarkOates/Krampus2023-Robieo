@@ -138,6 +138,10 @@ TEST(LabyrinthOfLore_WorldMap_BitmapTileMapLoaderTest, pick_index_G_color__retur
    EXPECT_EQ_COLOR(expected_color, actual_color);
 
    expected_color = al_color_html("cbdbfc");
+   actual_color = bitmap_tile_map_loader.pick_index_gpppp_color();
+   EXPECT_EQ_COLOR(expected_color, actual_color);
+
+   expected_color = al_color_html("d2fbff");
    actual_color = bitmap_tile_map_loader.pick_index_g1_color();
    EXPECT_EQ_COLOR(expected_color, actual_color);
 
@@ -172,6 +176,10 @@ TEST(LabyrinthOfLore_WorldMap_BitmapTileMapLoaderTest, pick_index_G_color__retur
    EXPECT_EQ_COLOR(expected_color, actual_color);
 
    expected_color = al_color_html("663931");
+   actual_color = bitmap_tile_map_loader.pick_index_gmmmm_color();
+   EXPECT_EQ_COLOR(expected_color, actual_color);
+
+   expected_color = al_color_html("531308");
    actual_color = bitmap_tile_map_loader.pick_index_gm1_color();
    EXPECT_EQ_COLOR(expected_color, actual_color);
 
@@ -320,13 +328,13 @@ TEST(LabyrinthOfLore_WorldMap_BitmapTileMapLoaderTest, load__correctly_picks_out
    LabyrinthOfLore::WorldMap::TileMap tile_map = loader.load();
 
    EXPECT_EQ(1, tile_map.get_tile(14, 19).get_type());
-   EXPECT_EQ(2.25, tile_map.get_tile(14, 19).get_height());
+   EXPECT_FLOAT_EQ(2.2, tile_map.get_tile(14, 19).get_height());
    EXPECT_EQ(1, tile_map.get_tile(15, 21).get_type());
-   EXPECT_EQ(2.5, tile_map.get_tile(15, 21).get_height());
+   EXPECT_FLOAT_EQ(2.4, tile_map.get_tile(15, 21).get_height());
    EXPECT_EQ(1, tile_map.get_tile(15, 24).get_type());
-   EXPECT_EQ(2.75, tile_map.get_tile(15, 24).get_height());
+   EXPECT_FLOAT_EQ(2.6, tile_map.get_tile(15, 24).get_height());
    EXPECT_EQ(1, tile_map.get_tile(15, 25).get_type());
-   EXPECT_EQ(3.0, tile_map.get_tile(15, 25).get_height());
+   EXPECT_FLOAT_EQ(2.8, tile_map.get_tile(15, 25).get_height());
 
 
    al_uninstall_system();
@@ -346,14 +354,15 @@ TEST(LabyrinthOfLore_WorldMap_BitmapTileMapLoaderTest, load__correctly_picks_out
    LabyrinthOfLore::WorldMap::TileMap tile_map = loader.load();
 
    EXPECT_EQ(1, tile_map.get_tile(9, 13).get_type());
-   EXPECT_EQ(1.75, tile_map.get_tile(9, 13).get_height());
+   EXPECT_FLOAT_EQ(1.8, tile_map.get_tile(9, 13).get_height());
    EXPECT_EQ(1, tile_map.get_tile(9, 10).get_type());
-   EXPECT_EQ(1.5, tile_map.get_tile(9, 10).get_height());
+   EXPECT_FLOAT_EQ(1.6, tile_map.get_tile(9, 10).get_height());
    EXPECT_EQ(1, tile_map.get_tile(7, 8).get_type());
-   EXPECT_EQ(1.25, tile_map.get_tile(7, 8).get_height());
+   EXPECT_FLOAT_EQ(1.4, tile_map.get_tile(7, 8).get_height());
    EXPECT_EQ(1, tile_map.get_tile(6, 14).get_type());
-   EXPECT_EQ(1.0, tile_map.get_tile(6, 14).get_height());
-
+   EXPECT_FLOAT_EQ(1.2, tile_map.get_tile(6, 14).get_height());
+   EXPECT_EQ(1, tile_map.get_tile(16, 16).get_type());
+   EXPECT_FLOAT_EQ(2.0, tile_map.get_tile(16, 16).get_height());
 
    al_uninstall_system();
    SUCCEED();
