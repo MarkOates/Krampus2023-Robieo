@@ -290,9 +290,11 @@ methods:
       std::map<int, float> result;
       int i=0;
       // TODO: Confirm not duplicating levels
+      std::cout << "========" << std::endl;
       for (auto &tile_map : current_level->get_tile_maps_ref())
       {
          result[i] = tile_map.get_groundlevel_height();
+         std::cout << i << ":" << tile_map.get_groundlevel_height() << std::endl;
          i++;
       }
       // Sanity check
@@ -531,6 +533,10 @@ methods:
             float ceiling_height = tile_map.get_ceiling_height();
             float ground_height = tile_map.get_groundlevel_height();
             float floor_height = tile_map.get_floor_height();
+
+
+            std::cout << "-- elevation_bitmap_filename: " << elevation_bitmap_filename << std::endl;
+            std::cout << "-- tile_type_bitmap_filename: " << tile_type_bitmap_filename << std::endl;
 
             if (!std::filesystem::exists(elevation_bitmap_filename))
             {
