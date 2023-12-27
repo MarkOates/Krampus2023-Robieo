@@ -135,6 +135,7 @@ methods:
       //}
     body_dependency_symbols:
       - Pipeline::CSVToLevelLoader
+      - std::filesystem
 
 
   - name: build_dialog_bank_by_identifier
@@ -258,5 +259,7 @@ dependencies:
     headers: [ AllegroFlare/Logger.hpp ]
   - symbol: Pipeline::CSVToLevelLoader
     headers: [ Pipeline/CSVToLevelLoader.hpp ]
+  - symbol: std::filesystem
+    headers: [ filesystem ]
 
 

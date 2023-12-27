@@ -57,5 +57,7 @@ dependencies:
 
   - symbol: std::abs
     headers: [ cmath ]
+  - symbol: std::runtime_error
+    headers: [ stdexcept ]
 
 

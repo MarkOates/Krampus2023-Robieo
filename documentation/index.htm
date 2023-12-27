@@ -1234,6 +1234,9 @@ table td
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::abs&quot;, &quot;headers&quot;=&gt;[&quot;cmath&quot;]}</td>
 </tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::runtime_error&quot;, &quot;headers&quot;=&gt;[&quot;stdexcept&quot;]}</td>
+</tr>
     </table>
 </div>  </div>
 </ul>
@@ -1358,6 +1361,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Pipeline::CSVToLevelLoader&quot;, &quot;headers&quot;=&gt;[&quot;Pipeline/CSVToLevelLoader.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::filesystem&quot;, &quot;headers&quot;=&gt;[&quot;filesystem&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -2590,6 +2596,9 @@ table td
   "std/abs": [
     "Pipeline/CurrentFloorInferencer"
   ],
+  "std/runtime_error": [
+    "Pipeline/CurrentFloorInferencer"
+  ],
   "AllegroFlare/DialogTree/NodeBank": [
     "Pipeline/DialogNodeBankFactory",
     "Pipeline/GameConfigurations/Main",
@@ -2635,6 +2644,9 @@ table td
   "Pipeline/CSVToLevelLoader": [
     "Pipeline/GameConfigurations/Main",
     "Pipeline/Gameplay/Screen"
+  ],
+  "std/filesystem": [
+    "Pipeline/GameConfigurations/Main"
   ],
   "std/multiset": [
     "Pipeline/GameProgressAndStateInfo"

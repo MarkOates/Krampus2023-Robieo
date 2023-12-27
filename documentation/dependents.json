@@ -243,6 +243,9 @@
   "std/abs": [
     "Pipeline/CurrentFloorInferencer"
   ],
+  "std/runtime_error": [
+    "Pipeline/CurrentFloorInferencer"
+  ],
   "AllegroFlare/DialogTree/NodeBank": [
     "Pipeline/DialogNodeBankFactory",
     "Pipeline/GameConfigurations/Main",
@@ -288,6 +291,9 @@
   "Pipeline/CSVToLevelLoader": [
     "Pipeline/GameConfigurations/Main",
     "Pipeline/Gameplay/Screen"
+  ],
+  "std/filesystem": [
+    "Pipeline/GameConfigurations/Main"
   ],
   "std/multiset": [
     "Pipeline/GameProgressAndStateInfo"

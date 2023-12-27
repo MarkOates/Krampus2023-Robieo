@@ -6,6 +6,7 @@
 #include <AllegroFlare/Logger.hpp>
 #include <Pipeline/CSVToLevelLoader.hpp>
 #include <Pipeline/Gameplay/Level.hpp>
+#include <filesystem>
 #include <functional>
 #include <map>
 #include <set>
