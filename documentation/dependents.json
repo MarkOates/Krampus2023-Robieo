@@ -420,6 +420,9 @@
   "Pipeline/Physics/GravityStepper": [
     "Pipeline/Gameplay/Screen"
   ],
+  "Pipeline/CurrentFloorInferencer": [
+    "Pipeline/Gameplay/Screen"
+  ],
   "AllegroFlare/vec3d": [
     "Pipeline/Physics/GravityStepper"
   ],

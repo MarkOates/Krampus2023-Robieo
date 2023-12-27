@@ -849,6 +849,10 @@ table td
   <td class="property">tile_height</td>
   <td class="property">float</td>
 </tr>
+<tr>
+  <td class="property">groundlevel_height</td>
+  <td class="property">float</td>
+</tr>
     </table>
 </div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
@@ -1706,6 +1710,9 @@ table td
   <td class="method">set_model_bin(AllegroFlare::ModelBin* model_bin=nullptr)</td>
 </tr>
 <tr>
+  <td class="method">build_elevations_and_indices_for_floors()</td>
+</tr>
+<tr>
   <td class="method">trivial_collide(AllegroFlare::Vec3D p1={0.0f, 0.0f, 0.0f}, AllegroFlare::Vec3D p2={0.0f, 0.0f, 0.0f}, float min_distance=10.0f)</td>
 </tr>
 <tr>
@@ -1730,7 +1737,7 @@ table td
   <td class="method">build_level(std::string level_identifier=&quot;[unset-level_identifier]&quot;)</td>
 </tr>
 <tr>
-  <td class="method">get_current_level_tile_map()</td>
+  <td class="method">get_current_level_tile_map(int floor_index=0)</td>
 </tr>
 <tr>
   <td class="method">load_tile_map(std::string level_identifier=&quot;[unset-level_identifier]&quot;)</td>
@@ -2001,6 +2008,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Pipeline::CSVToLevelLoader&quot;, &quot;headers&quot;=&gt;[&quot;Pipeline/CSVToLevelLoader.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Pipeline::CurrentFloorInferencer&quot;, &quot;headers&quot;=&gt;[&quot;Pipeline/CurrentFloorInferencer.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -2746,6 +2756,9 @@ table td
     "Pipeline/Gameplay/Screen"
   ],
   "Pipeline/Physics/GravityStepper": [
+    "Pipeline/Gameplay/Screen"
+  ],
+  "Pipeline/CurrentFloorInferencer": [
     "Pipeline/Gameplay/Screen"
   ],
   "AllegroFlare/vec3d": [

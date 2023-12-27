@@ -162,8 +162,12 @@ methods:
          level.set_world_model_obj_filename(world_model_obj_filename);
          level.set_world_model_texture_filename(world_model_texture_filename);
 
+
+
+
+         {
          level.get_tile_maps_ref().push_back({});
-         auto &tile_map = level.get_tile_maps_ref()[0];
+         auto &tile_map = level.get_tile_maps_ref().back();
 
          std::string tile_map_tile_elevation_bitmap_filename =
             validate_key_and_return(&extracted_row, "tile_map_ground_floor__tile_elevation_bitmap_filename");
@@ -176,13 +180,53 @@ methods:
          float tile_map_groundlevel_height = tof(validate_key_and_return(&extracted_row, "tile_map_ground_floor__groundlevel_height"));
          float tile_map_floor_height = tof(validate_key_and_return(&extracted_row, "tile_map_ground_floor__floor_height"));
 
-
          tile_map.set_tile_elevation_bitmap_filename(tile_map_tile_elevation_bitmap_filename);
          tile_map.set_tile_type_bitmap_filename(tile_map_tile_type_bitmap_filename);
          tile_map.set_origin_offset({ (float)tile_map_origin_offset_x, (float)tile_map_origin_offset_y });
          tile_map.set_ceiling_height(tile_map_ceiling_height);
          tile_map.set_groundlevel_height(tile_map_groundlevel_height);
          tile_map.set_floor_height(tile_map_floor_height);
+         }
+
+
+
+
+         {
+           //int num = 1;
+         //level.get_tile_maps_ref().push_back({});
+         //auto &tile_map = level.get_tile_maps_ref()[0];
+
+         std::string tile_map_tile_elevation_bitmap_filename =
+            validate_key_and_return(&extracted_row, "tile_map_floor2__tile_elevation_bitmap_filename");
+         std::string tile_map_tile_type_bitmap_filename =
+            validate_key_and_return(&extracted_row, "tile_map_floor2__tile_type_bitmap_filename");
+
+         std::cout << "tile_map_tile_elevation_bitmap_filename: " << tile_map_tile_elevation_bitmap_filename << std::endl;
+         std::cout << "tile_map_tile_type_bitmap_filename: " << tile_map_tile_type_bitmap_filename << std::endl;
+
+            // TODO: Better validation
+            if (!tile_map_tile_elevation_bitmap_filename.empty())
+            {
+
+            level.get_tile_maps_ref().push_back({});
+            auto &tile_map = level.get_tile_maps_ref().back();
+            int tile_map_origin_offset_x = toi(validate_key_and_return(&extracted_row, "tile_map_floor2__origin_offset__x"));
+            int tile_map_origin_offset_y = toi(validate_key_and_return(&extracted_row, "tile_map_floor2__origin_offset__y"));
+            float tile_map_ceiling_height = tof(validate_key_and_return(&extracted_row, "tile_map_floor2__ceiling_height"));
+            float tile_map_groundlevel_height = tof(validate_key_and_return(&extracted_row, "tile_map_floor2__groundlevel_height"));
+            float tile_map_floor_height = tof(validate_key_and_return(&extracted_row, "tile_map_floor2__floor_height"));
+
+            tile_map.set_tile_elevation_bitmap_filename(tile_map_tile_elevation_bitmap_filename);
+            tile_map.set_tile_type_bitmap_filename(tile_map_tile_type_bitmap_filename);
+            tile_map.set_origin_offset({ (float)tile_map_origin_offset_x, (float)tile_map_origin_offset_y });
+            tile_map.set_ceiling_height(tile_map_ceiling_height);
+            tile_map.set_groundlevel_height(tile_map_groundlevel_height);
+            tile_map.set_floor_height(tile_map_floor_height);
+            }
+         }
+
+
+
 
          //level.set_tile_elevation_bitmap_filename(tile_map_tile_elevation_bitmap_filename);
          //level.set_tile_map_tile_type_bitmap_filename(tile_map_tile_type_bitmap_filename);

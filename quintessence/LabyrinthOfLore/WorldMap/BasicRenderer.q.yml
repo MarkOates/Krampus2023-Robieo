@@ -22,6 +22,13 @@ properties:
     getter: true
     setter: true
 
+  - name: groundlevel_height
+    type: float
+    init_with: 0.0f
+    constructor_arg: true
+    getter: true
+    setter: true
+
 
 methods:
 
@@ -34,8 +41,8 @@ methods:
       //int tile_height = 32;
       int inset = 2;
 
-      float bottom_height = 0.0;
-      float top_height = 2.0;
+      float bottom_height = 0.0 - groundlevel_height;
+      float top_height = 2.0 - groundlevel_height;
       ALLEGRO_COLOR tile_color = al_color_name("cyan");
 
       for (unsigned y=0; y<tile_map->get_height(); y++)
@@ -43,7 +50,7 @@ methods:
          {
             ALLEGRO_COLOR result_tile_color = tile_color;
             LabyrinthOfLore::WorldMap::Tile tile = tile_map->get_tile(x, y);
-            float height_float = (tile.get_height() / top_height * 0.5) + 0.5;
+            float height_float = ((tile.get_height()-groundlevel_height) / (top_height-groundlevel_height) * 0.5) + 0.5;
             int tile_type = tile.get_type();
 
             if (tile_type == LabyrinthOfLore::WorldMap::NULL_TILE) result_tile_color = al_color_name("blueviolet");

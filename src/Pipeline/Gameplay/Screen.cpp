@@ -233,6 +233,7 @@ std::map<int, float> Screen::build_elevations_and_indices_for_floors()
    for (auto &tile_map : current_level->get_tile_maps_ref())
    {
       result[i] = tile_map.get_groundlevel_height();
+      i++;
    }
    // Sanity check
    if (result.size() != current_level->get_tile_maps_ref().size())
@@ -408,21 +409,22 @@ void Screen::load_tile_map(std::string level_identifier)
 
    current_level_tile_maps.clear();
 
-   int num_levels = 1;
-   for (int i=0; i<num_levels; i++)
-   {
-      current_level_tile_maps.push_back(load_tile_map_from_bitmap(level_identifier)); // TODO: Load each level
-   }
+   //int num_levels = 1;
+   //for (int i=0; i<num_levels; i++)
+   //{
+      current_level_tile_maps = load_tile_map_from_bitmap(level_identifier); // TODO: Load each level
+      //current_level_tile_maps.push_back(load_tile_map_from_bitmap(level_identifier)); // TODO: Load each level
+   //}
 
    return;
 }
 
-LabyrinthOfLore::WorldMap::TileMap* Screen::load_tile_map_from_bitmap(std::string level_identifier)
+std::vector<LabyrinthOfLore::WorldMap::TileMap*> Screen::load_tile_map_from_bitmap(std::string level_identifier)
 {
    // TODO: Don't pass along floor, instead do better thing
 
    std::string tile_map_bitmap_folder_location = bitmap_bin->get_path();
-   LabyrinthOfLore::WorldMap::TileMap *result = new LabyrinthOfLore::WorldMap::TileMap();
+   std::vector<LabyrinthOfLore::WorldMap::TileMap*> result; // = new LabyrinthOfLore::WorldMap::TileMap();
 
    // Create some level data
 
@@ -431,6 +433,7 @@ LabyrinthOfLore::WorldMap::TileMap* Screen::load_tile_map_from_bitmap(std::strin
 
    for (auto &tile_map : level.get_tile_maps())
    {
+      LabyrinthOfLore::WorldMap::TileMap *local_result = new LabyrinthOfLore::WorldMap::TileMap();
       std::string tile_elevation_bitmap = tile_map.get_tile_elevation_bitmap_filename();
       std::string tile_type_bitmap = tile_map.get_tile_type_bitmap_filename();
 
@@ -476,7 +479,9 @@ LabyrinthOfLore::WorldMap::TileMap* Screen::load_tile_map_from_bitmap(std::strin
             floor_height
          );
 
-         *result = world_builder.build();
+         *local_result = world_builder.build();
+
+         result.push_back(local_result);
       }
       else
       {
@@ -1433,7 +1438,7 @@ void Screen::update()
       std::map<int, float> floor_elevations = build_elevations_and_indices_for_floors();
       Pipeline::CurrentFloorInferencer floor_inferencer(floor_elevations);
       //floor_inferencer.set_elevationMap(floor_elevations);
-      int closest_floor = floor_inferencer.find_closest_floor(player_elevation);
+      int closest_floor_index = floor_inferencer.find_closest_floor(player_elevation);
 
       //int inferred_floor_number =            { floor_height+4.0, floor_height, floor_height-4.0 };
       //float local_y
@@ -1443,9 +1448,9 @@ void Screen::update()
       // Update the player's position by applying its velocity in the stepper
       // Reposition player_character on map; Use a very fancy swapping of y-with-z variables, the stepper
       ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-      LabyrinthOfLore::WorldMap::TileMap *current_level_tile_map = get_current_level_tile_map(); // TODO: Pass argument
+      LabyrinthOfLore::WorldMap::TileMap *current_level_tile_map = get_current_level_tile_map(closest_floor_index); // TODO: Pass argument
       ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-      AllegroFlare::Vec2D current_level_tile_map_origin_offset = current_level->get_tile_maps()[0].get_origin_offset();
+      AllegroFlare::Vec2D current_level_tile_map_origin_offset = current_level->get_tile_maps()[closest_floor_index].get_origin_offset();
       //AllegroFlare::Vec2D current_level_tile_map_origin_offset = current_level->get_tile_map_origin_offset();
 
       AllegroFlare::Vec3D vswapper;
@@ -1707,14 +1712,22 @@ void Screen::render()
 
    //al_clear_depth_buffer(1.0);
 
+      auto player_entity_as = get_player_controlled_entity_as();
+      float player_elevation = player_entity_as->get_placement_ref().position.y;
+      std::map<int, float> floor_elevations = build_elevations_and_indices_for_floors();
+      Pipeline::CurrentFloorInferencer floor_inferencer(floor_elevations);
+      //floor_inferencer.set_elevationMap(floor_elevations);
+      int closest_floor_index = floor_inferencer.find_closest_floor(player_elevation);
+
    //bool show_map_overlay = false;
    if (show_map_overlay)
    {
       ////////////////////////////////////////////////////// TODO: Pass along floor that you want to see on map ////////////////////
-      LabyrinthOfLore::WorldMap::TileMap *current_level_tile_map = get_current_level_tile_map(); // TODO: Pass argument
+      LabyrinthOfLore::WorldMap::TileMap *current_level_tile_map = get_current_level_tile_map(closest_floor_index); // TODO: Pass argument
 
       int tile_size = 32;
-      AllegroFlare::Vec2D current_level_tile_map_origin_offset = current_level->get_tile_maps()[0].get_origin_offset();
+      AllegroFlare::Vec2D current_level_tile_map_origin_offset = current_level->get_tile_maps()[closest_floor_index].get_origin_offset();
+      float groundlevel_height = current_level->get_tile_maps()[closest_floor_index].get_groundlevel_height();
       //AllegroFlare::Vec2D current_level_tile_map_origin_offset = current_level_tile_map->get_origin_offset();
       AllegroFlare::Vec3D player_position = get_player_controlled_entity_as()->get_placement_ref().position;
       AllegroFlare::Vec2D tile_alignment_offset = current_level_tile_map_tile_alignment_offset;
@@ -1733,6 +1746,7 @@ void Screen::render()
       basic_renderer.set_tile_map(current_level_tile_map);
       basic_renderer.set_tile_width(tile_size);
       basic_renderer.set_tile_height(tile_size);
+      basic_renderer.set_groundlevel_height(groundlevel_height);
       basic_renderer.render();
 
       // Draw the player marker

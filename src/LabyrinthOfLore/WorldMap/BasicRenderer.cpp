@@ -18,10 +18,11 @@ namespace WorldMap
 {
 
 
-BasicRenderer::BasicRenderer(LabyrinthOfLore::WorldMap::TileMap* tile_map, float tile_width, float tile_height)
+BasicRenderer::BasicRenderer(LabyrinthOfLore::WorldMap::TileMap* tile_map, float tile_width, float tile_height, float groundlevel_height)
    : tile_map(tile_map)
    , tile_width(tile_width)
    , tile_height(tile_height)
+   , groundlevel_height(groundlevel_height)
 {
 }
 
@@ -49,6 +50,12 @@ void BasicRenderer::set_tile_height(float tile_height)
 }
 
 
+void BasicRenderer::set_groundlevel_height(float groundlevel_height)
+{
+   this->groundlevel_height = groundlevel_height;
+}
+
+
 LabyrinthOfLore::WorldMap::TileMap* BasicRenderer::get_tile_map() const
 {
    return tile_map;
@@ -64,6 +71,12 @@ float BasicRenderer::get_tile_width() const
 float BasicRenderer::get_tile_height() const
 {
    return tile_height;
+}
+
+
+float BasicRenderer::get_groundlevel_height() const
+{
+   return groundlevel_height;
 }
 
 
@@ -87,8 +100,8 @@ void BasicRenderer::render()
    //int tile_height = 32;
    int inset = 2;
 
-   float bottom_height = 0.0;
-   float top_height = 2.0;
+   float bottom_height = 0.0 - groundlevel_height;
+   float top_height = 2.0 - groundlevel_height;
    ALLEGRO_COLOR tile_color = al_color_name("cyan");
 
    for (unsigned y=0; y<tile_map->get_height(); y++)
@@ -96,7 +109,7 @@ void BasicRenderer::render()
       {
          ALLEGRO_COLOR result_tile_color = tile_color;
          LabyrinthOfLore::WorldMap::Tile tile = tile_map->get_tile(x, y);
-         float height_float = (tile.get_height() / top_height * 0.5) + 0.5;
+         float height_float = ((tile.get_height()-groundlevel_height) / (top_height-groundlevel_height) * 0.5) + 0.5;
          int tile_type = tile.get_type();
 
          if (tile_type == LabyrinthOfLore::WorldMap::NULL_TILE) result_tile_color = al_color_name("blueviolet");

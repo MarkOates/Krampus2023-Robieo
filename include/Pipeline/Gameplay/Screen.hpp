@@ -126,7 +126,7 @@ namespace Pipeline
          Pipeline::Gameplay::Level build_level(std::string level_identifier="[unset-level_identifier]");
          LabyrinthOfLore::WorldMap::TileMap* get_current_level_tile_map(int floor_index=0);
          void load_tile_map(std::string level_identifier="[unset-level_identifier]");
-         LabyrinthOfLore::WorldMap::TileMap* load_tile_map_from_bitmap(std::string level_identifier="[unset-level_identifier]");
+         std::vector<LabyrinthOfLore::WorldMap::TileMap*> load_tile_map_from_bitmap(std::string level_identifier="[unset-level_identifier]");
          LabyrinthOfLore::WorldMap::TileMap* load_tester_tile_map();
          void load_level_by_identifier(std::string level_identifier="[unset-level_identifier]");
          void initialize();
