@@ -65,6 +65,7 @@ namespace Pipeline
          AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base* player_controlled_entity;
          AllegroFlare::Vec2D player_control_velocity;
          bool player_control_dashing;
+         std::vector<Pipeline::Gameplay::LevelCameraZone> level_camera_zones;
          AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base* goal_entity;
          AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base* exit_entity;
          AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::SceneRenderer2 scene_renderer;
@@ -133,7 +134,7 @@ namespace Pipeline
          void on_player_entity_raw_collide(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D* colliding_entity=nullptr);
          void on_player_entity_enter_collide(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D* colliding_entity=nullptr);
          void on_player_entity_exit_collide(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D* colliding_entity=nullptr);
-         Pipeline::Gameplay::LevelCameraZone* find_camera_zone_for(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D* player_controlled_entity_as=nullptr);
+         Pipeline::Gameplay::LevelCameraZone* find_first_camera_zone_at(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D* player_controlled_entity_as=nullptr);
          void update();
          void toggle_showing_map_overlay();
          void render();

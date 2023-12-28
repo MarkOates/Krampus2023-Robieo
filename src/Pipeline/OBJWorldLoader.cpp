@@ -461,7 +461,33 @@ AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool OBJWorldLoade
       std::vector<std::vector<AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL>> objects_vertices =
          world_model->extract_named_objects_vertices(camera_identifier);
 
-      // TODO: Add the camera objects
+
+      //std::vector<std::vector<AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL>> object_vertices =
+         //world_model->extract_named_objects_vertices(camera_identifier);
+      for (auto &object_vertices : objects_vertices)
+      {
+         // Validate there are exactly 2
+         //if (objects_vertices.size() != 2)
+         //{
+            //AllegroFlare::Logger::throw_error(
+               //"Pipeline::Gameplay::Screen::load_level_by_identifier",
+               //"Expecting there to be only 2 objects with a portal name, but there were \""
+                  //+ std::to_string(objects_vertices.size()) + "\" with the name \"" + portal_identifier + "\""
+            //);
+         //}
+
+         // TODO: Add the camera objects
+         Pipeline::Gameplay::LevelCameraZone camera_zone;
+         auto camera_zone_bounding_box = camera_zone.get_bounding_box_ref();
+         camera_zone_bounding_box.set_min(build_bounding_box_min_coordinate(object_vertices));
+         camera_zone_bounding_box.set_max(build_bounding_box_max_coordinate(object_vertices));
+
+         std::cout << "-- Camera zone found:" << std::endl;
+         std::cout << "  min_x: " << camera_zone_bounding_box.get_min().x;
+         std::cout << "  max_x: " << camera_zone_bounding_box.get_max().x;
+
+         level_camera_zones.push_back(camera_zone);
+      }
 
       // Remove the named objects from the world_model
       world_model->remove_named_objects(camera_identifier);
@@ -488,6 +514,52 @@ AllegroFlare::Vec3D OBJWorldLoader::lowest_y_vertex(std::vector<AllegroFlare::AL
       if (vertex.y < result.y) result = vertex;
    }
    return AllegroFlare::Vec3D{result.x, result.y, result.z};
+}
+
+AllegroFlare::Vec3D OBJWorldLoader::build_bounding_box_min_coordinate(std::vector<AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL> vertices)
+{
+   if (!((!vertices.empty())))
+   {
+      std::stringstream error_message;
+      error_message << "[OBJWorldLoader::build_bounding_box_min_coordinate]: error: guard \"(!vertices.empty())\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("OBJWorldLoader::build_bounding_box_min_coordinate: error: guard \"(!vertices.empty())\" not met");
+   }
+   using AllegroFlare::vec3d;
+   //validate_initialized_or_output_to_cerr("get_min_vertex_coordinate");
+   if (vertices.empty()) return vec3d(0, 0, 0);
+
+   vec3d min_coord = vec3d(vertices[0].x, vertices[0].y, vertices[0].z);
+   for (unsigned i=1; i<vertices.size(); i++)
+   {
+      if (vertices[i].x < min_coord.x) min_coord.x = vertices[i].x;
+      if (vertices[i].y < min_coord.y) min_coord.y = vertices[i].y;
+      if (vertices[i].z < min_coord.z) min_coord.z = vertices[i].z;
+   }
+   return min_coord;
+}
+
+AllegroFlare::Vec3D OBJWorldLoader::build_bounding_box_max_coordinate(std::vector<AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL> vertices)
+{
+   if (!((!vertices.empty())))
+   {
+      std::stringstream error_message;
+      error_message << "[OBJWorldLoader::build_bounding_box_max_coordinate]: error: guard \"(!vertices.empty())\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("OBJWorldLoader::build_bounding_box_max_coordinate: error: guard \"(!vertices.empty())\" not met");
+   }
+   using AllegroFlare::vec3d;
+   //validate_initialized_or_output_to_cerr("get_max_vertex_coordinate");
+   if (vertices.empty()) return vec3d(0, 0, 0);
+
+   vec3d max_coord = vec3d(vertices[0].x, vertices[0].y, vertices[0].z);
+   for (unsigned i=0; i<vertices.size(); i++)
+   {
+      if (vertices[i].x > max_coord.x) max_coord.x = vertices[i].x;
+      if (vertices[i].y > max_coord.y) max_coord.y = vertices[i].y;
+      if (vertices[i].z > max_coord.z) max_coord.z = vertices[i].z;
+   }
+   return max_coord;
 }
 
 std::set<std::string> OBJWorldLoader::find_named_object_identifiers_for_portals(AllegroFlare::Model3D* world_model)

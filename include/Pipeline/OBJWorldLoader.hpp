@@ -55,6 +55,8 @@ namespace Pipeline
       std::vector<Pipeline::Gameplay::LevelCameraZone> get_level_camera_zones() const;
       AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool load();
       AllegroFlare::Vec3D lowest_y_vertex(std::vector<AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL> vertices={});
+      AllegroFlare::Vec3D build_bounding_box_min_coordinate(std::vector<AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL> vertices={});
+      AllegroFlare::Vec3D build_bounding_box_max_coordinate(std::vector<AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL> vertices={});
       std::set<std::string> find_named_object_identifiers_for_portals(AllegroFlare::Model3D* world_model=nullptr);
       std::set<std::string> find_named_object_identifiers_for_cameras(AllegroFlare::Model3D* world_model=nullptr);
    };

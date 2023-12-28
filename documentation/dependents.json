@@ -325,6 +325,10 @@
   "Pipeline/Gameplay/LevelTileMap": [
     "Pipeline/Gameplay/Level"
   ],
+  "AllegroFlare/Physics/AABB3D": [
+    "Pipeline/Gameplay/LevelCameraZone",
+    "Pipeline/Gameplay/Screen"
+  ],
   "ALLEGRO_EVENT": [
     "Pipeline/Gameplay/Screen"
   ],
@@ -450,9 +454,6 @@
   "Pipeline/EntityAttributes": [
     "Pipeline/Gameplay/Screen",
     "Pipeline/OBJWorldLoader"
-  ],
-  "AllegroFlare/Physics/AABB3D": [
-    "Pipeline/Gameplay/Screen"
   ],
   "Pipeline/Gameplay/LevelCameraZone": [
     "Pipeline/Gameplay/Screen",

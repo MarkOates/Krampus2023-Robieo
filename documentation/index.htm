@@ -68,6 +68,7 @@ table td
   <li><a href="#quintessence/Pipeline/GameConfigurations/Main.q.yml">quintessence/Pipeline/GameConfigurations/Main.q.yml</a></li>
   <li><a href="#quintessence/Pipeline/GameProgressAndStateInfo.q.yml">quintessence/Pipeline/GameProgressAndStateInfo.q.yml</a></li>
   <li><a href="#quintessence/Pipeline/Gameplay/Level.q.yml">quintessence/Pipeline/Gameplay/Level.q.yml</a></li>
+  <li><a href="#quintessence/Pipeline/Gameplay/LevelCameraZone.q.yml">quintessence/Pipeline/Gameplay/LevelCameraZone.q.yml</a></li>
   <li><a href="#quintessence/Pipeline/Gameplay/LevelTileMap.q.yml">quintessence/Pipeline/Gameplay/LevelTileMap.q.yml</a></li>
   <li><a href="#quintessence/Pipeline/Gameplay/Screen.q.yml">quintessence/Pipeline/Gameplay/Screen.q.yml</a></li>
   <li><a href="#quintessence/Pipeline/OBJWorldLoader.q.yml">quintessence/Pipeline/OBJWorldLoader.q.yml</a></li>
@@ -1552,6 +1553,28 @@ table td
 </ul>
 <ul>
   <div class="component">
+    <h3 id="quintessence/Pipeline/Gameplay/LevelCameraZone.q.yml">quintessence/Pipeline/Gameplay/LevelCameraZone.q.yml</h3>
+    <h4>Overview<h4>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">bounding_box</td>
+  <td class="property">AllegroFlare::Physics::AABB3D</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Physics::AABB3D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Physics/AABB3D.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<ul>
+  <div class="component">
     <h3 id="quintessence/Pipeline/Gameplay/LevelTileMap.q.yml">quintessence/Pipeline/Gameplay/LevelTileMap.q.yml</h3>
     <h4>Overview<h4>
     <h3>Properties</h3>
@@ -1641,6 +1664,10 @@ table td
 <tr>
   <td class="property">player_control_dashing</td>
   <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">level_camera_zones</td>
+  <td class="property">std::vector&lt;Pipeline::Gameplay::LevelCameraZone&gt;</td>
 </tr>
 <tr>
   <td class="property">goal_entity</td>
@@ -1820,7 +1847,7 @@ table td
   <td class="method">on_player_entity_exit_collide(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D* colliding_entity=nullptr)</td>
 </tr>
 <tr>
-  <td class="method">find_camera_zone_for(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D* player_controlled_entity_as=nullptr)</td>
+  <td class="method">find_first_camera_zone_at(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D* player_controlled_entity_as=nullptr)</td>
 </tr>
 <tr>
   <td class="method">update()</td>
@@ -2122,6 +2149,12 @@ table td
 </tr>
 <tr>
   <td class="method">lowest_y_vertex(std::vector&lt;AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL&gt; vertices={})</td>
+</tr>
+<tr>
+  <td class="method">build_bounding_box_min_coordinate(std::vector&lt;AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL&gt; vertices={})</td>
+</tr>
+<tr>
+  <td class="method">build_bounding_box_max_coordinate(std::vector&lt;AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL&gt; vertices={})</td>
 </tr>
 <tr>
   <td class="method">find_named_object_identifiers_for_portals(AllegroFlare::Model3D* world_model=nullptr)</td>
@@ -2834,6 +2867,10 @@ table td
   "Pipeline/Gameplay/LevelTileMap": [
     "Pipeline/Gameplay/Level"
   ],
+  "AllegroFlare/Physics/AABB3D": [
+    "Pipeline/Gameplay/LevelCameraZone",
+    "Pipeline/Gameplay/Screen"
+  ],
   "ALLEGRO_EVENT": [
     "Pipeline/Gameplay/Screen"
   ],
@@ -2959,9 +2996,6 @@ table td
   "Pipeline/EntityAttributes": [
     "Pipeline/Gameplay/Screen",
     "Pipeline/OBJWorldLoader"
-  ],
-  "AllegroFlare/Physics/AABB3D": [
-    "Pipeline/Gameplay/Screen"
   ],
   "Pipeline/Gameplay/LevelCameraZone": [
     "Pipeline/Gameplay/Screen",

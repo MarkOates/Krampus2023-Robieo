@@ -53,6 +53,7 @@ Screen::Screen(AllegroFlare::Frameworks::Full* framework, AllegroFlare::EventEmi
    , player_controlled_entity(nullptr)
    , player_control_velocity()
    , player_control_dashing(false)
+   , level_camera_zones({})
    , goal_entity(nullptr)
    , exit_entity(nullptr)
    , scene_renderer()
@@ -595,6 +596,7 @@ void Screen::load_level_by_identifier(std::string level_identifier)
    //if (current_level_tile_map) delete current_level_tile_map;
    //current_level_tile_map = nullptr;
    show_map_overlay = false;
+   level_camera_zones.clear();
 
 
 
@@ -660,6 +662,7 @@ void Screen::load_level_by_identifier(std::string level_identifier)
    //player_character = obj_world_loader.get_player_character();
    portal_entity_associations = obj_world_loader.get_portal_entity_associations();
    player_controlled_entity = obj_world_loader.get_player_character();
+   level_camera_zones = obj_world_loader.get_level_camera_zones();
 
 
 
@@ -1089,18 +1092,28 @@ void Screen::on_player_entity_exit_collide(AllegroFlare::GraphicsPipelines::Dyna
    return;
 }
 
-Pipeline::Gameplay::LevelCameraZone* Screen::find_camera_zone_for(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D* player_controlled_entity_as)
+Pipeline::Gameplay::LevelCameraZone* Screen::find_first_camera_zone_at(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D* player_controlled_entity_as)
 {
    if (!(player_controlled_entity_as))
    {
       std::stringstream error_message;
-      error_message << "[Screen::find_camera_zone_for]: error: guard \"player_controlled_entity_as\" not met.";
+      error_message << "[Screen::find_first_camera_zone_at]: error: guard \"player_controlled_entity_as\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::find_camera_zone_for: error: guard \"player_controlled_entity_as\" not met");
+      throw std::runtime_error("Screen::find_first_camera_zone_at: error: guard \"player_controlled_entity_as\" not met");
    }
    Pipeline::Gameplay::LevelCameraZone *result = nullptr;
+   AllegroFlare::Vec3D player_character_position = player_controlled_entity_as->get_placement_ref().position;
+
    // TODO: Find camera zone
    // HERE
+   for (auto &level_camera_zone : level_camera_zones)
+   {
+      if (level_camera_zone.get_bounding_box_ref().collides_with_point(player_character_position))
+      {
+         return &level_camera_zone;
+      }
+   }
+
    return result;
 }
 
@@ -1148,7 +1161,7 @@ void Screen::update()
    if (player_controlled_entity)
    {
       auto player_entity_as = get_player_controlled_entity_as();
-      Pipeline::Gameplay::LevelCameraZone *level_camera_zone = find_camera_zone_for(player_entity_as);
+      Pipeline::Gameplay::LevelCameraZone *level_camera_zone = find_first_camera_zone_at(player_entity_as);
       if (!level_camera_zone)
       {
          // Use the default settings

@@ -67,6 +67,10 @@ properties:
     type: bool
     init_with: false
 
+  - name: level_camera_zones
+    type: std::vector<Pipeline::Gameplay::LevelCameraZone>
+    init_with: '{}'
+
   - name: goal_entity
     type: AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base*
     init_with: nullptr
@@ -605,6 +609,7 @@ methods:
       //if (current_level_tile_map) delete current_level_tile_map;
       //current_level_tile_map = nullptr;
       show_map_overlay = false;
+      level_camera_zones.clear();
 
 
 
@@ -670,6 +675,7 @@ methods:
       //player_character = obj_world_loader.get_player_character();
       portal_entity_associations = obj_world_loader.get_portal_entity_associations();
       player_controlled_entity = obj_world_loader.get_player_character();
+      level_camera_zones = obj_world_loader.get_level_camera_zones();
 
 
 
@@ -1066,7 +1072,7 @@ methods:
       return;
 
 
-  - name: find_camera_zone_for
+  - name: find_first_camera_zone_at
     type: Pipeline::Gameplay::LevelCameraZone*
     parameters:
       - name: player_controlled_entity_as
@@ -1075,8 +1081,18 @@ methods:
     guards: [ player_controlled_entity_as ]
     body: |
       Pipeline::Gameplay::LevelCameraZone *result = nullptr;
+      AllegroFlare::Vec3D player_character_position = player_controlled_entity_as->get_placement_ref().position;
+
       // TODO: Find camera zone
       // HERE
+      for (auto &level_camera_zone : level_camera_zones)
+      {
+         if (level_camera_zone.get_bounding_box_ref().collides_with_point(player_character_position))
+         {
+            return &level_camera_zone;
+         }
+      }
+
       return result;
 
 
@@ -1118,7 +1134,7 @@ methods:
       if (player_controlled_entity)
       {
          auto player_entity_as = get_player_controlled_entity_as();
-         Pipeline::Gameplay::LevelCameraZone *level_camera_zone = find_camera_zone_for(player_entity_as);
+         Pipeline::Gameplay::LevelCameraZone *level_camera_zone = find_first_camera_zone_at(player_entity_as);
          if (!level_camera_zone)
          {
             // Use the default settings
