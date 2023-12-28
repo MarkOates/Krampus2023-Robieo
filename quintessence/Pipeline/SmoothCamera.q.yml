@@ -15,27 +15,21 @@ properties:
     getter_ref: true
     setter: true
 
-  - name: started_at
+  - name: time_starting_at
     type: float
     init_with: 0.0f
     getter: true
     setter: true
 
-  - name: end_at
+  - name: time_ending_at
     type: float
     init_with: 1.0f
     getter: true
     setter: true
 
-  - name: position
+  - name: time_now
     type: float
     init_with: 0.5f
-    getter: true
-    setter: true
-
-  - name: time_now
-    type: bool
-    init_with: false
     getter: true
     setter: true
 
@@ -47,7 +41,7 @@ methods:
     type: AllegroFlare::Camera3D
     body: |
       AllegroFlare::Camera3D result = camera_start;
-      float normal = normalize_age(started_at, end_at, time_now);
+      float normal = normalize_age(time_starting_at, time_ending_at, time_now);
 
       if (normal <= 0.0) return camera_start;
       if (normal >= 1.0) return camera_end;

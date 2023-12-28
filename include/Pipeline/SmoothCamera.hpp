@@ -12,10 +12,9 @@ namespace Pipeline
    private:
       AllegroFlare::Camera3D camera_start;
       AllegroFlare::Camera3D camera_end;
-      float started_at;
-      float end_at;
-      float position;
-      bool time_now;
+      float time_starting_at;
+      float time_ending_at;
+      float time_now;
 
    protected:
 
@@ -26,16 +25,14 @@ namespace Pipeline
 
       void set_camera_start(AllegroFlare::Camera3D camera_start);
       void set_camera_end(AllegroFlare::Camera3D camera_end);
-      void set_started_at(float started_at);
-      void set_end_at(float end_at);
-      void set_position(float position);
-      void set_time_now(bool time_now);
+      void set_time_starting_at(float time_starting_at);
+      void set_time_ending_at(float time_ending_at);
+      void set_time_now(float time_now);
       AllegroFlare::Camera3D get_camera_start() const;
       AllegroFlare::Camera3D get_camera_end() const;
-      float get_started_at() const;
-      float get_end_at() const;
-      float get_position() const;
-      bool get_time_now() const;
+      float get_time_starting_at() const;
+      float get_time_ending_at() const;
+      float get_time_now() const;
       AllegroFlare::Camera3D &get_camera_start_ref();
       AllegroFlare::Camera3D &get_camera_end_ref();
       AllegroFlare::Camera3D update();
