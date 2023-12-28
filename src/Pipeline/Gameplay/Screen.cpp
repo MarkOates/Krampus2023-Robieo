@@ -1117,30 +1117,30 @@ Pipeline::Gameplay::LevelCameraZone* Screen::find_first_camera_zone_at(AllegroFl
 
    // TODO: Find camera zone
    // HERE
-   std::cout << "num camera zones: " << level_camera_zones.size() << std::endl;
+   //std::cout << "num camera zones: " << level_camera_zones.size() << std::endl;
    int i=0;
    for (auto &level_camera_zone : level_camera_zones)
    {
       //AllegroFlare::Physics::AABB3D box = level_camera_zone.get_bounding_box_ref();
-         std::cout << "-- zone " << i << ":" << std::endl;
+         //std::cout << "-- zone " << i << ":" << std::endl;
          auto camera_zone_bounding_box = level_camera_zone.get_bounding_box_ref();
          //camera_zone_bounding_box.set_min(build_bounding_box_min_coordinate(object_vertices));
          //camera_zone_bounding_box.set_max(build_bounding_box_max_coordinate(object_vertices));
 
-         std::cout << "  min_x: " << camera_zone_bounding_box.get_min().x << std::endl;
-         std::cout << "  max_x: " << camera_zone_bounding_box.get_max().x << std::endl;
-         std::cout << "  min_y: " << camera_zone_bounding_box.get_min().y << std::endl;
-         std::cout << "  max_y: " << camera_zone_bounding_box.get_max().y << std::endl;
-         std::cout << "  min_z: " << camera_zone_bounding_box.get_min().z << std::endl;
-         std::cout << "  max_z: " << camera_zone_bounding_box.get_max().z << std::endl;
-         std::cout << "-- player:" << std::endl;
-         std::cout << "  x: " << player_character_position.x << std::endl;
-         std::cout << "  y: " << player_character_position.y << std::endl;
-         std::cout << "  z: " << player_character_position.z << std::endl;
+         //std::cout << "  min_x: " << camera_zone_bounding_box.get_min().x << std::endl;
+         //std::cout << "  max_x: " << camera_zone_bounding_box.get_max().x << std::endl;
+         //std::cout << "  min_y: " << camera_zone_bounding_box.get_min().y << std::endl;
+         //std::cout << "  max_y: " << camera_zone_bounding_box.get_max().y << std::endl;
+         //std::cout << "  min_z: " << camera_zone_bounding_box.get_min().z << std::endl;
+         //std::cout << "  max_z: " << camera_zone_bounding_box.get_max().z << std::endl;
+         //std::cout << "-- player:" << std::endl;
+         //std::cout << "  x: " << player_character_position.x << std::endl;
+         //std::cout << "  y: " << player_character_position.y << std::endl;
+         //std::cout << "  z: " << player_character_position.z << std::endl;
 
       if (level_camera_zone.get_bounding_box_ref().collides_with_point(player_character_position))
       {
-         std::cout << "FOUND camera zone " << std::endl;
+         //std::cout << "FOUND camera zone " << std::endl;
          return &level_camera_zone;
       }
    }
