@@ -153,6 +153,11 @@ methods:
          float song_to_perform_duration_sec =
             tof(validate_key_and_return(&extracted_row, "song_to_perform__duration_sec"));
 
+         float primary_light_spin =
+            tof(validate_key_and_return(&extracted_row, "primary_light__spin"));
+         float primary_light_tilt_time_of_day =
+            tof(validate_key_and_return(&extracted_row, "primary_light__tilt_time_of_day"));
+
 
 
          // Pass along the variables to the result object
@@ -312,6 +317,10 @@ methods:
          //level.set_tile_map_ceiling_height(tile_map_ceiling_height);
          //level.set_tile_map_groundlevel_height(tile_map_groundlevel_height);
          //level.set_tile_map_floor_height(tile_map_floor_height);
+
+         level.set_primary_light_spin(primary_light_spin);
+         level.set_primary_light_tilt_time_of_day(primary_light_tilt_time_of_day);
+
 
          level.set_background_music_identifier(background_music_identifier);
          level.set_song_to_perform_identifier(song_to_perform_identifier);

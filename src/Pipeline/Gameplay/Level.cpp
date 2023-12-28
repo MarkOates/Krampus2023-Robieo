@@ -18,6 +18,8 @@ Level::Level()
    , world_model_texture_filename("[unset-world_model_texture_filename]")
    , tile_maps({})
    , background_music_identifier("[unset-background_music_identifier]")
+   , primary_light_spin(-1.0f)
+   , primary_light_tilt_time_of_day(0.15f)
    , song_to_perform_identifier("[unset-song_to_perform_identifier]")
    , song_to_perform_duration_sec(6.0f)
 {
@@ -56,6 +58,18 @@ void Level::set_tile_maps(std::vector<Pipeline::Gameplay::LevelTileMap> tile_map
 void Level::set_background_music_identifier(std::string background_music_identifier)
 {
    this->background_music_identifier = background_music_identifier;
+}
+
+
+void Level::set_primary_light_spin(float primary_light_spin)
+{
+   this->primary_light_spin = primary_light_spin;
+}
+
+
+void Level::set_primary_light_tilt_time_of_day(float primary_light_tilt_time_of_day)
+{
+   this->primary_light_tilt_time_of_day = primary_light_tilt_time_of_day;
 }
 
 
@@ -98,6 +112,18 @@ std::vector<Pipeline::Gameplay::LevelTileMap> Level::get_tile_maps() const
 std::string Level::get_background_music_identifier() const
 {
    return background_music_identifier;
+}
+
+
+float Level::get_primary_light_spin() const
+{
+   return primary_light_spin;
+}
+
+
+float Level::get_primary_light_tilt_time_of_day() const
+{
+   return primary_light_tilt_time_of_day;
 }
 
 

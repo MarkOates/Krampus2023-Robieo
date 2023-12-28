@@ -40,6 +40,18 @@ properties:
     getter: true
     setter: true
 
+  - name: primary_light_spin
+    type: float
+    init_with: -1.0f
+    getter: true
+    setter: true
+
+  - name: primary_light_tilt_time_of_day
+    type: float
+    init_with: 0.15f
+    getter: true
+    setter: true
+
   - name: song_to_perform_identifier
     type: std::string
     init_with: '"[unset-song_to_perform_identifier]"'
