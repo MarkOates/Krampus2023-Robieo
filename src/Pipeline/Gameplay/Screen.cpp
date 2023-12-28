@@ -838,7 +838,8 @@ void Screen::initialize()
    //scene_renderer.setup_result_surface_bitmap(1920 / 3, 1080 / 3);
    scene_renderer.setup_result_surface_bitmap(1920, 1080); // For some reason, 
    scene_renderer.setup_shadow_map_buffer();
-   scene_renderer.setup_cubemapping(bitmap_bin->get_path() + "black_prism_1-01.png");
+   //scene_renderer.setup_cubemapping(bitmap_bin->get_path() + "black_prism_1-01.png");
+   scene_renderer.setup_cubemapping(bitmap_bin->get_path() + "green_prism_1-01.jpg");
    scene_renderer.setup_multitexture_shader();
 
    initialized = true;

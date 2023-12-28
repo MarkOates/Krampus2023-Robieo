@@ -328,7 +328,7 @@ AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool OBJWorldLoade
 
           object->set(ATTRIBUTE_COLLIDABLE_BY_PLAYER);
           object->set(ATTRIBUTE_ITEM_TYPE, "gem");
-          object->set(ATTRIBUTE_ITEM_PICKUP_SOUND, "gem_pickup");
+          object->set(ATTRIBUTE_ITEM_PICKUP_SOUND, "gem_chime");
           object->set(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityRenderFlags::RENDER_WITH_SKYBOX);
 
           //env->get_placement_ref().position.y = 0.0; // NOTE: The objects will always be placed at 0
