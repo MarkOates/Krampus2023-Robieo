@@ -61,8 +61,9 @@ Screen::Screen(AllegroFlare::Frameworks::Full* framework, AllegroFlare::EventEmi
    , smooth_camera_from({})
    , smooth_camera_to({})
    , smooth_camera_started_at(0.0f)
-   , smooth_camera_duration(3.0f)
+   , smooth_camera_duration(2.5)
    , smooth_camera_is_active(false)
+   , smooth_camera({})
    , current_level_identifier("[unset-current_level]")
    , current_level(nullptr)
    , current_level_tile_maps({})
@@ -1163,6 +1164,13 @@ Pipeline::Gameplay::LevelCameraZone* Screen::find_first_camera_zone_at(AllegroFl
    return result;
 }
 
+void Screen::start_smooth_camera_movement(float time_now)
+{
+   smooth_camera_started_at = time_now;
+   smooth_camera_is_active = true;
+   return;
+}
+
 void Screen::update()
 {
    if (!(current_level))
@@ -1172,6 +1180,7 @@ void Screen::update()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Screen::update: error: guard \"current_level\" not met");
    }
+   float time_now = al_get_time();
    update_state(); // Consider if this would need to be moved to a different place, or if it conflicts
                    // with the logic below
 
@@ -1215,15 +1224,47 @@ void Screen::update()
       }
       else
       {
-         if (level_camera_zone->get_name() == "camera-1")
+         if (!smooth_camera_is_active)
          {
-            set_camera_to_custom_view_1(scene_renderer.find_primary_camera_3d());
-         }
-         else if (level_camera_zone->get_name() == "camera-2")
-         {
-            set_camera_to_custom_view_2(scene_renderer.find_primary_camera_3d());
+            if (level_camera_zone->get_name() == "camera-1")
+            {
+               //AllegroFlare::Camera3D from;
+               //AllegroFlare::Camera3D to;
+               smooth_camera_from = *scene_renderer.find_primary_camera_3d();
+               set_camera_to_custom_view_1(scene_renderer.find_primary_camera_3d());
+               smooth_camera_to = *scene_renderer.find_primary_camera_3d();
+
+               smooth_camera_started_at = time_now;
+               smooth_camera_is_active = true;
+            }
+            else if (level_camera_zone->get_name() == "camera-2")
+            {
+               smooth_camera_from = *scene_renderer.find_primary_camera_3d();
+               set_camera_to_custom_view_2(scene_renderer.find_primary_camera_3d());
+               smooth_camera_to = *scene_renderer.find_primary_camera_3d();
+
+               smooth_camera_started_at = time_now;
+               smooth_camera_is_active = true;
+            }
          }
       }
+   }
+
+
+
+   if (smooth_camera_is_active)
+   {
+      Pipeline::SmoothCamera smooth_camera;
+      smooth_camera.set_camera_end(smooth_camera_to);
+      smooth_camera.set_camera_start(smooth_camera_from);
+      smooth_camera.set_time_starting_at(smooth_camera_started_at);
+      smooth_camera.set_time_ending_at(smooth_camera_started_at + smooth_camera_duration);
+      smooth_camera.set_time_now(time_now);
+
+      float normalized_time = smooth_camera.get_normalized_time();
+      if (normalized_time >= 1.0) smooth_camera_is_active = false;
+
+      *scene_renderer.find_primary_camera_3d() = smooth_camera.update();
    }
 
 

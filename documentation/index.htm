@@ -1711,6 +1711,10 @@ table td
   <td class="property">bool</td>
 </tr>
 <tr>
+  <td class="property">smooth_camera</td>
+  <td class="property">Pipeline::SmoothCamera</td>
+</tr>
+<tr>
   <td class="property">current_level_identifier</td>
   <td class="property">std::string</td>
 </tr>
@@ -1879,6 +1883,9 @@ table td
 </tr>
 <tr>
   <td class="method">find_first_camera_zone_at(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D* player_controlled_entity_as=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">start_smooth_camera_movement(float time_now=0.0f)</td>
 </tr>
 <tr>
   <td class="method">update()</td>
@@ -2125,6 +2132,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Camera3D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Camera3D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Pipeline::SmoothCamera&quot;, &quot;headers&quot;=&gt;[&quot;Pipeline/SmoothCamera.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -2601,6 +2611,9 @@ table td
     </table>
 </div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
+<tr>
+  <td class="method">get_normalized_time()</td>
+</tr>
 <tr>
   <td class="method">update()</td>
 </tr>
@@ -3102,6 +3115,9 @@ table td
   "Pipeline/Gameplay/LevelCameraZone": [
     "Pipeline/Gameplay/Screen",
     "Pipeline/OBJWorldLoader"
+  ],
+  "Pipeline/SmoothCamera": [
+    "Pipeline/Gameplay/Screen"
   ],
   "AllegroFlare/vec3d": [
     "Pipeline/Physics/GravityStepper"

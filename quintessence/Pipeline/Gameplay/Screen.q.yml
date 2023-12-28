@@ -101,11 +101,15 @@ properties:
 
   - name: smooth_camera_duration
     type: float
-    init_with: 3.0f
+    init_with: 2.5
 
   - name: smooth_camera_is_active
     type: bool
     init_with: false
+
+  - name: smooth_camera
+    type: Pipeline::SmoothCamera
+    init_with: '{}'
 
   - name: current_level_identifier
     type: std::string
@@ -1177,9 +1181,21 @@ methods:
       return result;
 
 
+  - name: start_smooth_camera_movement
+    parameters:
+      - name: time_now
+        type: float
+        default_argument: 0.0f
+    body: |
+      smooth_camera_started_at = time_now;
+      smooth_camera_is_active = true;
+      return;
+
+
   - name: update
     guards: [ current_level ]
     body: |
+      float time_now = al_get_time();
       update_state(); // Consider if this would need to be moved to a different place, or if it conflicts
                       // with the logic below
 
@@ -1223,15 +1239,47 @@ methods:
          }
          else
          {
-            if (level_camera_zone->get_name() == "camera-1")
+            if (!smooth_camera_is_active)
             {
-               set_camera_to_custom_view_1(scene_renderer.find_primary_camera_3d());
-            }
-            else if (level_camera_zone->get_name() == "camera-2")
-            {
-               set_camera_to_custom_view_2(scene_renderer.find_primary_camera_3d());
+               if (level_camera_zone->get_name() == "camera-1")
+               {
+                  //AllegroFlare::Camera3D from;
+                  //AllegroFlare::Camera3D to;
+                  smooth_camera_from = *scene_renderer.find_primary_camera_3d();
+                  set_camera_to_custom_view_1(scene_renderer.find_primary_camera_3d());
+                  smooth_camera_to = *scene_renderer.find_primary_camera_3d();
+
+                  smooth_camera_started_at = time_now;
+                  smooth_camera_is_active = true;
+               }
+               else if (level_camera_zone->get_name() == "camera-2")
+               {
+                  smooth_camera_from = *scene_renderer.find_primary_camera_3d();
+                  set_camera_to_custom_view_2(scene_renderer.find_primary_camera_3d());
+                  smooth_camera_to = *scene_renderer.find_primary_camera_3d();
+
+                  smooth_camera_started_at = time_now;
+                  smooth_camera_is_active = true;
+               }
             }
          }
+      }
+
+
+
+      if (smooth_camera_is_active)
+      {
+         Pipeline::SmoothCamera smooth_camera;
+         smooth_camera.set_camera_end(smooth_camera_to);
+         smooth_camera.set_camera_start(smooth_camera_from);
+         smooth_camera.set_time_starting_at(smooth_camera_started_at);
+         smooth_camera.set_time_ending_at(smooth_camera_started_at + smooth_camera_duration);
+         smooth_camera.set_time_now(time_now);
+
+         float normalized_time = smooth_camera.get_normalized_time();
+         if (normalized_time >= 1.0) smooth_camera_is_active = false;
+
+         *scene_renderer.find_primary_camera_3d() = smooth_camera.update();
       }
 
 
@@ -2396,5 +2444,7 @@ dependencies:
     headers: [ Pipeline/Gameplay/LevelCameraZone.hpp ]
   - symbol: AllegroFlare::Camera3D
     headers: [ AllegroFlare/Camera3D.hpp ]
+  - symbol: Pipeline::SmoothCamera
+    headers: [ Pipeline/SmoothCamera.hpp ]
 
 

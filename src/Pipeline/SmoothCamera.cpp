@@ -96,10 +96,15 @@ AllegroFlare::Camera3D &SmoothCamera::get_camera_end_ref()
 }
 
 
+float SmoothCamera::get_normalized_time()
+{
+   return normalize_age(time_starting_at, time_ending_at, time_now);
+}
+
 AllegroFlare::Camera3D SmoothCamera::update()
 {
    AllegroFlare::Camera3D result = camera_start;
-   float normal = normalize_age(time_starting_at, time_ending_at, time_now);
+   float normal = get_normalized_time();
 
    if (normal <= 0.0) return camera_start;
    if (normal >= 1.0) return camera_end;

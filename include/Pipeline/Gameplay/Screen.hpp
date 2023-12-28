@@ -27,6 +27,7 @@
 #include <Pipeline/Gameplay/Level.hpp>
 #include <Pipeline/Gameplay/LevelCameraZone.hpp>
 #include <Pipeline/Gameplay/Screen.hpp>
+#include <Pipeline/SmoothCamera.hpp>
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_font.h>
 #include <cstdint>
@@ -76,6 +77,7 @@ namespace Pipeline
          float smooth_camera_started_at;
          float smooth_camera_duration;
          bool smooth_camera_is_active;
+         Pipeline::SmoothCamera smooth_camera;
          std::string current_level_identifier;
          Pipeline::Gameplay::Level* current_level;
          std::vector<LabyrinthOfLore::WorldMap::TileMap*> current_level_tile_maps;
@@ -143,6 +145,7 @@ namespace Pipeline
          void on_player_entity_enter_collide(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D* colliding_entity=nullptr);
          void on_player_entity_exit_collide(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D* colliding_entity=nullptr);
          Pipeline::Gameplay::LevelCameraZone* find_first_camera_zone_at(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D* player_controlled_entity_as=nullptr);
+         void start_smooth_camera_movement(float time_now=0.0f);
          void update();
          void toggle_showing_map_overlay();
          void render();

@@ -462,6 +462,9 @@
     "Pipeline/Gameplay/Screen",
     "Pipeline/OBJWorldLoader"
   ],
+  "Pipeline/SmoothCamera": [
+    "Pipeline/Gameplay/Screen"
+  ],
   "AllegroFlare/vec3d": [
     "Pipeline/Physics/GravityStepper"
   ],

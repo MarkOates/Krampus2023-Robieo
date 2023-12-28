@@ -35,6 +35,7 @@ namespace Pipeline
       float get_time_now() const;
       AllegroFlare::Camera3D &get_camera_start_ref();
       AllegroFlare::Camera3D &get_camera_end_ref();
+      float get_normalized_time();
       AllegroFlare::Camera3D update();
       static float normalize_age(float start_time=0.0f, float end_time=0.0f, float time_now=0.0f);
       static bool strobe(float start_time=0.0f, float time_now=0.0f, float strobes_per_second=10.0f);
