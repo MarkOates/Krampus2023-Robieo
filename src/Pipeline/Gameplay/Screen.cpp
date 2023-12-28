@@ -293,9 +293,19 @@ void Screen::set_camera_to_custom_view_1(AllegroFlare::Camera3D* primary_camera)
 {
    //AllegroFlare::Camera3D *primary_camera = scene_renderer.find_primary_camera_3d();
    primary_camera->stepout = { 0.0, 2.4, 20.0 };
-   primary_camera->spin = 1.2;
+   primary_camera->spin = 1.3;
    primary_camera->tilt = 0.3;
    primary_camera->zoom = 3.6;
+   return;
+}
+
+void Screen::set_camera_to_custom_view_2(AllegroFlare::Camera3D* primary_camera)
+{
+   //AllegroFlare::Camera3D *primary_camera = scene_renderer.find_primary_camera_3d();
+   primary_camera->stepout = { 0.0, 1.2, 7.0 };
+   primary_camera->spin = 0.0;
+   primary_camera->tilt = 0.21;
+   primary_camera->zoom = 2.6;
    return;
 }
 
@@ -1200,7 +1210,14 @@ void Screen::update()
       }
       else
       {
-         set_camera_to_custom_view_1(scene_renderer.find_primary_camera_3d());
+         if (level_camera_zone->get_name() == "camera-1")
+         {
+            set_camera_to_custom_view_1(scene_renderer.find_primary_camera_3d());
+         }
+         else if (level_camera_zone->get_name() == "camera-2")
+         {
+            set_camera_to_custom_view_2(scene_renderer.find_primary_camera_3d());
+         }
       }
    }
 

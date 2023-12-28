@@ -478,6 +478,7 @@ AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool OBJWorldLoade
 
          // TODO: Add the camera objects
          Pipeline::Gameplay::LevelCameraZone camera_zone;
+         camera_zone.set_name(camera_identifier);
          auto &camera_zone_bounding_box = camera_zone.get_bounding_box_ref();
          camera_zone_bounding_box.set_min(build_bounding_box_min_coordinate(object_vertices));
          camera_zone_bounding_box.set_max(build_bounding_box_max_coordinate(object_vertices));

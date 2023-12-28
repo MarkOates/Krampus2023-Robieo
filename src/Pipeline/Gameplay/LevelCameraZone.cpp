@@ -11,8 +11,9 @@ namespace Gameplay
 {
 
 
-LevelCameraZone::LevelCameraZone(AllegroFlare::Physics::AABB3D bounding_box)
-   : bounding_box(bounding_box)
+LevelCameraZone::LevelCameraZone(std::string name, AllegroFlare::Physics::AABB3D bounding_box)
+   : name(name)
+   , bounding_box(bounding_box)
 {
 }
 
@@ -22,9 +23,21 @@ LevelCameraZone::~LevelCameraZone()
 }
 
 
+void LevelCameraZone::set_name(std::string name)
+{
+   this->name = name;
+}
+
+
 void LevelCameraZone::set_bounding_box(AllegroFlare::Physics::AABB3D bounding_box)
 {
    this->bounding_box = bounding_box;
+}
+
+
+std::string LevelCameraZone::get_name() const
+{
+   return name;
 }
 
 
