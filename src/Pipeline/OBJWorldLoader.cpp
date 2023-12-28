@@ -443,6 +443,24 @@ AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool OBJWorldLoade
        world_model->remove_named_objects(portal_identifier);
    }
 
+
+
+
+   // Cameras
+   std::set<std::string> camera_identifiers = find_named_object_identifiers_for_portals(world_model);
+
+   for (auto &camera_identifier : camera_identifiers)
+   {
+      std::vector<std::vector<AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL>> objects_vertices =
+         world_model->extract_named_objects_vertices(camera_identifier);
+
+      // TODO: Add the camera objects
+
+      // Remove the named objects from the world_model
+      world_model->remove_named_objects(camera_identifier);
+   }
+
+
    loaded = true;
 
    return entity_pool;
@@ -500,6 +518,28 @@ std::set<std::string> OBJWorldLoader::find_named_object_identifiers_for_portals(
    }
 
    return portal_names;
+}
+
+std::set<std::string> OBJWorldLoader::find_named_object_identifiers_for_cameras(AllegroFlare::Model3D* world_model)
+{
+   if (!(world_model))
+   {
+      std::stringstream error_message;
+      error_message << "[OBJWorldLoader::find_named_object_identifiers_for_cameras]: error: guard \"world_model\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("OBJWorldLoader::find_named_object_identifiers_for_cameras: error: guard \"world_model\" not met");
+   }
+   std::set<std::string> camera_names;
+   std::vector<AllegroFlare::Model3D::named_object> &named_objects = world_model->named_objects;
+   for (auto &named_object : named_objects)
+   {
+      std::string identifier = named_object.identifier;
+      if (identifier.compare(0, 7, "camera-") == 0)
+      {
+         camera_names.insert(identifier);
+      }
+   }
+   return camera_names;
 }
 
 
