@@ -29,13 +29,87 @@ OBJWorldLoader::OBJWorldLoader(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare
    , world_model_texture_name(world_model_texture_name)
    , goal_entity(nullptr)
    , exit_entity(nullptr)
+   , player_character(nullptr)
    , portal_entity_associations({})
+   , loaded(false)
 {
 }
 
 
 OBJWorldLoader::~OBJWorldLoader()
 {
+}
+
+
+void OBJWorldLoader::set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin)
+{
+   this->bitmap_bin = bitmap_bin;
+}
+
+
+void OBJWorldLoader::set_model_bin(AllegroFlare::ModelBin* model_bin)
+{
+   this->model_bin = model_bin;
+}
+
+
+void OBJWorldLoader::set_world_model_obj_name(std::string world_model_obj_name)
+{
+   this->world_model_obj_name = world_model_obj_name;
+}
+
+
+void OBJWorldLoader::set_world_model_texture_name(std::string world_model_texture_name)
+{
+   this->world_model_texture_name = world_model_texture_name;
+}
+
+
+AllegroFlare::BitmapBin* OBJWorldLoader::get_bitmap_bin() const
+{
+   return bitmap_bin;
+}
+
+
+AllegroFlare::ModelBin* OBJWorldLoader::get_model_bin() const
+{
+   return model_bin;
+}
+
+
+std::string OBJWorldLoader::get_world_model_obj_name() const
+{
+   return world_model_obj_name;
+}
+
+
+std::string OBJWorldLoader::get_world_model_texture_name() const
+{
+   return world_model_texture_name;
+}
+
+
+AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base* OBJWorldLoader::get_goal_entity() const
+{
+   return goal_entity;
+}
+
+
+AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base* OBJWorldLoader::get_exit_entity() const
+{
+   return exit_entity;
+}
+
+
+AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D* OBJWorldLoader::get_player_character() const
+{
+   return player_character;
+}
+
+
+std::map<AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D*, AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D*> OBJWorldLoader::get_portal_entity_associations() const
+{
+   return portal_entity_associations;
 }
 
 
@@ -69,8 +143,7 @@ AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool OBJWorldLoade
    // Create the player character
    //
 
-   AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D *player_character = 
-      new AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D();
+   player_character = new AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D();
    player_character->set_model_3d(model_bin->auto_get("robot-02.obj"));
    player_character->set_model_3d_texture(bitmap_bin->auto_get("robot-textured-02-uv.jpg"));
    //player_character->get_placement_ref().position.x = 0.0f; //2.5;
@@ -369,6 +442,8 @@ AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool OBJWorldLoade
        // Remove the named objects from the world_model
        world_model->remove_named_objects(portal_identifier);
    }
+
+   loaded = true;
 
    return entity_pool;
 }

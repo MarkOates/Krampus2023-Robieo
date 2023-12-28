@@ -1,7 +1,9 @@
 {
   "achievement_identifiers": [],
   "completed_quest_identifiers": [],
-  "delivered_package_identifiers": [],
+  "delivered_package_identifiers": [
+    "level-2-06"
+  ],
   "inventory_item_identifiers": [
     "mushroom",
     "mushroom",

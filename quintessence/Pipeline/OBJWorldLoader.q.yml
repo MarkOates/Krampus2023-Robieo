@@ -13,34 +13,59 @@ properties:
     type: AllegroFlare::BitmapBin*
     init_with: nullptr
     constructor_arg: true
+    getter: true
+    setter: true
 
   - name: model_bin
     type: AllegroFlare::ModelBin*
     init_with: nullptr
     constructor_arg: true
+    getter: true
+    setter: true
 
   - name: world_model_obj_name
     type: std::string
     init_with: '"[unset-world_model_obj_name]"'
     constructor_arg: true
+    getter: true
+    setter: true
 
   - name: world_model_texture_name
     type: std::string
     init_with: '"[unset-world_model_texture_name]"'
     constructor_arg: true
+    getter: true
+    setter: true
 
   - name: goal_entity
     type: AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base*
     init_with: nullptr
+    getter: true
+    needs_getter: explicit
 
   - name: exit_entity
     type: AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base*
     init_with: nullptr
+    getter: true
+    needs_getter: explicit
+
+  - name: player_character
+    type: AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D*
+    init_with: nullptr
+    getter: true
+    needs_getter: explicit
 
   - name: portal_entity_associations
     type: std::map<AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D*,
                    AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D*>
     init_with: '{}'
+    getter: true
+    needs_getter: explicit
+
+  - name: loaded
+    type: bool
+    init_with: false
+
 
 methods:
 
@@ -70,8 +95,7 @@ methods:
       // Create the player character
       //
 
-      AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D *player_character = 
-         new AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D();
+      player_character = new AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D();
       player_character->set_model_3d(model_bin->auto_get("robot-02.obj"));
       player_character->set_model_3d_texture(bitmap_bin->auto_get("robot-textured-02-uv.jpg"));
       //player_character->get_placement_ref().position.x = 0.0f; //2.5;
@@ -370,6 +394,8 @@ methods:
           // Remove the named objects from the world_model
           world_model->remove_named_objects(portal_identifier);
       }
+
+      loaded = true;
 
       return entity_pool;
 
