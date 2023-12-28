@@ -40,6 +40,7 @@ namespace Gameplay
 
 Screen::Screen(AllegroFlare::Frameworks::Full* framework, AllegroFlare::EventEmitter* event_emitter, AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_bin, AllegroFlare::ModelBin* model_bin, AllegroFlare::GameConfigurations::Base* game_configuration)
    : AllegroFlare::Screens::Base(Pipeline::Gameplay::Screen::TYPE)
+   , Pipeline::EntityAttributes()
    , framework(framework)
    , event_emitter(event_emitter)
    , bitmap_bin(bitmap_bin)

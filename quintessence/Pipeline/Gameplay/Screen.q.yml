@@ -5,6 +5,10 @@ parent_classes:
     scope: public
     init_with: Pipeline::Gameplay::Screen::TYPE
 
+  - class: Pipeline::EntityAttributes
+    scope: public
+    init_with: ''
+
 
 properties:
 
@@ -155,54 +159,6 @@ properties:
     type: std::map<AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D*,
                    AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D*>
     init_with: '{}'
-
-  - name: ATTRIBUTE_COLLIDABLE_BY_PLAYER
-    type: char*
-    init_with: '(char*)"collidable_by_player"'
-    static: true
-    constexpr: true
-
-  - name: ATTRIBUTE_CUSTOM_COLLISION_RADIUS
-    type: char*
-    init_with: '(char*)"custom_collision_radius"'
-    static: true
-    constexpr: true
-
-  - name: ATTRIBUTE_ITEM_TYPE
-    type: char*
-    init_with: '(char*)"item_type"'
-    static: true
-    constexpr: true
-
-  - name: ATTRIBUTE_ITEM_PICKUP_SOUND
-    type: char*
-    init_with: '(char*)"item_pickup_sound"'
-    static: true
-    constexpr: true
-
-  - name: ATTRIBUTE_IS_PORTAL
-    type: char*
-    init_with: '(char*)"is_portal"'
-    static: true
-    constexpr: true
-
-  - name: ATTRIBUTE_IS_NPC
-    type: char*
-    init_with: '(char*)"is_npc"'
-    static: true
-    constexpr: true
-
-  - name: ATTRIBUTE_NPC_IDENTIFIER
-    type: char*
-    init_with: '(char*)"is_npc_identifier"'
-    static: true
-    constexpr: true
-
-  - name: NPC_FORREST_IN_THE_FOREST
-    type: char*
-    init_with: '(char*)"forrest_in_the_forest"'
-    static: true
-    constexpr: true
 
 
 enums:
@@ -2574,5 +2530,7 @@ dependencies:
     headers: [ Pipeline/CurrentFloorInferencer.hpp ]
   - symbol: Pipeline::OBJWorldLoader
     headers: [ Pipeline/OBJWorldLoader.hpp ]
+  - symbol: Pipeline::EntityAttributes
+    headers: [ Pipeline/EntityAttributes.hpp ]
 
 

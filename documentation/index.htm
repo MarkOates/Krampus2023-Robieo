@@ -64,11 +64,13 @@ table td
   <li><a href="#quintessence/Pipeline/CSVToLevelLoader.q.yml">quintessence/Pipeline/CSVToLevelLoader.q.yml</a></li>
   <li><a href="#quintessence/Pipeline/CurrentFloorInferencer.q.yml">quintessence/Pipeline/CurrentFloorInferencer.q.yml</a></li>
   <li><a href="#quintessence/Pipeline/DialogNodeBankFactory.q.yml">quintessence/Pipeline/DialogNodeBankFactory.q.yml</a></li>
+  <li><a href="#quintessence/Pipeline/EntityAttributes.q.yml">quintessence/Pipeline/EntityAttributes.q.yml</a></li>
   <li><a href="#quintessence/Pipeline/GameConfigurations/Main.q.yml">quintessence/Pipeline/GameConfigurations/Main.q.yml</a></li>
   <li><a href="#quintessence/Pipeline/GameProgressAndStateInfo.q.yml">quintessence/Pipeline/GameProgressAndStateInfo.q.yml</a></li>
   <li><a href="#quintessence/Pipeline/Gameplay/Level.q.yml">quintessence/Pipeline/Gameplay/Level.q.yml</a></li>
   <li><a href="#quintessence/Pipeline/Gameplay/LevelTileMap.q.yml">quintessence/Pipeline/Gameplay/LevelTileMap.q.yml</a></li>
   <li><a href="#quintessence/Pipeline/Gameplay/Screen.q.yml">quintessence/Pipeline/Gameplay/Screen.q.yml</a></li>
+  <li><a href="#quintessence/Pipeline/OBJWorldLoader.q.yml">quintessence/Pipeline/OBJWorldLoader.q.yml</a></li>
   <li><a href="#quintessence/Pipeline/Physics/GravityStepper.q.yml">quintessence/Pipeline/Physics/GravityStepper.q.yml</a></li>
   <li><a href="#quintessence/Pipeline/Runner.q.yml">quintessence/Pipeline/Runner.q.yml</a></li>
 </ul>
@@ -1293,6 +1295,51 @@ table td
 </ul>
 <ul>
   <div class="component">
+    <h3 id="quintessence/Pipeline/EntityAttributes.q.yml">quintessence/Pipeline/EntityAttributes.q.yml</h3>
+    <h4>Overview<h4>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">ATTRIBUTE_COLLIDABLE_BY_PLAYER</td>
+  <td class="property">char*</td>
+</tr>
+<tr>
+  <td class="property">ATTRIBUTE_CUSTOM_COLLISION_RADIUS</td>
+  <td class="property">char*</td>
+</tr>
+<tr>
+  <td class="property">ATTRIBUTE_ITEM_TYPE</td>
+  <td class="property">char*</td>
+</tr>
+<tr>
+  <td class="property">ATTRIBUTE_ITEM_PICKUP_SOUND</td>
+  <td class="property">char*</td>
+</tr>
+<tr>
+  <td class="property">ATTRIBUTE_IS_PORTAL</td>
+  <td class="property">char*</td>
+</tr>
+<tr>
+  <td class="property">ATTRIBUTE_IS_NPC</td>
+  <td class="property">char*</td>
+</tr>
+<tr>
+  <td class="property">ATTRIBUTE_NPC_IDENTIFIER</td>
+  <td class="property">char*</td>
+</tr>
+<tr>
+  <td class="property">NPC_FORREST_IN_THE_FOREST</td>
+  <td class="property">char*</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+    </table>
+</div>    <h3>Dependencies</h3>
+<p>This class contains no dependencies</p>  </div>
+</ul>
+<ul>
+  <div class="component">
     <h3 id="quintessence/Pipeline/GameConfigurations/Main.q.yml">quintessence/Pipeline/GameConfigurations/Main.q.yml</h3>
     <h4>Overview<h4>
     <h3>Properties</h3>
@@ -1671,38 +1718,6 @@ table td
   <td class="property">portal_entity_associations</td>
   <td class="property">std::map&lt;AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D*, AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D*&gt;</td>
 </tr>
-<tr>
-  <td class="property">ATTRIBUTE_COLLIDABLE_BY_PLAYER</td>
-  <td class="property">char*</td>
-</tr>
-<tr>
-  <td class="property">ATTRIBUTE_CUSTOM_COLLISION_RADIUS</td>
-  <td class="property">char*</td>
-</tr>
-<tr>
-  <td class="property">ATTRIBUTE_ITEM_TYPE</td>
-  <td class="property">char*</td>
-</tr>
-<tr>
-  <td class="property">ATTRIBUTE_ITEM_PICKUP_SOUND</td>
-  <td class="property">char*</td>
-</tr>
-<tr>
-  <td class="property">ATTRIBUTE_IS_PORTAL</td>
-  <td class="property">char*</td>
-</tr>
-<tr>
-  <td class="property">ATTRIBUTE_IS_NPC</td>
-  <td class="property">char*</td>
-</tr>
-<tr>
-  <td class="property">ATTRIBUTE_NPC_IDENTIFIER</td>
-  <td class="property">char*</td>
-</tr>
-<tr>
-  <td class="property">NPC_FORREST_IN_THE_FOREST</td>
-  <td class="property">char*</td>
-</tr>
     </table>
 </div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
@@ -2026,6 +2041,112 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Pipeline::CurrentFloorInferencer&quot;, &quot;headers&quot;=&gt;[&quot;Pipeline/CurrentFloorInferencer.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Pipeline::OBJWorldLoader&quot;, &quot;headers&quot;=&gt;[&quot;Pipeline/OBJWorldLoader.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Pipeline::EntityAttributes&quot;, &quot;headers&quot;=&gt;[&quot;Pipeline/EntityAttributes.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/Pipeline/OBJWorldLoader.q.yml">quintessence/Pipeline/OBJWorldLoader.q.yml</h3>
+    <h4>Overview<h4>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">bitmap_bin</td>
+  <td class="property">AllegroFlare::BitmapBin*</td>
+</tr>
+<tr>
+  <td class="property">model_bin</td>
+  <td class="property">AllegroFlare::ModelBin*</td>
+</tr>
+<tr>
+  <td class="property">world_model_obj_name</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">world_model_texture_name</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">goal_entity</td>
+  <td class="property">AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base*</td>
+</tr>
+<tr>
+  <td class="property">exit_entity</td>
+  <td class="property">AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base*</td>
+</tr>
+<tr>
+  <td class="property">portal_entity_associations</td>
+  <td class="property">std::map&lt;AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D*, AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D*&gt;</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">load()</td>
+</tr>
+<tr>
+  <td class="method">lowest_y_vertex(std::vector&lt;AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL&gt; vertices={})</td>
+</tr>
+<tr>
+  <td class="method">find_named_object_identifiers_for_portals(AllegroFlare::Model3D* world_model=nullptr)</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/DynamicModel3D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityRenderFlags&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityRenderFlags.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityFactory&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityFactory.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Pipeline::GameConfigurations::Main&quot;, &quot;headers&quot;=&gt;[&quot;Pipeline/GameConfigurations/Main.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/ALLEGRO_VERTEX_WITH_NORMAL.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Pipeline::Gameplay::Level&quot;, &quot;headers&quot;=&gt;[&quot;Pipeline/Gameplay/Level.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogTree::NodeBank&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogTree/NodeBank.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;LabyrinthOfLore::WorldMap::TileTypeEnum&quot;, &quot;headers&quot;=&gt;[&quot;LabyrinthOfLore/WorldMap/TileTypeEnum.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::BitmapBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/BitmapBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::ModelBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/ModelBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityPool.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Vec3D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Vec3D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Pipeline::EntityAttributes&quot;, &quot;headers&quot;=&gt;[&quot;Pipeline/EntityAttributes.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Logger&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Logger.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Model3D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Model3D.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -2361,14 +2482,16 @@ table td
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer2",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer2",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowMapBuffer",
-    "Pipeline/Gameplay/Screen"
+    "Pipeline/Gameplay/Screen",
+    "Pipeline/OBJWorldLoader"
   ],
   "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/Base": [
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/DepthBuffer",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer2",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer2",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowMapBuffer",
-    "Pipeline/Gameplay/Screen"
+    "Pipeline/Gameplay/Screen",
+    "Pipeline/OBJWorldLoader"
   ],
   "AllegroFlare/Errors": [
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/DepthBuffer",
@@ -2419,6 +2542,7 @@ table td
     "LabyrinthOfLore/Physics/EntityTileMapCollisionEvent",
     "LabyrinthOfLore/Physics/EntityTileMapCollisionStepper",
     "Pipeline/Gameplay/Screen",
+    "Pipeline/OBJWorldLoader",
     "Pipeline/Physics/GravityStepper"
   ],
   "AllegroFlare/AllegroUnstable": [
@@ -2454,7 +2578,8 @@ table td
   "AllegroFlare/Model3D": [
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer2",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowMapBuffer",
-    "Pipeline/Gameplay/Screen"
+    "Pipeline/Gameplay/Screen",
+    "Pipeline/OBJWorldLoader"
   ],
   "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/Camera3D": [
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer2",
@@ -2472,7 +2597,8 @@ table td
   "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityRenderFlags": [
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer2",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowMapBuffer",
-    "Pipeline/Gameplay/Screen"
+    "Pipeline/Gameplay/Screen",
+    "Pipeline/OBJWorldLoader"
   ],
   "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer2": [
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer2",
@@ -2486,6 +2612,7 @@ table td
     "Pipeline/CSVToLevelLoader",
     "Pipeline/GameConfigurations/Main",
     "Pipeline/Gameplay/Screen",
+    "Pipeline/OBJWorldLoader",
     "Pipeline/Runner"
   ],
   "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowMapBuffer": [
@@ -2557,7 +2684,8 @@ table td
   ],
   "LabyrinthOfLore/WorldMap/TileTypeEnum": [
     "LabyrinthOfLore/WorldMap/BasicRenderer",
-    "Pipeline/Gameplay/Screen"
+    "Pipeline/Gameplay/Screen",
+    "Pipeline/OBJWorldLoader"
   ],
   "std/stringstream": [
     "LabyrinthOfLore/WorldMap/BitmapTileMapLoader",
@@ -2585,7 +2713,8 @@ table td
   "Pipeline/Gameplay/Level": [
     "Pipeline/CSVToLevelLoader",
     "Pipeline/GameConfigurations/Main",
-    "Pipeline/Gameplay/Screen"
+    "Pipeline/Gameplay/Screen",
+    "Pipeline/OBJWorldLoader"
   ],
   "std/atoi": [
     "Pipeline/CSVToLevelLoader"
@@ -2602,7 +2731,8 @@ table td
   "AllegroFlare/DialogTree/NodeBank": [
     "Pipeline/DialogNodeBankFactory",
     "Pipeline/GameConfigurations/Main",
-    "Pipeline/Gameplay/Screen"
+    "Pipeline/Gameplay/Screen",
+    "Pipeline/OBJWorldLoader"
   ],
   "AllegroFlare/DialogTree/Nodes/MultipageWithOptions": [
     "Pipeline/DialogNodeBankFactory",
@@ -2678,6 +2808,7 @@ table td
   ],
   "AllegroFlare/BitmapBin": [
     "Pipeline/Gameplay/Screen",
+    "Pipeline/OBJWorldLoader",
     "Pipeline/Runner"
   ],
   "AllegroFlare/EventEmitter": [
@@ -2690,6 +2821,7 @@ table td
   ],
   "AllegroFlare/ModelBin": [
     "Pipeline/Gameplay/Screen",
+    "Pipeline/OBJWorldLoader",
     "Pipeline/Runner"
   ],
   "al_is_primitives_addon_initialized": [
@@ -2707,6 +2839,7 @@ table td
   ],
   "Pipeline/GameConfigurations/Main": [
     "Pipeline/Gameplay/Screen",
+    "Pipeline/OBJWorldLoader",
     "Pipeline/Runner"
   ],
   "AllegroFlare/GameEvent": [
@@ -2717,16 +2850,19 @@ table td
     "Pipeline/Gameplay/Screen"
   ],
   "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityFactory": [
-    "Pipeline/Gameplay/Screen"
+    "Pipeline/Gameplay/Screen",
+    "Pipeline/OBJWorldLoader"
   ],
   "AllegroFlare/Vec3D": [
-    "Pipeline/Gameplay/Screen"
+    "Pipeline/Gameplay/Screen",
+    "Pipeline/OBJWorldLoader"
   ],
   "ALLEGRO_FLARE_EVENT_DIALOG_SWITCHED_OUT": [
     "Pipeline/Gameplay/Screen"
   ],
   "AllegroFlare/ALLEGRO_VERTEX_WITH_NORMAL": [
-    "Pipeline/Gameplay/Screen"
+    "Pipeline/Gameplay/Screen",
+    "Pipeline/OBJWorldLoader"
   ],
   "AllegroFlare/Frameworks/Full": [
     "Pipeline/Gameplay/Screen",
@@ -2781,6 +2917,13 @@ table td
   ],
   "Pipeline/CurrentFloorInferencer": [
     "Pipeline/Gameplay/Screen"
+  ],
+  "Pipeline/OBJWorldLoader": [
+    "Pipeline/Gameplay/Screen"
+  ],
+  "Pipeline/EntityAttributes": [
+    "Pipeline/Gameplay/Screen",
+    "Pipeline/OBJWorldLoader"
   ],
   "AllegroFlare/vec3d": [
     "Pipeline/Physics/GravityStepper"

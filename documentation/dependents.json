@@ -8,14 +8,16 @@
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer2",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer2",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowMapBuffer",
-    "Pipeline/Gameplay/Screen"
+    "Pipeline/Gameplay/Screen",
+    "Pipeline/OBJWorldLoader"
   ],
   "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/Base": [
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/DepthBuffer",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer2",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer2",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowMapBuffer",
-    "Pipeline/Gameplay/Screen"
+    "Pipeline/Gameplay/Screen",
+    "Pipeline/OBJWorldLoader"
   ],
   "AllegroFlare/Errors": [
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/DepthBuffer",
@@ -66,6 +68,7 @@
     "LabyrinthOfLore/Physics/EntityTileMapCollisionEvent",
     "LabyrinthOfLore/Physics/EntityTileMapCollisionStepper",
     "Pipeline/Gameplay/Screen",
+    "Pipeline/OBJWorldLoader",
     "Pipeline/Physics/GravityStepper"
   ],
   "AllegroFlare/AllegroUnstable": [
@@ -101,7 +104,8 @@
   "AllegroFlare/Model3D": [
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer2",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowMapBuffer",
-    "Pipeline/Gameplay/Screen"
+    "Pipeline/Gameplay/Screen",
+    "Pipeline/OBJWorldLoader"
   ],
   "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/Camera3D": [
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer2",
@@ -119,7 +123,8 @@
   "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityRenderFlags": [
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer2",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowMapBuffer",
-    "Pipeline/Gameplay/Screen"
+    "Pipeline/Gameplay/Screen",
+    "Pipeline/OBJWorldLoader"
   ],
   "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer2": [
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer2",
@@ -133,6 +138,7 @@
     "Pipeline/CSVToLevelLoader",
     "Pipeline/GameConfigurations/Main",
     "Pipeline/Gameplay/Screen",
+    "Pipeline/OBJWorldLoader",
     "Pipeline/Runner"
   ],
   "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowMapBuffer": [
@@ -204,7 +210,8 @@
   ],
   "LabyrinthOfLore/WorldMap/TileTypeEnum": [
     "LabyrinthOfLore/WorldMap/BasicRenderer",
-    "Pipeline/Gameplay/Screen"
+    "Pipeline/Gameplay/Screen",
+    "Pipeline/OBJWorldLoader"
   ],
   "std/stringstream": [
     "LabyrinthOfLore/WorldMap/BitmapTileMapLoader",
@@ -232,7 +239,8 @@
   "Pipeline/Gameplay/Level": [
     "Pipeline/CSVToLevelLoader",
     "Pipeline/GameConfigurations/Main",
-    "Pipeline/Gameplay/Screen"
+    "Pipeline/Gameplay/Screen",
+    "Pipeline/OBJWorldLoader"
   ],
   "std/atoi": [
     "Pipeline/CSVToLevelLoader"
@@ -249,7 +257,8 @@
   "AllegroFlare/DialogTree/NodeBank": [
     "Pipeline/DialogNodeBankFactory",
     "Pipeline/GameConfigurations/Main",
-    "Pipeline/Gameplay/Screen"
+    "Pipeline/Gameplay/Screen",
+    "Pipeline/OBJWorldLoader"
   ],
   "AllegroFlare/DialogTree/Nodes/MultipageWithOptions": [
     "Pipeline/DialogNodeBankFactory",
@@ -325,6 +334,7 @@
   ],
   "AllegroFlare/BitmapBin": [
     "Pipeline/Gameplay/Screen",
+    "Pipeline/OBJWorldLoader",
     "Pipeline/Runner"
   ],
   "AllegroFlare/EventEmitter": [
@@ -337,6 +347,7 @@
   ],
   "AllegroFlare/ModelBin": [
     "Pipeline/Gameplay/Screen",
+    "Pipeline/OBJWorldLoader",
     "Pipeline/Runner"
   ],
   "al_is_primitives_addon_initialized": [
@@ -354,6 +365,7 @@
   ],
   "Pipeline/GameConfigurations/Main": [
     "Pipeline/Gameplay/Screen",
+    "Pipeline/OBJWorldLoader",
     "Pipeline/Runner"
   ],
   "AllegroFlare/GameEvent": [
@@ -364,16 +376,19 @@
     "Pipeline/Gameplay/Screen"
   ],
   "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityFactory": [
-    "Pipeline/Gameplay/Screen"
+    "Pipeline/Gameplay/Screen",
+    "Pipeline/OBJWorldLoader"
   ],
   "AllegroFlare/Vec3D": [
-    "Pipeline/Gameplay/Screen"
+    "Pipeline/Gameplay/Screen",
+    "Pipeline/OBJWorldLoader"
   ],
   "ALLEGRO_FLARE_EVENT_DIALOG_SWITCHED_OUT": [
     "Pipeline/Gameplay/Screen"
   ],
   "AllegroFlare/ALLEGRO_VERTEX_WITH_NORMAL": [
-    "Pipeline/Gameplay/Screen"
+    "Pipeline/Gameplay/Screen",
+    "Pipeline/OBJWorldLoader"
   ],
   "AllegroFlare/Frameworks/Full": [
     "Pipeline/Gameplay/Screen",
@@ -428,6 +443,13 @@
   ],
   "Pipeline/CurrentFloorInferencer": [
     "Pipeline/Gameplay/Screen"
+  ],
+  "Pipeline/OBJWorldLoader": [
+    "Pipeline/Gameplay/Screen"
+  ],
+  "Pipeline/EntityAttributes": [
+    "Pipeline/Gameplay/Screen",
+    "Pipeline/OBJWorldLoader"
   ],
   "AllegroFlare/vec3d": [
     "Pipeline/Physics/GravityStepper"

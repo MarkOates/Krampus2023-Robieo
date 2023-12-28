@@ -21,6 +21,7 @@
 #include <AllegroFlare/Vec3D.hpp>
 #include <AllegroFlare/VirtualControllers/Base.hpp>
 #include <LabyrinthOfLore/WorldMap/TileMap.hpp>
+#include <Pipeline/EntityAttributes.hpp>
 #include <Pipeline/GameProgressAndStateInfo.hpp>
 #include <Pipeline/Gameplay/Level.hpp>
 #include <Pipeline/Gameplay/Screen.hpp>
@@ -38,18 +39,10 @@ namespace Pipeline
 {
    namespace Gameplay
    {
-      class Screen : public AllegroFlare::Screens::Base
+      class Screen : public AllegroFlare::Screens::Base, public Pipeline::EntityAttributes
       {
       public:
          static constexpr char* TYPE = (char*)"Pipeline/Gameplay/Screen";
-         static constexpr char* ATTRIBUTE_COLLIDABLE_BY_PLAYER = (char*)"collidable_by_player";
-         static constexpr char* ATTRIBUTE_CUSTOM_COLLISION_RADIUS = (char*)"custom_collision_radius";
-         static constexpr char* ATTRIBUTE_ITEM_TYPE = (char*)"item_type";
-         static constexpr char* ATTRIBUTE_ITEM_PICKUP_SOUND = (char*)"item_pickup_sound";
-         static constexpr char* ATTRIBUTE_IS_PORTAL = (char*)"is_portal";
-         static constexpr char* ATTRIBUTE_IS_NPC = (char*)"is_npc";
-         static constexpr char* ATTRIBUTE_NPC_IDENTIFIER = (char*)"is_npc_identifier";
-         static constexpr char* NPC_FORREST_IN_THE_FOREST = (char*)"forrest_in_the_forest";
 
       private:
          enum State

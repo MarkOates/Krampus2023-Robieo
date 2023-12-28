@@ -63,12 +63,16 @@ TEST_F(Pipeline_Gameplay_ScreenTestWithAllegroFrameworksFullFixture,
 {
    TestGameConfiguration game_configuration;
    Pipeline::Gameplay::Screen screen;
+
+   Pipeline::GameProgressAndStateInfo game_progress_and_state_info;
+
    screen.set_framework(&get_framework_ref());
    screen.set_event_emitter(get_framework_event_emitter());
    screen.set_bitmap_bin(get_framework_bitmap_bin());
    screen.set_font_bin(get_framework_font_bin());
    screen.set_model_bin(get_framework_model_bin());
-   screen.set_game_configuration(&game_configuration),
+   screen.set_game_configuration(&game_configuration);
+   screen.set_game_progress_and_state_info(&game_progress_and_state_info);
    screen.initialize();
 
 
