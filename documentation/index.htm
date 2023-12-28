@@ -74,6 +74,7 @@ table td
   <li><a href="#quintessence/Pipeline/OBJWorldLoader.q.yml">quintessence/Pipeline/OBJWorldLoader.q.yml</a></li>
   <li><a href="#quintessence/Pipeline/Physics/GravityStepper.q.yml">quintessence/Pipeline/Physics/GravityStepper.q.yml</a></li>
   <li><a href="#quintessence/Pipeline/Runner.q.yml">quintessence/Pipeline/Runner.q.yml</a></li>
+  <li><a href="#quintessence/Pipeline/SmoothCamera.q.yml">quintessence/Pipeline/SmoothCamera.q.yml</a></li>
 </ul>
 <h1>Components</h1>
 <ul>
@@ -2571,6 +2572,75 @@ table td
     </table>
 </div>  </div>
 </ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/Pipeline/SmoothCamera.q.yml">quintessence/Pipeline/SmoothCamera.q.yml</h3>
+    <h4>Overview<h4>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">camera_start</td>
+  <td class="property">AllegroFlare::Camera3D</td>
+</tr>
+<tr>
+  <td class="property">camera_end</td>
+  <td class="property">AllegroFlare::Camera3D</td>
+</tr>
+<tr>
+  <td class="property">started_at</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">end_at</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">position</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">time_now</td>
+  <td class="property">bool</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">update()</td>
+</tr>
+<tr>
+  <td class="method">normalize_age(float start_time=0.0f, float end_time=0.0f, float time_now=0.0f)</td>
+</tr>
+<tr>
+  <td class="method">strobe(float start_time=0.0f, float time_now=0.0f, float strobes_per_second=10.0f)</td>
+</tr>
+<tr>
+  <td class="method">smooth_strobe(float start_time=0.0f, float time_now=0.0f, float strobes_per_second=10.0f)</td>
+</tr>
+<tr>
+  <td class="method">age(float start_time=0.0f, float end_time=0.0f)</td>
+</tr>
+<tr>
+  <td class="method">interpolate(float start_value=0.0f, float end_value=0.0f, float normalized_float=0.0f)</td>
+</tr>
+<tr>
+  <td class="method">interpolate_vec3d(AllegroFlare::Vec3D start={}, AllegroFlare::Vec3D end={}, float normalized_float=0.0f)</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;fmod&quot;, &quot;headers&quot;=&gt;[&quot;cmath&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Camera3D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Camera3D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Vec3D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Vec3D.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
 <h1>Dependents</h1>
 <pre>
 {
@@ -2615,7 +2685,8 @@ table td
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer2",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer2",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowMapBuffer",
-    "Pipeline/Gameplay/Screen"
+    "Pipeline/Gameplay/Screen",
+    "Pipeline/SmoothCamera"
   ],
   "AllegroFlare/php": [
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/DepthBuffer",
@@ -2961,7 +3032,8 @@ table td
   ],
   "AllegroFlare/Vec3D": [
     "Pipeline/Gameplay/Screen",
-    "Pipeline/OBJWorldLoader"
+    "Pipeline/OBJWorldLoader",
+    "Pipeline/SmoothCamera"
   ],
   "ALLEGRO_FLARE_EVENT_DIALOG_SWITCHED_OUT": [
     "Pipeline/Gameplay/Screen"
@@ -3109,6 +3181,9 @@ table td
   ],
   "AllegroFlare/GameEventDatas/AchievementUnlocked": [
     "Pipeline/Runner"
+  ],
+  "fmod": [
+    "Pipeline/SmoothCamera"
   ]
 }
 </pre>

@@ -13,8 +13,9 @@ SmoothCamera::SmoothCamera()
    : camera_start({})
    , camera_end({})
    , started_at(0.0f)
-   , duration(3.0f)
-   , is_active(false)
+   , end_at(1.0f)
+   , position(0.5f)
+   , time_now(false)
 {
 }
 
@@ -36,6 +37,30 @@ void SmoothCamera::set_camera_end(AllegroFlare::Camera3D camera_end)
 }
 
 
+void SmoothCamera::set_started_at(float started_at)
+{
+   this->started_at = started_at;
+}
+
+
+void SmoothCamera::set_end_at(float end_at)
+{
+   this->end_at = end_at;
+}
+
+
+void SmoothCamera::set_position(float position)
+{
+   this->position = position;
+}
+
+
+void SmoothCamera::set_time_now(bool time_now)
+{
+   this->time_now = time_now;
+}
+
+
 AllegroFlare::Camera3D SmoothCamera::get_camera_start() const
 {
    return camera_start;
@@ -45,6 +70,30 @@ AllegroFlare::Camera3D SmoothCamera::get_camera_start() const
 AllegroFlare::Camera3D SmoothCamera::get_camera_end() const
 {
    return camera_end;
+}
+
+
+float SmoothCamera::get_started_at() const
+{
+   return started_at;
+}
+
+
+float SmoothCamera::get_end_at() const
+{
+   return end_at;
+}
+
+
+float SmoothCamera::get_position() const
+{
+   return position;
+}
+
+
+bool SmoothCamera::get_time_now() const
+{
+   return time_now;
 }
 
 
@@ -63,7 +112,7 @@ AllegroFlare::Camera3D &SmoothCamera::get_camera_end_ref()
 AllegroFlare::Camera3D SmoothCamera::update()
 {
    AllegroFlare::Camera3D result = camera_start;
-   float normal = 0.0f;
+   float normal = normalize_age(started_at, end_at, time_now);
 
    if (normal <= 0.0) return camera_start;
    if (normal >= 1.0) return camera_end;
