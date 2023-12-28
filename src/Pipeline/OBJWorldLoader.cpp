@@ -31,6 +31,7 @@ OBJWorldLoader::OBJWorldLoader(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare
    , exit_entity(nullptr)
    , player_character(nullptr)
    , portal_entity_associations({})
+   , level_camera_zones({})
    , loaded(false)
 {
 }
@@ -110,6 +111,12 @@ AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D
 std::map<AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D*, AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D*> OBJWorldLoader::get_portal_entity_associations() const
 {
    return portal_entity_associations;
+}
+
+
+std::vector<Pipeline::Gameplay::LevelCameraZone> OBJWorldLoader::get_level_camera_zones() const
+{
+   return level_camera_zones;
 }
 
 
@@ -447,7 +454,7 @@ AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool OBJWorldLoade
 
 
    // Cameras
-   std::set<std::string> camera_identifiers = find_named_object_identifiers_for_portals(world_model);
+   std::set<std::string> camera_identifiers = find_named_object_identifiers_for_cameras(world_model);
 
    for (auto &camera_identifier : camera_identifiers)
    {

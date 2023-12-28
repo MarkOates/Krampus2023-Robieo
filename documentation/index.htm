@@ -1820,6 +1820,9 @@ table td
   <td class="method">on_player_entity_exit_collide(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D* colliding_entity=nullptr)</td>
 </tr>
 <tr>
+  <td class="method">find_camera_zone_for(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D* player_controlled_entity_as=nullptr)</td>
+</tr>
+<tr>
   <td class="method">update()</td>
 </tr>
 <tr>
@@ -2056,6 +2059,12 @@ table td
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Pipeline::EntityAttributes&quot;, &quot;headers&quot;=&gt;[&quot;Pipeline/EntityAttributes.hpp&quot;]}</td>
 </tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Physics::AABB3D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Physics/AABB3D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Pipeline::Gameplay::LevelCameraZone&quot;, &quot;headers&quot;=&gt;[&quot;Pipeline/Gameplay/LevelCameraZone.hpp&quot;]}</td>
+</tr>
     </table>
 </div>  </div>
 </ul>
@@ -2096,6 +2105,10 @@ table td
 <tr>
   <td class="property">portal_entity_associations</td>
   <td class="property">std::map&lt;AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D*, AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D*&gt;</td>
+</tr>
+<tr>
+  <td class="property">level_camera_zones</td>
+  <td class="property">std::vector&lt;Pipeline::Gameplay::LevelCameraZone&gt;</td>
 </tr>
 <tr>
   <td class="property">loaded</td>
@@ -2166,6 +2179,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Model3D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Model3D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Pipeline::Gameplay::LevelCameraZone&quot;, &quot;headers&quot;=&gt;[&quot;Pipeline/Gameplay/LevelCameraZone.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -2941,6 +2957,13 @@ table td
     "Pipeline/Gameplay/Screen"
   ],
   "Pipeline/EntityAttributes": [
+    "Pipeline/Gameplay/Screen",
+    "Pipeline/OBJWorldLoader"
+  ],
+  "AllegroFlare/Physics/AABB3D": [
+    "Pipeline/Gameplay/Screen"
+  ],
+  "Pipeline/Gameplay/LevelCameraZone": [
     "Pipeline/Gameplay/Screen",
     "Pipeline/OBJWorldLoader"
   ],

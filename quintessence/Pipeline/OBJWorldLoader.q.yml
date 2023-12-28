@@ -62,6 +62,12 @@ properties:
     getter: true
     needs_getter: explicit
 
+  - name: level_camera_zones
+    type: std::vector<Pipeline::Gameplay::LevelCameraZone>
+    init_with: '{}'
+    getter: true
+    needs_getter: explicit
+
   - name: loaded
     type: bool
     init_with: false
@@ -399,7 +405,7 @@ methods:
 
 
       // Cameras
-      std::set<std::string> camera_identifiers = find_named_object_identifiers_for_portals(world_model);
+      std::set<std::string> camera_identifiers = find_named_object_identifiers_for_cameras(world_model);
       
       for (auto &camera_identifier : camera_identifiers)
       {
@@ -539,5 +545,7 @@ dependencies:
     headers: [ AllegroFlare/Logger.hpp ]
   - symbol: AllegroFlare::Model3D
     headers: [ AllegroFlare/Model3D.hpp ]
+  - symbol: Pipeline::Gameplay::LevelCameraZone
+    headers: [ Pipeline/Gameplay/LevelCameraZone.hpp ]
 
 

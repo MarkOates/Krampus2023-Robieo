@@ -24,6 +24,7 @@
 #include <Pipeline/EntityAttributes.hpp>
 #include <Pipeline/GameProgressAndStateInfo.hpp>
 #include <Pipeline/Gameplay/Level.hpp>
+#include <Pipeline/Gameplay/LevelCameraZone.hpp>
 #include <Pipeline/Gameplay/Screen.hpp>
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_font.h>
@@ -132,6 +133,7 @@ namespace Pipeline
          void on_player_entity_raw_collide(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D* colliding_entity=nullptr);
          void on_player_entity_enter_collide(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D* colliding_entity=nullptr);
          void on_player_entity_exit_collide(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D* colliding_entity=nullptr);
+         Pipeline::Gameplay::LevelCameraZone* find_camera_zone_for(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D* player_controlled_entity_as=nullptr);
          void update();
          void toggle_showing_map_overlay();
          void render();

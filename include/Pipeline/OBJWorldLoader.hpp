@@ -10,6 +10,7 @@
 #include <AllegroFlare/ModelBin.hpp>
 #include <AllegroFlare/Vec3D.hpp>
 #include <Pipeline/EntityAttributes.hpp>
+#include <Pipeline/Gameplay/LevelCameraZone.hpp>
 #include <map>
 #include <set>
 #include <string>
@@ -29,6 +30,7 @@ namespace Pipeline
       AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base* exit_entity;
       AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D* player_character;
       std::map<AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D*, AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D*> portal_entity_associations;
+      std::vector<Pipeline::Gameplay::LevelCameraZone> level_camera_zones;
       bool loaded;
 
    protected:
@@ -50,6 +52,7 @@ namespace Pipeline
       AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base* get_exit_entity() const;
       AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D* get_player_character() const;
       std::map<AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D*, AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D*> get_portal_entity_associations() const;
+      std::vector<Pipeline::Gameplay::LevelCameraZone> get_level_camera_zones() const;
       AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool load();
       AllegroFlare::Vec3D lowest_y_vertex(std::vector<AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL> vertices={});
       std::set<std::string> find_named_object_identifiers_for_portals(AllegroFlare::Model3D* world_model=nullptr);

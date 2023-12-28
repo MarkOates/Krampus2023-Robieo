@@ -11,6 +11,7 @@
 #include <AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityRenderFlags.hpp>
 #include <AllegroFlare/Interpolators.hpp>
 #include <AllegroFlare/Logger.hpp>
+#include <AllegroFlare/Physics/AABB3D.hpp>
 #include <LabyrinthOfLore/Physics/EntityTileMapCollisionStepper.hpp>
 #include <LabyrinthOfLore/WorldMap/BasicRenderer.hpp>
 #include <LabyrinthOfLore/WorldMap/MultiBitmapFilenameToWorldBuilder.hpp>
@@ -1088,6 +1089,21 @@ void Screen::on_player_entity_exit_collide(AllegroFlare::GraphicsPipelines::Dyna
    return;
 }
 
+Pipeline::Gameplay::LevelCameraZone* Screen::find_camera_zone_for(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D* player_controlled_entity_as)
+{
+   if (!(player_controlled_entity_as))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::find_camera_zone_for]: error: guard \"player_controlled_entity_as\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::find_camera_zone_for: error: guard \"player_controlled_entity_as\" not met");
+   }
+   Pipeline::Gameplay::LevelCameraZone *result = nullptr;
+   // TODO: Find camera zone
+   // HERE
+   return result;
+}
+
 void Screen::update()
 {
    if (!(current_level))
@@ -1104,16 +1120,17 @@ void Screen::update()
    float light_spin = -1.0f;
    float light_time_of_day = 0.15f;
    AllegroFlare::Camera3D *light = scene_renderer.get_shadow_map_buffer_ref().get_light();
-   light->spin = light_spin;
+   //light->spin = light_spin;
    //light->tilt = 3.141592653 * light_time_of_day; // light_time_of_day = 0.05; // sunrise
                                                   //                     0.5; // high noon
                                                   //                     0.95; // sunset
 
    //light->spin = -0.5f;
    //light->tilt += 0.001;
+   //light->spin = current_level->get_primary_light_spin();
    light->spin = current_level->get_primary_light_spin();
    light->tilt = 3.141592653 * current_level->get_primary_light_tilt_time_of_day();
-   //light->tilt = current_level->get_primary_light_tilt_time_of_day();
+   //light->spin -= 0.001;
 
 
 
@@ -1123,7 +1140,23 @@ void Screen::update()
    //primary_camera->spin += 0.0005;
    //primary_camera->tilt += 0.0008;
 
+
+
+
    // HERE:
+   // Check collisions on player in a camera zone
+   if (player_controlled_entity)
+   {
+      auto player_entity_as = get_player_controlled_entity_as();
+      Pipeline::Gameplay::LevelCameraZone *level_camera_zone = find_camera_zone_for(player_entity_as);
+      if (!level_camera_zone)
+      {
+         // Use the default settings
+      }
+   }
+
+
+
 
    //player_control_velocity.x = -0.001;
    bool lock_light_on_player_controlled_entity = true;
@@ -1502,7 +1535,7 @@ void Screen::render()
       ALLEGRO_FONT *ui_font = obtain_ui_font();
       ALLEGRO_COLOR hud_text_color = al_color_name("cyan");
       std::stringstream coordinates;
-      coordinates << "tilt: " << std::setprecision(3) << light->tilt;
+      coordinates << "tilt (TOD): " << std::setprecision(3) << (light->tilt / 3.14159);
       al_draw_text(ui_font, hud_text_color, 1920 - 300, 1080 - 100, ALLEGRO_ALIGN_RIGHT, coordinates.str().c_str());
       std::stringstream coordinates2;
       coordinates2 << "spin: " << std::setprecision(3) << light->spin;
