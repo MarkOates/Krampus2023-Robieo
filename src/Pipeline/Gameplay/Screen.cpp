@@ -1101,8 +1101,13 @@ void Screen::update()
                    // with the logic below
 
    // Spin our shadow casted light
+   float light_spin = -1.0f;
+   float light_time_of_day = 0.15f;
    AllegroFlare::Camera3D *light = scene_renderer.get_shadow_map_buffer_ref().get_light();
-   light->spin = -1.0f;
+   light->spin = light_spin;
+   light->tilt = 3.141592653 * light_time_of_day; // light_time_of_day = 0.05; // sunrise
+                                                  //                     0.5; // high noon
+                                                  //                     0.95; // sunset
 
    // Pan the camera
    AllegroFlare::Camera3D *primary_camera = scene_renderer.find_primary_camera_3d();
