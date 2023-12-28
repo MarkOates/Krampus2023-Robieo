@@ -429,15 +429,27 @@ methods:
 
             // TODO: Add the camera objects
             Pipeline::Gameplay::LevelCameraZone camera_zone;
-            auto camera_zone_bounding_box = camera_zone.get_bounding_box_ref();
+            auto &camera_zone_bounding_box = camera_zone.get_bounding_box_ref();
             camera_zone_bounding_box.set_min(build_bounding_box_min_coordinate(object_vertices));
             camera_zone_bounding_box.set_max(build_bounding_box_max_coordinate(object_vertices));
 
-            std::cout << "-- Camera zone found:" << std::endl;
-            std::cout << "  min_x: " << camera_zone_bounding_box.get_min().x;
-            std::cout << "  max_x: " << camera_zone_bounding_box.get_max().x;
+            //std::cout << "-- Camera zone found:" << std::endl;
+            //std::cout << "  min_x: " << camera_zone_bounding_box.get_min().x << std::endl;
+            //std::cout << "  max_x: " << camera_zone_bounding_box.get_max().x << std::endl;
+            //std::cout << "  min_y: " << camera_zone_bounding_box.get_min().y << std::endl;
+            //std::cout << "  max_y: " << camera_zone_bounding_box.get_max().y << std::endl;
+            //std::cout << "  min_z: " << camera_zone_bounding_box.get_min().z << std::endl;
+            //std::cout << "  max_z: " << camera_zone_bounding_box.get_max().z << std::endl;
 
             level_camera_zones.push_back(camera_zone);
+
+            //std::cout << "-- Camera zone included:" << std::endl;
+            //std::cout << "  min_x: " << level_camera_zones.back().get_bounding_box_ref().get_min().x << std::endl;
+            //std::cout << "  max_x: " << level_camera_zones.back().get_bounding_box_ref().get_max().x << std::endl;
+            //std::cout << "  min_y: " << camera_zone.get_min().y << std::endl;
+            //std::cout << "  max_y: " << camera_zone.get_max().y << std::endl;
+            //std::cout << "  min_z: " << camera_zone.get_min().z << std::endl;
+            //std::cout << "  max_z: " << camera_zone.get_max().z << std::endl;
          }
 
          // Remove the named objects from the world_model
