@@ -453,7 +453,8 @@ void Runner::setup_sound_effects_and_music(AllegroFlare::AudioController* audio_
      { "robot-holly_jolly", { "robio-sound-chip--have-a-holly-jolly--01.ogg", false, __IGNORE } },
      { "farm_level_music", { "farm_level-01.ogg", true, __IGNORE } },
      { "etherial_cavern", { "etherial-cavern-02.ogg", true, __IGNORE } },
-     { "fire-level-03.ogg", { "fire-level-03.ogg", true, __IGNORE } },
+     { "fire-level", { "fire-level-03.ogg", true, __IGNORE } },
+     { "forest-music", { "forest-music-03.ogg", true, __IGNORE } },
 
       //}
    });

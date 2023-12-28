@@ -1,17 +1,8 @@
 {
   "achievement_identifiers": [],
-  "completed_quest_identifiers": [
-    "mushroom_quest"
-  ],
-  "delivered_package_identifiers": [
-    "celestial-temple",
-    "level-2-06",
-    "level-3-9",
-    "level-4-11"
-  ],
+  "completed_quest_identifiers": [],
+  "delivered_package_identifiers": [],
   "inventory_item_identifiers": [
-    "mushroom",
-    "mushroom",
     "mushroom",
     "mushroom",
     "mushroom",
