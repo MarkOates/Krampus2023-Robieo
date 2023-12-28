@@ -20,6 +20,7 @@
 #include <Pipeline/DialogNodeBankFactory.hpp>
 #include <Pipeline/GameConfigurations/Main.hpp>
 #include <Pipeline/Gameplay/Level.hpp>
+#include <Pipeline/OBJWorldLoader.hpp>
 #include <Pipeline/Physics/GravityStepper.hpp>
 #include <allegro5/allegro_color.h>
 #include <allegro5/allegro_primitives.h>
@@ -230,11 +231,11 @@ std::map<int, float> Screen::build_elevations_and_indices_for_floors()
    std::map<int, float> result;
    int i=0;
    // TODO: Confirm not duplicating levels
-   std::cout << "========" << std::endl;
+   //std::cout << "========" << std::endl;
    for (auto &tile_map : current_level->get_tile_maps_ref())
    {
       result[i] = tile_map.get_groundlevel_height();
-      std::cout << i << ":" << tile_map.get_groundlevel_height() << std::endl;
+      //std::cout << i << ":" << tile_map.get_groundlevel_height() << std::endl;
       i++;
    }
    // Sanity check
@@ -625,6 +626,13 @@ void Screen::load_level_by_identifier(std::string level_identifier)
    entity_pool.get_entity_pool_ref().clear();
 
 
+
+   //
+   // level_identifier
+   current_level_identifier = level_identifier;
+
+   // Begin OBJ World loader
+
    //
    // Create our entity_factory
    //
@@ -633,10 +641,6 @@ void Screen::load_level_by_identifier(std::string level_identifier)
    entity_factory.set_bitmap_bin(bitmap_bin);
    entity_factory.set_model_bin(model_bin);
 
-
-   //
-   // level_identifier
-   current_level_identifier = level_identifier;
 
    //
    // Create the camera
@@ -951,6 +955,9 @@ void Screen::load_level_by_identifier(std::string level_identifier)
        // Remove the named objects from the world_model
        world_model->remove_named_objects(portal_identifier);
    }
+
+
+   // End OBJ loader
 
 
 

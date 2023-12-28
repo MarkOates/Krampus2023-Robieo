@@ -290,11 +290,11 @@ methods:
       std::map<int, float> result;
       int i=0;
       // TODO: Confirm not duplicating levels
-      std::cout << "========" << std::endl;
+      //std::cout << "========" << std::endl;
       for (auto &tile_map : current_level->get_tile_maps_ref())
       {
          result[i] = tile_map.get_groundlevel_height();
-         std::cout << i << ":" << tile_map.get_groundlevel_height() << std::endl;
+         //std::cout << i << ":" << tile_map.get_groundlevel_height() << std::endl;
          i++;
       }
       // Sanity check
@@ -696,6 +696,13 @@ methods:
       entity_pool.get_entity_pool_ref().clear();
 
 
+
+      //
+      // level_identifier
+      current_level_identifier = level_identifier;
+
+      // Begin OBJ World loader
+
       //
       // Create our entity_factory
       //
@@ -704,10 +711,6 @@ methods:
       entity_factory.set_bitmap_bin(bitmap_bin);
       entity_factory.set_model_bin(model_bin);
 
-
-      //
-      // level_identifier
-      current_level_identifier = level_identifier;
 
       //
       // Create the camera
@@ -1024,6 +1027,9 @@ methods:
       }
 
 
+      // End OBJ loader
+
+
 
       //
       // Build the tile map (for physics)
@@ -1106,6 +1112,7 @@ methods:
      - Pipeline::Gameplay::Level
      - AllegroFlare::DialogTree::NodeBank
      - LabyrinthOfLore::WorldMap::TileTypeEnum
+     - Pipeline::OBJWorldLoader
 
 
   - name: initialize
@@ -2565,5 +2572,7 @@ dependencies:
     headers: [ Pipeline/CSVToLevelLoader.hpp ]
   - symbol: Pipeline::CurrentFloorInferencer
     headers: [ Pipeline/CurrentFloorInferencer.hpp ]
+  - symbol: Pipeline::OBJWorldLoader
+    headers: [ Pipeline/OBJWorldLoader.hpp ]
 
 
