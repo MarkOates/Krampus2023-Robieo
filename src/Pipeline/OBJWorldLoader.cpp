@@ -242,6 +242,7 @@ AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool OBJWorldLoade
          //item->get_placement_ref().position.y = 0.0f;
          item->get_placement_ref().rotation.x = 0.0;
          item->get_placement_ref().rotation.z = 0.0;
+         //item->get_velocity_ref().rotation.z = 0.01;
          entity_pool.add(item);
 
          exit_entity = item;
@@ -282,7 +283,7 @@ AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool OBJWorldLoade
           object->set_model_3d_texture(bitmap_bin->auto_get(texture_name));
           object->get_placement_ref().position = object_position;
           object->get_placement_ref().scale = { 0.2, 0.2, 0.2 };
-          object->get_placement_ref().rotation.y = 0.01;
+          //object->get_placement_ref().rotation.x = 0.01;
 
           object->set(ATTRIBUTE_COLLIDABLE_BY_PLAYER);
           object->set(ATTRIBUTE_ITEM_TYPE, "mushroom");
@@ -298,6 +299,47 @@ AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool OBJWorldLoade
        world_model->remove_named_objects(object_name);
    }
    std::cout << "Found " << mushrooms_found << " mushrooms" << std::endl;
+
+
+
+   // Gems (green)
+   int gems_found = 0;
+   if (world_model)
+   {
+      std::string object_name = "gem";
+      std::string model_name = "gem-01.obj";
+      std::string texture_name = "gem-01.png";
+
+      std::vector<std::vector<AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL>> objects_vertices =
+         world_model->extract_named_objects_vertices(object_name);
+
+      for (auto &object_vertices : objects_vertices)
+      {
+          AllegroFlare::Vec3D object_position = lowest_y_vertex(object_vertices);
+
+          AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D *object =
+             new AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D();
+          object->set_model_3d(model_bin->auto_get(model_name));
+          object->set_model_3d_texture(bitmap_bin->auto_get(texture_name));
+          object->get_placement_ref().position = object_position;
+          object->get_placement_ref().scale = { 0.2, 0.2, 0.2 };
+          //object->get_placement_ref().rotation.y = 0.01;
+          object->get_velocity_ref().rotation.y = 0.005;
+
+          object->set(ATTRIBUTE_COLLIDABLE_BY_PLAYER);
+          object->set(ATTRIBUTE_ITEM_TYPE, "gem");
+          object->set(ATTRIBUTE_ITEM_PICKUP_SOUND, "gem_pickup");
+          object->set(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityRenderFlags::RENDER_WITH_SKYBOX);
+
+          //env->get_placement_ref().position.y = 0.0; // NOTE: The objects will always be placed at 0
+          entity_pool.add(object);
+
+          gems_found++;
+      }
+
+       world_model->remove_named_objects(object_name);
+   }
+   std::cout << "Found " << gems_found << " gems" << std::endl;
 
 
 

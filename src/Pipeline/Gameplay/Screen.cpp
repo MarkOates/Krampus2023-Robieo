@@ -1366,6 +1366,22 @@ void Screen::update()
 
 
 
+      // Update the rotation of all the objects in the scene if they have rotation velocity
+      //for (auto &entity : entity
+      //pool
+      for (auto &entity : entity_pool.get_entity_pool_ref())
+      {
+         //- name: get_entity_as_dynamic_model_3d
+         if (entity->exists(ATTRIBUTE_ITEM_TYPE, "gem"))
+         {
+            auto gem = get_entity_as_dynamic_model_3d(entity);
+            gem->get_placement_ref().rotation += gem->get_velocity_ref().rotation;
+         }
+         //entity_pool.clear();
+      }
+
+
+
 
       // Update the player model rotation to face the moving direction
       if (std::fabs(x_prime) + std::fabs(y_prime) > 0.001) // Only update the rotation if the player is moving
@@ -2258,6 +2274,7 @@ void Screen::update_state(float time_now)
       } break;
 
       case STATE_PLAYING_GAME: {
+         //for (//HERE
       } break;
 
       case STATE_SUSPEND_FOR_DIALOG: {
