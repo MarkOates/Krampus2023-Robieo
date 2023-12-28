@@ -87,6 +87,26 @@ properties:
     type: bool
     init_with: false
 
+  - name: smooth_camera_from
+    type: AllegroFlare::Camera3D
+    init_with: '{}'
+
+  - name: smooth_camera_to
+    type: AllegroFlare::Camera3D
+    init_with: '{}'
+
+  - name: smooth_camera_started_at
+    type: float
+    init_with: 0.0f
+
+  - name: smooth_camera_duration
+    type: float
+    init_with: 3.0f
+
+  - name: smooth_camera_is_active
+    type: bool
+    init_with: false
+
   - name: current_level_identifier
     type: std::string
     init_with: '"[unset-current_level]"'

@@ -71,6 +71,11 @@ namespace Pipeline
          AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base* exit_entity;
          AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::SceneRenderer2 scene_renderer;
          bool show_map_overlay;
+         AllegroFlare::Camera3D smooth_camera_from;
+         AllegroFlare::Camera3D smooth_camera_to;
+         float smooth_camera_started_at;
+         float smooth_camera_duration;
+         bool smooth_camera_is_active;
          std::string current_level_identifier;
          Pipeline::Gameplay::Level* current_level;
          std::vector<LabyrinthOfLore::WorldMap::TileMap*> current_level_tile_maps;
