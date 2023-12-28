@@ -2,6 +2,7 @@
 
 #include <Pipeline/SmoothCamera.hpp>
 
+#include <AllegroFlare/Interpolators.hpp>
 #include <cmath>
 
 
@@ -108,6 +109,8 @@ AllegroFlare::Camera3D SmoothCamera::update()
 
    if (normal <= 0.0) return camera_start;
    if (normal >= 1.0) return camera_end;
+
+   normal = AllegroFlare::interpolator::double_slow_in_out(normal);
 
    result.near_plane = interpolate(camera_start.near_plane, camera_end.near_plane, normal);
    result.far_plane = interpolate(camera_start.far_plane, camera_end.far_plane, normal);

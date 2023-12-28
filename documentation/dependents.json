@@ -408,7 +408,8 @@
     "Pipeline/Gameplay/Screen"
   ],
   "AllegroFlare/Interpolators": [
-    "Pipeline/Gameplay/Screen"
+    "Pipeline/Gameplay/Screen",
+    "Pipeline/SmoothCamera"
   ],
   "Pipeline/GameProgressAndStateInfo": [
     "Pipeline/Gameplay/Screen",

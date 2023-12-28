@@ -52,6 +52,8 @@ methods:
       if (normal <= 0.0) return camera_start;
       if (normal >= 1.0) return camera_end;
 
+      normal = AllegroFlare::interpolator::double_slow_in_out(normal);
+
       result.near_plane = interpolate(camera_start.near_plane, camera_end.near_plane, normal);
       result.far_plane = interpolate(camera_start.far_plane, camera_end.far_plane, normal);
       result.position = interpolate_vec3d(camera_start.position, camera_end.position, normal);
@@ -75,6 +77,8 @@ methods:
       //float roll;
       //float zoom;
       return result;
+    body_dependency_symbols:
+      - AllegroFlare::Interpolators
 
 
   - name: normalize_age
@@ -203,5 +207,7 @@ dependencies:
     headers: [ AllegroFlare/Camera3D.hpp ]
   - symbol: AllegroFlare::Vec3D
     headers: [ AllegroFlare/Vec3D.hpp ]
+  - symbol: AllegroFlare::Interpolators
+    headers: [ AllegroFlare/Interpolators.hpp ]
 
 
