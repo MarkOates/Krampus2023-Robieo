@@ -1105,9 +1105,17 @@ void Screen::update()
    float light_time_of_day = 0.15f;
    AllegroFlare::Camera3D *light = scene_renderer.get_shadow_map_buffer_ref().get_light();
    light->spin = light_spin;
-   light->tilt = 3.141592653 * light_time_of_day; // light_time_of_day = 0.05; // sunrise
+   //light->tilt = 3.141592653 * light_time_of_day; // light_time_of_day = 0.05; // sunrise
                                                   //                     0.5; // high noon
                                                   //                     0.95; // sunset
+
+   //light->spin = -0.5f;
+   //light->tilt += 0.001;
+   light->spin = current_level->get_primary_light_spin();
+   light->tilt = 3.141592653 * current_level->get_primary_light_tilt_time_of_day();
+   //light->tilt = current_level->get_primary_light_tilt_time_of_day();
+
+
 
    // Pan the camera
    AllegroFlare::Camera3D *primary_camera = scene_renderer.find_primary_camera_3d();
@@ -1486,6 +1494,24 @@ void Screen::render()
       coordinates2 << std::setprecision(3) << player_position.y;
       al_draw_text(ui_font, hud_text_color, 1920 - 300, 1080 - 200 + 20, ALLEGRO_ALIGN_RIGHT, coordinates2.str().c_str());
    }
+
+
+   // draw light coordinates
+   {
+      AllegroFlare::Camera3D *light = scene_renderer.get_shadow_map_buffer_ref().get_light();
+      ALLEGRO_FONT *ui_font = obtain_ui_font();
+      ALLEGRO_COLOR hud_text_color = al_color_name("cyan");
+      std::stringstream coordinates;
+      coordinates << "tilt: " << std::setprecision(3) << light->tilt;
+      al_draw_text(ui_font, hud_text_color, 1920 - 300, 1080 - 100, ALLEGRO_ALIGN_RIGHT, coordinates.str().c_str());
+      std::stringstream coordinates2;
+      coordinates2 << "spin: " << std::setprecision(3) << light->spin;
+      al_draw_text(ui_font, hud_text_color, 1920 - 300, 1080 - 100 + 20, ALLEGRO_ALIGN_RIGHT, coordinates2.str().c_str());
+   }
+
+
+   //AllegroFlare::Camera3D *light = scene_renderer.get_shadow_map_buffer_ref().get_light();
+      //al_draw_text(ui_font, hud_text_color, 1920 - 300, 1080 - 200 + 20, ALLEGRO_ALIGN_RIGHT, coordinates2.str().c_str());
 
    return;
 }
