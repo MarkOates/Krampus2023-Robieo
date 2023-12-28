@@ -259,7 +259,7 @@ bool Screen::trivial_collide(AllegroFlare::Vec3D p1, AllegroFlare::Vec3D p2, flo
    return squared_distance < min_distance_squared;
 }
 
-void Screen::set_primary_camera_to_gameplay_view(AllegroFlare::Camera3D* primary_camera)
+void Screen::set_camera_to_gameplay_view(AllegroFlare::Camera3D* primary_camera)
 {
    //AllegroFlare::Camera3D *primary_camera = scene_renderer.find_primary_camera_3d();
    primary_camera->stepout = { 0.0, 0.0, 18.0 };
@@ -269,7 +269,7 @@ void Screen::set_primary_camera_to_gameplay_view(AllegroFlare::Camera3D* primary
    return;
 }
 
-void Screen::set_primary_camera_to_dialog_view(AllegroFlare::Camera3D* primary_camera)
+void Screen::set_camera_to_dialog_view(AllegroFlare::Camera3D* primary_camera)
 {
    //AllegroFlare::Camera3D *primary_camera = scene_renderer.find_primary_camera_3d();
    primary_camera->stepout = { 0.0, 0.0, 10.0 };
@@ -279,7 +279,7 @@ void Screen::set_primary_camera_to_dialog_view(AllegroFlare::Camera3D* primary_c
    return;
 }
 
-void Screen::set_primary_camera_to_music_performance_view(AllegroFlare::Camera3D* primary_camera)
+void Screen::set_camera_to_music_performance_view(AllegroFlare::Camera3D* primary_camera)
 {
    //AllegroFlare::Camera3D *primary_camera = scene_renderer.find_primary_camera_3d();
    primary_camera->stepout = { 0.0, 0.25, 6.0 };
@@ -289,7 +289,7 @@ void Screen::set_primary_camera_to_music_performance_view(AllegroFlare::Camera3D
    return;
 }
 
-void Screen::set_primary_camera_to_custom_view_1(AllegroFlare::Camera3D* primary_camera)
+void Screen::set_camera_to_custom_view_1(AllegroFlare::Camera3D* primary_camera)
 {
    //AllegroFlare::Camera3D *primary_camera = scene_renderer.find_primary_camera_3d();
    primary_camera->stepout = { 0.0, 2.4, 20.0 };
@@ -728,7 +728,7 @@ void Screen::load_level_by_identifier(std::string level_identifier)
    // Set our initial positions
    //
 
-   set_primary_camera_to_gameplay_view(scene_renderer.find_primary_camera_3d());
+   set_camera_to_gameplay_view(scene_renderer.find_primary_camera_3d());
                                           // This will be our default initialization position, and could be modified
                                           // in the next step by starting the game
 
@@ -1195,12 +1195,12 @@ void Screen::update()
       Pipeline::Gameplay::LevelCameraZone *level_camera_zone = find_first_camera_zone_at(player_entity_as);
       if (!level_camera_zone)
       {
-         set_primary_camera_to_gameplay_view(scene_renderer.find_primary_camera_3d());
+         set_camera_to_gameplay_view(scene_renderer.find_primary_camera_3d());
          // Use the default settings
       }
       else
       {
-         set_primary_camera_to_custom_view_1(scene_renderer.find_primary_camera_3d());
+         set_camera_to_custom_view_1(scene_renderer.find_primary_camera_3d());
       }
    }
 
@@ -2144,17 +2144,17 @@ void Screen::set_state(uint32_t state, bool override_if_busy)
       } break;
 
       case STATE_PLAYING_GAME: {
-         set_primary_camera_to_gameplay_view(scene_renderer.find_primary_camera_3d());
+         set_camera_to_gameplay_view(scene_renderer.find_primary_camera_3d());
       } break;
 
       case STATE_SUSPEND_FOR_DIALOG: {
-         set_primary_camera_to_dialog_view(scene_renderer.find_primary_camera_3d());
+         set_camera_to_dialog_view(scene_renderer.find_primary_camera_3d());
          player_control_velocity = {0, 0};
          player_control_dashing = false;
       } break;
 
       case STATE_PERFORMING_MUSIC: {
-         set_primary_camera_to_music_performance_view(scene_renderer.find_primary_camera_3d());
+         set_camera_to_music_performance_view(scene_renderer.find_primary_camera_3d());
       } break;
 
       default:

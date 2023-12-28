@@ -113,10 +113,10 @@ namespace Pipeline
          void set_model_bin(AllegroFlare::ModelBin* model_bin=nullptr);
          std::map<int, float> build_elevations_and_indices_for_floors();
          bool trivial_collide(AllegroFlare::Vec3D p1={0.0f, 0.0f, 0.0f}, AllegroFlare::Vec3D p2={0.0f, 0.0f, 0.0f}, float min_distance=10.0f);
-         void set_primary_camera_to_gameplay_view(AllegroFlare::Camera3D* primary_camera=nullptr);
-         void set_primary_camera_to_dialog_view(AllegroFlare::Camera3D* primary_camera=nullptr);
-         void set_primary_camera_to_music_performance_view(AllegroFlare::Camera3D* primary_camera=nullptr);
-         void set_primary_camera_to_custom_view_1(AllegroFlare::Camera3D* primary_camera=nullptr);
+         void set_camera_to_gameplay_view(AllegroFlare::Camera3D* primary_camera=nullptr);
+         void set_camera_to_dialog_view(AllegroFlare::Camera3D* primary_camera=nullptr);
+         void set_camera_to_music_performance_view(AllegroFlare::Camera3D* primary_camera=nullptr);
+         void set_camera_to_custom_view_1(AllegroFlare::Camera3D* primary_camera=nullptr);
          AllegroFlare::DialogTree::NodeBank build_dialog_node_bank();
          AllegroFlare::Vec3D lowest_y_vertex(std::vector<AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL> vertices={});
          std::set<std::string> find_named_object_identifiers_for_portals(AllegroFlare::Model3D* world_model=nullptr);

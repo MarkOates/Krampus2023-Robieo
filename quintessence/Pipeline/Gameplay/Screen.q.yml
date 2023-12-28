@@ -286,7 +286,7 @@ methods:
       return squared_distance < min_distance_squared;
 
 
-  - name: set_primary_camera_to_gameplay_view
+  - name: set_camera_to_gameplay_view
     parameters:
       - name: primary_camera
         type: AllegroFlare::Camera3D*
@@ -300,7 +300,7 @@ methods:
       return;
 
 
-  - name: set_primary_camera_to_dialog_view
+  - name: set_camera_to_dialog_view
     parameters:
       - name: primary_camera
         type: AllegroFlare::Camera3D*
@@ -314,7 +314,7 @@ methods:
       return;
 
 
-  - name: set_primary_camera_to_music_performance_view
+  - name: set_camera_to_music_performance_view
     parameters:
       - name: primary_camera
         type: AllegroFlare::Camera3D*
@@ -328,7 +328,7 @@ methods:
       return;
 
 
-  - name: set_primary_camera_to_custom_view_1
+  - name: set_camera_to_custom_view_1
     parameters:
       - name: primary_camera
         type: AllegroFlare::Camera3D*
@@ -757,7 +757,7 @@ methods:
       // Set our initial positions
       //
 
-      set_primary_camera_to_gameplay_view(scene_renderer.find_primary_camera_3d());
+      set_camera_to_gameplay_view(scene_renderer.find_primary_camera_3d());
                                              // This will be our default initialization position, and could be modified
                                              // in the next step by starting the game
 
@@ -1184,12 +1184,12 @@ methods:
          Pipeline::Gameplay::LevelCameraZone *level_camera_zone = find_first_camera_zone_at(player_entity_as);
          if (!level_camera_zone)
          {
-            set_primary_camera_to_gameplay_view(scene_renderer.find_primary_camera_3d());
+            set_camera_to_gameplay_view(scene_renderer.find_primary_camera_3d());
             // Use the default settings
          }
          else
          {
-            set_primary_camera_to_custom_view_1(scene_renderer.find_primary_camera_3d());
+            set_camera_to_custom_view_1(scene_renderer.find_primary_camera_3d());
          }
       }
 
@@ -2088,17 +2088,17 @@ methods:
          } break;
 
          case STATE_PLAYING_GAME: {
-            set_primary_camera_to_gameplay_view(scene_renderer.find_primary_camera_3d());
+            set_camera_to_gameplay_view(scene_renderer.find_primary_camera_3d());
          } break;
 
          case STATE_SUSPEND_FOR_DIALOG: {
-            set_primary_camera_to_dialog_view(scene_renderer.find_primary_camera_3d());
+            set_camera_to_dialog_view(scene_renderer.find_primary_camera_3d());
             player_control_velocity = {0, 0};
             player_control_dashing = false;
          } break;
 
          case STATE_PERFORMING_MUSIC: {
-            set_primary_camera_to_music_performance_view(scene_renderer.find_primary_camera_3d());
+            set_camera_to_music_performance_view(scene_renderer.find_primary_camera_3d());
          } break;
 
          default:
