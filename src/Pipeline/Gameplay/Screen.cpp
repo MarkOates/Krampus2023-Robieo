@@ -1621,7 +1621,20 @@ void Screen::render_hud_item_with_count(float x, float y, std::string item_name,
    float hwidth = width / 2;
    float hheight = height / 2;
    float r = 6;
+
+   // draw the rounded rectangle frame
    al_draw_rounded_rectangle(x - hwidth, y - hheight, x + hwidth, y + hheight, r, r, color, stroke_thickness);
+
+
+   // Draw the bitmap
+   ALLEGRO_BITMAP *img = bitmap_bin->auto_get(item_bitmap_identifier);
+   if (img)
+   {
+      int bwidth = al_get_bitmap_width(img);
+      int bheight = al_get_bitmap_height(img);
+      al_draw_bitmap(img, x - bwidth/2, y - bheight/2, 0);
+   }
+
 
    // Draw the number
    al_draw_text(
@@ -1652,7 +1665,7 @@ void Screen::render_hud()
    int num_mushrooms = game_progress_and_state_info->count_num_items_in_inventory_with_identifier("mushroom");
    int num_gems = game_progress_and_state_info->count_num_items_in_inventory_with_identifier("gem");
 
-   int x_start = 1920 - 130;
+   int x_start = 1920 - 120;
    int y_start = 1080/2;
    int y_spacing = 160;
    int y_cursor = 0;
@@ -2486,7 +2499,7 @@ ALLEGRO_FONT* Screen::obtain_ui_font_stats()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Screen::obtain_ui_font_stats: error: guard \"font_bin\" not met");
    }
-   return font_bin->auto_get("Oswald-Medium.ttf -42");
+   return font_bin->auto_get("Oswald-Medium.ttf -46");
 }
 
 
