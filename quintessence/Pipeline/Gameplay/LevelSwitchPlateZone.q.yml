@@ -1,0 +1,26 @@
+properties:
+
+
+  - name: name
+    type: std::string
+    init_with: '"[unset-name]"'
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: bounding_box
+    type: AllegroFlare::Physics::AABB3D
+    init_with: '{}'
+    constructor_arg: true
+    getter: true
+    getter_ref: true
+    setter: true
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::Physics::AABB3D
+    headers: [ AllegroFlare/Physics/AABB3D.hpp ]
+
+
