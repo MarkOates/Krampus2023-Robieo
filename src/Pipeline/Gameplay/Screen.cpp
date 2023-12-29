@@ -608,6 +608,31 @@ LabyrinthOfLore::WorldMap::TileMap* Screen::load_tester_tile_map()
    return result_tile_map;
 }
 
+void Screen::add_additional_entities_based_on_level_identifier(std::string level_identifier)
+{
+   if (level_identifier == "5-dune-temple")
+   {
+      // Create our entity
+      AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D *item = 
+         new AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D();
+      //item->set_model_3d(model_bin->auto_get("rounded_unit_cube-01.obj"));
+      item->set_model_3d(model_bin->auto_get("switch_3x3-off-02.obj"));
+      item->set_model_3d_texture(bitmap_bin->auto_get("switch_3x3-off-02.png"));
+      //item->set(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityRenderFlags::RENDER_WITH_SKYBOX);
+      item->get_placement_ref().position = { 0, 0.2, -3 };
+      //item->get_placement_ref().position.y = 0.0; // So the character is on the ground
+      //item->get_placement_ref().rotation.x = 0.0; // /0.05;
+      //item->get_placement_ref().rotation.z = 0.0; // 0.03547;
+
+      //item->set("goal"); // 0.03547;
+      entity_pool.add(item);
+
+      //goal_entity = item;
+      //world_model->remove_named_object("goal");
+   }
+   return;
+}
+
 void Screen::load_level_by_identifier(std::string level_identifier)
 {
    if (!(game_configuration))
@@ -728,6 +753,8 @@ void Screen::load_level_by_identifier(std::string level_identifier)
    portal_entity_associations = obj_world_loader.get_portal_entity_associations();
    player_controlled_entity = obj_world_loader.get_player_character();
    level_camera_zones = obj_world_loader.get_level_camera_zones();
+
+   add_additional_entities_based_on_level_identifier(level_identifier);
 
 
 

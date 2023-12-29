@@ -80,7 +80,7 @@ TEST_F(Pipeline_Gameplay_ScreenTestWithAllegroFrameworksFullFixture,
    screen.initialize();
 
 
-   screen.load_level_by_identifier("dune-temple");
+   screen.load_level_by_identifier("5-dune-temple");
 
    framework_register_and_activate_screen("screen", &screen);
 

@@ -49,4 +49,16 @@ properties:
     static: true
     constexpr: true
 
+  - name: ATTRIBUTE_TYPE_IS_SWITCH
+    type: char*
+    init_with: '(char*)"is_switch"'
+    static: true
+    constexpr: true
+
+  - name: ATTRIBUTE_TYPE_SWITCH_IS_ACTIVE
+    type: char*
+    init_with: '(char*)"switch_is_active"'
+    static: true
+    constexpr: true
+
 
