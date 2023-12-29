@@ -308,10 +308,20 @@ void Screen::set_camera_to_custom_view_1(AllegroFlare::Camera3D* primary_camera)
 void Screen::set_camera_to_custom_view_2(AllegroFlare::Camera3D* primary_camera)
 {
    //AllegroFlare::Camera3D *primary_camera = scene_renderer.find_primary_camera_3d();
-   primary_camera->stepout = { 0.0, 1.2, 7.0 };
+   primary_camera->stepout = { 0.0, 1.2, 9.0 };
    primary_camera->spin = 0.0;
    primary_camera->tilt = 0.21;
    primary_camera->zoom = 2.6;
+   return;
+}
+
+void Screen::set_camera_to_custom_view_3(AllegroFlare::Camera3D* primary_camera)
+{
+   //AllegroFlare::Camera3D *primary_camera = scene_renderer.find_primary_camera_3d();
+   primary_camera->stepout = { 0.0, 0.0, 18.0 };
+   primary_camera->spin = 0.0;
+   primary_camera->tilt = 1.12;
+   primary_camera->zoom = 3.0;
    return;
 }
 
@@ -1268,6 +1278,15 @@ void Screen::update()
             {
                smooth_camera_from = *scene_renderer.find_primary_camera_3d();
                set_camera_to_custom_view_2(scene_renderer.find_primary_camera_3d());
+               smooth_camera_to = *scene_renderer.find_primary_camera_3d();
+
+               smooth_camera_started_at = time_now;
+               smooth_camera_is_active = true;
+            }
+            else if (level_camera_zone->get_name() == "camera-3")
+            {
+               smooth_camera_from = *scene_renderer.find_primary_camera_3d();
+               set_camera_to_custom_view_3(scene_renderer.find_primary_camera_3d());
                smooth_camera_to = *scene_renderer.find_primary_camera_3d();
 
                smooth_camera_started_at = time_now;
