@@ -456,7 +456,7 @@ void Runner::setup_sound_effects_and_music(AllegroFlare::AudioController* audio_
      { "etherial_cavern", { "etherial-cavern-02.ogg", true, __IGNORE } },
      { "fire-level", { "fire-level-03.ogg", true, __IGNORE } },
      { "forest-music", { "forest-music-03.ogg", true, __IGNORE } },
-     { "ice_music", { "ice-level-08.ogg", true, __IGNORE } },
+     { "ice_music", { "ice-level-09.ogg", true, __IGNORE } },
 
       //}
    });
