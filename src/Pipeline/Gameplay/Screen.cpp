@@ -1301,6 +1301,7 @@ void Screen::update()
                smooth_camera_to = *scene_renderer.find_primary_camera_3d();
 
                smooth_camera_started_at = time_now;
+               smooth_camera_duration = 2.5;
                smooth_camera_is_active = true;
             }
             else if (level_camera_zone->get_name() == "camera-2")
@@ -1310,6 +1311,7 @@ void Screen::update()
                smooth_camera_to = *scene_renderer.find_primary_camera_3d();
 
                smooth_camera_started_at = time_now;
+               smooth_camera_duration = 2.5;
                smooth_camera_is_active = true;
             }
             else if (level_camera_zone->get_name() == "camera-3")
@@ -1319,6 +1321,7 @@ void Screen::update()
                smooth_camera_to = *scene_renderer.find_primary_camera_3d();
 
                smooth_camera_started_at = time_now;
+               smooth_camera_duration = 1.5;
                smooth_camera_is_active = true;
             }
          }
