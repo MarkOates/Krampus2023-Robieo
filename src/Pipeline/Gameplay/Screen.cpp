@@ -1598,6 +1598,85 @@ void Screen::toggle_showing_map_overlay()
    return;
 }
 
+void Screen::render_hud_item_with_count(float x, float y, std::string item_name, std::string item_bitmap_identifier, int item_count)
+{
+   ALLEGRO_FONT *ui_font_stats = obtain_ui_font_stats();
+   ALLEGRO_FONT *ui_font_text = obtain_ui_font_text();
+   int ui_font_height = al_get_font_line_height(ui_font_stats);
+   int ui_font_text_height = al_get_font_line_height(ui_font_text);
+   ALLEGRO_FONT *ui_font_num = obtain_ui_font_text();
+   ALLEGRO_COLOR color = al_color_name("cyan");
+   float opacity = 0.6;
+   color.r *= opacity;
+   color.g *= opacity;
+   color.b *= opacity;
+   color.a *= opacity;
+
+   std::stringstream item_count_str;
+   item_count_str << item_count;
+
+   float width = 100;
+   float height = 100;
+   float stroke_thickness = 6.0f;
+   float hwidth = width / 2;
+   float hheight = height / 2;
+   float r = 6;
+   al_draw_rounded_rectangle(x - hwidth, y - hheight, x + hwidth, y + hheight, r, r, color, stroke_thickness);
+
+   // Draw the number
+   al_draw_text(
+      ui_font_stats,
+      color,
+      x + hwidth + 40,
+      y + hheight - ui_font_height,
+      ALLEGRO_ALIGN_RIGHT,
+      item_count_str.str().c_str()
+   );
+
+   // Draw the name
+   al_draw_text(
+      ui_font_text,
+      color,
+      x + hwidth,
+      y + hheight + 4,
+      ALLEGRO_ALIGN_RIGHT,
+      item_name.c_str()
+   );
+
+   //al_draw_rounded_rectangle(
+   return;
+}
+
+void Screen::render_hud()
+{
+   int num_mushrooms = game_progress_and_state_info->count_num_items_in_inventory_with_identifier("mushroom");
+   int num_gems = game_progress_and_state_info->count_num_items_in_inventory_with_identifier("gem");
+
+   int x_start = 1920 - 130;
+   int y_start = 1080/2;
+   int y_spacing = 160;
+   int y_cursor = 0;
+
+   int num_things = (num_mushrooms != 0) + (num_gems += 0);
+   //y_start -= (num_things * y_spacing) - y_spacing / 2;
+
+   if (num_mushrooms != 0)
+   {
+      render_hud_item_with_count(x_start, y_start+y_cursor, "MUSHROOMS", "mushroom_ui-01.png", num_mushrooms);
+      y_cursor += y_spacing;
+   }
+   if (num_gems != 0)
+   {
+      render_hud_item_with_count(x_start, y_start+y_cursor, "GEMS", "gem_ui-01.png", num_gems);
+      y_cursor += y_spacing;
+   }
+
+   //- name: count_num_items_in_inventory_with_identifier
+   //return inventory_item_identifiers.count(item_identifier);
+
+   return;
+}
+
 void Screen::render()
 {
    if (!(initialized))
@@ -1685,6 +1764,8 @@ void Screen::render()
 
 
    // draw light coordinates
+   bool draw_light_coordinates = false;
+   if (draw_light_coordinates)
    {
       AllegroFlare::Camera3D *light = scene_renderer.get_shadow_map_buffer_ref().get_light();
       ALLEGRO_FONT *ui_font = obtain_ui_font();
@@ -1700,6 +1781,9 @@ void Screen::render()
 
    //AllegroFlare::Camera3D *light = scene_renderer.get_shadow_map_buffer_ref().get_light();
       //al_draw_text(ui_font, hud_text_color, 1920 - 300, 1080 - 200 + 20, ALLEGRO_ALIGN_RIGHT, coordinates2.str().c_str());
+
+
+   render_hud();
 
    return;
 }
@@ -2379,6 +2463,30 @@ ALLEGRO_FONT* Screen::obtain_ui_font()
       throw std::runtime_error("Screen::obtain_ui_font: error: guard \"font_bin\" not met");
    }
    return font_bin->auto_get("Oswald-Medium.ttf -32");
+}
+
+ALLEGRO_FONT* Screen::obtain_ui_font_text()
+{
+   if (!(font_bin))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::obtain_ui_font_text]: error: guard \"font_bin\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::obtain_ui_font_text: error: guard \"font_bin\" not met");
+   }
+   return font_bin->auto_get("Oswald-Medium.ttf -32");
+}
+
+ALLEGRO_FONT* Screen::obtain_ui_font_stats()
+{
+   if (!(font_bin))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::obtain_ui_font_stats]: error: guard \"font_bin\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::obtain_ui_font_stats: error: guard \"font_bin\" not met");
+   }
+   return font_bin->auto_get("Oswald-Medium.ttf -42");
 }
 
 

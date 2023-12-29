@@ -65,6 +65,11 @@ TEST_F(Pipeline_Gameplay_ScreenTestWithAllegroFrameworksFullFixture,
    Pipeline::Gameplay::Screen screen;
 
    Pipeline::GameProgressAndStateInfo game_progress_and_state_info;
+   game_progress_and_state_info.add_item_to_inventory("mushroom");
+   game_progress_and_state_info.add_item_to_inventory("mushroom");
+   game_progress_and_state_info.add_item_to_inventory("mushroom");
+   game_progress_and_state_info.add_item_to_inventory("gem");
+   game_progress_and_state_info.add_item_to_inventory("gem");
 
    screen.set_framework(&get_framework_ref());
    screen.set_event_emitter(get_framework_event_emitter());

@@ -95,6 +95,8 @@ namespace Pipeline
          std::set<AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base*> entities_player_entity_is_colliding_with;
          std::map<AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D*, AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D*> portal_entity_associations;
          ALLEGRO_FONT* obtain_ui_font();
+         ALLEGRO_FONT* obtain_ui_font_text();
+         ALLEGRO_FONT* obtain_ui_font_stats();
 
       protected:
 
@@ -148,6 +150,8 @@ namespace Pipeline
          void start_smooth_camera_movement(float time_now=0.0f);
          void update();
          void toggle_showing_map_overlay();
+         void render_hud_item_with_count(float x=0.0f, float y=0.0f, std::string item_name="[unset-item_name]", std::string item_bitmap_identifier="[unset-item_bitmap_identifier]", int item_count=0);
+         void render_hud();
          void render();
          void save_bitmap_buffers_to_files();
          void call_on_finished_callback_func();
