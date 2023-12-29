@@ -442,6 +442,35 @@ LabyrinthOfLore::WorldMap::TileMap* Screen::get_current_level_tile_map(int floor
    return current_level_tile_maps[floor_index]; // TODO: Grab the level nearest the player (or y-position)
 }
 
+void Screen::write_tile_elevation_value(int floor_index, int tile_x, int tile_y, float elevation)
+{
+   if (!((!current_level_tile_maps.empty())))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::write_tile_elevation_value]: error: guard \"(!current_level_tile_maps.empty())\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::write_tile_elevation_value: error: guard \"(!current_level_tile_maps.empty())\" not met");
+   }
+   if (!((floor_index >= 0)))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::write_tile_elevation_value]: error: guard \"(floor_index >= 0)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::write_tile_elevation_value: error: guard \"(floor_index >= 0)\" not met");
+   }
+   if (!((floor_index < current_level_tile_maps.size())))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::write_tile_elevation_value]: error: guard \"(floor_index < current_level_tile_maps.size())\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::write_tile_elevation_value: error: guard \"(floor_index < current_level_tile_maps.size())\" not met");
+   }
+   // HERE
+   LabyrinthOfLore::WorldMap::Tile t = current_level_tile_maps[floor_index]->get_tile(tile_x, tile_y);
+   t.set_height(elevation);
+   current_level_tile_maps[floor_index]->set_tile(tile_x, tile_y, t);
+}
+
 void Screen::load_tile_map(std::string level_identifier)
 {
    for (auto &current_level_tile_map : current_level_tile_maps)
@@ -2008,6 +2037,10 @@ void Screen::key_down_func(ALLEGRO_EVENT* ev)
 
       case ALLEGRO_KEY_M: {
          toggle_showing_map_overlay();
+      } break;
+
+      case ALLEGRO_KEY_S: {
+         write_tile_elevation_value(0, 48, 94, 10.0f);
       } break;
 
       default: {

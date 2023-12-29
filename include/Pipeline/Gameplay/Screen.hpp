@@ -133,6 +133,7 @@ namespace Pipeline
          std::set<std::string> find_named_object_identifiers_for_portals(AllegroFlare::Model3D* world_model=nullptr);
          Pipeline::Gameplay::Level build_level(std::string level_identifier="[unset-level_identifier]");
          LabyrinthOfLore::WorldMap::TileMap* get_current_level_tile_map(int floor_index=0);
+         void write_tile_elevation_value(int floor_index=0, int tile_x=0, int tile_y=0, float elevation=0.0f);
          void load_tile_map(std::string level_identifier="[unset-level_identifier]");
          std::vector<LabyrinthOfLore::WorldMap::TileMap*> load_tile_map_from_bitmap(std::string level_identifier="[unset-level_identifier]");
          LabyrinthOfLore::WorldMap::TileMap* load_tester_tile_map();

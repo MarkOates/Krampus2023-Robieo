@@ -505,7 +505,28 @@ methods:
     guards: [ (!current_level_tile_maps.empty()), (floor_index >= 0), (floor_index < current_level_tile_maps.size()) ]
     body: |
       return current_level_tile_maps[floor_index]; // TODO: Grab the level nearest the player (or y-position)
-     
+
+
+  - name: write_tile_elevation_value
+    parameters:
+      - name: floor_index
+        type: int
+        default_argument: 0
+      - name: tile_x
+        type: int
+        default_argument: 0
+      - name: tile_y
+        type: int
+        default_argument: 0
+      - name: elevation
+        type: float
+        default_argument: 0.0f
+    guards: [ (!current_level_tile_maps.empty()), (floor_index >= 0), (floor_index < current_level_tile_maps.size()) ]
+    body: |
+      // HERE
+      LabyrinthOfLore::WorldMap::Tile t = current_level_tile_maps[floor_index]->get_tile(tile_x, tile_y);
+      t.set_height(elevation);
+      current_level_tile_maps[floor_index]->set_tile(tile_x, tile_y, t);
 
 
   - name: load_tile_map
@@ -2019,6 +2040,10 @@ methods:
 
          case ALLEGRO_KEY_M: {
             toggle_showing_map_overlay();
+         } break;
+
+         case ALLEGRO_KEY_S: {
+            write_tile_elevation_value(0, 48, 94, 10.0f);
          } break;
 
          default: {
