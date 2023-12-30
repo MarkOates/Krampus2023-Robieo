@@ -674,8 +674,8 @@ void Screen::create_boss_plate_switch(std::string name, AllegroFlare::Vec3D posi
 
       // Define our collision zone's bounding box
       AllegroFlare::Physics::AABB3D bounding_box;
-      bounding_box.set_min(position + AllegroFlare::Vec3D(-1.5, -4, -1.5));
-      bounding_box.set_max(position + AllegroFlare::Vec3D(1.5, 4, 1.5));
+      bounding_box.set_min(position + AllegroFlare::Vec3D(-0.5, -4, -0.5));
+      bounding_box.set_max(position + AllegroFlare::Vec3D(0.5, 4, 0.5));
 
       // Build our switch plate zone
       Pipeline::Gameplay::LevelSwitchPlateZone boss_switch_plate_zone;
@@ -816,6 +816,17 @@ void Screen::add_additional_entities_based_on_level_identifier(std::string level
    else if (level_identifier == "8-turret-palace")
    {
       spawn_king_turret(AllegroFlare::Vec3D(37.5f, 2.0f, -24.0f));
+      //spawn_king_turret(AllegroFlare::Vec3D(37.5f, 2.0f, -24.0f));
+      create_boss_plate_switch("boss_switch_1", AllegroFlare::Vec3D(36.0f, 2.0f, -20.0f));
+      create_boss_plate_switch("boss_switch_2", AllegroFlare::Vec3D(37.5f, 2.0f, -20.0f));
+      create_boss_plate_switch("boss_switch_3", AllegroFlare::Vec3D(39.0f, 2.0f, -20.0f));
+    //parameters:
+   //- name: name
+     //type: std::string
+     //default_argument: '"[unset-name]"'
+   //- name: position
+     //type: AllegroFlare::Vec3D
+     //default_argument: '{}'
    }
    return;
 }
@@ -1583,6 +1594,8 @@ void Screen::handle_on_exit_with_boss_switch(Pipeline::Gameplay::LevelSwitchPlat
    switch_entity->set_model_3d(model_bin->auto_get("boss_switch_3x3-off-02.obj"));
    switch_entity->set_model_3d_texture(bitmap_bin->auto_get("boss_switch_3x3-off-02.png"));
    switch_entity->get_placement_ref().position.y += 0.1; // Move the switch "down"
+
+   switch_plate_zone->set_is_activated(false);
 
    //// Modify the switch_entity in the entity pool to appear as "active"
    //auto switch_entity = switch_plate_zone->get_switch_entity();
