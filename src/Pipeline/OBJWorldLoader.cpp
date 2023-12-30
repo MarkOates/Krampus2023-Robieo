@@ -383,6 +383,46 @@ AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool OBJWorldLoade
    std::cout << "Found " << red_birds << " red_birds" << std::endl;
 
 
+   // Turrets
+   int turrets = 0;
+   if (world_model)
+   {
+      std::string object_name = "turret";
+      std::string model_name = "turret-03.obj";
+      std::string texture_name = "turret-03.png";
+
+      std::vector<std::vector<AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL>> objects_vertices =
+         world_model->extract_named_objects_vertices(object_name);
+
+      for (auto &object_vertices : objects_vertices)
+      {
+          AllegroFlare::Vec3D object_position = lowest_y_vertex(object_vertices);
+
+          AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D *object = 
+             new AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D();
+          object->set_model_3d(model_bin->auto_get(model_name));
+          object->set_model_3d_texture(bitmap_bin->auto_get(texture_name));
+          object->get_placement_ref().position = object_position + AllegroFlare::Vec3D(-0.5, 0, 0);
+          //object->get_placement_ref().scale = { 0.2, 0.2, 0.2 };
+          //object->get_placement_ref().rotation.y = 0.01;
+
+          object->set(ATTRIBUTE_COLLIDABLE_BY_PLAYER);
+          object->set(ATTRIBUTE_ITEM_TYPE, "turret");
+          //object->set(ATTRIBUTE_CUSTOM_COLLISION_RADIUS, 2.2f);
+          //object->set(ATTRIBUTE_ITEM_PICKUP_SOUND, "mushroom_pickup");
+          //env->set(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityRenderFlags::RENDER_WITH_SKYBOX);
+
+          //env->get_placement_ref().position.y = 0.0; // NOTE: The objects will always be placed at 0
+          entity_pool.add(object);
+
+          turrets++;
+      }
+
+       world_model->remove_named_objects(object_name);
+   }
+   std::cout << "Found " << turrets << " turrets" << std::endl;
+
+
 
    // NPCs
    int npcs_found = 0;

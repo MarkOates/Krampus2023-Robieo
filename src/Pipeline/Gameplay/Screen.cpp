@@ -321,9 +321,29 @@ void Screen::set_camera_to_custom_view_3(AllegroFlare::Camera3D* primary_camera)
 {
    //AllegroFlare::Camera3D *primary_camera = scene_renderer.find_primary_camera_3d();
    primary_camera->stepout = { 0.0, 0.0, 18.0 };
-   primary_camera->spin = 0.0;
-   primary_camera->tilt = 1.12;
+   primary_camera->spin = 0.5;
+   primary_camera->tilt = 0.75;
    primary_camera->zoom = 3.0;
+   return;
+}
+
+void Screen::set_camera_to_custom_view_4(AllegroFlare::Camera3D* primary_camera)
+{
+   //AllegroFlare::Camera3D *primary_camera = scene_renderer.find_primary_camera_3d();
+   primary_camera->stepout = { 0.0, 2.0, 20.0 };
+   primary_camera->spin = 0.5;
+   primary_camera->tilt = 0.75;
+   primary_camera->zoom = 2.85;
+   return;
+}
+
+void Screen::set_camera_to_custom_view_5(AllegroFlare::Camera3D* primary_camera)
+{
+   //AllegroFlare::Camera3D *primary_camera = scene_renderer.find_primary_camera_3d();
+   primary_camera->stepout = { 0.0, 2.6, 26.0 };
+   primary_camera->spin = 0.5;
+   primary_camera->tilt = 0.75;
+   primary_camera->zoom = 3.2;
    return;
 }
 
@@ -1493,6 +1513,26 @@ void Screen::update()
 
                smooth_camera_started_at = time_now;
                smooth_camera_duration = 1.5;
+               smooth_camera_is_active = true;
+            }
+            else if (level_camera_zone->get_name() == "camera-4") // Turret main chaimber
+            {
+               smooth_camera_from = *scene_renderer.find_primary_camera_3d();
+               set_camera_to_custom_view_4(scene_renderer.find_primary_camera_3d());
+               smooth_camera_to = *scene_renderer.find_primary_camera_3d();
+
+               smooth_camera_started_at = time_now;
+               smooth_camera_duration = 2.5;
+               smooth_camera_is_active = true;
+            }
+            else if (level_camera_zone->get_name() == "camera-5") // Turret main chaimber
+            {
+               smooth_camera_from = *scene_renderer.find_primary_camera_3d();
+               set_camera_to_custom_view_5(scene_renderer.find_primary_camera_3d());
+               smooth_camera_to = *scene_renderer.find_primary_camera_3d();
+
+               smooth_camera_started_at = time_now;
+               smooth_camera_duration = 3.0;
                smooth_camera_is_active = true;
             }
          }

@@ -131,6 +131,8 @@ namespace Pipeline
          void set_camera_to_custom_view_1(AllegroFlare::Camera3D* primary_camera=nullptr);
          void set_camera_to_custom_view_2(AllegroFlare::Camera3D* primary_camera=nullptr);
          void set_camera_to_custom_view_3(AllegroFlare::Camera3D* primary_camera=nullptr);
+         void set_camera_to_custom_view_4(AllegroFlare::Camera3D* primary_camera=nullptr);
+         void set_camera_to_custom_view_5(AllegroFlare::Camera3D* primary_camera=nullptr);
          AllegroFlare::DialogTree::NodeBank build_dialog_node_bank();
          AllegroFlare::Vec3D lowest_y_vertex(std::vector<AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL> vertices={});
          std::set<std::string> find_named_object_identifiers_for_portals(AllegroFlare::Model3D* world_model=nullptr);
