@@ -69,6 +69,7 @@ table td
   <li><a href="#quintessence/Pipeline/GameProgressAndStateInfo.q.yml">quintessence/Pipeline/GameProgressAndStateInfo.q.yml</a></li>
   <li><a href="#quintessence/Pipeline/Gameplay/Level.q.yml">quintessence/Pipeline/Gameplay/Level.q.yml</a></li>
   <li><a href="#quintessence/Pipeline/Gameplay/LevelCameraZone.q.yml">quintessence/Pipeline/Gameplay/LevelCameraZone.q.yml</a></li>
+  <li><a href="#quintessence/Pipeline/Gameplay/LevelSwitchPlateZone.q.yml">quintessence/Pipeline/Gameplay/LevelSwitchPlateZone.q.yml</a></li>
   <li><a href="#quintessence/Pipeline/Gameplay/LevelTileMap.q.yml">quintessence/Pipeline/Gameplay/LevelTileMap.q.yml</a></li>
   <li><a href="#quintessence/Pipeline/Gameplay/Screen.q.yml">quintessence/Pipeline/Gameplay/Screen.q.yml</a></li>
   <li><a href="#quintessence/Pipeline/Gameplay/SwitchPlate.q.yml">quintessence/Pipeline/Gameplay/SwitchPlate.q.yml</a></li>
@@ -1589,6 +1590,32 @@ table td
 </ul>
 <ul>
   <div class="component">
+    <h3 id="quintessence/Pipeline/Gameplay/LevelSwitchPlateZone.q.yml">quintessence/Pipeline/Gameplay/LevelSwitchPlateZone.q.yml</h3>
+    <h4>Overview<h4>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">name</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">bounding_box</td>
+  <td class="property">AllegroFlare::Physics::AABB3D</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Physics::AABB3D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Physics/AABB3D.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<ul>
+  <div class="component">
     <h3 id="quintessence/Pipeline/Gameplay/LevelTileMap.q.yml">quintessence/Pipeline/Gameplay/LevelTileMap.q.yml</h3>
     <h4>Overview<h4>
     <h3>Properties</h3>
@@ -1682,6 +1709,14 @@ table td
 <tr>
   <td class="property">level_camera_zones</td>
   <td class="property">std::vector&lt;Pipeline::Gameplay::LevelCameraZone&gt;</td>
+</tr>
+<tr>
+  <td class="property">level_switch_plate_zones</td>
+  <td class="property">std::vector&lt;Pipeline::Gameplay::LevelSwitchPlateZone&gt;</td>
+</tr>
+<tr>
+  <td class="property">level_switch_plate_zones_player_is_currently_colliding_with</td>
+  <td class="property">std::set&lt;std::string&gt;</td>
 </tr>
 <tr>
   <td class="property">goal_entity</td>
@@ -1901,6 +1936,9 @@ table td
 </tr>
 <tr>
   <td class="method">find_first_camera_zone_at(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D* player_controlled_entity_as=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">find_first_switch_plate_zone_at__DEAD_METHOD(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D* player_controlled_entity_as=nullptr)</td>
 </tr>
 <tr>
   <td class="method">start_smooth_camera_movement(float time_now=0.0f)</td>
@@ -2165,6 +2203,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Pipeline::SmoothCamera&quot;, &quot;headers&quot;=&gt;[&quot;Pipeline/SmoothCamera.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Pipeline::Gameplay::LevelSwitchPlateZone&quot;, &quot;headers&quot;=&gt;[&quot;Pipeline/Gameplay/LevelSwitchPlateZone.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -3030,6 +3071,7 @@ table td
   ],
   "AllegroFlare/Physics/AABB3D": [
     "Pipeline/Gameplay/LevelCameraZone",
+    "Pipeline/Gameplay/LevelSwitchPlateZone",
     "Pipeline/Gameplay/Screen"
   ],
   "ALLEGRO_EVENT": [
@@ -3165,6 +3207,9 @@ table td
     "Pipeline/OBJWorldLoader"
   ],
   "Pipeline/SmoothCamera": [
+    "Pipeline/Gameplay/Screen"
+  ],
+  "Pipeline/Gameplay/LevelSwitchPlateZone": [
     "Pipeline/Gameplay/Screen"
   ],
   "AllegroFlare/vec3d": [

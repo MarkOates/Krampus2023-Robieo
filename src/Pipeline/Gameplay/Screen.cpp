@@ -54,6 +54,8 @@ Screen::Screen(AllegroFlare::Frameworks::Full* framework, AllegroFlare::EventEmi
    , player_control_velocity()
    , player_control_dashing(false)
    , level_camera_zones({})
+   , level_switch_plate_zones({})
+   , level_switch_plate_zones_player_is_currently_colliding_with({})
    , goal_entity(nullptr)
    , exit_entity(nullptr)
    , scene_renderer()
@@ -687,6 +689,8 @@ void Screen::load_level_by_identifier(std::string level_identifier)
    //current_level_tile_map = nullptr;
    show_map_overlay = false;
    level_camera_zones.clear();
+   level_switch_plate_zones.clear();
+   level_switch_plate_zones_player_is_currently_colliding_with.clear();
 
 
 
@@ -1224,33 +1228,38 @@ Pipeline::Gameplay::LevelCameraZone* Screen::find_first_camera_zone_at(AllegroFl
    Pipeline::Gameplay::LevelCameraZone *result = nullptr;
    AllegroFlare::Vec3D player_character_position = player_controlled_entity_as->get_placement_ref().position;
 
-   // TODO: Find camera zone
-   // HERE
-   //std::cout << "num camera zones: " << level_camera_zones.size() << std::endl;
    int i=0;
    for (auto &level_camera_zone : level_camera_zones)
    {
-      //AllegroFlare::Physics::AABB3D box = level_camera_zone.get_bounding_box_ref();
-         //std::cout << "-- zone " << i << ":" << std::endl;
-         auto camera_zone_bounding_box = level_camera_zone.get_bounding_box_ref();
-         //camera_zone_bounding_box.set_min(build_bounding_box_min_coordinate(object_vertices));
-         //camera_zone_bounding_box.set_max(build_bounding_box_max_coordinate(object_vertices));
-
-         //std::cout << "  min_x: " << camera_zone_bounding_box.get_min().x << std::endl;
-         //std::cout << "  max_x: " << camera_zone_bounding_box.get_max().x << std::endl;
-         //std::cout << "  min_y: " << camera_zone_bounding_box.get_min().y << std::endl;
-         //std::cout << "  max_y: " << camera_zone_bounding_box.get_max().y << std::endl;
-         //std::cout << "  min_z: " << camera_zone_bounding_box.get_min().z << std::endl;
-         //std::cout << "  max_z: " << camera_zone_bounding_box.get_max().z << std::endl;
-         //std::cout << "-- player:" << std::endl;
-         //std::cout << "  x: " << player_character_position.x << std::endl;
-         //std::cout << "  y: " << player_character_position.y << std::endl;
-         //std::cout << "  z: " << player_character_position.z << std::endl;
-
+      auto camera_zone_bounding_box = level_camera_zone.get_bounding_box_ref();
       if (level_camera_zone.get_bounding_box_ref().collides_with_point(player_character_position))
       {
-         //std::cout << "FOUND camera zone " << std::endl;
          return &level_camera_zone;
+      }
+   }
+
+   return result;
+}
+
+Pipeline::Gameplay::LevelSwitchPlateZone* Screen::find_first_switch_plate_zone_at__DEAD_METHOD(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D* player_controlled_entity_as)
+{
+   if (!(player_controlled_entity_as))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::find_first_switch_plate_zone_at__DEAD_METHOD]: error: guard \"player_controlled_entity_as\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::find_first_switch_plate_zone_at__DEAD_METHOD: error: guard \"player_controlled_entity_as\" not met");
+   }
+   Pipeline::Gameplay::LevelSwitchPlateZone *result = nullptr;
+   AllegroFlare::Vec3D player_character_position = player_controlled_entity_as->get_placement_ref().position;
+
+   int i=0;
+   for (auto &level_switch_plate_zone : level_switch_plate_zones)
+   {
+      auto switch_plate_zone_bounding_box = level_switch_plate_zone.get_bounding_box_ref();
+      if (level_switch_plate_zone.get_bounding_box_ref().collides_with_point(player_character_position))
+      {
+         return &level_switch_plate_zone;
       }
    }
 
@@ -1306,6 +1315,9 @@ void Screen::update()
 
    // HERE:
    // Check collisions on player in a camera zone
+
+   //auto player_entity_as = get_player_controlled_entity_as();
+
    if (player_controlled_entity)
    {
       auto player_entity_as = get_player_controlled_entity_as();
@@ -1353,6 +1365,49 @@ void Screen::update()
             }
          }
       }
+   }
+
+
+
+   // HERE:
+   // Test collision states on these switches
+   {
+      auto player_entity_as = get_player_controlled_entity_as();
+      //Pipeline::Gameplay::LevelSwitchPlateZone *result = nullptr;
+      AllegroFlare::Vec3D player_character_position = player_entity_as->get_placement_ref().position;
+
+      //for (auto &level_switch_plate_zone : level_switch_plate_zones)
+      //{
+         //std::string &zone_name = level_switch_plate_zone.get_name();
+         //auto it = level_switch_plate_zones_player_is_currently_colliding_with.find(zone_name);
+         //bool player_was_previously_colliding = it != ;
+         //bool player_is_currently_colliding = false;
+
+         //auto switch_plate_zone_bounding_box = level_switch_plate_zone.get_bounding_box_ref();
+         //player_is_currently_colliding =
+            //level_switch_plate_zone.get_bounding_box_ref().collides_with_point(player_character_position);
+
+         //if (!player_was_previously_colliding && player_is_currently_colliding)
+         //{
+            //// on enter
+            //// TODO: Test this
+            //level_switch_plate_zones_player_is_currently_colliding_with.insert(zone_name);
+         //}
+         //else if (player_was_previously_colliding && player_is_currently_colliding)
+         //{
+            //// continuing to be on
+         //}
+         //else if (player_was_previously_colliding && !player_is_currently_colliding)
+         //{
+            //// on exit
+            //// TODO: Test this
+            //level_switch_plate_zones_player_is_currently_colliding_with.erase(it);
+         //}
+         //else if (!player_was_previously_colliding && !player_is_currently_colliding)
+         //{
+            //// continuing to be off
+         //}
+      //}
    }
 
 

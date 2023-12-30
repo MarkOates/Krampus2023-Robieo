@@ -329,6 +329,7 @@
   ],
   "AllegroFlare/Physics/AABB3D": [
     "Pipeline/Gameplay/LevelCameraZone",
+    "Pipeline/Gameplay/LevelSwitchPlateZone",
     "Pipeline/Gameplay/Screen"
   ],
   "ALLEGRO_EVENT": [
@@ -464,6 +465,9 @@
     "Pipeline/OBJWorldLoader"
   ],
   "Pipeline/SmoothCamera": [
+    "Pipeline/Gameplay/Screen"
+  ],
+  "Pipeline/Gameplay/LevelSwitchPlateZone": [
     "Pipeline/Gameplay/Screen"
   ],
   "AllegroFlare/vec3d": [
