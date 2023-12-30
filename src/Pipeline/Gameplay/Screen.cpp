@@ -4,6 +4,7 @@
 
 #include <AllegroFlare/ALLEGRO_VERTEX_WITH_NORMAL.hpp>
 #include <AllegroFlare/DialogTree/NodeBank.hpp>
+#include <AllegroFlare/Elements/HealthBars/Classic.hpp>
 #include <AllegroFlare/EventNames.hpp>
 #include <AllegroFlare/GameEventDatas/String.hpp>
 #include <AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/DynamicModel3D.hpp>
@@ -1562,21 +1563,9 @@ void Screen::handle_on_enter_with_boss_switch(Pipeline::Gameplay::LevelSwitchPla
    switch_entity->set_model_3d_texture(bitmap_bin->auto_get("boss_switch_3x3-on-02.png"));
    switch_entity->get_placement_ref().position.y -= 0.1; // Move the switch "down"
 
-   //AllegroFlare::Vec3D gem_center_place = switch_entity->get_placement_ref().position;
-   //gem_center_place.y = 0.0f;
-   //float distance = 2.5;
 
-   // create some gems in the scene
-   // HERE
-   //float
-   //spawn_real_time_gem(gem_center_place + AllegroFlare::Vec3D(-distance, 0, 0));
-   //spawn_real_time_gem(gem_center_place + AllegroFlare::Vec3D(distance, 0, 0));
-   //spawn_real_time_gem(gem_center_place + AllegroFlare::Vec3D(0, 0, -distance));
-   //spawn_real_time_gem(gem_center_place + AllegroFlare::Vec3D(0, 0, distance));
-   //spawn_real_time_gem(gem_center_place + AllegroFlare::Vec3D(-distance, 0, distance));
-   //spawn_real_time_gem(gem_center_place + AllegroFlare::Vec3D(distance, 0, -distance));
-   //spawn_real_time_gem(gem_center_place + AllegroFlare::Vec3D(-distance, 0, -distance));
-   //spawn_real_time_gem(gem_center_place + AllegroFlare::Vec3D(distance, 0, distance));
+   boss_take_hit();
+
 
    // Set this switch_plate_zone to active
    switch_plate_zone->set_is_activated(true);
@@ -2308,6 +2297,67 @@ void Screen::render_hud()
    return;
 }
 
+void Screen::render_boss_mode_hud()
+{
+   ALLEGRO_FONT *ui_font_stats = obtain_ui_font_stats();
+   ALLEGRO_FONT *ui_font_text = obtain_ui_font_text();
+   int ui_font_height = al_get_font_line_height(ui_font_stats);
+   int ui_font_text_height = al_get_font_line_height(ui_font_text);
+   ALLEGRO_FONT *ui_font_num = obtain_ui_font_text();
+   ALLEGRO_COLOR color = al_color_name("cyan");
+   float opacity = 0.6;
+   color.r *= opacity;
+   color.g *= opacity;
+   color.b *= opacity;
+   color.a *= opacity;
+
+   //std::stringstream item_count_str;
+   //item_count_str << item_count;
+
+   float width = 100;
+   float height = 100;
+   float stroke_thickness = 6.0f;
+   float hwidth = width / 2;
+   float hheight = height / 2;
+   float r = 6;
+
+   // draw the rounded rectangle frame
+   al_draw_text(ui_font_stats, color, 1920/2, 1080 - 60, ALLEGRO_ALIGN_CENTER, "KING TURRET");
+   AllegroFlare::Elements::HealthBars::Classic(
+      king_turret_health_max, king_turret_health, color, color, 80, 100, 26, 3.0
+   );
+   //al_draw_filled_rectangle(
+   //for (auto
+   //al_draw_text(ui_font_stats, color, 1920/2, 1080 - 60, ALLEGRO_ALIGN_CENTER, "KING TURRET");
+
+   //int num_mushrooms = game_progress_and_state_info->count_num_items_in_inventory_with_identifier("mushroom");
+   //int num_gems = game_progress_and_state_info->count_num_items_in_inventory_with_identifier("gem");
+
+   //int x_start = 1920 - 120;
+   //int y_start = 1080/2;
+   //int y_spacing = 160;
+   //int y_cursor = 0;
+
+   //int num_things = (num_mushrooms != 0) + (num_gems += 0);
+   //y_start -= (num_things * y_spacing) - y_spacing / 2;
+
+   //if (num_mushrooms != 0)
+   //{
+      //render_hud_item_with_count(x_start, y_start+y_cursor, "MUSHROOMS", "mushroom_ui-01.png", num_mushrooms);
+      //y_cursor += y_spacing;
+   //}
+   //if (num_gems != 0)
+   //{
+      //render_hud_item_with_count(x_start, y_start+y_cursor, "GEMS", "gem_ui-01.png", num_gems);
+      //y_cursor += y_spacing;
+   //}
+
+   //- name: count_num_items_in_inventory_with_identifier
+   //return inventory_item_identifiers.count(item_identifier);
+
+   return;
+}
+
 void Screen::render()
 {
    if (!(initialized))
@@ -2415,7 +2465,7 @@ void Screen::render()
 
 
    render_hud();
-   //render_boss_mode_hud();
+   if (king_turret_boss_mode_is_active) render_boss_mode_hud();
 
    return;
 }

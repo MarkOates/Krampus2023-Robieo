@@ -183,6 +183,7 @@ namespace Pipeline
          void toggle_showing_map_overlay();
          void render_hud_item_with_count(float x=0.0f, float y=0.0f, std::string item_name="[unset-item_name]", std::string item_bitmap_identifier="[unset-item_bitmap_identifier]", int item_count=0);
          void render_hud();
+         void render_boss_mode_hud();
          void render();
          void save_bitmap_buffers_to_files();
          void call_on_finished_callback_func();

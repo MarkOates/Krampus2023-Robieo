@@ -471,6 +471,9 @@
   "Pipeline/Gameplay/LevelSwitchPlateZone": [
     "Pipeline/Gameplay/Screen"
   ],
+  "AllegroFlare/Elements/HealthBars/Classic": [
+    "Pipeline/Gameplay/Screen"
+  ],
   "AllegroFlare/vec3d": [
     "Pipeline/Physics/GravityStepper"
   ],
