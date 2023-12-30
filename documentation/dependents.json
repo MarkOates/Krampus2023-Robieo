@@ -69,6 +69,7 @@
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowMapBuffer",
     "LabyrinthOfLore/Physics/EntityTileMapCollisionEvent",
     "LabyrinthOfLore/Physics/EntityTileMapCollisionStepper",
+    "Pipeline/Gameplay/LevelSwitchPlateZone",
     "Pipeline/Gameplay/Screen",
     "Pipeline/OBJWorldLoader",
     "Pipeline/Physics/GravityStepper"

@@ -1599,8 +1599,16 @@ table td
   <td class="property">std::string</td>
 </tr>
 <tr>
+  <td class="property">switch_entity</td>
+  <td class="property">AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D*</td>
+</tr>
+<tr>
   <td class="property">bounding_box</td>
   <td class="property">AllegroFlare::Physics::AABB3D</td>
+</tr>
+<tr>
+  <td class="property">is_activated</td>
+  <td class="property">bool</td>
 </tr>
     </table>
 </div>    <h3>Methods</h3>
@@ -1610,6 +1618,9 @@ table td
 <div class="property-box dependencies">     <table>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Physics::AABB3D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Physics/AABB3D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/DynamicModel3D.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -1944,7 +1955,7 @@ table td
   <td class="method">start_smooth_camera_movement(float time_now=0.0f)</td>
 </tr>
 <tr>
-  <td class="method">handle_on_enter_with_switch(std::string switch_name=&quot;[unset-switch_name]&quot;)</td>
+  <td class="method">handle_on_enter_with_switch(Pipeline::Gameplay::LevelSwitchPlateZone* switch_plate_zone=nullptr)</td>
 </tr>
 <tr>
   <td class="method">handle_on_exit_with_switch(std::string switch_name=&quot;[unset-switch_name]&quot;)</td>
@@ -2823,6 +2834,7 @@ table td
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowMapBuffer",
     "LabyrinthOfLore/Physics/EntityTileMapCollisionEvent",
     "LabyrinthOfLore/Physics/EntityTileMapCollisionStepper",
+    "Pipeline/Gameplay/LevelSwitchPlateZone",
     "Pipeline/Gameplay/Screen",
     "Pipeline/OBJWorldLoader",
     "Pipeline/Physics/GravityStepper"

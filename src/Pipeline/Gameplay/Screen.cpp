@@ -632,6 +632,8 @@ void Screen::add_additional_entities_based_on_level_identifier(std::string level
       // Build our switch plate zone
       Pipeline::Gameplay::LevelSwitchPlateZone level_switch_plate_zone;
       level_switch_plate_zone.set_name("dune_main_switch");
+      level_switch_plate_zone.set_switch_entity(item);
+      level_switch_plate_zone.set_is_activated(false);
       level_switch_plate_zone.set_bounding_box(bounding_box);
 
       level_switch_plate_zones.push_back(level_switch_plate_zone);
@@ -1277,9 +1279,28 @@ void Screen::start_smooth_camera_movement(float time_now)
    return;
 }
 
-void Screen::handle_on_enter_with_switch(std::string switch_name)
+void Screen::handle_on_enter_with_switch(Pipeline::Gameplay::LevelSwitchPlateZone* switch_plate_zone)
 {
+   if (!(switch_plate_zone))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::handle_on_enter_with_switch]: error: guard \"switch_plate_zone\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::handle_on_enter_with_switch: error: guard \"switch_plate_zone\" not met");
+   }
+   if (switch_plate_zone->get_is_activated()) return;
+
    event_emitter->emit_play_sound_effect_event("massive_switch_on");
+
+   // Modify the switch_entity in the entity pool to appear as "active"
+   auto switch_entity = switch_plate_zone->get_switch_entity();
+   switch_entity->set_model_3d(model_bin->auto_get("switch_3x3-on-02.obj"));
+   switch_entity->set_model_3d_texture(bitmap_bin->auto_get("switch_3x3-on-02.png"));
+   switch_entity->get_placement_ref().position.y -= 0.2; // Move the switch "down"
+
+   // Set this switch_plate_zone to active
+   switch_plate_zone->set_is_activated(true);
+
    return;
 }
 
@@ -1418,7 +1439,7 @@ void Screen::update()
             // on enter
             // TODO: Test this
             level_switch_plate_zones_player_is_currently_colliding_with.insert(switch_name);
-            handle_on_enter_with_switch(switch_name);
+            handle_on_enter_with_switch(&level_switch_plate_zone);
          }
          else if (player_was_previously_colliding && player_is_currently_colliding)
          {
