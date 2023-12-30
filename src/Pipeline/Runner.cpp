@@ -460,6 +460,7 @@ void Runner::setup_sound_effects_and_music(AllegroFlare::AudioController* audio_
      { "fire-level", { "fire-level-03.ogg", true, __IGNORE } },
      { "forest-music", { "forest-music-03.ogg", true, __IGNORE } },
      { "ice_music", { "ice-level-09.ogg", true, __IGNORE } },
+     { "dune_music", { "dune-level-music-07.ogg", true, __IGNORE } },
 
       //}
    });
