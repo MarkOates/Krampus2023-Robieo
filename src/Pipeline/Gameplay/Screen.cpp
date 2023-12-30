@@ -668,7 +668,7 @@ void Screen::spawn_king_turret(AllegroFlare::Vec3D position)
        new AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D();
     object->set_model_3d(model_bin->auto_get(model_name));
     object->set_model_3d_texture(bitmap_bin->auto_get(texture_name));
-    object->get_placement_ref().position = object_position + AllegroFlare::Vec3D(0, 4, 0);
+    object->get_placement_ref().position = object_position + AllegroFlare::Vec3D(0, 3, 0);
     object->get_placement_ref().scale = { 4.0, 4.0, 4.0 };
 
     object->set(ATTRIBUTE_IS_KING_TURRET);
@@ -1485,7 +1485,6 @@ void Screen::update()
 
 
 
-
    // HERE:
    // Check collisions on player in a camera zone
 
@@ -1902,6 +1901,18 @@ void Screen::update()
       }
    }
 
+
+
+   //if (entity_pool.exists(
+   auto *king_turret_base_entity = entity_pool.find_with_attribute(ATTRIBUTE_IS_KING_TURRET);
+   if (king_turret_base_entity)
+   {
+      auto *king_turret = get_entity_as_dynamic_model_3d(king_turret_base_entity);
+      float spin = std::sin(al_get_time()) * 0.05;
+      float tilt = std::sin(al_get_time() * 2.0) * 0.05;
+      king_turret->get_placement_ref().rotation = AllegroFlare::Vec3D(tilt, spin, 0);
+      //king_turret->
+   }
 
 
    //if (is_state(SUSPEND_FOR_DIALOG))
