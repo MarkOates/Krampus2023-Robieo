@@ -2322,10 +2322,17 @@ void Screen::render_boss_mode_hud()
    float r = 6;
 
    // draw the rounded rectangle frame
-   al_draw_text(ui_font_stats, color, 1920/2, 1080 - 60, ALLEGRO_ALIGN_CENTER, "KING TURRET");
-   AllegroFlare::Elements::HealthBars::Classic(
+   AllegroFlare::Placement2D placement;
+   al_draw_text(ui_font_stats, color, 1920/2, 1080 - 120, ALLEGRO_ALIGN_CENTER, "KING TURRET");
+   AllegroFlare::Elements::HealthBars::Classic health_bar(
       king_turret_health_max, king_turret_health, color, color, 80, 100, 26, 3.0
    );
+   health_bar.fit_placement_width_and_height();
+   placement.position.x = 1920/2;
+   placement.position.y = 1080 - 60;
+   placement.start_transform();
+   health_bar.render();
+   placement.restore_transform();
    //al_draw_filled_rectangle(
    //for (auto
    //al_draw_text(ui_font_stats, color, 1920/2, 1080 - 60, ALLEGRO_ALIGN_CENTER, "KING TURRET");
