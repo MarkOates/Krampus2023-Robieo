@@ -700,7 +700,7 @@ methods:
             new AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D();
          item->set_model_3d(model_bin->auto_get("switch_3x3-off-02.obj"));
          item->set_model_3d_texture(bitmap_bin->auto_get("switch_3x3-off-02.png"));
-         item->get_placement_ref().position = position + AllegroFlare::Vec3D(0.0f, 0.1f, 0.0f);
+         item->get_placement_ref().position = position + AllegroFlare::Vec3D(0.0f, 0.11f, 0.0f);
          entity_pool.add(item);
 
          // Define our collision zone's bounding box
