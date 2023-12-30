@@ -172,6 +172,10 @@ namespace Pipeline
          void handle_on_exit_with_switch(std::string switch_name="[unset-switch_name]");
          void handle_on_stay_on_switch(std::string switch_name="[unset-switch_name]");
          void handle_on_stay_off_switch(std::string switch_name="[unset-switch_name]");
+         void handle_on_enter_with_boss_switch(Pipeline::Gameplay::LevelSwitchPlateZone* switch_plate_zone=nullptr);
+         void handle_on_exit_with_boss_switch(Pipeline::Gameplay::LevelSwitchPlateZone* switch_plate_zone=nullptr);
+         void handle_on_stay_on_boss_switch(std::string switch_name="[unset-switch_name]");
+         void handle_on_stay_off_boss_switch(std::string switch_name="[unset-switch_name]");
          void init_boss_mode();
          void end_boss_mode_aka_defeat_boss();
          void update();

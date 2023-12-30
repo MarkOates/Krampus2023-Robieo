@@ -1532,6 +1532,79 @@ void Screen::handle_on_stay_off_switch(std::string switch_name)
    return;
 }
 
+void Screen::handle_on_enter_with_boss_switch(Pipeline::Gameplay::LevelSwitchPlateZone* switch_plate_zone)
+{
+   if (!(switch_plate_zone))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::handle_on_enter_with_boss_switch]: error: guard \"switch_plate_zone\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::handle_on_enter_with_boss_switch: error: guard \"switch_plate_zone\" not met");
+   }
+   if (switch_plate_zone->get_is_activated()) return;
+
+   event_emitter->emit_play_sound_effect_event("massive_switch_on");
+
+   // Modify the switch_entity in the entity pool to appear as "active"
+   auto switch_entity = switch_plate_zone->get_switch_entity();
+   switch_entity->set_model_3d(model_bin->auto_get("boss_switch_3x3-on-02.obj"));
+   switch_entity->set_model_3d_texture(bitmap_bin->auto_get("boss_switch_3x3-on-02.png"));
+   switch_entity->get_placement_ref().position.y -= 0.1; // Move the switch "down"
+
+   //AllegroFlare::Vec3D gem_center_place = switch_entity->get_placement_ref().position;
+   //gem_center_place.y = 0.0f;
+   //float distance = 2.5;
+
+   // create some gems in the scene
+   // HERE
+   //float
+   //spawn_real_time_gem(gem_center_place + AllegroFlare::Vec3D(-distance, 0, 0));
+   //spawn_real_time_gem(gem_center_place + AllegroFlare::Vec3D(distance, 0, 0));
+   //spawn_real_time_gem(gem_center_place + AllegroFlare::Vec3D(0, 0, -distance));
+   //spawn_real_time_gem(gem_center_place + AllegroFlare::Vec3D(0, 0, distance));
+   //spawn_real_time_gem(gem_center_place + AllegroFlare::Vec3D(-distance, 0, distance));
+   //spawn_real_time_gem(gem_center_place + AllegroFlare::Vec3D(distance, 0, -distance));
+   //spawn_real_time_gem(gem_center_place + AllegroFlare::Vec3D(-distance, 0, -distance));
+   //spawn_real_time_gem(gem_center_place + AllegroFlare::Vec3D(distance, 0, distance));
+
+   // Set this switch_plate_zone to active
+   switch_plate_zone->set_is_activated(true);
+
+   return;
+}
+
+void Screen::handle_on_exit_with_boss_switch(Pipeline::Gameplay::LevelSwitchPlateZone* switch_plate_zone)
+{
+   if (!switch_plate_zone->get_is_activated()) return;
+   //event_emitter->emit_play_sound_effect_event("massive_switch_off");
+   event_emitter->emit_play_sound_effect_event("massive_switch_on"); // TODO: Consider changing this sound
+
+   auto switch_entity = switch_plate_zone->get_switch_entity();
+   switch_entity->set_model_3d(model_bin->auto_get("boss_switch_3x3-off-02.obj"));
+   switch_entity->set_model_3d_texture(bitmap_bin->auto_get("boss_switch_3x3-off-02.png"));
+   switch_entity->get_placement_ref().position.y += 0.1; // Move the switch "down"
+
+   //// Modify the switch_entity in the entity pool to appear as "active"
+   //auto switch_entity = switch_plate_zone->get_switch_entity();
+   //switch_entity->set_model_3d(model_bin->auto_get("switch_3x3-on-02.obj"));
+   //switch_entity->set_model_3d_texture(bitmap_bin->auto_get("switch_3x3-on-02.png"));
+   //switch_entity->get_placement_ref().position.y -= 0.1; // Move the switch "down"
+
+   // Set this switch_plate_zone to active
+   //switch_plate_zone->set_is_activated(true);
+   return;
+}
+
+void Screen::handle_on_stay_on_boss_switch(std::string switch_name)
+{
+   return;
+}
+
+void Screen::handle_on_stay_off_boss_switch(std::string switch_name)
+{
+   return;
+}
+
 void Screen::init_boss_mode()
 {
    if (king_turret_boss_mode_is_active) return;
@@ -1761,24 +1834,24 @@ void Screen::update()
             // on enter
             // TODO: Test this
             boss_switch_plate_zones_player_is_currently_colliding_with.insert(switch_name);
-            handle_on_enter_with_switch(&boss_switch_plate_zone);
+            handle_on_enter_with_boss_switch(&boss_switch_plate_zone);
          }
          else if (player_was_previously_colliding && player_is_currently_colliding)
          {
             // continuing to be on
-            handle_on_stay_on_switch(switch_name);
+            handle_on_stay_on_boss_switch(switch_name);
          }
          else if (player_was_previously_colliding && !player_is_currently_colliding)
          {
             // on exit
             // TODO: Test this
             boss_switch_plate_zones_player_is_currently_colliding_with.erase(it);
-            handle_on_exit_with_switch(switch_name);
+            handle_on_exit_with_boss_switch(&boss_switch_plate_zone);
          }
          else if (!player_was_previously_colliding && !player_is_currently_colliding)
          {
             // continuing to be off
-            handle_on_stay_off_switch(switch_name);
+            handle_on_stay_off_boss_switch(switch_name);
          }
       }
    }
