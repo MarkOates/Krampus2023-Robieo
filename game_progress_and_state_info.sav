@@ -8,7 +8,8 @@
     "3-level-4-11",
     "4-celestial-temple",
     "5-dune-temple",
-    "6-ice-palace"
+    "6-ice-palace",
+    "8-turret-palace"
   ],
   "inventory_item_identifiers": [
     "gem",
