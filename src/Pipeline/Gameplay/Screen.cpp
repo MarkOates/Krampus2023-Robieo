@@ -610,18 +610,14 @@ LabyrinthOfLore::WorldMap::TileMap* Screen::load_tester_tile_map()
    return result_tile_map;
 }
 
-void Screen::add_additional_entities_based_on_level_identifier(std::string level_identifier)
+void Screen::create_plate_switch(std::string name, AllegroFlare::Vec3D position)
 {
-   if (level_identifier == "5-dune-temple")
-   {
-      AllegroFlare::Vec3D position = { 0, 0.2, -3 };
-
-      // Create our renderable entity
+   // Create our renderable entity
       AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D *item = 
          new AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D();
       item->set_model_3d(model_bin->auto_get("switch_3x3-off-02.obj"));
       item->set_model_3d_texture(bitmap_bin->auto_get("switch_3x3-off-02.png"));
-      item->get_placement_ref().position = { 0, 0.2, -3 };
+      item->get_placement_ref().position = position + AllegroFlare::Vec3D(0.0f, 0.1f, 0.0f);
       entity_pool.add(item);
 
       // Define our collision zone's bounding box
@@ -631,12 +627,76 @@ void Screen::add_additional_entities_based_on_level_identifier(std::string level
 
       // Build our switch plate zone
       Pipeline::Gameplay::LevelSwitchPlateZone level_switch_plate_zone;
-      level_switch_plate_zone.set_name("dune_main_switch");
+      level_switch_plate_zone.set_name(name); //"dune_main_switch");
       level_switch_plate_zone.set_switch_entity(item);
       level_switch_plate_zone.set_is_activated(false);
       level_switch_plate_zone.set_bounding_box(bounding_box);
 
       level_switch_plate_zones.push_back(level_switch_plate_zone);
+   return;
+}
+
+void Screen::spawn_real_time_gem(AllegroFlare::Vec3D position)
+{
+   std::string object_name = "gem";
+   std::string model_name = "gem-01.obj";
+      std::string texture_name = "gem-01.png";
+
+
+
+
+          AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D *object =
+             new AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D();
+          object->set_model_3d(model_bin->auto_get(model_name));
+          object->set_model_3d_texture(bitmap_bin->auto_get(texture_name));
+          object->get_placement_ref().position = position;
+          object->get_placement_ref().scale = { 0.2, 0.2, 0.2 };
+          //object->get_placement_ref().rotation.y = 0.01;
+          object->get_velocity_ref().rotation.y = 0.005;
+
+          object->set(ATTRIBUTE_COLLIDABLE_BY_PLAYER);
+          object->set(ATTRIBUTE_ITEM_TYPE, "gem");
+          object->set(ATTRIBUTE_ITEM_PICKUP_SOUND, "gem_chime");
+          object->set(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityRenderFlags::RENDER_WITH_SKYBOX);
+
+          //env->get_placement_ref().position.y = 0.0; // NOTE: The objects will always be placed at 0
+          entity_pool.add(object);
+   // Create our renderable entity
+      //AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D *item = 
+         //new AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D();
+      //item->set_model_3d(model_bin->auto_get("switch_3x3-off-02.obj"));
+      //item->set_model_3d_texture(bitmap_bin->auto_get("switch_3x3-off-02.png"));
+      //item->get_placement_ref().position = position + AllegroFlare::Vec3D(0.0f, 0.1f, 0.0f);
+      //entity_pool.add(item);
+
+      // Define our collision zone's bounding box
+      //AllegroFlare::Physics::AABB3D bounding_box;
+      //bounding_box.set_min(position + AllegroFlare::Vec3D(-1.5, -4, -1.5));
+      //bounding_box.set_max(position + AllegroFlare::Vec3D(1.5, 4, 1.5));
+
+      // Build our switch plate zone
+      //Pipeline::Gameplay::LevelSwitchPlateZone level_switch_plate_zone;
+      //level_switch_plate_zone.set_name(name); //"dune_main_switch");
+      //level_switch_plate_zone.set_switch_entity(item);
+      //level_switch_plate_zone.set_is_activated(false);
+      //level_switch_plate_zone.set_bounding_box(bounding_box);
+
+      //level_switch_plate_zones.push_back(level_switch_plate_zone);
+   return;
+}
+
+void Screen::add_additional_entities_based_on_level_identifier(std::string level_identifier)
+{
+   if (level_identifier == "5-dune-temple")
+   {
+      //AllegroFlare::Vec3D position = { 0, 0.1, -3 };
+      //create_plate_switch("dune_main_switch", { 0, 0, -3 });
+      create_plate_switch("dune_main_switch", { -15, 0, -3 });
+      create_plate_switch("statue_switch", { -27, 0, -16.5 });
+      create_plate_switch("right_switch", { 28.5, 0, -1.5 });
+
+      create_plate_switch("further_left_switch", { -5.5, 0, -40.5 });
+      create_plate_switch("further_right_switch", { 5.5, 0, -40.5 });
    }
    return;
 }
@@ -1296,7 +1356,23 @@ void Screen::handle_on_enter_with_switch(Pipeline::Gameplay::LevelSwitchPlateZon
    auto switch_entity = switch_plate_zone->get_switch_entity();
    switch_entity->set_model_3d(model_bin->auto_get("switch_3x3-on-02.obj"));
    switch_entity->set_model_3d_texture(bitmap_bin->auto_get("switch_3x3-on-02.png"));
-   switch_entity->get_placement_ref().position.y -= 0.2; // Move the switch "down"
+   switch_entity->get_placement_ref().position.y -= 0.1; // Move the switch "down"
+
+   AllegroFlare::Vec3D gem_center_place = switch_entity->get_placement_ref().position;
+   gem_center_place.y = 0.0f;
+   float distance = 2.5;
+
+   // create some gems in the scene
+   // HERE
+   //float
+   spawn_real_time_gem(gem_center_place + AllegroFlare::Vec3D(-distance, 0, 0));
+   spawn_real_time_gem(gem_center_place + AllegroFlare::Vec3D(distance, 0, 0));
+   spawn_real_time_gem(gem_center_place + AllegroFlare::Vec3D(0, 0, -distance));
+   spawn_real_time_gem(gem_center_place + AllegroFlare::Vec3D(0, 0, distance));
+   spawn_real_time_gem(gem_center_place + AllegroFlare::Vec3D(-distance, 0, distance));
+   spawn_real_time_gem(gem_center_place + AllegroFlare::Vec3D(distance, 0, -distance));
+   spawn_real_time_gem(gem_center_place + AllegroFlare::Vec3D(-distance, 0, -distance));
+   spawn_real_time_gem(gem_center_place + AllegroFlare::Vec3D(distance, 0, distance));
 
    // Set this switch_plate_zone to active
    switch_plate_zone->set_is_activated(true);
@@ -1306,6 +1382,16 @@ void Screen::handle_on_enter_with_switch(Pipeline::Gameplay::LevelSwitchPlateZon
 
 void Screen::handle_on_exit_with_switch(std::string switch_name)
 {
+   //event_emitter->emit_play_sound_effect_event("massive_switch_off");
+
+   //// Modify the switch_entity in the entity pool to appear as "active"
+   //auto switch_entity = switch_plate_zone->get_switch_entity();
+   //switch_entity->set_model_3d(model_bin->auto_get("switch_3x3-on-02.obj"));
+   //switch_entity->set_model_3d_texture(bitmap_bin->auto_get("switch_3x3-on-02.png"));
+   //switch_entity->get_placement_ref().position.y -= 0.1; // Move the switch "down"
+
+   // Set this switch_plate_zone to active
+   //switch_plate_zone->set_is_activated(true);
    return;
 }
 
