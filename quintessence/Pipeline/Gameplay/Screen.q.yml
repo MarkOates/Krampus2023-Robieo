@@ -1396,38 +1396,40 @@ methods:
          //Pipeline::Gameplay::LevelSwitchPlateZone *result = nullptr;
          AllegroFlare::Vec3D player_character_position = player_entity_as->get_placement_ref().position;
 
-         //for (auto &level_switch_plate_zone : level_switch_plate_zones)
-         //{
-            //std::string &zone_name = level_switch_plate_zone.get_name();
-            //auto it = level_switch_plate_zones_player_is_currently_colliding_with.find(zone_name);
-            //bool player_was_previously_colliding = it != ;
-            //bool player_is_currently_colliding = false;
+         for (auto &level_switch_plate_zone : level_switch_plate_zones)
+         {
+            const std::string &zone_name = level_switch_plate_zone.get_name();
+            auto it = level_switch_plate_zones_player_is_currently_colliding_with.find(zone_name);
+            bool player_was_previously_colliding =
+               (it != level_switch_plate_zones_player_is_currently_colliding_with.end());
+            bool player_is_currently_colliding = false;
 
-            //auto switch_plate_zone_bounding_box = level_switch_plate_zone.get_bounding_box_ref();
-            //player_is_currently_colliding =
-               //level_switch_plate_zone.get_bounding_box_ref().collides_with_point(player_character_position);
+            auto switch_plate_zone_bounding_box = level_switch_plate_zone.get_bounding_box_ref();
+            player_is_currently_colliding =
+               level_switch_plate_zone.get_bounding_box_ref().collides_with_point(player_character_position);
 
-            //if (!player_was_previously_colliding && player_is_currently_colliding)
-            //{
-               //// on enter
-               //// TODO: Test this
-               //level_switch_plate_zones_player_is_currently_colliding_with.insert(zone_name);
-            //}
-            //else if (player_was_previously_colliding && player_is_currently_colliding)
-            //{
-               //// continuing to be on
-            //}
-            //else if (player_was_previously_colliding && !player_is_currently_colliding)
-            //{
-               //// on exit
-               //// TODO: Test this
-               //level_switch_plate_zones_player_is_currently_colliding_with.erase(it);
-            //}
-            //else if (!player_was_previously_colliding && !player_is_currently_colliding)
-            //{
-               //// continuing to be off
-            //}
-         //}
+            if (!player_was_previously_colliding && player_is_currently_colliding)
+            {
+               // on enter
+               // TODO: Test this
+               level_switch_plate_zones_player_is_currently_colliding_with.insert(zone_name);
+               //on_collide
+            }
+            else if (player_was_previously_colliding && player_is_currently_colliding)
+            {
+               // continuing to be on
+            }
+            else if (player_was_previously_colliding && !player_is_currently_colliding)
+            {
+               // on exit
+               // TODO: Test this
+               level_switch_plate_zones_player_is_currently_colliding_with.erase(it);
+            }
+            else if (!player_was_previously_colliding && !player_is_currently_colliding)
+            {
+               // continuing to be off
+            }
+         }
       }
 
 
