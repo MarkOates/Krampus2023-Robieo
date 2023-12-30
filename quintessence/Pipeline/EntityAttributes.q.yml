@@ -61,4 +61,10 @@ properties:
     static: true
     constexpr: true
 
+  - name: ATTRIBUTE_IS_KING_TURRET
+    type: char*
+    init_with: '(char*)"is_king_turret"'
+    static: true
+    constexpr: true
+
 

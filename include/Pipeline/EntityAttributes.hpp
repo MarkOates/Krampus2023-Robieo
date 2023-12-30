@@ -18,6 +18,7 @@ namespace Pipeline
       static constexpr char* NPC_FORREST_IN_THE_FOREST = (char*)"forrest_in_the_forest";
       static constexpr char* ATTRIBUTE_TYPE_IS_SWITCH = (char*)"is_switch";
       static constexpr char* ATTRIBUTE_TYPE_SWITCH_IS_ACTIVE = (char*)"switch_is_active";
+      static constexpr char* ATTRIBUTE_IS_KING_TURRET = (char*)"is_king_turret";
 
    private:
 

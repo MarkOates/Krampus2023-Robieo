@@ -656,14 +656,31 @@ void Screen::create_plate_switch(std::string name, AllegroFlare::Vec3D position)
    return;
 }
 
+void Screen::spawn_king_turret(AllegroFlare::Vec3D position)
+{
+   std::string object_name = "king_turret";
+   std::string model_name = "king-turret-02.obj";
+   std::string texture_name = "king-turret-02.png";
+
+    AllegroFlare::Vec3D object_position = position;
+
+    AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D *object = 
+       new AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D();
+    object->set_model_3d(model_bin->auto_get(model_name));
+    object->set_model_3d_texture(bitmap_bin->auto_get(texture_name));
+    object->get_placement_ref().position = object_position + AllegroFlare::Vec3D(0, 4, 0);
+    object->get_placement_ref().scale = { 4.0, 4.0, 4.0 };
+
+    object->set(ATTRIBUTE_IS_KING_TURRET);
+
+    entity_pool.add(object);
+}
+
 void Screen::spawn_real_time_gem(AllegroFlare::Vec3D position)
 {
    std::string object_name = "gem";
    std::string model_name = "gem-01.obj";
       std::string texture_name = "gem-01.png";
-
-
-
 
           AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D *object =
              new AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D();
@@ -717,6 +734,10 @@ void Screen::add_additional_entities_based_on_level_identifier(std::string level
 
       create_plate_switch("further_left_switch", { -5.5, 0, -40.5 });
       create_plate_switch("further_right_switch", { 5.5, 0, -40.5 });
+   }
+   else if (level_identifier == "8-turret-palace")
+   {
+      spawn_king_turret(AllegroFlare::Vec3D(37.5f, 2.0f, -24.0f));
    }
    return;
 }
