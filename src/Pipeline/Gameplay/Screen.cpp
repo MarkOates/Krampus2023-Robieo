@@ -726,6 +726,52 @@ void Screen::spawn_real_time_gem(AllegroFlare::Vec3D position)
    return;
 }
 
+void Screen::spawn_final_platform()
+{
+   std::string object_name = "final_platform";
+   std::string model_name = "final-platform-02.obj";
+      std::string texture_name = "final-platform-02.png";
+
+          AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D *object =
+             new AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D();
+          object->set_model_3d(model_bin->auto_get(model_name));
+          object->set_model_3d_texture(bitmap_bin->auto_get(texture_name));
+          object->get_placement_ref().position = AllegroFlare::Vec3D(37, 2, -22);
+          //object->get_placement_ref().scale = { 0.2, 0.2, 0.2 };
+          //object->get_placement_ref().rotation.y = 0.01;
+          //object->get_velocity_ref().rotation.y = 0.005;
+
+          object->set("final_platform");
+          //object->set(ATTRIBUTE_ITEM_TYPE, "gem");
+          //object->set(ATTRIBUTE_ITEM_PICKUP_SOUND, "gem_chime");
+          //object->set(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityRenderFlags::RENDER_WITH_SKYBOX);
+
+          //env->get_placement_ref().position.y = 0.0; // NOTE: The objects will always be placed at 0
+          entity_pool.add(object);
+   // Create our renderable entity
+      //AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D *item = 
+         //new AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D();
+      //item->set_model_3d(model_bin->auto_get("switch_3x3-off-02.obj"));
+      //item->set_model_3d_texture(bitmap_bin->auto_get("switch_3x3-off-02.png"));
+      //item->get_placement_ref().position = position + AllegroFlare::Vec3D(0.0f, 0.1f, 0.0f);
+      //entity_pool.add(item);
+
+      // Define our collision zone's bounding box
+      //AllegroFlare::Physics::AABB3D bounding_box;
+      //bounding_box.set_min(position + AllegroFlare::Vec3D(-1.5, -4, -1.5));
+      //bounding_box.set_max(position + AllegroFlare::Vec3D(1.5, 4, 1.5));
+
+      // Build our switch plate zone
+      //Pipeline::Gameplay::LevelSwitchPlateZone level_switch_plate_zone;
+      //level_switch_plate_zone.set_name(name); //"dune_main_switch");
+      //level_switch_plate_zone.set_switch_entity(item);
+      //level_switch_plate_zone.set_is_activated(false);
+      //level_switch_plate_zone.set_bounding_box(bounding_box);
+
+      //level_switch_plate_zones.push_back(level_switch_plate_zone);
+   return;
+}
+
 void Screen::add_additional_entities_based_on_level_identifier(std::string level_identifier)
 {
    if (level_identifier == "5-dune-temple")
@@ -1473,6 +1519,8 @@ void Screen::end_boss_mode_aka_defeat_boss()
    //king_turret_health = king_turret_health_max;
    king_turret_is_defeated = true;
    king_turret_boss_mode_is_active = false;
+
+   spawn_final_platform();
 
    //auto king_boss_entity = 
    auto *king_turret_base_entity = entity_pool.find_with_attribute(ATTRIBUTE_IS_KING_TURRET);

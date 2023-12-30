@@ -149,6 +149,7 @@ namespace Pipeline
          void create_plate_switch(std::string name="[unset-name]", AllegroFlare::Vec3D position={});
          void spawn_king_turret(AllegroFlare::Vec3D position={});
          void spawn_real_time_gem(AllegroFlare::Vec3D position={});
+         void spawn_final_platform();
          void add_additional_entities_based_on_level_identifier(std::string level_identifier="[unset-level_identifier]");
          void load_level_by_identifier(std::string level_identifier="[unset-level_identifier]");
          void initialize();
