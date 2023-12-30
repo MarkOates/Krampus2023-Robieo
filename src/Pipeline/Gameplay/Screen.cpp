@@ -690,7 +690,7 @@ void Screen::add_additional_entities_based_on_level_identifier(std::string level
    if (level_identifier == "5-dune-temple")
    {
       //AllegroFlare::Vec3D position = { 0, 0.1, -3 };
-      //create_plate_switch("dune_main_switch", { 0, 0, -3 });
+      create_plate_switch("dune_main_switch2", { 0, 0, -3 });
       create_plate_switch("dune_main_switch", { -15, 0, -3 });
       create_plate_switch("statue_switch", { -27, 0, -16.5 });
       create_plate_switch("right_switch", { 28.5, 0, -1.5 });
