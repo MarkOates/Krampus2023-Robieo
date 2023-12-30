@@ -1305,6 +1305,7 @@ methods:
         type: std::string
         default_argument: '"[unset-switch_name]"'
     body: |
+      event_emitter->emit_play_music_track_event("massive_switch_on");
       return;
 
 

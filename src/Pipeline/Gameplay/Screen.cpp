@@ -1275,6 +1275,7 @@ void Screen::start_smooth_camera_movement(float time_now)
 
 void Screen::handle_on_enter_with_switch(std::string switch_name)
 {
+   event_emitter->emit_play_music_track_event("massive_switch_on");
    return;
 }
 

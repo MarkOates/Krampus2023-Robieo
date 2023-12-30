@@ -445,6 +445,9 @@ void Runner::setup_sound_effects_and_music(AllegroFlare::AudioController* audio_
      { "mushroom_pickup", { "mushroom-sound-03.ogg", false, RESTART, 0.8 } },
      { "red_bird_chirp", { "bird-chirp-01.ogg", false, __IGNORE, 0.7 } },
      { "gem_chime", { "gem-chime-01.ogg", false, RESTART, 0.8 } },
+     { "massive_switch_on", { "massive-click-sound-02.ogg", false, RESTART, 1.0 } },
+     //{ "massive_switch_off", { "massive-click-sound-OFF-02.ogg", false, RESTART, 0.8 } },
+
       // { "menu_move", { "menu_move_tink-02.ogg", false, "restart" } }, // TODO: Throw on an unknown replay type
    });
 
