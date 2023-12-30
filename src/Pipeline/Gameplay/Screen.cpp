@@ -2323,13 +2323,13 @@ void Screen::render_boss_mode_hud()
 
    // draw the rounded rectangle frame
    AllegroFlare::Placement2D placement;
-   al_draw_text(ui_font_stats, color, 1920/2, 1080 - 120, ALLEGRO_ALIGN_CENTER, "KING TURRET");
+   al_draw_text(ui_font_stats, color, 1920/2, 1080 - 126, ALLEGRO_ALIGN_CENTER, "KING TURRET");
    AllegroFlare::Elements::HealthBars::Classic health_bar(
-      king_turret_health_max, king_turret_health, color, color, 80, 100, 26, 3.0
+      king_turret_health_max, king_turret_health, color, color, 80, 90, 24, 3.0
    );
    health_bar.fit_placement_width_and_height();
    placement.position.x = 1920/2;
-   placement.position.y = 1080 - 60;
+   placement.position.y = 1080 - 72;
    placement.start_transform();
    health_bar.render();
    placement.restore_transform();
