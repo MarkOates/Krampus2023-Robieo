@@ -694,23 +694,27 @@ methods:
     body: |
       if (level_identifier == "5-dune-temple")
       {
-         // Create our entity
+         AllegroFlare::Vec3D position = { 0, 0.2, -3 };
+
+         // Create our renderable entity
          AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D *item = 
             new AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D();
-         //item->set_model_3d(model_bin->auto_get("rounded_unit_cube-01.obj"));
          item->set_model_3d(model_bin->auto_get("switch_3x3-off-02.obj"));
          item->set_model_3d_texture(bitmap_bin->auto_get("switch_3x3-off-02.png"));
-         //item->set(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityRenderFlags::RENDER_WITH_SKYBOX);
          item->get_placement_ref().position = { 0, 0.2, -3 };
-         //item->get_placement_ref().position.y = 0.0; // So the character is on the ground
-         //item->get_placement_ref().rotation.x = 0.0; // /0.05;
-         //item->get_placement_ref().rotation.z = 0.0; // 0.03547;
-
-         //item->set("goal"); // 0.03547;
          entity_pool.add(item);
 
-         //goal_entity = item;
-         //world_model->remove_named_object("goal");
+         // Define our collision zone's bounding box
+         AllegroFlare::Physics::AABB3D bounding_box;
+         bounding_box.set_min(position + AllegroFlare::Vec3D(-1.5, -4, -1.5));
+         bounding_box.set_max(position + AllegroFlare::Vec3D(1.5, 4, 1.5));
+
+         // Build our switch plate zone
+         Pipeline::Gameplay::LevelSwitchPlateZone level_switch_plate_zone;
+         level_switch_plate_zone.set_name("dune_main_switch");
+         level_switch_plate_zone.set_bounding_box(bounding_box);
+
+         level_switch_plate_zones.push_back(level_switch_plate_zone);
       }
       return;
 
@@ -1305,7 +1309,7 @@ methods:
         type: std::string
         default_argument: '"[unset-switch_name]"'
     body: |
-      event_emitter->emit_play_music_track_event("massive_switch_on");
+      event_emitter->emit_play_sound_effect_event("massive_switch_on");
       return;
 
 
