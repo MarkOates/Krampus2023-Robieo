@@ -155,6 +155,10 @@ namespace Pipeline
          Pipeline::Gameplay::LevelCameraZone* find_first_camera_zone_at(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D* player_controlled_entity_as=nullptr);
          Pipeline::Gameplay::LevelSwitchPlateZone* find_first_switch_plate_zone_at__DEAD_METHOD(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D* player_controlled_entity_as=nullptr);
          void start_smooth_camera_movement(float time_now=0.0f);
+         void handle_on_enter_with_switch(std::string switch_name="[unset-switch_name]");
+         void handle_on_exit_with_switch(std::string switch_name="[unset-switch_name]");
+         void handle_on_stay_on_switch(std::string switch_name="[unset-switch_name]");
+         void handle_on_stay_off_switch(std::string switch_name="[unset-switch_name]");
          void update();
          void toggle_showing_map_overlay();
          void render_hud_item_with_count(float x=0.0f, float y=0.0f, std::string item_name="[unset-item_name]", std::string item_bitmap_identifier="[unset-item_bitmap_identifier]", int item_count=0);

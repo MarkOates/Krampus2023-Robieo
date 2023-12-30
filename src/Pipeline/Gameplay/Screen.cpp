@@ -1273,6 +1273,26 @@ void Screen::start_smooth_camera_movement(float time_now)
    return;
 }
 
+void Screen::handle_on_enter_with_switch(std::string switch_name)
+{
+   return;
+}
+
+void Screen::handle_on_exit_with_switch(std::string switch_name)
+{
+   return;
+}
+
+void Screen::handle_on_stay_on_switch(std::string switch_name)
+{
+   return;
+}
+
+void Screen::handle_on_stay_off_switch(std::string switch_name)
+{
+   return;
+}
+
 void Screen::update()
 {
    if (!(current_level))
@@ -1378,8 +1398,8 @@ void Screen::update()
 
       for (auto &level_switch_plate_zone : level_switch_plate_zones)
       {
-         const std::string &zone_name = level_switch_plate_zone.get_name();
-         auto it = level_switch_plate_zones_player_is_currently_colliding_with.find(zone_name);
+         const std::string &switch_name = level_switch_plate_zone.get_name();
+         auto it = level_switch_plate_zones_player_is_currently_colliding_with.find(switch_name);
          bool player_was_previously_colliding =
             (it != level_switch_plate_zones_player_is_currently_colliding_with.end());
          bool player_is_currently_colliding = false;
@@ -1392,22 +1412,25 @@ void Screen::update()
          {
             // on enter
             // TODO: Test this
-            level_switch_plate_zones_player_is_currently_colliding_with.insert(zone_name);
-            //on_collide
+            level_switch_plate_zones_player_is_currently_colliding_with.insert(switch_name);
+            handle_on_enter_with_switch(switch_name);
          }
          else if (player_was_previously_colliding && player_is_currently_colliding)
          {
             // continuing to be on
+            handle_on_stay_on_switch(switch_name);
          }
          else if (player_was_previously_colliding && !player_is_currently_colliding)
          {
             // on exit
             // TODO: Test this
             level_switch_plate_zones_player_is_currently_colliding_with.erase(it);
+            handle_on_exit_with_switch(switch_name);
          }
          else if (!player_was_previously_colliding && !player_is_currently_colliding)
          {
             // continuing to be off
+            handle_on_stay_off_switch(switch_name);
          }
       }
    }
