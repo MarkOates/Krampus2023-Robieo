@@ -97,6 +97,10 @@ namespace Pipeline
          bool player_is_colliding_on_exit;
          std::set<AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base*> entities_player_entity_is_colliding_with;
          std::map<AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D*, AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D*> portal_entity_associations;
+         int king_turret_health;
+         int king_turret_health_max;
+         bool king_turret_is_defeated;
+         bool king_turret_boss_mode_is_active;
          ALLEGRO_FONT* obtain_ui_font();
          ALLEGRO_FONT* obtain_ui_font_text();
          ALLEGRO_FONT* obtain_ui_font_stats();
@@ -164,6 +168,8 @@ namespace Pipeline
          void handle_on_exit_with_switch(std::string switch_name="[unset-switch_name]");
          void handle_on_stay_on_switch(std::string switch_name="[unset-switch_name]");
          void handle_on_stay_off_switch(std::string switch_name="[unset-switch_name]");
+         void init_boss_mode();
+         void end_boss_mode_aka_defeat_boss();
          void update();
          void toggle_showing_map_overlay();
          void render_hud_item_with_count(float x=0.0f, float y=0.0f, std::string item_name="[unset-item_name]", std::string item_bitmap_identifier="[unset-item_bitmap_identifier]", int item_count=0);

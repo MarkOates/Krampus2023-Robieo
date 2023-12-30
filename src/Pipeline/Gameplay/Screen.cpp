@@ -82,6 +82,10 @@ Screen::Screen(AllegroFlare::Frameworks::Full* framework, AllegroFlare::EventEmi
    , player_is_colliding_on_exit(false)
    , entities_player_entity_is_colliding_with({})
    , portal_entity_associations({})
+   , king_turret_health(8)
+   , king_turret_health_max(8)
+   , king_turret_is_defeated(false)
+   , king_turret_boss_mode_is_active(false)
 {
 }
 
@@ -800,6 +804,12 @@ void Screen::load_level_by_identifier(std::string level_identifier)
    level_switch_plate_zones_player_is_currently_colliding_with.clear();
 
 
+   // clear the king turret stats
+   king_turret_health_max = 8;
+   king_turret_health = king_turret_health_max;
+   king_turret_is_defeated = false;
+   king_turret_boss_mode_is_active = false;
+
 
    //
    // Find the Level record matching this identifier
@@ -1446,6 +1456,35 @@ void Screen::handle_on_stay_off_switch(std::string switch_name)
    return;
 }
 
+void Screen::init_boss_mode()
+{
+   if (king_turret_boss_mode_is_active) return;
+   //king_turret_health_max = 8;
+   //king_turret_health = king_turret_health_max;
+   //king_turret_is_defeated = false;
+   king_turret_boss_mode_is_active = true;
+   return;
+}
+
+void Screen::end_boss_mode_aka_defeat_boss()
+{
+   if (!king_turret_boss_mode_is_active) return;
+   //king_turret_health_max = 8;
+   //king_turret_health = king_turret_health_max;
+   king_turret_is_defeated = true;
+   king_turret_boss_mode_is_active = false;
+
+   //auto king_boss_entity = 
+   auto *king_turret_base_entity = entity_pool.find_with_attribute(ATTRIBUTE_IS_KING_TURRET);
+   if (king_turret_base_entity) entity_pool.remove(king_turret_base_entity);
+   else
+   {
+      throw std::runtime_error("No boss entity, hmm");
+   }
+
+   return;
+}
+
 void Screen::update()
 {
    if (!(current_level))
@@ -1535,7 +1574,7 @@ void Screen::update()
                smooth_camera_duration = 1.5;
                smooth_camera_is_active = true;
             }
-            else if (level_camera_zone->get_name() == "camera-4") // Turret main chaimber
+            else if (level_camera_zone->get_name() == "camera-4")
             {
                smooth_camera_from = *scene_renderer.find_primary_camera_3d();
                set_camera_to_custom_view_4(scene_renderer.find_primary_camera_3d());
@@ -1547,6 +1586,18 @@ void Screen::update()
             }
             else if (level_camera_zone->get_name() == "camera-5") // Turret main chaimber
             {
+               // we're going to use this camera zone as the main trigger for activating "boss mode"
+
+               if (!king_turret_is_defeated)
+               {
+                  init_boss_mode();
+                  //king_turret_health_max = 8;
+                  //king_turret_health = king_turret_health_max;
+                  //king_turret_is_defeated = false;
+                  //king_turret_boss_mode_active = true;
+               }
+
+
                smooth_camera_from = *scene_renderer.find_primary_camera_3d();
                set_camera_to_custom_view_5(scene_renderer.find_primary_camera_3d());
                smooth_camera_to = *scene_renderer.find_primary_camera_3d();
@@ -2139,6 +2190,7 @@ void Screen::render()
 
 
    render_hud();
+   //render_boss_mode_hud();
 
    return;
 }
@@ -2335,6 +2387,10 @@ void Screen::key_down_func(ALLEGRO_EVENT* ev)
 
       case ALLEGRO_KEY_S: {
          write_tile_elevation_value(0, 48, 94, 10.0f);
+      } break;
+
+      case ALLEGRO_KEY_B: {
+         end_boss_mode_aka_defeat_boss();
       } break;
 
       default: {

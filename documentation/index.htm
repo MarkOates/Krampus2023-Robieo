@@ -1841,6 +1841,22 @@ table td
   <td class="property">portal_entity_associations</td>
   <td class="property">std::map&lt;AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D*, AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D*&gt;</td>
 </tr>
+<tr>
+  <td class="property">king_turret_health</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">king_turret_health_max</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">king_turret_is_defeated</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">king_turret_boss_mode_is_active</td>
+  <td class="property">bool</td>
+</tr>
     </table>
 </div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
@@ -1984,6 +2000,12 @@ table td
 </tr>
 <tr>
   <td class="method">handle_on_stay_off_switch(std::string switch_name=&quot;[unset-switch_name]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">init_boss_mode()</td>
+</tr>
+<tr>
+  <td class="method">end_boss_mode_aka_defeat_boss()</td>
 </tr>
 <tr>
   <td class="method">update()</td>
