@@ -56,6 +56,8 @@ Screen::Screen(AllegroFlare::Frameworks::Full* framework, AllegroFlare::EventEmi
    , level_camera_zones({})
    , level_switch_plate_zones({})
    , level_switch_plate_zones_player_is_currently_colliding_with({})
+   , boss_switch_plate_zones({})
+   , boss_switch_plate_zones_player_is_currently_colliding_with({})
    , goal_entity(nullptr)
    , exit_entity(nullptr)
    , scene_renderer()
@@ -660,6 +662,32 @@ void Screen::create_plate_switch(std::string name, AllegroFlare::Vec3D position)
    return;
 }
 
+void Screen::create_boss_plate_switch(std::string name, AllegroFlare::Vec3D position)
+{
+   // Create our renderable entity
+      AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D *item = 
+         new AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D();
+      item->set_model_3d(model_bin->auto_get("boss_switch_3x3-off-02.obj"));
+      item->set_model_3d_texture(bitmap_bin->auto_get("boss_switch_3x3-off-02.png"));
+      item->get_placement_ref().position = position + AllegroFlare::Vec3D(0.0f, 0.11f, 0.0f);
+      entity_pool.add(item);
+
+      // Define our collision zone's bounding box
+      AllegroFlare::Physics::AABB3D bounding_box;
+      bounding_box.set_min(position + AllegroFlare::Vec3D(-1.5, -4, -1.5));
+      bounding_box.set_max(position + AllegroFlare::Vec3D(1.5, 4, 1.5));
+
+      // Build our switch plate zone
+      Pipeline::Gameplay::LevelSwitchPlateZone boss_switch_plate_zone;
+      boss_switch_plate_zone.set_name(name); //"dune_main_switch");
+      boss_switch_plate_zone.set_switch_entity(item);
+      boss_switch_plate_zone.set_is_activated(false);
+      boss_switch_plate_zone.set_bounding_box(bounding_box);
+
+      boss_switch_plate_zones.push_back(boss_switch_plate_zone);
+   return;
+}
+
 void Screen::spawn_king_turret(AllegroFlare::Vec3D position)
 {
    std::string object_name = "king_turret";
@@ -848,6 +876,8 @@ void Screen::load_level_by_identifier(std::string level_identifier)
    level_camera_zones.clear();
    level_switch_plate_zones.clear();
    level_switch_plate_zones_player_is_currently_colliding_with.clear();
+   boss_switch_plate_zones.clear();
+   boss_switch_plate_zones_player_is_currently_colliding_with.clear();
 
 
    // clear the king turret stats
@@ -1696,6 +1726,53 @@ void Screen::update()
             // on exit
             // TODO: Test this
             level_switch_plate_zones_player_is_currently_colliding_with.erase(it);
+            handle_on_exit_with_switch(switch_name);
+         }
+         else if (!player_was_previously_colliding && !player_is_currently_colliding)
+         {
+            // continuing to be off
+            handle_on_stay_off_switch(switch_name);
+         }
+      }
+   }
+
+
+   // HERE:
+   // Test collision states on these switches
+   {
+      auto player_entity_as = get_player_controlled_entity_as();
+      //Pipeline::Gameplay::LevelSwitchPlateZone *result = nullptr;
+      AllegroFlare::Vec3D player_character_position = player_entity_as->get_placement_ref().position;
+
+      for (auto &boss_switch_plate_zone : boss_switch_plate_zones)
+      {
+         const std::string &switch_name = boss_switch_plate_zone.get_name();
+         auto it = boss_switch_plate_zones_player_is_currently_colliding_with.find(switch_name);
+         bool player_was_previously_colliding =
+            (it != boss_switch_plate_zones_player_is_currently_colliding_with.end());
+         bool player_is_currently_colliding = false;
+
+         auto switch_plate_zone_bounding_box = boss_switch_plate_zone.get_bounding_box_ref();
+         player_is_currently_colliding =
+            boss_switch_plate_zone.get_bounding_box_ref().collides_with_point(player_character_position);
+
+         if (!player_was_previously_colliding && player_is_currently_colliding)
+         {
+            // on enter
+            // TODO: Test this
+            boss_switch_plate_zones_player_is_currently_colliding_with.insert(switch_name);
+            handle_on_enter_with_switch(&boss_switch_plate_zone);
+         }
+         else if (player_was_previously_colliding && player_is_currently_colliding)
+         {
+            // continuing to be on
+            handle_on_stay_on_switch(switch_name);
+         }
+         else if (player_was_previously_colliding && !player_is_currently_colliding)
+         {
+            // on exit
+            // TODO: Test this
+            boss_switch_plate_zones_player_is_currently_colliding_with.erase(it);
             handle_on_exit_with_switch(switch_name);
          }
          else if (!player_was_previously_colliding && !player_is_currently_colliding)

@@ -71,6 +71,8 @@ namespace Pipeline
          std::vector<Pipeline::Gameplay::LevelCameraZone> level_camera_zones;
          std::vector<Pipeline::Gameplay::LevelSwitchPlateZone> level_switch_plate_zones;
          std::set<std::string> level_switch_plate_zones_player_is_currently_colliding_with;
+         std::vector<Pipeline::Gameplay::LevelSwitchPlateZone> boss_switch_plate_zones;
+         std::set<std::string> boss_switch_plate_zones_player_is_currently_colliding_with;
          AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base* goal_entity;
          AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base* exit_entity;
          AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::SceneRenderer2 scene_renderer;
@@ -147,6 +149,7 @@ namespace Pipeline
          std::vector<LabyrinthOfLore::WorldMap::TileMap*> load_tile_map_from_bitmap(std::string level_identifier="[unset-level_identifier]");
          LabyrinthOfLore::WorldMap::TileMap* load_tester_tile_map();
          void create_plate_switch(std::string name="[unset-name]", AllegroFlare::Vec3D position={});
+         void create_boss_plate_switch(std::string name="[unset-name]", AllegroFlare::Vec3D position={});
          void spawn_king_turret(AllegroFlare::Vec3D position={});
          void spawn_real_time_gem(AllegroFlare::Vec3D position={});
          void spawn_final_platform();

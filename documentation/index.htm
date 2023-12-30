@@ -1734,6 +1734,14 @@ table td
   <td class="property">std::set&lt;std::string&gt;</td>
 </tr>
 <tr>
+  <td class="property">boss_switch_plate_zones</td>
+  <td class="property">std::vector&lt;Pipeline::Gameplay::LevelSwitchPlateZone&gt;</td>
+</tr>
+<tr>
+  <td class="property">boss_switch_plate_zones_player_is_currently_colliding_with</td>
+  <td class="property">std::set&lt;std::string&gt;</td>
+</tr>
+<tr>
   <td class="property">goal_entity</td>
   <td class="property">AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base*</td>
 </tr>
@@ -1937,6 +1945,9 @@ table td
 </tr>
 <tr>
   <td class="method">create_plate_switch(std::string name=&quot;[unset-name]&quot;, AllegroFlare::Vec3D position={})</td>
+</tr>
+<tr>
+  <td class="method">create_boss_plate_switch(std::string name=&quot;[unset-name]&quot;, AllegroFlare::Vec3D position={})</td>
 </tr>
 <tr>
   <td class="method">spawn_king_turret(AllegroFlare::Vec3D position={})</td>
