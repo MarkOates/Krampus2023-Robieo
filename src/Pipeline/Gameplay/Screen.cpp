@@ -321,8 +321,8 @@ void Screen::set_camera_to_custom_view_3(AllegroFlare::Camera3D* primary_camera)
 {
    //AllegroFlare::Camera3D *primary_camera = scene_renderer.find_primary_camera_3d();
    primary_camera->stepout = { 0.0, 0.0, 18.0 };
-   primary_camera->spin = 0.5;
-   primary_camera->tilt = 0.75;
+   primary_camera->spin = 0.0;
+   primary_camera->tilt = 1.12;
    primary_camera->zoom = 3.0;
    return;
 }
