@@ -1628,6 +1628,20 @@ void Screen::init_boss_mode()
    return;
 }
 
+void Screen::boss_take_hit()
+{
+   if (!king_turret_boss_mode_is_active) return;
+
+   king_turret_health--;
+   if (king_turret_health <= 0)
+   {
+      king_turret_health = 0;
+      end_boss_mode_aka_defeat_boss();
+   }
+
+   return;
+}
+
 void Screen::end_boss_mode_aka_defeat_boss()
 {
    if (!king_turret_boss_mode_is_active) return;

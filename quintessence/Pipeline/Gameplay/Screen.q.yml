@@ -1724,6 +1724,20 @@ methods:
       return;
 
 
+  - name: boss_take_hit
+    body: |
+      if (!king_turret_boss_mode_is_active) return;
+
+      king_turret_health--;
+      if (king_turret_health <= 0)
+      {
+         king_turret_health = 0;
+         end_boss_mode_aka_defeat_boss();
+      }
+
+      return;
+
+
   - name: end_boss_mode_aka_defeat_boss
     body: |
       if (!king_turret_boss_mode_is_active) return;

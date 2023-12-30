@@ -177,6 +177,7 @@ namespace Pipeline
          void handle_on_stay_on_boss_switch(std::string switch_name="[unset-switch_name]");
          void handle_on_stay_off_boss_switch(std::string switch_name="[unset-switch_name]");
          void init_boss_mode();
+         void boss_take_hit();
          void end_boss_mode_aka_defeat_boss();
          void update();
          void toggle_showing_map_overlay();
