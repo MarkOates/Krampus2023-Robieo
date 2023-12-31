@@ -165,7 +165,8 @@ AllegroFlare::DialogTree::NodeBank DialogNodeBankFactory::build_production_game_
          HOME_CREATOR_GIVES_YOU_INSTRUCTIONS,
          new AllegroFlare::DialogTree::Nodes::MultipageWithOptions
          (
-            "Dr. Delivery",
+            CHARACTER_DISPLAY_NAME_FOR_DR_LOUISE,
+            //"Dr. Louise",
             { // Dialog pages
                "Today is your big day, Robieo!",
                "What a wonderful day to get started on your deliveries.",
@@ -178,7 +179,7 @@ AllegroFlare::DialogTree::NodeBank DialogNodeBankFactory::build_production_game_
                "All you have to do is move through each location one by one, and deliver the package.",
                "Delivering the package is easy, just walk up to the person and your delivery mechanism will do "
                   "the rest.",
-               "I just want you to remember little Robieo...",
+               "I just want you to remember, little Robieo...",
                "You're my pride and joy.",
                "Now go out and do your best! I'll be rooting for you all the way.",
             },
