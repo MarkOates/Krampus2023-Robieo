@@ -421,13 +421,13 @@ methods:
 
 
 
-      // NPCs
+      // Dr. Louise
       int dr_deliverys_found = 0;
       if (world_model)
       {
          std::string object_name = "dr_delivery";
-         std::string model_name = "gator-character-01.obj";
-         std::string texture_name = "gator-character-01x.png";
+         std::string model_name = "dr_louise-01.obj";
+         std::string texture_name = "dr_louise-01.png";
 
          std::vector<std::vector<AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL>> objects_vertices =
             world_model->extract_named_objects_vertices(object_name);

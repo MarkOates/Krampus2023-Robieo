@@ -1,33 +1,6 @@
 {
   "achievement_identifiers": [],
   "completed_quest_identifiers": [],
-  "delivered_package_identifiers": [
-    "0-home",
-    "1-level-3-9",
-    "2-level-2-06",
-    "3-level-4-11",
-    "4-celestial-temple",
-    "5-dune-temple",
-    "6-ice-palace",
-    "8-turret-palace"
-  ],
-  "inventory_item_identifiers": [
-    "gem",
-    "gem",
-    "gem",
-    "gem",
-    "gem",
-    "gem",
-    "gem",
-    "gem",
-    "mushroom",
-    "mushroom",
-    "mushroom",
-    "mushroom",
-    "mushroom",
-    "mushroom",
-    "mushroom",
-    "mushroom",
-    "mushroom"
-  ]
+  "delivered_package_identifiers": [],
+  "inventory_item_identifiers": []
 }
