@@ -461,6 +461,9 @@ void Runner::setup_sound_effects_and_music(AllegroFlare::AudioController* audio_
      { "forest-music", { "forest-music-03.ogg", true, __IGNORE } },
      { "ice_music", { "ice-level-09.ogg", true, __IGNORE } },
      { "dune_music", { "dune-level-music-07.ogg", true, __IGNORE } },
+     { "turret_music", { "turret-level-and-boss-07-level-mode.ogg", true, __IGNORE } },
+     { "turret_music-boss_mode", { "turret-level-and-boss-07-boss-mode.ogg", true, __IGNORE } },
+     { "open-music-after-boss-battle-03.ogg", { "open-music-after-boss-battle-03.ogg", true, __IGNORE } },
 
       //}
    });

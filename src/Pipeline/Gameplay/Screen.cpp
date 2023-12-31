@@ -1613,6 +1613,7 @@ void Screen::init_boss_mode()
    //king_turret_health_max = 8;
    //king_turret_health = king_turret_health_max;
    //king_turret_is_defeated = false;
+   event_emitter->emit_play_music_track_event("turret_music-boss_mode");
    king_turret_boss_mode_is_active = true;
    return;
 }
@@ -1638,8 +1639,11 @@ void Screen::end_boss_mode_aka_defeat_boss()
    //king_turret_health = king_turret_health_max;
    king_turret_is_defeated = true;
    king_turret_boss_mode_is_active = false;
+   event_emitter->emit_play_music_track_event("open-music-after-boss-battle-03.ogg");
 
    spawn_final_platform();
+   write_tile_elevation_value(0, 52, 57, 2.0);
+   write_tile_elevation_value(0, 53, 57, 2.0);
 
    //auto king_boss_entity = 
    auto *king_turret_base_entity = entity_pool.find_with_attribute(ATTRIBUTE_IS_KING_TURRET);
