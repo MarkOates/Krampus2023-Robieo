@@ -2657,30 +2657,34 @@ void Screen::key_down_func(ALLEGRO_EVENT* ev)
       throw std::runtime_error("Screen::key_down_func: error: guard \"event_emitter\" not met");
    }
    // Debugging
-   switch(ev->keyboard.keycode)
+   bool debugging = false;
+   if (debugging)
    {
-      case ALLEGRO_KEY_0: {
-         save_bitmap_buffers_to_files();
-      } break;
+      switch(ev->keyboard.keycode)
+      {
+         case ALLEGRO_KEY_0: {
+            save_bitmap_buffers_to_files();
+         } break;
 
-      case ALLEGRO_KEY_L: {
-         load_tile_map(current_level_identifier);
-      } break;
+         case ALLEGRO_KEY_L: {
+            load_tile_map(current_level_identifier);
+         } break;
 
-      case ALLEGRO_KEY_M: {
-         toggle_showing_map_overlay();
-      } break;
+         case ALLEGRO_KEY_M: {
+            toggle_showing_map_overlay();
+         } break;
 
-      case ALLEGRO_KEY_S: {
-         write_tile_elevation_value(0, 48, 94, 10.0f);
-      } break;
+         case ALLEGRO_KEY_S: {
+            write_tile_elevation_value(0, 48, 94, 10.0f);
+         } break;
 
-      case ALLEGRO_KEY_B: {
-         end_boss_mode_aka_defeat_boss();
-      } break;
+         case ALLEGRO_KEY_B: {
+            end_boss_mode_aka_defeat_boss();
+         } break;
 
-      default: {
-      } break;
+         default: {
+         } break;
+      }
    }
 
    // Cancel out of music performance
