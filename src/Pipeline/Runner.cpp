@@ -417,6 +417,7 @@ void Runner::initialize()
    }
 
 
+   event_emitter->emit_play_music_track_event("title-music-05.ogg");
 
    // TODO: Load up our sound effects
    //audio_controller.set_and_load_sound_effect_elements({
@@ -462,6 +463,7 @@ void Runner::setup_sound_effects_and_music(AllegroFlare::AudioController* audio_
    // TODO: Load up our music tracks
    audio_controller.set_and_load_music_track_elements({
       //std::map<std::string, AllegroFlare::AudioRepositoryElement>{
+     { "title-music-05.ogg", { "title-music-05.ogg", false, __IGNORE } },
      { "robot-holly_jolly", { "robio-sound-chip--have-a-holly-jolly--01.ogg", false, __IGNORE } },
      { "farm_level_music", { "farm_level-01.ogg", true, __IGNORE } },
      { "etherial_cavern", { "etherial-cavern-02.ogg", true, __IGNORE } },
