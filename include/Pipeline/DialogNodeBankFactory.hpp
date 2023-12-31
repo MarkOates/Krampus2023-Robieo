@@ -12,6 +12,7 @@ namespace Pipeline
       static constexpr char* DIALOG_FOREST_NPC_LIKES_MUSHROOMS = (char*)"forest_npc_likes_mushrooms";
       static constexpr char* DIALOG_FOREST_NPC_COMPLETES_QUEST = (char*)"forest_npc_completes_quest";
       static constexpr char* DIALOG_FOREST_NPC_QUEST_ALREADY_COMPLETE = (char*)"forest_npc_already_completed_quest";
+      static constexpr char* HOME_CREATOR_GIVES_YOU_INSTRUCTIONS = (char*)"creator_gives_instructions";
 
    private:
 

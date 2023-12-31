@@ -1292,7 +1292,12 @@ void Screen::on_player_entity_enter_collide(AllegroFlare::GraphicsPipelines::Dyn
    else if (colliding_entity->exists(ATTRIBUTE_IS_NPC))
    {
       std::string npc_identifier = colliding_entity->get(ATTRIBUTE_NPC_IDENTIFIER);
-      if (npc_identifier == NPC_FORREST_IN_THE_FOREST)
+      if (npc_identifier == NPC_DR_DELIVERY)
+      {
+         std::string dialog_to_activate = Pipeline::DialogNodeBankFactory::HOME_CREATOR_GIVES_YOU_INSTRUCTIONS;
+         event_emitter->emit_activate_dialog_node_by_name_event(dialog_to_activate);
+      }
+      else if (npc_identifier == NPC_FORREST_IN_THE_FOREST)
       {
          std::string quest_name = "mushroom_quest";
          bool mushroom_quest_is_finished = game_progress_and_state_info->is_quest_completed(quest_name);

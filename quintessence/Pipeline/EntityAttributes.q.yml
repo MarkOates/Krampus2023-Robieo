@@ -49,6 +49,12 @@ properties:
     static: true
     constexpr: true
 
+  - name: NPC_DR_DELIVERY
+    type: char*
+    init_with: '(char*)"dr_delivery"'
+    static: true
+    constexpr: true
+
   - name: ATTRIBUTE_TYPE_IS_SWITCH
     type: char*
     init_with: '(char*)"is_switch"'

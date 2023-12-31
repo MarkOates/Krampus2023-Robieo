@@ -161,6 +161,36 @@ AllegroFlare::DialogTree::NodeBank DialogNodeBankFactory::build_production_game_
 
 
 
+      {
+         HOME_CREATOR_GIVES_YOU_INSTRUCTIONS,
+         new AllegroFlare::DialogTree::Nodes::MultipageWithOptions
+         (
+            "Dr. Delivery",
+            { // Dialog pages
+               "Today is your big day, Robieo!",
+               "What a wonderful day to get started on your deliveries.",
+               "As part of my delivery service, you're the best of the best, Robieo.",
+               "I know that you're more than just a delivery drone.",
+               "Much much more.",
+               "But, you'll need to cut your teeth first.  Start simple...",
+               "...you know, you'll need to get some experience before you take on the bigger world.",
+               "To play, use the joystick (or keyboard arrow keys) to move.",
+               "All you have to do is move through each location one by one, and deliver the package.",
+               "Delivering the package is easy, just walk up to the person and your delivery mechanism will do "
+                  "the rest.",
+               "I just want you to remember little Robieo...",
+               "You're my pride and joy.",
+               "Now go out and do your best! I'll be rooting for you all the way.",
+            },
+            { 
+               {
+                  "Exit",
+                  new AllegroFlare::DialogTree::NodeOptions::ExitDialog(),
+                  AllegroFlare::BitFlags<uint32_t>(0)
+               },
+            }
+         )
+      },
 
    });
 

@@ -254,7 +254,15 @@ methods:
       intro_logos_screen.set_background(&solid_black_background);
       intro_logos_screen.initialize();
       intro_logos_screen.get_storyboard_element_ref().set_pages({
-         //page_factory.create_clubcatt_logo_page(),
+         page_factory.create_clubcatt_logo_page(),
+         page_factory.create_image_page(bitmap_bin->operator[]("clubcatt-website-01.jpg")),
+         page_factory.create_advancing_text_page("KrampusHack 2023 Presents"),
+         page_factory.create_advancing_text_page("A game by Mark Oates"),
+         page_factory.create_advancing_text_page("Powered by Allegro"),
+         //),
+         //page_factory.create_text_page("KrampusHack 2023 Presents"),
+         //page_factory.create_text_page("A game by Mark Oates"),
+         //page_factory.create_text_page("Powered by Allegro"),
          //page_factory.create_image_page(bitmap_bin->operator[]("clubcatt-website-01.jpg")),
       });
 
