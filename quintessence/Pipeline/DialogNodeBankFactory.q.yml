@@ -31,6 +31,12 @@ properties:
     static: true
     constexpr: true
 
+  - name: DIALOG_FOR_DR_LOUISE_IN_FOREST
+    type: char*
+    init_with: '(char*)"Dr. Louise"'
+    static: true
+    constexpr: true
+
 
 methods:
 
@@ -205,6 +211,34 @@ methods:
                }
             )
          },
+
+
+
+
+         {
+            DIALOG_FOR_DR_LOUISE_IN_FOREST,
+            new AllegroFlare::DialogTree::Nodes::MultipageWithOptions
+            (
+               CHARACTER_DISPLAY_NAME_FOR_DR_LOUISE,
+               //"Dr. Louise",
+               { // Dialog pages
+                  "Robieo!",
+                  "Wow! You're delivering these packages at record pace!",
+                  "Incredible! Unprecedented! What an invention you are, indeed!",
+                  //"
+               },
+               { 
+                  {
+                     "Exit",
+                     new AllegroFlare::DialogTree::NodeOptions::ExitDialog(),
+                     AllegroFlare::BitFlags<uint32_t>(0)
+                  },
+               }
+            )
+         },
+
+
+
 
       });
 

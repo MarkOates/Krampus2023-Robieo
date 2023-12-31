@@ -193,6 +193,34 @@ AllegroFlare::DialogTree::NodeBank DialogNodeBankFactory::build_production_game_
          )
       },
 
+
+
+
+      {
+         DIALOG_FOR_DR_LOUISE_IN_FOREST,
+         new AllegroFlare::DialogTree::Nodes::MultipageWithOptions
+         (
+            CHARACTER_DISPLAY_NAME_FOR_DR_LOUISE,
+            //"Dr. Louise",
+            { // Dialog pages
+               "Robieo!",
+               "Wow! You're delivering these packages at record pace!",
+               "Incredible! Unprecedented! What an invention you are, indeed!",
+               //"
+            },
+            { 
+               {
+                  "Exit",
+                  new AllegroFlare::DialogTree::NodeOptions::ExitDialog(),
+                  AllegroFlare::BitFlags<uint32_t>(0)
+               },
+            }
+         )
+      },
+
+
+
+
    });
 
    return node_bank;
