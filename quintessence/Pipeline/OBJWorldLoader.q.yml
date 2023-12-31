@@ -472,8 +472,8 @@ methods:
       if (world_model)
       {
          std::string object_name = "dr_louise-forest";
-         std::string model_name = "hologram-02-off.obj";
-         std::string texture_name = "hologram-02-off.png";
+         std::string model_name = "hologram-02-on.obj"; // TODO Switch this to off and swap out
+         std::string texture_name = "hologram-02-on.png";
 
          std::vector<std::vector<AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL>> objects_vertices =
             world_model->extract_named_objects_vertices(object_name);

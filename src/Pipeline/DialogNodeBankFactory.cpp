@@ -206,7 +206,16 @@ AllegroFlare::DialogTree::NodeBank DialogNodeBankFactory::build_production_game_
                "Robieo!",
                "Wow! You're delivering these packages at record pace!",
                "Incredible! Unprecedented! What an invention you are, indeed!",
+               "It's a little fuzzy getting a signal through this holograms telpods.",
+               //"But I have something I want to share with you."
+               //"It's an upgrade"
+               //"I think h
                //"
+               "Hmm... I didn't realize how pretty there in the forest.",
+               "Those birds sure are chirpy!",
+               //"I know there's mushrooms in the forest too."
+               "Nevertheless, I just wanted to check in with you and let you know you're doing great work!",
+               "Keep it up, and we'll have these packages delivered in no time!",
             },
             { 
                {
