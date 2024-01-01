@@ -542,7 +542,7 @@ AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityPool OBJWorldLoade
           object->get_placement_ref().position = object_position;
           object->get_placement_ref().position.y = 0.2;
           //object->get_placement_ref().scale = { 0.2, 0.2, 0.2 };
-          object->get_placement_ref().rotation.y = 0.125;
+          object->get_placement_ref().rotation.y = 0.08;
 
           object->set(ATTRIBUTE_COLLIDABLE_BY_PLAYER);
           object->set(ATTRIBUTE_IS_NPC);
