@@ -54,6 +54,8 @@ Screen::Screen(AllegroFlare::Frameworks::Full* framework, AllegroFlare::EventEmi
    , player_controlled_entity(nullptr)
    , player_control_velocity()
    , player_control_dashing(false)
+   , player_control_dashing_started_at(0.0f)
+   , player_control_dashing_direction(AllegroFlare::Vec2D(1.0f, 0.0f))
    , level_camera_zones({})
    , level_switch_plate_zones({})
    , level_switch_plate_zones_player_is_currently_colliding_with({})
@@ -498,6 +500,33 @@ void Screen::write_tile_elevation_value(int floor_index, int tile_x, int tile_y,
    LabyrinthOfLore::WorldMap::Tile t = current_level_tile_maps[floor_index]->get_tile(tile_x, tile_y);
    t.set_height(elevation);
    current_level_tile_maps[floor_index]->set_tile(tile_x, tile_y, t);
+}
+
+void Screen::activate_dash(AllegroFlare::Vec2D facing_direction)
+{
+   if (player_control_dashing) return;
+   player_control_dashing_started_at = al_get_time();
+   player_control_dashing_direction = facing_direction;
+   player_control_dashing = true;
+   return;
+}
+
+AllegroFlare::Vec2D Screen::calcluate_player_control_dash_velocity()
+{
+   AllegroFlare::Vec2D result(0.0f, 0.0f);
+   if (!player_control_dashing) return result;
+
+   // TODO Here
+   return result;
+}
+
+void Screen::deactivate_dash()
+{
+   if (!player_control_dashing) return;
+   player_control_dashing_started_at = 0.0f;
+   player_control_dashing_direction = AllegroFlare::Vec2D(0.0, 0.0);
+   player_control_dashing = false;
+   return;
 }
 
 void Screen::load_tile_map(std::string level_identifier)

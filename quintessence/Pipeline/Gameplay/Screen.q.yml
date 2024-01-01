@@ -67,6 +67,14 @@ properties:
     type: bool
     init_with: false
 
+  - name: player_control_dashing_started_at
+    type: float
+    init_with: 0.0f
+
+  - name: player_control_dashing_direction
+    type: AllegroFlare::Vec2D
+    init_with: AllegroFlare::Vec2D(1.0f, 0.0f)
+
   - name: level_camera_zones
     type: std::vector<Pipeline::Gameplay::LevelCameraZone>
     init_with: '{}'
@@ -589,6 +597,38 @@ methods:
       LabyrinthOfLore::WorldMap::Tile t = current_level_tile_maps[floor_index]->get_tile(tile_x, tile_y);
       t.set_height(elevation);
       current_level_tile_maps[floor_index]->set_tile(tile_x, tile_y, t);
+
+
+  - name: activate_dash
+    parameters:
+      - name: facing_direction
+        type: AllegroFlare::Vec2D
+        default_argument: '{}'
+    body: |
+      if (player_control_dashing) return;
+      player_control_dashing_started_at = al_get_time();
+      player_control_dashing_direction = facing_direction;
+      player_control_dashing = true;
+      return;
+
+
+  - name: calcluate_player_control_dash_velocity
+    type: AllegroFlare::Vec2D
+    body: |
+      AllegroFlare::Vec2D result(0.0f, 0.0f);
+      if (!player_control_dashing) return result;
+      
+      // TODO Here
+      return result;
+
+
+  - name: deactivate_dash
+    body: |
+      if (!player_control_dashing) return;
+      player_control_dashing_started_at = 0.0f;
+      player_control_dashing_direction = AllegroFlare::Vec2D(0.0, 0.0);
+      player_control_dashing = false;
+      return;
 
 
   - name: load_tile_map

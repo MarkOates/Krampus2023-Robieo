@@ -68,6 +68,8 @@ namespace Pipeline
          AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::Base* player_controlled_entity;
          AllegroFlare::Vec2D player_control_velocity;
          bool player_control_dashing;
+         float player_control_dashing_started_at;
+         AllegroFlare::Vec2D player_control_dashing_direction;
          std::vector<Pipeline::Gameplay::LevelCameraZone> level_camera_zones;
          std::vector<Pipeline::Gameplay::LevelSwitchPlateZone> level_switch_plate_zones;
          std::set<std::string> level_switch_plate_zones_player_is_currently_colliding_with;
@@ -145,6 +147,9 @@ namespace Pipeline
          Pipeline::Gameplay::Level build_level(std::string level_identifier="[unset-level_identifier]");
          LabyrinthOfLore::WorldMap::TileMap* get_current_level_tile_map(int floor_index=0);
          void write_tile_elevation_value(int floor_index=0, int tile_x=0, int tile_y=0, float elevation=0.0f);
+         void activate_dash(AllegroFlare::Vec2D facing_direction={});
+         AllegroFlare::Vec2D calcluate_player_control_dash_velocity();
+         void deactivate_dash();
          void load_tile_map(std::string level_identifier="[unset-level_identifier]");
          std::vector<LabyrinthOfLore::WorldMap::TileMap*> load_tile_map_from_bitmap(std::string level_identifier="[unset-level_identifier]");
          LabyrinthOfLore::WorldMap::TileMap* load_tester_tile_map();

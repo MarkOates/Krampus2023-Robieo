@@ -1742,6 +1742,14 @@ table td
   <td class="property">bool</td>
 </tr>
 <tr>
+  <td class="property">player_control_dashing_started_at</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">player_control_dashing_direction</td>
+  <td class="property">AllegroFlare::Vec2D</td>
+</tr>
+<tr>
   <td class="property">level_camera_zones</td>
   <td class="property">std::vector&lt;Pipeline::Gameplay::LevelCameraZone&gt;</td>
 </tr>
@@ -1953,6 +1961,15 @@ table td
 </tr>
 <tr>
   <td class="method">write_tile_elevation_value(int floor_index=0, int tile_x=0, int tile_y=0, float elevation=0.0f)</td>
+</tr>
+<tr>
+  <td class="method">activate_dash(AllegroFlare::Vec2D facing_direction={})</td>
+</tr>
+<tr>
+  <td class="method">calcluate_player_control_dash_velocity()</td>
+</tr>
+<tr>
+  <td class="method">deactivate_dash()</td>
 </tr>
 <tr>
   <td class="method">load_tile_map(std::string level_identifier=&quot;[unset-level_identifier]&quot;)</td>
