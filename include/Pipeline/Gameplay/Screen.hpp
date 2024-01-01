@@ -149,6 +149,7 @@ namespace Pipeline
          void write_tile_elevation_value(int floor_index=0, int tile_x=0, int tile_y=0, float elevation=0.0f);
          void activate_dash(AllegroFlare::Vec2D facing_direction={});
          AllegroFlare::Vec2D calcluate_player_control_dash_velocity();
+         void update_dash();
          void deactivate_dash();
          void load_tile_map(std::string level_identifier="[unset-level_identifier]");
          std::vector<LabyrinthOfLore::WorldMap::TileMap*> load_tile_map_from_bitmap(std::string level_identifier="[unset-level_identifier]");

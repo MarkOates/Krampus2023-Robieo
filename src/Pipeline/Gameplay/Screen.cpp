@@ -504,7 +504,20 @@ void Screen::write_tile_elevation_value(int floor_index, int tile_x, int tile_y,
 
 void Screen::activate_dash(AllegroFlare::Vec2D facing_direction)
 {
+   return; // THIS EFFECTIVELY DISABLES THE DASH. ONLY ADD THIS IF YOU CAN FIGURE OUT THE BATTERY
    if (player_control_dashing) return;
+
+   //AllegroFlare::Camera3D *primary_camera = scene_renderer.find_primary_camera_3d();
+   //float angle = primary_camera->spin;
+   // TODO: Guard on player_entity_as
+   auto player_entity_as = get_player_controlled_entity_as();
+   float angle = player_entity_as->get_placement_ref().rotation.y; // / 3.14159*2;
+   float x_prime = std::cos(angle) - std::sin(angle);
+   float y_prime = std::sin(angle) + std::cos(angle);
+   facing_direction = AllegroFlare::Vec2D(x_prime, y_prime).normalized();
+
+   facing_direction = AllegroFlare::Vec2D::polar_coords(angle, 1.0);
+
    player_control_dashing_started_at = al_get_time();
    player_control_dashing_direction = facing_direction;
    player_control_dashing = true;
@@ -516,8 +529,24 @@ AllegroFlare::Vec2D Screen::calcluate_player_control_dash_velocity()
    AllegroFlare::Vec2D result(0.0f, 0.0f);
    if (!player_control_dashing) return result;
 
+   return player_control_dashing_direction * 0.12;
+
    // TODO Here
-   return result;
+   //return result;
+}
+
+void Screen::update_dash()
+{
+   if (!player_control_dashing) return;
+   float dash_duration = 0.2f;
+   if ((al_get_time() - player_control_dashing_started_at) > dash_duration) deactivate_dash();
+   //AllegroFlare::Vec2D result(0.0f, 0.0f);
+   //if (!player_control_dashing) return result;
+
+   //return player_control_dashing_direction * 0.12;
+
+   // TODO Here
+   //return result;
 }
 
 void Screen::deactivate_dash()
@@ -900,6 +929,7 @@ void Screen::load_level_by_identifier(std::string level_identifier)
    player_is_colliding_on_exit = false; // TODO: Replace this with a list of colliding objects
    player_control_velocity = { 0.0f, 0.0f };
    player_control_dashing = false;
+   deactivate_dash();
    goal_entity = nullptr;
    exit_entity = nullptr;
    entities_player_entity_is_colliding_with.clear();
@@ -1735,6 +1765,7 @@ void Screen::update()
    //primary_camera->tilt += 0.0008;
 
 
+   update_dash();
 
    // HERE:
    // Check collisions on player in a camera zone
@@ -1948,15 +1979,28 @@ void Screen::update()
       // Update the player's current velocity for this frame
       float speed_modifier = 0.046f;
 
-      bool using_dash_controls = false;
-      if (using_dash_controls)
+      //bool using_dash_controls = false;
+      //if (using_dash_controls)
+      AllegroFlare::Vec2D controlled_entity_velocity;// = player_control_velocity * speed_modifier;
+      if (player_control_dashing)
       {
-         bool player_controlled_entity_is_dashing = player_control_dashing; // TODO: Extract this from somewhere
-         if (player_controlled_entity_is_dashing) speed_modifier = 0.09f;
+         //calcluate_player_control_dash_velocity();
+         controlled_entity_velocity = calcluate_player_control_dash_velocity();
+         //bool player_controlled_entity_is_dashing = player_control_dashing; // TODO: Extract this from somewhere
+         //if (player_controlled_entity_is_dashing) speed_modifier = 0.09f;
       }
-
-      AllegroFlare::Vec2D controlled_entity_velocity = player_control_velocity * speed_modifier;
+      //else if (player_control_running) // Maybe another day
+      //{
+         //bool player_controlled_entity_is_dashing = player_control_dashing; // TODO: Extract this from somewhere
+         //if (player_controlled_entity_is_dashing)
+         //speed_modifier = 0.09f;
+      //}
+      else
+      {
+         controlled_entity_velocity = player_control_velocity * speed_modifier;
+      }
       // Translate the player control angles to be relative to the camera
+      //AllegroFlare::Camera3D *primary_camera = scene_renderer.find_primary_camera_3d();
       float angle = primary_camera->spin;
       float x_prime = controlled_entity_velocity.x * std::cos(angle) - controlled_entity_velocity.y * std::sin(angle);
       float y_prime = controlled_entity_velocity.x * std::sin(angle) + controlled_entity_velocity.y * std::cos(angle);
@@ -2669,8 +2713,9 @@ void Screen::key_up_func(ALLEGRO_EVENT* ev)
          player_control_velocity.x = 0;
       } break;
 
-      case ALLEGRO_KEY_R: {
-         player_control_dashing = false;
+      case ALLEGRO_KEY_SPACE: {
+         deactivate_dash();
+         //player_control_dashing = false;
       } break;
 
       default: {
@@ -2768,7 +2813,7 @@ void Screen::key_down_func(ALLEGRO_EVENT* ev)
       } break;
 
       case ALLEGRO_KEY_R: {
-         player_control_dashing = true;
+         activate_dash();//player_control_dashing = true;
       } break;
 
       //case ALLEGRO_KEY_P: {
@@ -2833,7 +2878,8 @@ void Screen::joy_button_down_func(ALLEGRO_EVENT* ev)
 
    if (!is_state(STATE_PLAYING_GAME)) return;
 
-   player_control_dashing = true; // Any button activates run
+   activate_dash();
+   //player_control_dashing = true; // Any button activates run
 
    return;
 }
@@ -2868,7 +2914,8 @@ void Screen::joy_button_up_func(ALLEGRO_EVENT* ev)
 
    if (!is_state(STATE_PLAYING_GAME)) return;
 
-   player_control_dashing = false; // Any button activates run
+   deactivate_dash();
+   //player_control_dashing = false; // Any button activates run
 
    return;
 }
