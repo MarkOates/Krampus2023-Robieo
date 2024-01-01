@@ -38,7 +38,7 @@ To quit the game, press ESCAPE on the keyboard.
 
 ## Performance
 
-There are not many graphics optimizations, so I hope it will run well on your machine.  Occasionally, I have noticed the frames will get a bit "jittery" (something to do with the primary timer getting shifted out of sync during gameplay).  If this happens, you can "nudge" the game timer forward by 1/10 of a frame with "SHIFT + ." OR, press the right bumper button on the controller (XBOX 360, may be a different button on other controllers.)
+There are not many graphics optimizations, so I hope it will run well on your machine.  Occasionally, I have noticed the frames will get a bit "jittery" (something to do with the primary timer getting shifted out of sync during gameplay).  If this happens, you can "nudge" the game timer forward by 1/10 of a frame with "SHIFT + ." OR, press the right bumper button on the controller (XBOX 360, may be a different button on other controllers.) You may need to nudge it a couple of times.
 
 
 Thank you for playing my game!
