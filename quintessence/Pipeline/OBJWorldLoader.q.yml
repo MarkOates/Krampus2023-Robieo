@@ -514,6 +514,53 @@ methods:
 
 
 
+      // Dr. Louise (turret, hologram)
+      dr_deliverys_found = 0;
+      if (world_model)
+      {
+         std::string object_name = "dr_louise-turret";
+         std::string model_name = "hologram-02-on.obj"; // TODO Switch this to off and swap out
+         std::string texture_name = "hologram-02-on.png";
+
+         std::vector<std::vector<AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL>> objects_vertices =
+            world_model->extract_named_objects_vertices(object_name);
+
+         if (objects_vertices.size() > 1) throw std::runtime_error(
+            "expecting only one (or none) objects named \"" + object_name + "\""
+         );
+
+         for (auto &object_vertices : objects_vertices)
+         {
+             AllegroFlare::Vec3D object_position = lowest_y_vertex(object_vertices);
+
+             AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D *object = 
+                new AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D();
+             object->set_model_3d(model_bin->auto_get(model_name));
+             object->set_model_3d_texture(bitmap_bin->auto_get(texture_name));
+             object->get_placement_ref().position = object_position;
+             object->get_placement_ref().position.y = 0.2;
+             //object->get_placement_ref().scale = { 0.2, 0.2, 0.2 };
+             object->get_placement_ref().rotation.y = 0.08;
+
+             object->set(ATTRIBUTE_COLLIDABLE_BY_PLAYER);
+             object->set(ATTRIBUTE_IS_NPC);
+             object->set(ATTRIBUTE_NPC_IDENTIFIER, NPC_DR_LOUISE_TURRET);
+             //object->set(ATTRIBUTE_ITEM_TYPE, "mushroom");
+             //object->set(ATTRIBUTE_ITEM_PICKUP_SOUND, "mushroom_pickup");
+             //env->set(AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityRenderFlags::RENDER_WITH_SKYBOX);
+
+             //env->get_placement_ref().position.y = 0.0; // NOTE: The objects will always be placed at 0
+             entity_pool.add(object);
+
+             dr_deliverys_found++;
+         }
+
+         world_model->remove_named_objects(object_name);
+      }
+      std::cout << "Found " << dr_deliverys_found << " dr_deliverys (forest)" << std::endl;
+
+
+
       // Portals
       std::set<std::string> portal_identifiers = find_named_object_identifiers_for_portals(world_model);
       

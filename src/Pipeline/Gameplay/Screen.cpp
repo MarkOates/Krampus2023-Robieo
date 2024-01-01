@@ -1363,6 +1363,12 @@ void Screen::on_player_entity_enter_collide(AllegroFlare::GraphicsPipelines::Dyn
          set_state(STATE_SUSPEND_FOR_DIALOG);
          event_emitter->emit_activate_dialog_node_by_name_event(dialog_to_activate);
       }
+      else if (npc_identifier == NPC_DR_LOUISE_TURRET)
+      {
+         std::string dialog_to_activate = Pipeline::DialogNodeBankFactory::DIALOG_FOR_DR_LOUISE_IN_TURRET;
+         set_state(STATE_SUSPEND_FOR_DIALOG);
+         event_emitter->emit_activate_dialog_node_by_name_event(dialog_to_activate);
+      }
       else if (npc_identifier == NPC_FORREST_IN_THE_FOREST)
       {
          std::string quest_name = "mushroom_quest";

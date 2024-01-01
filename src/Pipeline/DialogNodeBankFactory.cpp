@@ -229,6 +229,48 @@ AllegroFlare::DialogTree::NodeBank DialogNodeBankFactory::build_production_game_
 
 
 
+      {
+         DIALOG_FOR_DR_LOUISE_IN_TURRET,
+         //DIALOG_FOR_DR_LOUISE_IN_FOREST,
+         new AllegroFlare::DialogTree::Nodes::MultipageWithOptions
+         (
+            CHARACTER_DISPLAY_NAME_FOR_DR_LOUISE,
+            //"Dr. Louise",
+            { // Dialog pages
+               "Robieo!",
+               "Something has gone wrong. The deliveries were intercepted by an evil mastermind!",
+               //"I'm not sure who it could have been."
+               "They've taken all the packages and used them to build a giant machine.",
+               "Judging by my calculations, the pieces used could only be used to build one thing.",
+               "Weapons!",
+               "We can't let them get away with this, Robieo.",
+               "You'll have to stop the machines from being used for evil right here and now, before "
+                  "things get out of hand.",
+               //"And deliver the last package in this level.",
+               "Good luck!"
+               //"Incredible! Unprecedented! What an invention you are, indeed!",
+               //"It's a little fuzzy getting a signal through this hologram telepod.",
+               //"But I have something I want to share with you."
+               //"It's an upgrade"
+               //"I think h
+               //"
+               //"But... oh! What's all that out there?... I didn't realize how pretty it is in the forest right now!",
+               //"Those birds sure are chirpy!",
+               //"I know there's mushrooms in the forest too."
+               //"Nevertheless, I just wanted to check in with you and let you know you're doing great work!",
+               //"Keep it up, and we'll have these packages delivered in no time!",
+            },
+            { 
+               {
+                  "Exit",
+                  new AllegroFlare::DialogTree::NodeOptions::ExitDialog(),
+                  AllegroFlare::BitFlags<uint32_t>(0)
+               },
+            }
+         )
+      },
+
+
 
    });
 
