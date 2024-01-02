@@ -26,6 +26,9 @@ The hackathon submission is available in the following releases:
 
 ## KrampusHack 2023
 
+For more information about KrampusHack 2023, visit https://tins.amarillion.org/krampu23/
+
+
 I am the secret santa for... promitheas
 
 His wish was as follows:
