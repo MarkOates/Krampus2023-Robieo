@@ -2,6 +2,14 @@
 game by Mark Oates
 
 
+<p align=”center”>
+
+<img width=”200" height=”200" src=”https://raw.githubusercontent.com/MarkOates/Krampus2023-Robieo/master/docs/krampushack2023-robieo-banner-01.jpg" alt=”Krampushack 2023 Version of Robieo”>
+
+</p>
+
+
+
 ## About
 
 This game is my submission to KrampusHack 2023.
@@ -11,6 +19,16 @@ In this game you play as Robieo, a delivery robot who works for (and was created
 There are 8 levels.  I recommend playing them in order (though you can play through them in any order you want).  There is no tracking of which levels you have played, so you may need to keep which level you last played in mind as you go through them.
 
 Once you have delivered packages in each of the levels, the game will go to the closing credits and you win!
+
+
+## How to Play
+
+
+The hackathon submission is available in the following releases:
+
+* **[Download Robieo (Krampushack 2023) for MacOS](https://clubcatt.com/games/Robieo-0.1.9-macos-arm.zip)**
+* **[Download Robieo (Krampushack 2023) for Win64](https://clubcatt.com/games/Robieo-0.1.9-win64.zip)**
+* **[Download Robieo (Krampushack 2023) source](https://clubcatt.com/games/Robieo-0.1.9-SourceRelease.zip)**
 
 
 ## KrampusHack 2023
