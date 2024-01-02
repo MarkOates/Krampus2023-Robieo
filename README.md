@@ -1,5 +1,4 @@
 # Robieo (Krampushack 2023 Game)
-game by Mark Oates
 
 ![Krampushack 2023 Version of Robieo](https://raw.githubusercontent.com/MarkOates/Krampus2023-Robieo/master/docs/krampushack2023-robieo-banner-01.jpg)
 
